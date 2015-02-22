@@ -41,6 +41,6 @@ class AppKernel extends Kernel {
 
 	/** {@inheritdoc} */
 	public function getLogDir() {
-		return __DIR__.'/../var/logs';
+		return __DIR__.'/../var/log';
 	}
 }

@@ -1,10 +1,9 @@
 /app/config/parameters.yml
-/bin/
-!/bin/console
-!/bin/cc
+/bin/*
+!bin/console
+!bin/cc
 /phpunit.xml
-/var/*/
-/var/
+/var/*/*
 /vendor/
 /web/bundles/
 *.min.js
