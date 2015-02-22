@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="bg">
+	<head>
+		{% block headers %}
+			<meta charset="utf-8">
+			<meta name="description" content="{% block description '' %}">
+			<title>{% block title %}Моята библиотека{% endblock %}</title>
+			<link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
+			<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+			{% block stylesheets %}
+				<link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
+			{% endblock %}
+		{% endblock headers %}
+	</head>
+	<body class="{% spaceless %}{% block body_class '' %}{% endspaceless %}">
+		{% block body %}
+			<div class="container">
+				{% block content '' %}
+			</div>
+		{% endblock %}
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

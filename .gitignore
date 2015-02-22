@@ -1,0 +1,14 @@
+/app/config/parameters.yml
+/bin/
+!/bin/console
+!/bin/cc
+/phpunit.xml
+/var/*/
+/var/
+/vendor/
+/web/bundles/
+*.min.js
+*.swp
+/composer.phar
+!.gitignore
+!.gitkeep

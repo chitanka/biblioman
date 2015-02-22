@@ -1,0 +1,54 @@
+easy_admin:
+    site_name: 'Библиоман'
+    assets:
+        css:
+            - css/admin.css
+    entities:
+        Книги:
+            class: App\Entity\Book
+            list:
+                fields:
+                    - { property: id, label: Номер }
+                    - { property: cover, label: Корица }
+                    - { property: title, label: Заглавие }
+                    - { property: author, label: Автор }
+                    - { property: publisher, label: Издател }
+                    - { property: pubDate, label: Година }
+            form:
+                fields:
+                    - { property: cover, label: Корица }
+                    - { property: title, label: Заглавие }
+                    - { property: author, label: Автор }
+                    - { property: translator, label: Преводач }
+                    - { property: editor, label: Редактор }
+                    - { property: publisherEditor, label: Редактор на издателството }
+                    - { property: artist, label: Художник }
+                    - { property: artistEditor, label: Художествен редактор }
+                    - { property: technicalEditor, label: Технически редактор }
+                    - { property: corrector, label: Коректор }
+                    - { property: publisher, label: Издател }
+                    - { property: pubCity, label: Град }
+                    - { property: pubDate, label: Година }
+                    - { property: print, label: Печатница }
+                    - { property: annotation, label: Анотация }
+                    - { property: contentType, label: Тип }
+                    - { property: nationality, label: Националност }
+                    - { property: language, label: Език }
+                    - { property: edition, label: Поредност на изданието }
+                    - { property: typeSettingIn, label: Дадена за набор }
+                    - { property: printSigned, label: Подписана за печат }
+                    - { property: printOut, label: Излязла от печат }
+                    - { property: printerSheets, label: Печатни коли }
+                    - { property: publisherSheets, label: Издателски коли }
+                    - { property: provisionPublisherSheets, label: УИК }
+                    - { property: format, label: Формат }
+                    - { property: publisherCode, label: Код }
+                    - { property: publisherOrder, label: Поръчка }
+                    - { property: pageCount, label: Брой страници }
+                    - { property: price, label: Цена }
+                    - { property: binding, label: Подвързия }
+                    - { property: illustrated, label: С илюстрации }
+                    - { property: genre, label: Жанр }
+                    - { property: themes, label: Теми }
+                    - { property: notes, label: Бележки }
+        #Личности: App\Entity\Person
