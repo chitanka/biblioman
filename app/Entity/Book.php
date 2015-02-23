@@ -1,10 +1,14 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 /**
  * @ORM\Entity
  * @ORM\Table
+ * @Vich\Uploadable
  */
 class Book {
 
@@ -59,11 +63,6 @@ class Book {
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $corrector;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $annotation;
 
 	/**
 	 * single collection anthology almanac
@@ -198,7 +197,17 @@ class Book {
 	private $illustrated;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=15, nullable=true)
+	 */
+	private $isbn10;
+
+	/**
+	 * @ORM\Column(type="string", length=18, nullable=true)
+	 */
+	private $isbn13;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $notes;
 
@@ -214,6 +223,11 @@ class Book {
 	private $verified;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $annotation;
+
+	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $themes;
@@ -227,6 +241,27 @@ class Book {
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $category;
+
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $cover;
+
+	/**
+	 * @Vich\UploadableField(mapping="book_cover", fileNameProperty="cover")
+	 * @var File
+	 */
+	private $coverFile;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	private $createdAt;
+
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	private $updatedAt;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
@@ -635,11 +670,76 @@ class Book {
 		return $this;
 	}
 
-	public function getCover() {
-		return null;
+	public function getIsbn10() {
+		return $this->isbn10;
+	}
+
+	public function getIsbn13() {
+		return $this->isbn13;
+	}
+
+	public function setIsbn10($isbn10) {
+		$this->isbn10 = $isbn10;
+		return $this;
+	}
+
+	public function setIsbn13($isbn13) {
+		$this->isbn13 = $isbn13;
+		return $this;
+	}
+
+	public function getCreatedAt() {
+		return $this->createdAt;
+	}
+
+	public function getUpdatedAt() {
+		return $this->updatedAt;
+	}
+
+	public function setCreatedAt($createdAt) {
+		$this->createdAt = $createdAt;
+		return $this;
+	}
+
+	public function setUpdatedAt($updatedAt) {
+		$this->updatedAt = $updatedAt;
+		return $this;
 	}
 
 	public function getBackCover() {
 		return null;
+	}
+
+	/**
+	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+	 */
+	public function setCoverFile(File $image = null) {
+		$this->coverFile = $image;
+
+		if ($image) {
+			#$this->setCover($image->getFilename());
+			$this->setUpdatedAt(new \DateTime());
+		}
+	}
+
+	/**
+	 * @return File
+	 */
+	public function getCoverFile() {
+		return $this->coverFile;
+	}
+
+	/**
+	 * @param string $cover
+	 */
+	public function setCover($cover) {
+		$this->cover = $cover;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCover() {
+		return $this->cover;
 	}
 }

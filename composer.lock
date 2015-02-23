@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1da33b27b2b4a38310d3dbb90fd9ebbf",
+    "hash": "0403f8c284723ccf1cf9f410869c2e3d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -812,16 +812,16 @@
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.0.6",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "dd6cd3fe67029b9e78033cd9a2a8a1b3bf4b6894"
+                "reference": "84e6d37862b6a556894f92e4c87b4d9b4f3b3225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/dd6cd3fe67029b9e78033cd9a2a8a1b3bf4b6894",
-                "reference": "dd6cd3fe67029b9e78033cd9a2a8a1b3bf4b6894",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/84e6d37862b6a556894f92e4c87b4d9b4f3b3225",
+                "reference": "84e6d37862b6a556894f92e4c87b4d9b4f3b3225",
                 "shasum": ""
             },
             "require": {
@@ -866,7 +866,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2015-02-11 18:40:03"
+            "time": "2015-02-22 12:14:30"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2651,7 +2651,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "javiereguiluz/easyadmin-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

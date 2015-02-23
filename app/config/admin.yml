@@ -16,7 +16,6 @@ easy_admin:
                     - { property: pubDate, label: Година }
             form:
                 fields:
-                    - { property: cover, label: Корица }
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: translator, label: Преводач }
@@ -30,7 +29,6 @@ easy_admin:
                     - { property: pubCity, label: Град }
                     - { property: pubDate, label: Година }
                     - { property: print, label: Печатница }
-                    - { property: annotation, label: Анотация }
                     - { property: contentType, label: Тип }
                     - { property: nationality, label: Националност }
                     - { property: language, label: Език }
@@ -48,7 +46,12 @@ easy_admin:
                     - { property: price, label: Цена }
                     - { property: binding, label: Подвързия }
                     - { property: illustrated, label: С илюстрации }
+                    - { property: isbn10, label: ISBN 10 }
+                    - { property: isbn13, label: ISBN 13 }
                     - { property: genre, label: Жанр }
                     - { property: themes, label: Теми }
+                    - { property: annotation, label: Анотация }
                     - { property: notes, label: Бележки }
+                    - { property: coverFile, type: file, label: Корица }
+                    - { property: backCover, type: file, label: Задна корица }
         #Личности: App\Entity\Person

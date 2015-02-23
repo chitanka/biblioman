@@ -1,7 +1,14 @@
 security:
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    vog:
+                        password: vog
+                        roles: 'ROLE_ADMIN'
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:
         dev:
@@ -10,3 +17,7 @@ security:
 
         default:
             anonymous: ~
+            http_basic: ~
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
