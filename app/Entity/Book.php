@@ -4,7 +4,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 /**
  * @ORM\Entity
  * @ORM\Table
@@ -220,6 +219,11 @@ class Book {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
+	private $source;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
 	private $verified;
 
 	/**
@@ -252,6 +256,11 @@ class Book {
 	 * @var File
 	 */
 	private $coverFile;
+
+	/**
+	 * @ORM\Column(type="string", length=50)
+	 */
+	private $createdBy;
 
 	/**
 	 * @ORM\Column(type="datetime")
@@ -688,6 +697,24 @@ class Book {
 		return $this;
 	}
 
+	public function getSource() {
+		return $this->source;
+	}
+
+	public function getCreatedBy() {
+		return $this->createdBy;
+	}
+
+	public function setSource($source) {
+		$this->source = $source;
+		return $this;
+	}
+
+	public function setCreatedBy($createdBy) {
+		$this->createdBy = $createdBy;
+		return $this;
+	}
+
 	public function getCreatedAt() {
 		return $this->createdAt;
 	}
@@ -716,8 +743,10 @@ class Book {
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;
 
-		if ($image) {
-			#$this->setCover($image->getFilename());
+		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+			$name = md5_file($image->getPathname()).'.jpg';
+			$image->move(__DIR__.'/../../data/scans', $name);
+			$this->setCover($name);
 			$this->setUpdatedAt(new \DateTime());
 		}
 	}

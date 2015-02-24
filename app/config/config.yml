@@ -67,13 +67,3 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-
-vich_uploader:
-    db_driver: orm
-    mappings:
-        book_cover:
-            uri_prefix:         /scans
-            upload_destination: %kernel.root_dir%/../data/scans
-        book_back_cover:
-            uri_prefix:         /scans
-            upload_destination: %kernel.root_dir%/../data/scans

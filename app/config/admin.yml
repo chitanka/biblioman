@@ -1,3 +1,13 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        book_cover:
+            uri_prefix:         /scans
+            upload_destination: %kernel.root_dir%/../data/scans
+        book_back_cover:
+            uri_prefix:         /scans
+            upload_destination: %kernel.root_dir%/../data/scans
+
 easy_admin:
     site_name: 'Библиоман'
     assets:
@@ -6,10 +16,11 @@ easy_admin:
     entities:
         Книги:
             class: App\Entity\Book
+            image_base_path: /thumb
             list:
                 fields:
                     - { property: id, label: Номер }
-                    - { property: cover, label: Корица }
+                    - { property: cover, label: Корица, type: image }
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }

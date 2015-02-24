@@ -2,10 +2,12 @@
 /bin/*
 !bin/console
 !bin/cc
+/data/scans/*
 /phpunit.xml
 /var/*/*
 /vendor/
 /web/bundles/
+/web/cache/*
 *.min.js
 *.swp
 /composer.phar
