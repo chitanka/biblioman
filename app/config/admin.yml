@@ -4,9 +4,6 @@ vich_uploader:
         book_cover:
             uri_prefix:         /scans
             upload_destination: %kernel.root_dir%/../data/scans
-        book_back_cover:
-            uri_prefix:         /scans
-            upload_destination: %kernel.root_dir%/../data/scans
 
 easy_admin:
     site_name: 'Библиоман'
@@ -30,6 +27,8 @@ easy_admin:
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: translator, label: Преводач }
+                    - { property: translatedFromLanguage, label: 'Език, от който е преведено' }
+                    - { property: dateOfTranslation, label: 'Година на превод' }
                     - { property: editor, label: Редактор }
                     - { property: publisherEditor, label: Редактор на издателството }
                     - { property: artist, label: Художник }
@@ -44,25 +43,31 @@ easy_admin:
                     - { property: nationality, label: Националност }
                     - { property: language, label: Език }
                     - { property: edition, label: Поредност на изданието }
-                    - { property: typeSettingIn, label: Дадена за набор }
+                    - { property: litGroup, label: Литературна група }
+                    - { property: typeSettingIn, label: Дадена за набор/печат }
                     - { property: printSigned, label: Подписана за печат }
                     - { property: printOut, label: Излязла от печат }
                     - { property: printerSheets, label: Печатни коли }
                     - { property: publisherSheets, label: Издателски коли }
-                    - { property: provisionPublisherSheets, label: УИК }
+                    - { property: provisionPublisherSheets, label: УИК, help: Условно издателски коли }
                     - { property: format, label: Формат }
-                    - { property: publisherCode, label: Код }
-                    - { property: publisherOrder, label: Поръчка }
+                    - { property: publisherCode, label: 'Код / Тематичен номер' }
+                    - { property: trackingCode, label: Номер, help: 'От вида на „С-32“ или „Ч840“' }
+                    - { property: publisherOrder, label: 'Поръчка / Издателски №' }
                     - { property: pageCount, label: Брой страници }
+                    - { property: totalPrint, label: Тираж }
                     - { property: price, label: Цена }
-                    - { property: binding, label: Подвързия }
-                    - { property: illustrated, label: С илюстрации }
+                    - { property: binding, label: Подвързия, help: 'мека / твърда' }
+                    - { property: illustrated, label: 'С илюстрации' }
                     - { property: isbn10, label: ISBN 10 }
                     - { property: isbn13, label: ISBN 13 }
                     - { property: genre, label: Жанр }
                     - { property: themes, label: Теми }
                     - { property: annotation, label: Анотация }
+                    - { property: toc, label: Съдържание }
                     - { property: notes, label: Бележки }
+                    - { property: notesAboutOriginal, label: 'Бележки за изданието, от което е направен преводът'  }
                     - { property: coverFile, type: file, label: Корица }
-                    - { property: backCover, type: file, label: Задна корица }
+                    - { property: backCoverFile, type: file, label: Задна корица }
+                    #- { property: source, label: Източник }
         #Личности: App\Entity\Person

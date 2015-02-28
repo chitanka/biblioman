@@ -6,6 +6,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table
  * @Vich\Uploadable
  */
@@ -32,6 +33,16 @@ class Book {
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $translator;
+
+	/**
+	 * @ORM\Column(type="string", length=20, nullable=true)
+	 */
+	private $translatedFromLanguage;
+
+	/**
+	 * @ORM\Column(type="string", length=20, nullable=true)
+	 */
+	private $dateOfTranslation;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
@@ -121,6 +132,11 @@ class Book {
 	private $edition;
 
 	/**
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $litGroup;
+
+	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $print;
@@ -171,6 +187,16 @@ class Book {
 	private $publisherOrder;
 
 	/**
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $trackingCode;
+
+	/**
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $totalPrint;
+
+	/**
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	private $pageCount;
@@ -211,6 +237,11 @@ class Book {
 	private $notes;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $notesAboutOriginal;
+
+	/**
 	 * cover, back cover, info pages
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
@@ -232,6 +263,11 @@ class Book {
 	private $annotation;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $toc;
+
+	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $themes;
@@ -247,7 +283,7 @@ class Book {
 	private $category;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $cover;
 
@@ -256,6 +292,17 @@ class Book {
 	 * @var File
 	 */
 	private $coverFile;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $backCover;
+
+	/**
+	 * @Vich\UploadableField(mapping="book_cover", fileNameProperty="backCover")
+	 * @var File
+	 */
+	private $backCoverFile;
 
 	/**
 	 * @ORM\Column(type="string", length=50)
@@ -725,16 +772,13 @@ class Book {
 
 	public function setCreatedAt($createdAt) {
 		$this->createdAt = $createdAt;
+		$this->setUpdatedAt($createdAt);
 		return $this;
 	}
 
 	public function setUpdatedAt($updatedAt) {
 		$this->updatedAt = $updatedAt;
 		return $this;
-	}
-
-	public function getBackCover() {
-		return null;
 	}
 
 	/**
@@ -744,9 +788,6 @@ class Book {
 		$this->coverFile = $image;
 
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-			$name = md5_file($image->getPathname()).'.jpg';
-			$image->move(__DIR__.'/../../data/scans', $name);
-			$this->setCover($name);
 			$this->setUpdatedAt(new \DateTime());
 		}
 	}
@@ -770,5 +811,107 @@ class Book {
 	 */
 	public function getCover() {
 		return $this->cover;
+	}
+
+	/**
+	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+	 */
+	public function setBackCoverFile(File $image = null) {
+		$this->backCoverFile = $image;
+
+		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+			$this->setUpdatedAt(new \DateTime());
+		}
+	}
+
+	/**
+	 * @return File
+	 */
+	public function getBackCoverFile() {
+		return $this->backCoverFile;
+	}
+
+	/**
+	 * @param string $backCover
+	 */
+	public function setBackCover($backCover) {
+		$this->backCover = $backCover;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBackCover() {
+		return $this->backCover;
+	}
+
+	public function getToc() {
+		return $this->toc;
+	}
+
+	public function setToc($toc) {
+		$this->toc = $toc;
+		return $this;
+	}
+
+	public function getTranslatedFromLanguage() {
+		return $this->translatedFromLanguage;
+	}
+
+	public function setTranslatedFromLanguage($translatedFromLanguage) {
+		$this->translatedFromLanguage = $translatedFromLanguage;
+		return $this;
+	}
+	public function getDateOfTranslation() {
+		return $this->dateOfTranslation;
+	}
+
+	public function setDateOfTranslation($dateOfTranslation) {
+		$this->dateOfTranslation = $dateOfTranslation;
+		return $this;
+	}
+
+	public function getTotalPrint() {
+		return $this->totalPrint;
+	}
+
+	public function setTotalPrint($totalPrint) {
+		$this->totalPrint = $totalPrint;
+		return $this;
+	}
+
+	public function getLitGroup() {
+		return $this->litGroup;
+	}
+
+	public function setLitGroup($litGroup) {
+		$this->litGroup = $litGroup;
+		return $this;
+	}
+	public function getTrackingCode() {
+		return $this->trackingCode;
+	}
+
+	public function setTrackingCode($trackingCode) {
+		$this->trackingCode = $trackingCode;
+		return $this;
+	}
+	public function getNotesAboutOriginal() {
+		return $this->notesAboutOriginal;
+	}
+
+	public function setNotesAboutOriginal($notesAboutOriginal) {
+		$this->notesAboutOriginal = $notesAboutOriginal;
+		return $this;
+	}
+
+	/** @ORM\PrePersist */
+	public function onPreInsert() {
+		$this->setCreatedAt(new \DateTime);
+	}
+
+	/** @ORM\PreUpdate */
+	public function onPreUpdate() {
+		$this->setUpdatedAt(new \DateTime);
 	}
 }
