@@ -6,6 +6,9 @@ security:
                     vog:
                         password: vog
                         roles: 'ROLE_ADMIN'
+                    admin:
+                        password: gogo
+                        roles: 'ROLE_ADMIN'
 
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
