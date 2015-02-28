@@ -17,7 +17,8 @@ easy_admin:
             list:
                 fields:
                     - { property: id, label: Номер }
-                    - { property: cover, label: Корица, type: image }
+                    - { property: cover, label: К, type: image }
+                    - { property: backCover, label: ЗК, type: image }
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
