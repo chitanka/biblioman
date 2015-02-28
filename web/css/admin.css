@@ -1,3 +1,9 @@
 .form-group {
 	margin-bottom: 0;
 }
+.form-control, .form-control:focus {
+	border: 1px solid #d0d0d0;
+}
+.form-control:focus {
+	background-color: lightyellow;
+}

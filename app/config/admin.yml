@@ -41,7 +41,7 @@ easy_admin:
                     - { property: pubCity, label: Град }
                     - { property: pubDate, label: Година }
                     - { property: print, label: Печатница }
-                    - { property: contentType, label: Тип }
+                    - { property: contentType, label: Тип, help: 'роман / сборник разкази / сборник / стихосбирка' }
                     - { property: nationality, label: Националност }
                     - { property: language, label: Език }
                     - { property: edition, label: Поредност на изданието }
