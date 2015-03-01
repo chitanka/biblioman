@@ -4,11 +4,12 @@
 		{% block headers %}
 			<meta charset="utf-8">
 			<meta name="description" content="{% block description '' %}">
-			<title>{% block title %}Моята библиотека{% endblock %}</title>
+			<title>{% block title %}Библиоман{% endblock %}</title>
 			<link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 			<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 			{% block stylesheets %}
 				<link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
+				<link href="//cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css" type="text/css" rel="stylesheet" title="Featherlight Styles" />
 			{% endblock %}
 		{% endblock headers %}
 	</head>
@@ -18,6 +19,8 @@
 				{% block content '' %}
 			</div>
 		{% endblock %}
-		{% block javascripts %}{% endblock %}
+		{% block javascripts %}
+			<script src="//cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+		{% endblock %}
 	</body>
 </html>

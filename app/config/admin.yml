@@ -10,7 +10,11 @@ easy_admin:
     site_name: 'Библиоман'
     assets:
         css:
+            - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
             - css/admin.css
+        js:
+            - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
+            - js/admin.js
     entities:
         Книги:
             class: App\Entity\Book
