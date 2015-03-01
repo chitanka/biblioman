@@ -72,6 +72,7 @@ easy_admin:
                     - { property: publisherCode, label: 'Код / Тематичен номер' }
                     - { property: trackingCode, label: Номер, help: 'От вида на „С-32“ или „Ч840“' }
                     - { property: publisherOrder, label: 'Поръчка / Издателски №' }
+                    - { property: uniformProductClassification, label: 'ЕКП', help: 'Код за единна класификация на продукцията' }
                     - { property: pageCount, label: Брой страници }
                     - { property: totalPrint, label: Тираж }
                     - { property: price, label: Цена }

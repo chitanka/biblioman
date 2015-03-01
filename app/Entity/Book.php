@@ -242,6 +242,11 @@ class Book {
 	private $trackingCode;
 
 	/**
+	 * @ORM\Column(type="string", length=30, nullable=true)
+	 */
+	private $uniformProductClassification;
+
+	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $totalPrint;
@@ -1035,6 +1040,16 @@ class Book {
 		$this->trackingCode = $trackingCode;
 		return $this;
 	}
+
+	public function getUniformProductClassification() {
+		return $this->uniformProductClassification;
+	}
+
+	public function setUniformProductClassification($uniformProductClassification) {
+		$this->uniformProductClassification = $uniformProductClassification;
+		return $this;
+	}
+
 	public function getNotesAboutOriginal() {
 		return $this->notesAboutOriginal;
 	}
