@@ -20,22 +20,27 @@ class Book {
 	private $id;
 
 	/**
-	 * @ORM\Column(type="string", length=100)
+	 * @ORM\Column(type="string", length=255)
 	 */
 	private $title;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $subtitle;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $author;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $translator;
 
 	/**
-	 * @ORM\Column(type="string", length=20, nullable=true)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $translatedFromLanguage;
 
@@ -47,7 +52,22 @@ class Book {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
+	private $compiler;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $chiefEditor;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
 	private $editor;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $editorialStaff;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
@@ -67,6 +87,16 @@ class Book {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
+	private $consultant;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $reviewer;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
 	private $artist;
 
 	/**
@@ -75,8 +105,28 @@ class Book {
 	private $corrector;
 
 	/**
-	 * single collection anthology almanac
 	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $layout;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $coverLayout;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $computerProcessing;
+
+	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $prepress;
+
+	/**
+	 * single collection anthology almanac
+	 * @ORM\Column(type="string", length=30, nullable=true)
 	 */
 	private $contentType;
 
@@ -96,7 +146,7 @@ class Book {
 	private $sequence;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=10, nullable=true)
 	 */
 	private $sequenceNr;
 
@@ -362,6 +412,24 @@ class Book {
 		return $this->technicalEditor;
 	}
 
+	public function getConsultant() {
+		return $this->consultant;
+	}
+
+	public function setConsultant($consultant) {
+		$this->consultant = $consultant;
+		return $this;
+	}
+
+	public function getReviewer() {
+		return $this->reviewer;
+	}
+
+	public function setReviewer($reviewer) {
+		$this->reviewer = $reviewer;
+		return $this;
+	}
+
 	public function getArtist() {
 		return $this->artist;
 	}
@@ -497,9 +565,80 @@ class Book {
 		$this->translator = $translator;
 		return $this;
 	}
+	public function getSubtitle() {
+		return $this->subtitle;
+	}
+
+	public function setSubtitle($subtitle) {
+		$this->subtitle = $subtitle;
+		return $this;
+	}
+
+	public function getCompiler() {
+		return $this->compiler;
+	}
+
+	public function getLayout() {
+		return $this->layout;
+	}
+
+	public function getComputerProcessing() {
+		return $this->computerProcessing;
+	}
+
+	public function setLayout($layout) {
+		$this->layout = $layout;
+		return $this;
+	}
+
+	public function getCoverLayout() {
+		return $this->coverLayout;
+	}
+
+	public function setCoverLayout($coverLayout) {
+		$this->coverLayout = $coverLayout;
+		return $this;
+	}
+
+	public function setComputerProcessing($computerProcessing) {
+		$this->computerProcessing = $computerProcessing;
+		return $this;
+	}
+
+	public function getPrepress() {
+		return $this->prepress;
+	}
+
+	public function setCompiler($compiler) {
+		$this->compiler = $compiler;
+		return $this;
+	}
+
+	public function setPrepress($prepress) {
+		$this->prepress = $prepress;
+		return $this;
+	}
 
 	public function setEditor($editor) {
 		$this->editor = $editor;
+		return $this;
+	}
+
+	public function getChiefEditor() {
+		return $this->chiefEditor;
+	}
+
+	public function setChiefEditor($chiefEditor) {
+		$this->chiefEditor = $chiefEditor;
+		return $this;
+	}
+
+	public function getEditorialStaff() {
+		return $this->editorialStaff;
+	}
+
+	public function setEditorialStaff($editorialStaff) {
+		$this->editorialStaff = $editorialStaff;
 		return $this;
 	}
 
