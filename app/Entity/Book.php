@@ -50,77 +50,77 @@ class Book {
 	private $dateOfTranslation;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $compiler;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $chiefEditor;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $editor;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $editorialStaff;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $publisherEditor;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $artistEditor;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $technicalEditor;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $consultant;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $reviewer;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $artist;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $corrector;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $layout;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $coverLayout;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $computerProcessing;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $prepress;
 
@@ -131,7 +131,7 @@ class Book {
 	private $contentType;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $publisher;
 
@@ -187,7 +187,7 @@ class Book {
 	private $litGroup;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $print;
 
@@ -257,7 +257,7 @@ class Book {
 	private $pageCount;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=20, nullable=true)
 	 */
 	private $price;
 
