@@ -83,6 +83,7 @@ easy_admin:
                     - { property: genre, label: Жанр }
                     - { property: themes, label: Теми }
                     - { property: annotation, label: Анотация }
+                    - { property: marketingSnippets, label: Рекламни коментари, help: 'Обикновено на задната корица' }
                     - { property: toc, label: Съдържание }
                     - { property: notes, label: Бележки }
                     - { property: notesAboutOriginal, label: 'Бележки за изданието, от което е направен преводът'  }

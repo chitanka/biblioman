@@ -320,6 +320,11 @@ class Book {
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
+	private $marketingSnippets;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
 	private $toc;
 
 	/**
@@ -922,6 +927,15 @@ class Book {
 
 	public function setUpdatedAt($updatedAt) {
 		$this->updatedAt = $updatedAt;
+		return $this;
+	}
+
+	public function getMarketingSnippets() {
+		return $this->marketingSnippets;
+	}
+
+	public function setMarketingSnippets($marketingSnippets) {
+		$this->marketingSnippets = $marketingSnippets;
 		return $this;
 	}
 
