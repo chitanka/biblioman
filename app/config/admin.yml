@@ -21,14 +21,18 @@ easy_admin:
             image_base_path: /thumb
             list:
                 fields:
-                    - { property: id, label: Номер }
+                    - { property: id, label: № }
                     - { property: cover, label: К, type: image }
                     - { property: backCover, label: ЗК, type: image }
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
                     - { property: pubDate, label: Година }
+            new:
+                title: 'Добавяне на нова книга'
+                action_label: 'Нова книга'
             form:
+                title: 'Редактиране на книга (№%%entity_id%%)'
                 fields:
                     - { property: author, label: Автор, help: 'Ако са няколко, се отделят със запетая' }
                     - { property: title, label: Заглавие }

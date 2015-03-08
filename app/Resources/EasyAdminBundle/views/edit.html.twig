@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block content_title %}
-    {{ 'entity.edit' | trans({'%label%': entity.name ~ ' #' ~ attribute(item, entity.primary_key_field_name)}) }}
+    {{ entity.edit.title|default('edit.page_title')|trans({'%entity_name%': entity.label|trans, '%entity_id%': attribute(item, entity.primary_key_field_name)}) }}
 {% endblock %}
 
 {% block main %}
@@ -34,10 +34,10 @@
             {% for field in form.children if field.vars.name != '_token' %}
                 <div class="form-group {% if not field.vars.valid %}has-error{% endif %}">
                     {% if entity_fields[field.vars.name]['type'] == 'association' %}
-                        {{ entity_field(item, entity_fields[field.vars.name]['name'], entity_fields[field.vars.name]) }}
+                        {{ entity_field(item, entity_fields[field.vars.name]) }}
                     {% else %}
                         {% set field_label = entity_fields[field.vars.name]['label']|default(null) %}
-                        {{ form_label(field, field_label, { label_attr: { class: 'col-sm-3 control-label' } }) }}
+                        {{ form_label(field, field_label|trans, { label_attr: { class: 'col-sm-3 control-label' } }) }}
 
                         <div class="col-sm-9 {% if entity_fields[field.vars.name]['type'] == 'checkbox' %}col-sm-offset-3{% endif %}">
                             {% set widget_attributes = { attr: { class: entity_fields[field.vars.name]['class']|default(null) } } %}
@@ -78,15 +78,15 @@
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
                     <button type="submit" class="btn">
-                        <i class="fa fa-save"></i> {{ 'entity.save_changes' | trans }}
+                        <i class="fa fa-save"></i> {{ 'action.save_changes'|trans }}
                     </button>
 
                     <button type="button" id="button-delete" class="btn btn-danger">
-                        <i class="fa fa-trash"></i> {{ 'entity.delete' | trans }}
+                        <i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
                     </button>
 
                     <a class="btn btn-list btn-secondary" href="{{ path('admin', ({ entity: entity.name, action: 'list' }) ) }}">
-                        {{ 'link.back_to_listing' | trans }}
+                        {{- 'action.back_to_listing'|trans -}}
                     </a>
                 </div>
             </div>
@@ -100,15 +100,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <h4>{{ 'delete_modal.title' | trans }}</h4>
-                <p>{{ 'delete_modal.content' | trans }}</p>
+                <h4>{{ 'delete_modal.title'|trans }}</h4>
+                <p>{{ 'delete_modal.content'|trans }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn">
-                    {{ 'actions.cancel' | trans }}
+                    {{ 'action.cancel'|trans }}
                 </button>
                 <button type="button" data-dismiss="modal" class="btn btn-danger" id="modal-delete-button">
-                    <i class="fa fa-trash"></i> {{ 'entity.delete' | trans }}
+                    <i class="fa fa-trash"></i> {{ 'action.delete'|trans }}
                 </button>
             </div>
         </div>
