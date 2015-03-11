@@ -814,12 +814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "0fa894543d2e473f407653d68a334a19ca6fb899"
+                "reference": "684cb8464068b6d140290250afc4a3c5459005db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/0fa894543d2e473f407653d68a334a19ca6fb899",
-                "reference": "0fa894543d2e473f407653d68a334a19ca6fb899",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/684cb8464068b6d140290250afc4a3c5459005db",
+                "reference": "684cb8464068b6d140290250afc4a3c5459005db",
                 "shasum": ""
             },
             "require": {
@@ -835,6 +835,7 @@
                 "symfony/http-foundation": "~2.3",
                 "symfony/http-kernel": "~2.3",
                 "symfony/routing": "~2.3",
+                "symfony/yaml": "~2.3",
                 "twig/twig": "~1.0"
             },
             "type": "symfony-bundle",
@@ -864,7 +865,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2015-03-08 15:20:45"
+            "time": "2015-03-10 22:22:06"
         },
         {
             "name": "jdorn/sql-formatter",

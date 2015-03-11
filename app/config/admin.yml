@@ -81,7 +81,7 @@ easy_admin:
                     - { property: totalPrint, label: Тираж }
                     - { property: price, label: Цена }
                     - { property: binding, label: Подвързия, help: 'мека / твърда' }
-                    - { property: illustrated, label: 'С илюстрации' }
+                    - { property: illustrated, type: checkbox, label: 'С илюстрации' }
                     - { property: isbn10, label: ISBN 10 }
                     - { property: isbn13, label: ISBN 13 }
                     - { property: genre, label: Жанр }
