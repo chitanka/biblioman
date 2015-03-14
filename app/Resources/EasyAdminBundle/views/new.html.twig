@@ -18,7 +18,7 @@
                         {{ easyadmin_render_field(item, _field_configuration) }}
                     {% else %}
                         {% set field_label = _field_configuration['label']|default(null) %}
-                        {{ form_label(field, field_label|trans, { label_attr: { class: 'col-32 control-label' } }) }}
+                        {{ form_label(field, field_label|trans, { label_attr: { class: 'col-3 control-label' } }) }}
 
                         <div class="col-sm-9 {% if _field_configuration['fieldType'] == 'checkbox' %}col-sm-offset-3{% endif %}">
                             {% set widget_attributes = { attr: { class: _field_configuration['class']|default(null) } } %}
