@@ -47,7 +47,7 @@ return [
 	'totalPrint' => 'Тираж',
 	'price' => 'Цена',
 	'binding' => 'Подвързия',
-	'illustrated, type: checkbox' => 'С илюстрации',
+	'illustrated' => 'С илюстрации',
 	'isbn10' => 'ISBN 10',
 	'isbn13' => 'ISBN 13',
 	'genre' => 'Жанр',
