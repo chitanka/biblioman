@@ -17,9 +17,9 @@
                         {{ easyadmin_render_field(item, entity_fields[field.vars.name]) }}
                     {% else %}
                         {% set field_label = entity_fields[field.vars.name]['label']|default(null) %}
-                        {{ form_label(field, field_label|trans, { label_attr: { class: 'col-sm-3 control-label' } }) }}
+                        {{ form_label(field, field_label, { label_attr: { class: 'col-sm-4 control-label' } }) }}
 
-                        <div class="col-sm-9 {% if entity_fields[field.vars.name]['fieldType'] == 'checkbox' %}col-sm-offset-3{% endif %}">
+                        <div class="col-sm-8 {% if entity_fields[field.vars.name]['fieldType'] == 'checkbox' %}col-sm-offset-4{% endif %}">
                             {% set widget_attributes = { attr: { class: entity_fields[field.vars.name]['class']|default(null) }, label: entity_fields[field.vars.name]['label']|trans } %}
                             {{ form_widget(field, widget_attributes) }}
                             {{ form_errors(field) }}
@@ -56,7 +56,7 @@
             {% endfor %}
 
             <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
+                <div class="col-sm-8 col-sm-offset-4">
                     <button type="submit" class="btn">
                         <i class="fa fa-save"></i> {{ 'action.save_changes'|trans }}
                     </button>

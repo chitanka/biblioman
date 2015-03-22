@@ -34,64 +34,64 @@ easy_admin:
             form:
                 title: 'Редактиране на книга (№%%entity_id%%)'
                 fields:
-                    - { property: author, label: Автор, help: 'Ако са няколко, се отделят със запетая' }
-                    - { property: title, label: Заглавие }
-                    - { property: subtitle, label: Подзаглавие }
-                    - { property: sequence, label: Поредица / Серия }
-                    - { property: sequenceNr, label: № в поредица / серия }
-                    - { property: translator, label: Преводач }
-                    - { property: translatedFromLanguage, label: 'Език, от който е преведено' }
-                    - { property: dateOfTranslation, label: 'Година на превод' }
-                    - { property: compiler, label: Съставител }
-                    - { property: editorialStaff, label: Редакционна колегия, help: 'Няколко се отделят със запетая' }
-                    - { property: chiefEditor, label: Отговорен редактор }
-                    - { property: editor, label: Редактор }
-                    - { property: publisherEditor, label: Редактор на издателството }
-                    - { property: consultant, label: Консултант }
-                    - { property: artist, label: Художник, help: 'или Илюстрация на корицата, Художник на корицата' }
-                    - { property: artistEditor, label: Художествен редактор }
-                    - { property: technicalEditor, label: Технически редактор }
-                    - { property: reviewer, label: Рецензент }
-                    - { property: corrector, label: Коректор }
-                    - { property: layout, label: Оформление }
-                    - { property: coverLayout, label: Оформление на корица, help: 'или Дизайн на корицата' }
-                    - { property: computerProcessing, label: Компютърна обработка, help: 'или Компютърен дизайн' }
-                    - { property: prepress, label: Предпечатна подготовка }
-                    - { property: publisher, label: Издател }
-                    - { property: pubCity, label: Град на издателя }
-                    - { property: pubDate, label: Година на издаване }
-                    - { property: print, label: Печатница }
-                    - { property: contentType, label: Тип, help: 'роман / сборник разкази / сборник / стихосбирка' }
-                    - { property: nationality, label: Националност }
-                    - { property: language, label: Език }
-                    - { property: edition, label: Поредност на изданието }
-                    - { property: litGroup, label: Литературна група }
-                    - { property: typeSettingIn, label: Дадена за набор/печат }
-                    - { property: printSigned, label: Подписана за печат }
-                    - { property: printOut, label: Излязла от печат }
-                    - { property: printerSheets, label: Печатни коли, help: 'среща се и като „обем“' }
-                    - { property: publisherSheets, label: Издателски коли }
-                    - { property: provisionPublisherSheets, label: УИК, help: Условно издателски коли }
-                    - { property: format, label: Формат }
-                    - { property: publisherCode, label: 'Код / Тематичен номер' }
-                    - { property: trackingCode, label: Номер, help: 'От вида на „С-32“ или „Ч840“' }
-                    - { property: publisherOrder, label: 'Поръчка / Издателски №' }
-                    - { property: uniformProductClassification, label: 'ЕКП', help: 'Код за единна класификация на продукцията' }
-                    - { property: pageCount, label: Брой страници }
-                    - { property: totalPrint, label: Тираж }
-                    - { property: price, label: Цена }
-                    - { property: binding, label: Подвързия, help: 'мека / твърда' }
-                    - { property: illustrated, type: checkbox, label: 'С илюстрации' }
-                    - { property: isbn10, label: ISBN 10 }
-                    - { property: isbn13, label: ISBN 13 }
-                    - { property: genre, label: Жанр }
-                    - { property: themes, label: Теми }
-                    - { property: annotation, label: Анотация }
-                    - { property: marketingSnippets, label: Рекламни коментари, help: 'Обикновено на задната корица' }
-                    - { property: toc, label: Съдържание }
-                    - { property: notes, label: Бележки }
-                    - { property: notesAboutOriginal, label: 'Бележки за изданието, от което е направен преводът'  }
-                    - { property: coverFile, type: file, label: Корица }
-                    - { property: backCoverFile, type: file, label: Задна корица }
-                    #- { property: source, label: Източник }
+                    - { property: author, label: author, help: 'Ако са няколко, се отделят със запетая' }
+                    - { property: title, label: title }
+                    - { property: subtitle, label: subtitle }
+                    - { property: sequence, label: sequence }
+                    - { property: sequenceNr, label: sequenceNr }
+                    - { property: translator, label: translator }
+                    - { property: translatedFromLanguage, label: translatedFromLanguage }
+                    - { property: dateOfTranslation, label: dateOfTranslation }
+                    - { property: compiler, label: compiler }
+                    - { property: editorialStaff, label: editorialStaff, help: 'Няколко се отделят със запетая' }
+                    - { property: chiefEditor, label: chiefEditor }
+                    - { property: editor, label: editor }
+                    - { property: publisherEditor, label: publisherEditor }
+                    - { property: consultant, label: consultant }
+                    - { property: artist, label: artist, help: 'или Илюстрация на корицата, Художник на корицата' }
+                    - { property: artistEditor, label: artistEditor }
+                    - { property: technicalEditor, label: technicalEditor }
+                    - { property: reviewer, label: reviewer }
+                    - { property: corrector, label: corrector }
+                    - { property: layout, label: layout }
+                    - { property: coverLayout, label: coverLayout, help: 'или Дизайн на корицата' }
+                    - { property: computerProcessing, label: computerProcessing, help: 'или Компютърен дизайн' }
+                    - { property: prepress, label: prepress }
+                    - { property: publisher, label: publisher }
+                    - { property: pubCity, label: pubCity }
+                    - { property: pubDate, label: pubDate }
+                    - { property: print, label: print }
+                    - { property: contentType, label: contentType, help: 'роман / сборник разкази / сборник / стихосбирка' }
+                    - { property: nationality, label: nationality }
+                    - { property: language, label: language }
+                    - { property: edition, label: edition }
+                    - { property: litGroup, label: litGroup }
+                    - { property: typeSettingIn, label: typeSettingIn }
+                    - { property: printSigned, label: printSigned }
+                    - { property: printOut, label: printOut }
+                    - { property: printerSheets, label: printerSheets, help: 'среща се и като „обем“' }
+                    - { property: publisherSheets, label: publisherSheets }
+                    - { property: provisionPublisherSheets, label: provisionPublisherSheets, help: Условно издателски коли }
+                    - { property: format, label: format }
+                    - { property: publisherCode, label: publisherCode }
+                    - { property: trackingCode, label: trackingCode, help: 'От вида на „С-32“ или „Ч840“' }
+                    - { property: publisherOrder, label: publisherOrder }
+                    - { property: uniformProductClassification, label: uniformProductClassification, help: 'Код за единна класификация на продукцията' }
+                    - { property: pageCount, label: pageCount }
+                    - { property: totalPrint, label: totalPrint }
+                    - { property: price, label: price }
+                    - { property: binding, label: binding, help: 'мека / твърда' }
+                    - { property: illustrated, label: illustrated, type: checkbox }
+                    - { property: isbn10, label: isbn10 }
+                    - { property: isbn13, label: isbn13 }
+                    - { property: genre, label: genre }
+                    - { property: themes, label: themes }
+                    - { property: annotation, label: annotation }
+                    - { property: marketingSnippets, label: marketingSnippets, help: 'Обикновено на задната корица' }
+                    - { property: toc, label: toc }
+                    - { property: notes, label: notes }
+                    - { property: notesAboutOriginal, label: notesAboutOriginal, от което е направен преводът'  }
+                    - { property: coverFile, label: coverFile, type: file }
+                    - { property: backCoverFile, label: backCoverFile, type: file }
+                    #- { property: source, label: source }
         #Личности: App\Entity\Person
