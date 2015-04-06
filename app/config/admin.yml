@@ -8,6 +8,9 @@ vich_uploader:
 
 easy_admin:
     site_name: 'Библиоман'
+    design:
+        theme: 'default'
+        form_theme: '@App/admin_layout.html.twig'
     assets:
         css:
             - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
@@ -20,6 +23,10 @@ easy_admin:
             class: App\Entity\Book
             image_base_path: /thumb
             list:
+                actions:
+                    - { name: new, label: 'Добавяне на книга', icon: plus }
+                    - { name: edit, icon: pencil, label: '' }
+                    - { name: show, icon: eye, label: '' }
                 fields:
                     - { property: id, label: № }
                     - { property: cover, label: К, type: image }
@@ -76,6 +83,7 @@ easy_admin:
                     - { property: publisherCode, label: publisherCode }
                     - { property: trackingCode, label: trackingCode, help: 'От вида на „С-32“ или „Ч840“' }
                     - { property: publisherOrder, label: publisherOrder }
+                    - { property: publisherNumber, label: publisherNumber }
                     - { property: uniformProductClassification, label: uniformProductClassification, help: 'Код за единна класификация на продукцията' }
                     - { property: pageCount, label: pageCount }
                     - { property: totalPrint, label: totalPrint }

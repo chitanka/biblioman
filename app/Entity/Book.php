@@ -239,6 +239,11 @@ class Book {
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
+	private $publisherNumber;
+
+	/**
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
 	private $trackingCode;
 
 	/**
@@ -860,6 +865,10 @@ class Book {
 		return $this->publisherOrder;
 	}
 
+	public function getPublisherNumber() {
+		return $this->publisherNumber;
+	}
+
 	public function setProvisionPublisherSheets($provisionPublisherSheets) {
 		$this->provisionPublisherSheets = $provisionPublisherSheets;
 		return $this;
@@ -872,6 +881,11 @@ class Book {
 
 	public function setPublisherOrder($publisherOrder) {
 		$this->publisherOrder = $publisherOrder;
+		return $this;
+	}
+
+	public function setPublisherNumber($publisherNumber) {
+		$this->publisherNumber = $publisherNumber;
 		return $this;
 	}
 
