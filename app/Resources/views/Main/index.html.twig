@@ -5,7 +5,7 @@
 	<h1>Последни книги</h1>
 	{% for book in recentBooks %}
 		<div>
-			{% include 'App:Book:book.html.twig' with {book: book} %}
+			{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
 		</div>
 	{% endfor %}
 
