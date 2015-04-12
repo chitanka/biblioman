@@ -10,6 +10,7 @@ easy_admin:
     site_name: 'Библиоман'
     design:
         theme: 'default'
+        color_scheme: light
         form_theme: '@App/admin_layout.html.twig'
     assets:
         css:

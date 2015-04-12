@@ -8,6 +8,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table
+ * @ORM\Entity(repositoryClass="App\Entity\BookRepository")
  * @Vich\Uploadable
  */
 class Book {

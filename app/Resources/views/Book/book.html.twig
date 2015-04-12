@@ -1,0 +1,32 @@
+<div class="media well" itemscope itemtype="http://schema.org/Book">
+	<div class="media-left">
+		<div class="thumbnail">
+			<img src="/thumb/{{ book.cover|replace({'.jpg': '.200.jpg'}) }}" width="200" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.600.jpg'}) }}">
+		</div>
+	</div>
+	<div class="media-body">
+		<dl class="dl-horizontal">
+			{% set fields = [
+				'author',
+				'title',
+				'subtitle',
+				'editor',
+				'translator',
+				'compiler',
+				'artist',
+				'publisher',
+				'pubDate',
+				'nationality',
+				'format',
+				'isbn10',
+				'isbn13',
+			] %}
+			{% for field in fields %}
+				{% if attribute(book, field) is not empty %}
+					<dt>{{ field|trans }}</dt>
+					<dd>{{ attribute(book, field) }}</dd>
+				{% endif %}
+			{% endfor %}
+		</dl>
+	</div>
+</div>

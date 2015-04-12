@@ -1,5 +1,5 @@
 .form-group {
-	margin-bottom: 0;
+	margin-bottom: .5em;
 }
 .form-control, .form-control:focus {
 	border: 1px solid #d0d0d0;

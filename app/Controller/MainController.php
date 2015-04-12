@@ -8,7 +8,11 @@ class MainController extends Controller {
 	 * @Route("/", name="homepage")
 	 */
 	public function indexAction() {
-		$p = new \App\Entity\Sequence;
-		return $this->render('Main/index.html.twig');
+		$recentBooks = $this->getDoctrine()->getManager()
+			->getRepository('App:Book')
+			->findRecent(15);
+		return $this->render('Main/index.html.twig', [
+			'recentBooks' => $recentBooks,
+		]);
 	}
 }

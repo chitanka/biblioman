@@ -8,7 +8,8 @@
 			<link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 			<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 			{% block stylesheets %}
-				<link rel="stylesheet" href="{{ asset('css/font-awesome/css/font-awesome.min.css') }}">
+				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/bootstrap.min.css') }}">
+				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/font-awesome.min.css') }}">
 				<link href="//cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css" type="text/css" rel="stylesheet" title="Featherlight Styles" />
 			{% endblock %}
 		{% endblock headers %}
@@ -20,6 +21,8 @@
 			</div>
 		{% endblock %}
 		{% block javascripts %}
+			<script src="{{ asset('bundles/easyadmin/javascript/jquery.min.js') }}"></script>
+			<script src="{{ asset('bundles/easyadmin/javascript/bootstrap.min.js') }}"></script>
 			<script src="//cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 		{% endblock %}
 	</body>
