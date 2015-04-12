@@ -62,6 +62,7 @@ if (file_exists($file)) {
 	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 	header('Content-Type: image/'.$format);
 	$thumb = dirname(__FILE__) . '/../cache' . $_SERVER['REQUEST_URI'];
+	ini_set('memory_limit', '256M');
 	readfile(genThumbnail($file, $thumb, $width, 90));
 } else {
 	header('HTTP/1.1 404 Not Found');
