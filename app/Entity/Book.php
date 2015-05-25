@@ -371,6 +371,11 @@ class Book {
 	private $backCoverFile;
 
 	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $chitankaId;
+
+	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $createdBy;
@@ -1016,6 +1021,14 @@ class Book {
 	 */
 	public function getBackCover() {
 		return $this->backCover;
+	}
+
+	public function getChitankaId() {
+		return $this->chitankaId;
+	}
+
+	public function setChitankaId($chitankaId) {
+		$this->chitankaId = $chitankaId;
 	}
 
 	public function getToc() {

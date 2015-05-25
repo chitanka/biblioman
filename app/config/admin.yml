@@ -42,6 +42,7 @@ easy_admin:
             form:
                 title: 'Редактиране на книга (№%%entity_id%%)'
                 fields:
+                    - { property: chitankaId, label: Номер в Моята библиотека }
                     - { property: author, label: author, help: 'Ако са няколко, се отделят със запетая' }
                     - { property: title, label: title }
                     - { property: subtitle, label: subtitle }
