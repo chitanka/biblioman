@@ -42,7 +42,7 @@ return $default;
 }
 $value = $this->parameters[$root];
 $currentKey = null;
-for ($i = $pos, $c = strlen($path); $i < $c; $i++) {
+for ($i = $pos, $c = strlen($path); $i < $c; ++$i) {
 $char = $path[$i];
 if ('['=== $char) {
 if (null !== $currentKey) {
@@ -382,6 +382,8 @@ list($headers['PHP_AUTH_USER'], $headers['PHP_AUTH_PW']) = $exploded;
 } elseif (empty($this->parameters['PHP_AUTH_DIGEST']) && (0 === stripos($authorizationHeader,'digest '))) {
 $headers['PHP_AUTH_DIGEST'] = $authorizationHeader;
 $this->parameters['PHP_AUTH_DIGEST'] = $authorizationHeader;
+} elseif (0 === stripos($authorizationHeader,'bearer ')) {
+$headers['AUTHORIZATION'] = $authorizationHeader;
 }
 }
 }
@@ -613,10 +615,15 @@ $this->headers = clone $this->headers;
 }
 public function __toString()
 {
+try {
+$content = $this->getContent();
+} catch (\LogicException $e) {
+return trigger_error($e, E_USER_ERROR);
+}
 return
 sprintf('%s %s %s', $this->getMethod(), $this->getRequestUri(), $this->server->get('SERVER_PROTOCOL'))."\r\n".
 $this->headers."\r\n".
-$this->getContent();
+$content;
 }
 public function overrideGlobals()
 {
@@ -994,12 +1001,27 @@ return in_array($this->getMethod(), array('GET','HEAD'));
 }
 public function getContent($asResource = false)
 {
-if (false === $this->content || (true === $asResource && null !== $this->content)) {
-throw new \LogicException('getContent() can only be called once when using the resource return type.');
+$currentContentIsResource = is_resource($this->content);
+if (PHP_VERSION_ID < 50600 && false === $this->content) {
+throw new \LogicException('getContent() can only be called once when using the resource return type and PHP below 5.6.');
 }
 if (true === $asResource) {
+if ($currentContentIsResource) {
+rewind($this->content);
+return $this->content;
+}
+if (is_string($this->content)) {
+$resource = fopen('php://temp','r+');
+fwrite($resource, $this->content);
+rewind($resource);
+return $resource;
+}
 $this->content = false;
 return fopen('php://input','rb');
+}
+if ($currentContentIsResource) {
+rewind($this->content);
+return stream_get_contents($this->content);
 }
 if (null === $this->content) {
 $this->content = file_get_contents('php://input');
@@ -1051,7 +1073,7 @@ if (count($codes) > 1) {
 $lang = $codes[1];
 }
 } else {
-for ($i = 0, $max = count($codes); $i < $max; $i++) {
+for ($i = 0, $max = count($codes); $i < $max; ++$i) {
 if ($i === 0) {
 $lang = strtolower($codes[0]);
 } else {
@@ -1147,7 +1169,7 @@ $requestUri = $this->getRequestUri();
 if ($baseUrl && false !== $prefix = $this->getUrlencodedPrefix($requestUri, $baseUrl)) {
 return $prefix;
 }
-if ($baseUrl && false !== $prefix = $this->getUrlencodedPrefix($requestUri, dirname($baseUrl).'/')) {
+if ($baseUrl && false !== $prefix = $this->getUrlencodedPrefix($requestUri, rtrim(dirname($baseUrl),'/').'/')) {
 return rtrim($prefix,'/');
 }
 $truncatedRequestUri = $requestUri;
@@ -1190,7 +1212,8 @@ $pathInfo ='/';
 if ($pos = strpos($requestUri,'?')) {
 $requestUri = substr($requestUri, 0, $pos);
 }
-if (null !== $baseUrl && false === $pathInfo = substr($requestUri, strlen($baseUrl))) {
+$pathInfo = substr($requestUri, strlen($baseUrl));
+if (null !== $baseUrl && (false === $pathInfo ||''=== $pathInfo)) {
 return'/';
 } elseif (null === $baseUrl) {
 return $requestUri;
@@ -1700,7 +1723,7 @@ return false;
 $notModified = false;
 $lastModified = $this->headers->get('Last-Modified');
 $modifiedSince = $request->headers->get('If-Modified-Since');
-if ($etags = $request->getEtags()) {
+if ($etags = $request->getETags()) {
 $notModified = in_array($this->getEtag(), $etags) || in_array('*', $etags);
 }
 if ($modifiedSince && $lastModified) {
@@ -1759,14 +1782,8 @@ public static function closeOutputBuffers($targetLevel, $flush)
 {
 $status = ob_get_status(true);
 $level = count($status);
-while ($level-- > $targetLevel
-&& (!empty($status[$level]['del'])
-|| (isset($status[$level]['flags'])
-&& ($status[$level]['flags'] & PHP_OUTPUT_HANDLER_REMOVABLE)
-&& ($status[$level]['flags'] & ($flush ? PHP_OUTPUT_HANDLER_FLUSHABLE : PHP_OUTPUT_HANDLER_CLEANABLE))
-)
-)
-) {
+$flags = defined('PHP_OUTPUT_HANDLER_REMOVABLE') ? PHP_OUTPUT_HANDLER_REMOVABLE | ($flush ? PHP_OUTPUT_HANDLER_FLUSHABLE : PHP_OUTPUT_HANDLER_CLEANABLE) : -1;
+while ($level-- > $targetLevel && ($s = $status[$level]) && (!isset($s['del']) ? !isset($s['flags']) || $flags === ($s['flags'] & $flags) : $s['del'])) {
 if ($flush) {
 ob_end_flush();
 } else {
@@ -1993,6 +2010,7 @@ protected $scopeChildren = array();
 protected $scopedServices = array();
 protected $scopeStacks = array();
 protected $loading = array();
+private $underscoreMap = array('_'=>'','.'=>'_','\\'=>'_');
 public function __construct(ParameterBagInterface $parameterBag = null)
 {
 $this->parameterBag = $parameterBag ?: new ParameterBag();
@@ -2038,7 +2056,7 @@ throw new RuntimeException(sprintf('You cannot set service "%s" of inactive scop
 $this->scopedServices[$scope][$id] = $service;
 }
 $this->services[$id] = $service;
-if (method_exists($this, $method ='synchronize'.strtr($id, array('_'=>'','.'=>'_','\\'=>'_')).'Service')) {
+if (method_exists($this, $method ='synchronize'.strtr($id, $this->underscoreMap).'Service')) {
 $this->$method();
 }
 if (null === $service) {
@@ -2050,22 +2068,24 @@ unset($this->services[$id]);
 }
 public function has($id)
 {
-$id = strtolower($id);
-if ('service_container'=== $id) {
+for ($i = 2;;) {
+if ('service_container'=== $id
+|| isset($this->aliases[$id])
+|| isset($this->services[$id])
+|| array_key_exists($id, $this->services)
+) {
 return true;
 }
-return isset($this->services[$id])
-|| array_key_exists($id, $this->services)
-|| isset($this->aliases[$id])
-|| method_exists($this,'get'.strtr($id, array('_'=>'','.'=>'_','\\'=>'_')).'Service')
-;
+if (--$i && $id !== $lcId = strtolower($id)) {
+$id = $lcId;
+} else {
+return method_exists($this,'get'.strtr($id, $this->underscoreMap).'Service');
+}
+}
 }
 public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
 {
-foreach (array(false, true) as $strtolower) {
-if ($strtolower) {
-$id = strtolower($id);
-}
+for ($i = 2;;) {
 if ('service_container'=== $id) {
 return $this;
 }
@@ -2075,13 +2095,15 @@ $id = $this->aliases[$id];
 if (isset($this->services[$id]) || array_key_exists($id, $this->services)) {
 return $this->services[$id];
 }
-}
 if (isset($this->loading[$id])) {
 throw new ServiceCircularReferenceException($id, array_keys($this->loading));
 }
 if (isset($this->methodMap[$id])) {
 $method = $this->methodMap[$id];
-} elseif (method_exists($this, $method ='get'.strtr($id, array('_'=>'','.'=>'_','\\'=>'_')).'Service')) {
+} elseif (--$i && $id !== $lcId = strtolower($id)) {
+$id = $lcId;
+continue;
+} elseif (method_exists($this, $method ='get'.strtr($id, $this->underscoreMap).'Service')) {
 } else {
 if (self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
 if (!$id) {
@@ -2113,6 +2135,7 @@ throw $e;
 }
 unset($this->loading[$id]);
 return $service;
+}
 }
 public function initialized($id)
 {
@@ -2310,11 +2333,11 @@ protected $booted = false;
 protected $name;
 protected $startTime;
 protected $loadClassCache;
-const VERSION ='2.6.7';
-const VERSION_ID ='20607';
+const VERSION ='2.6.13';
+const VERSION_ID ='20613';
 const MAJOR_VERSION ='2';
 const MINOR_VERSION ='6';
-const RELEASE_VERSION ='7';
+const RELEASE_VERSION ='13';
 const EXTRA_VERSION ='';
 public function __construct($environment, $debug)
 {
@@ -2820,6 +2843,9 @@ if (null === $this->extension) {
 $class = $this->getContainerExtensionClass();
 if (class_exists($class)) {
 $extension = new $class();
+if (!$extension instanceof ExtensionInterface) {
+throw new \LogicException(sprintf('Extension %s must implement Symfony\Component\DependencyInjection\Extension\ExtensionInterface.', $class));
+}
 $basename = preg_replace('/Bundle$/','', $this->getName());
 $expectedAlias = Container::underscore($basename);
 if ($expectedAlias != $extension->getAlias()) {
