@@ -8,17 +8,15 @@ use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as EasyAdmin
 class AdminController extends EasyAdminController {
 
 	/**
-	 * @Route("/admin/", name="admin")
+	 * @Route("/admin/", name="easyadmin")
 	 */
 	public function indexAction(Request $request) {
 		return parent::indexAction($request);
 	}
 
-	protected function prepareNewEntityForPersist($entity) {
-		if ($entity instanceof Book) {
-			$user = $this->get('security.context')->getToken()->getUser();
-			return $entity->setCreatedBy($user->getUsername());
-		}
+	protected function prePersistBookEntity(Book $book) {
+		$user = $this->get('security.token_storage')->getToken()->getUser();
+		return $book->setCreatedBy($user->getUsername());
 	}
 
 }

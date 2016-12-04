@@ -354,7 +354,7 @@ class Book {
 	private $cover;
 
 	/**
-	 * @Vich\UploadableField(mapping="book_cover", fileNameProperty="cover")
+	 * @Vich\UploadableField(mapping="scan", fileNameProperty="cover")
 	 * @var File
 	 */
 	private $coverFile;
@@ -365,10 +365,51 @@ class Book {
 	private $backCover;
 
 	/**
-	 * @Vich\UploadableField(mapping="book_cover", fileNameProperty="backCover")
+	 * @Vich\UploadableField(mapping="scan", fileNameProperty="backCover")
 	 * @var File
 	 */
 	private $backCoverFile;
+
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan1;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan1") @var File */
+	private $scan1File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan2;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan2") @var File */
+	private $scan2File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan3;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan3") @var File */
+	private $scan3File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan4;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan4") @var File */
+	private $scan4File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan5;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan5") @var File */
+	private $scan5File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan6;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan6") @var File */
+	private $scan6File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan7;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan7") @var File */
+	private $scan7File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan8;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan8") @var File */
+	private $scan8File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan9;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan9") @var File */
+	private $scan9File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan10;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan10") @var File */
+	private $scan10File;
 
 	/**
 	 * @ORM\Column(type="integer", nullable=true)
@@ -964,10 +1005,7 @@ class Book {
 	 */
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;
-
-		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-			$this->setUpdatedAt(new \DateTime());
-		}
+		$this->setUpdatedAtOnImage($image);
 	}
 
 	/**
@@ -996,10 +1034,7 @@ class Book {
 	 */
 	public function setBackCoverFile(File $image = null) {
 		$this->backCoverFile = $image;
-
-		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-			$this->setUpdatedAt(new \DateTime());
-		}
+		$this->setUpdatedAtOnImage($image);
 	}
 
 	/**
@@ -1021,6 +1056,53 @@ class Book {
 	 */
 	public function getBackCover() {
 		return $this->backCover;
+	}
+
+	public function setScan1File(File $image = null) { $this->scan1File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan1File() { return $this->scan1File; }
+	public function setScan1($scan) { $this->scan1 = $scan; }
+	public function getScan1() { return $this->scan1; }
+	public function setScan2File(File $image = null) { $this->scan2File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan2File() { return $this->scan2File; }
+	public function setScan2($scan) { $this->scan2 = $scan; }
+	public function getScan2() { return $this->scan2; }
+	public function setScan3File(File $image = null) { $this->scan3File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan3File() { return $this->scan3File; }
+	public function setScan3($scan) { $this->scan3 = $scan; }
+	public function getScan3() { return $this->scan3; }
+	public function setScan4File(File $image = null) { $this->scan4File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan4File() { return $this->scan4File; }
+	public function setScan4($scan) { $this->scan4 = $scan; }
+	public function getScan4() { return $this->scan4; }
+	public function setScan5File(File $image = null) { $this->scan5File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan5File() { return $this->scan5File; }
+	public function setScan5($scan) { $this->scan5 = $scan; }
+	public function getScan5() { return $this->scan5; }
+	public function setScan6File(File $image = null) { $this->scan6File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan6File() { return $this->scan6File; }
+	public function setScan6($scan) { $this->scan6 = $scan; }
+	public function getScan6() { return $this->scan6; }
+	public function setScan7File(File $image = null) { $this->scan7File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan7File() { return $this->scan7File; }
+	public function setScan7($scan) { $this->scan7 = $scan; }
+	public function getScan7() { return $this->scan7; }
+	public function setScan8File(File $image = null) { $this->scan8File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan8File() { return $this->scan8File; }
+	public function setScan8($scan) { $this->scan8 = $scan; }
+	public function getScan8() { return $this->scan8; }
+	public function setScan9File(File $image = null) { $this->scan9File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan9File() { return $this->scan9File; }
+	public function setScan9($scan) { $this->scan9 = $scan; }
+	public function getScan9() { return $this->scan9; }
+	public function setScan10File(File $image = null) { $this->scan10File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan10File() { return $this->scan10File; }
+	public function setScan10($scan) { $this->scan10 = $scan; }
+	public function getScan10() { return $this->scan10; }
+
+	protected function setUpdatedAtOnImage($image) {
+		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+			$this->setUpdatedAt(new \DateTime());
+		}
 	}
 
 	public function getChitankaId() {

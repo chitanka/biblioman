@@ -1,5 +1,6 @@
 <?php
 return [
+	'Books' => 'Книги',
 	'author' => 'Автор',
 	'title' => 'Заглавие',
 	'subtitle' => 'Подзаглавие',
@@ -61,4 +62,5 @@ return [
 	'coverFile' => 'Корица',
 	'backCoverFile' => 'Задна корица',
 	'source' => 'Източник',
+	'scanFile' => 'Сканирана страница',
 ];

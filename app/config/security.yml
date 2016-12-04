@@ -9,7 +9,12 @@ security:
                     admin:
                         password: gogo
                         roles: 'ROLE_ADMIN'
-
+                    cromberg:
+                        password: crombergq
+                        roles: 'ROLE_ADMIN'
+                    dao:
+                        password: kazachok
+                        roles: 'ROLE_ADMIN'
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
 

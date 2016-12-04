@@ -1,8 +1,8 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        book_cover:
-            uri_prefix:         /scans
+        scan:
+            uri_prefix:         /thumb
             upload_destination: %kernel.root_dir%/../data/scans
             namer:              vich_uploader.namer_uniqid
 
@@ -11,23 +11,27 @@ easy_admin:
     design:
         theme: 'default'
         color_scheme: light
+        brand_color: 'orange'
         form_theme: '@App/admin_layout.html.twig'
-    assets:
-        css:
-            - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
-            - css/admin.css
-        js:
-            - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
-            - js/admin.js
+        assets:
+            css:
+                - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
+                - css/admin.css
+            js:
+                - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
+                - js/admin.js
     entities:
-        Книги:
+        Book:
             class: App\Entity\Book
+            label: 'Books'
             image_base_path: /thumb
             list:
+                title: 'Books'
                 actions:
-                    - { name: new, label: 'Добавяне на книга', icon: plus }
-                    - { name: edit, icon: pencil, label: '' }
-                    - { name: show, icon: eye, label: '' }
+                    - { name: new, icon: plus, label: 'Добавяне' }
+                    - { name: edit, icon: pencil, label: 'Ред' }
+                    - { name: show, icon: eye, label: 'П' }
+                    - { name: delete, icon: trash, label: 'Изтр' }
                 fields:
                     - { property: id, label: № }
                     - { property: cover, label: К, type: image }
@@ -36,6 +40,26 @@ easy_admin:
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
                     - { property: pubDate, label: Година }
+            show:
+                title: 'Книга (№%%entity_id%%)'
+                fields:
+                    - { property: id, label: № }
+                    - { property: cover, type: image }
+                    - { property: backCover, type: image }
+                    - { property: title, label: Заглавие }
+                    - { property: author, label: Автор }
+                    - { property: publisher, label: Издател }
+                    - { property: pubDate, label: Година }
+                    - { property: scan1, type: image }
+                    - { property: scan2, type: image }
+                    - { property: scan3, type: image }
+                    - { property: scan4, type: image }
+                    - { property: scan5, type: image }
+                    - { property: scan6, type: image }
+                    - { property: scan7, type: image }
+                    - { property: scan8, type: image }
+                    - { property: scan9, type: image }
+                    - { property: scan10, type: image }
             new:
                 title: 'Добавяне на нова книга'
                 action_label: 'Нова книга'
@@ -100,8 +124,18 @@ easy_admin:
                     - { property: marketingSnippets, label: marketingSnippets, help: 'Обикновено на задната корица' }
                     - { property: toc, label: toc }
                     - { property: notes, label: notes }
-                    - { property: notesAboutOriginal, label: notesAboutOriginal, от което е направен преводът'  }
-                    - { property: coverFile, label: coverFile, type: file }
-                    - { property: backCoverFile, label: backCoverFile, type: file }
+                    - { property: notesAboutOriginal, label: notesAboutOriginal  }
+                    - { property: coverFile, label: coverFile, type: vich_image, template: 'file_with_image.html.twig' }
+                    - { property: backCoverFile, label: backCoverFile, type: vich_image }
+                    - { property: scan1File, label: scanFile, type: vich_image }
+                    - { property: scan2File, label: scanFile, type: vich_image }
+                    - { property: scan3File, label: scanFile, type: vich_image }
+                    - { property: scan4File, label: scanFile, type: vich_image }
+                    - { property: scan5File, label: scanFile, type: vich_image }
+                    - { property: scan6File, label: scanFile, type: vich_image }
+                    - { property: scan7File, label: scanFile, type: vich_image }
+                    - { property: scan8File, label: scanFile, type: vich_image }
+                    - { property: scan9File, label: scanFile, type: vich_image }
+                    - { property: scan10File, label: scanFile, type: vich_image }
                     #- { property: source, label: source }
         #Личности: App\Entity\Person
