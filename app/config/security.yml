@@ -1,20 +1,6 @@
 security:
     providers:
-        in_memory:
-            memory:
-                users:
-                    vog:
-                        password: vog
-                        roles: 'ROLE_ADMIN'
-                    admin:
-                        password: gogo
-                        roles: 'ROLE_ADMIN'
-                    cromberg:
-                        password: crombergq
-                        roles: 'ROLE_ADMIN'
-                    dao:
-                        password: kazachok
-                        roles: 'ROLE_ADMIN'
+        in_memory: ~
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
 

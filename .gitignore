@@ -1,4 +1,5 @@
 /app/config/parameters.yml
+/app/config/users.yml
 /bin/*
 !bin/console
 !bin/cc
