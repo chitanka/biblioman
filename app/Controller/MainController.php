@@ -10,7 +10,7 @@ class MainController extends Controller {
 	public function indexAction() {
 		$recentBooks = $this->getDoctrine()->getManager()
 			->getRepository('App:Book')
-			->findRecent(15);
+			->findRecent(30);
 		$fields = [
 			'author',
 			'title',
@@ -32,6 +32,7 @@ class MainController extends Controller {
 			'format',
 			'isbn10',
 			'isbn13',
+			'createdBy',
 		];
 		return $this->render('Main/index.html.twig', [
 			'recentBooks' => $recentBooks,

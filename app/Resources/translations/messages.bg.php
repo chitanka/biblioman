@@ -63,4 +63,5 @@ return [
 	'backCoverFile' => 'Задна корица',
 	'source' => 'Източник',
 	'scanFile' => 'Сканирана страница',
+	'createdBy' => 'Въведена от',
 ];
