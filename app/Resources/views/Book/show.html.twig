@@ -30,10 +30,17 @@
 	</div>
 
 	<h2>Сканирани страници</h2>
-	{% for i in range(1, 10) %}
-		{% set scan = attribute(book, "scan"~i) %}
-		{% if scan is not empty %}
-			<img src="/thumb/{{ scan|replace({'.jpg': '.300.jpg'}) }}" width="300" data-featherlight="/thumb/{{ scan|replace({'.jpg': '.800.jpg'}) }}">
-		{% endif %}
-	{% endfor %}
+	<div class="row">
+		{% for i in range(1, 10) %}
+			{% set scan = attribute(book, "scan"~i) %}
+			{% if scan is not empty %}
+				<div class="col-xs-6 col-md-3">
+					<a href="/thumb/{{ scan|replace({'.jpg': '.max.jpg'}) }}" class="thumbnail">
+						<img src="/thumb/{{ scan|replace({'.jpg': '.300.jpg'}) }}" width="300" style="max-height: 370px" data-featherlight="/thumb/{{ scan|replace({'.jpg': '.800.jpg'}) }}">
+					</a>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+
 {% endblock %}
