@@ -1,11 +1,13 @@
 <div class="media well" itemscope itemtype="http://schema.org/Book">
 	<div class="media-left">
 		<div class="thumbnail" style="width: 210px">
-			<img src="/thumb/{{ book.cover|replace({'.jpg': '.200.jpg'}) }}" width="200" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.600.jpg'}) }}">
+			<img src="/thumb/{{ book.cover|replace({'.jpg': '.200.jpg'}) }}" width="200" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}">
 		</div>
 	</div>
 	<div class="media-body">
 		<dl class="dl-horizontal">
+			<dt>Номер</dt>
+			<dd><a href="{{ path('books_show', { id: book.id }) }}">{{ book.id }}</a></dd>
 			{% for field in fields %}
 				{% if attribute(book, field) is not empty %}
 					<dt>{{ field|trans }}</dt>
