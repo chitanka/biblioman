@@ -18,6 +18,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 			new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 			new \JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
 			new \Vich\UploaderBundle\VichUploaderBundle(),
+			new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 			new App(),
 		);
 

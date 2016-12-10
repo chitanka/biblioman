@@ -1,10 +1,22 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}{{ book.title }}{% endblock %}
+{% set title %}
+<i>{{ book.title }}</i>
+{% if book.author is not empty %}
+	от {{ book.author }}
+{% endif %}
+{% endset %}
+
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 
-	<h1><i>{{ book.title }}</i></h1>
+	<h1>{{ title }}</h1>
+
+	<ol class="breadcrumb">
+		<li><a href="{{ path('books') }}">Книги</a></li>
+		<li class="active">№ {{ book.id }}</li>
+	</ol>
 
 	<div class="media well" itemscope itemtype="http://schema.org/Book">
 		<div class="media-left">

@@ -7,7 +7,7 @@ vich_uploader:
             namer:              vich_uploader.namer_uniqid
 
 easy_admin:
-    site_name: 'Библиоман'
+    site_name: '%sitename%'
     design:
         theme: 'default'
         color_scheme: light

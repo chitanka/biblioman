@@ -5,7 +5,8 @@
 			<meta charset="utf-8">
 			<meta name="description" content="{% block description '' %}">
 			<meta name="viewport" content="initial-scale=1.0, width=device-width">
-			<title>{% block title %}Библиоман{% endblock %}</title>
+			{% set _title = block('title') %}
+			<title>{{ _title is empty ? sitename : _title|striptags ~ ' — ' ~ sitename }}</title>
 			<link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 			<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 			{% block stylesheets %}

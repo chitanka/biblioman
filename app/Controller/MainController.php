@@ -10,7 +10,7 @@ class MainController extends Controller {
 	public function indexAction() {
 		$recentBooks = $this->getDoctrine()->getManager()
 			->getRepository('App:Book')
-			->findRecent(30);
+			->findRecent(10);
 		$fields = [
 			'author',
 			'title',
