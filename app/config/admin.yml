@@ -25,6 +25,7 @@ easy_admin:
             class: App\Entity\Book
             label: 'Books'
             image_base_path: /thumb
+            disabled_actions: ['delete']
             list:
                 title: 'Books'
                 actions:
