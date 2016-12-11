@@ -19,13 +19,13 @@
 	</ol>
 
 	<div class="media well" itemscope itemtype="http://schema.org/Book">
-		<div class="media-left">
-			<div class="thumbnail" style="width: 310px">
-				<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}">
-			</div>
-			<div class="thumbnail" style="width: 310px">
-				<img src="/thumb/{{ book.backCover|replace({'.jpg': '.300.jpg'}) }}" width="300" data-featherlight="/thumb/{{ book.backCover|replace({'.jpg': '.800.jpg'}) }}">
-			</div>
+		<div class="media-left" data-featherlight-gallery data-featherlight-filter="a">
+			<a href="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
+				<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300">
+			</a>
+			<a href="/thumb/{{ book.backCover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
+				<img src="/thumb/{{ book.backCover|replace({'.jpg': '.300.jpg'}) }}" width="300">
+			</a>
 		</div>
 		<div class="media-body">
 			<dl class="dl-horizontal">
@@ -41,18 +41,20 @@
 		</div>
 	</div>
 
+	<section data-featherlight-gallery data-featherlight-filter="a">
 	<h2>Сканирани страници</h2>
 	<div class="row">
 		{% for i in range(1, 10) %}
 			{% set scan = attribute(book, "scan"~i) %}
 			{% if scan is not empty %}
 				<div class="col-xs-6 col-md-3">
-					<a href="/thumb/{{ scan|replace({'.jpg': '.max.jpg'}) }}" class="thumbnail">
-						<img src="/thumb/{{ scan|replace({'.jpg': '.300.jpg'}) }}" width="300" style="max-height: 370px" data-featherlight="/thumb/{{ scan|replace({'.jpg': '.800.jpg'}) }}">
+					<a href="/thumb/{{ scan|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail">
+						<img src="/thumb/{{ scan|replace({'.jpg': '.300.jpg'}) }}" width="300" style="max-height: 370px">
 					</a>
 				</div>
 			{% endif %}
 		{% endfor %}
 	</div>
+	</section>
 
 {% endblock %}
