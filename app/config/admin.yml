@@ -61,6 +61,8 @@ easy_admin:
                     - { property: scan8, type: image }
                     - { property: scan9, type: image }
                     - { property: scan10, type: image }
+                    - { property: scan11, type: image }
+                    - { property: scan12, type: image }
             new:
                 title: 'Добавяне на нова книга'
                 action_label: 'Нова книга'
@@ -138,5 +140,7 @@ easy_admin:
                     - { property: scan8File, label: scanFile, type: vich_image }
                     - { property: scan9File, label: scanFile, type: vich_image }
                     - { property: scan10File, label: scanFile, type: vich_image }
+                    - { property: scan11File, label: scanFile, type: vich_image }
+                    - { property: scan12File, label: scanFile, type: vich_image }
                     #- { property: source, label: source }
         #Личности: App\Entity\Person

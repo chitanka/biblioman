@@ -410,6 +410,14 @@ class Book {
 	private $scan10;
 	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan10") @var File */
 	private $scan10File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan11;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan11") @var File */
+	private $scan11File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan12;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan12") @var File */
+	private $scan12File;
 
 	/**
 	 * @ORM\Column(type="integer", nullable=true)
@@ -1098,6 +1106,14 @@ class Book {
 	public function getScan10File() { return $this->scan10File; }
 	public function setScan10($scan) { $this->scan10 = $scan; }
 	public function getScan10() { return $this->scan10; }
+	public function setScan11File(File $image = null) { $this->scan11File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan11File() { return $this->scan11File; }
+	public function setScan11($scan) { $this->scan11 = $scan; }
+	public function getScan11() { return $this->scan11; }
+	public function setScan12File(File $image = null) { $this->scan12File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan12File() { return $this->scan12File; }
+	public function setScan12($scan) { $this->scan12 = $scan; }
+	public function getScan12() { return $this->scan12; }
 
 	protected function setUpdatedAtOnImage($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
