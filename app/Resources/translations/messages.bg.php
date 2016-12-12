@@ -27,6 +27,7 @@ return [
 	'publisher' => 'Издател',
 	'pubCity' => 'Град на издателя',
 	'pubDate' => 'Година на издаване',
+	'publisherAddress' => 'Адрес на издателя',
 	'print' => 'Печатница',
 	'contentType' => 'Тип',
 	'nationality' => 'Националност',

@@ -96,6 +96,7 @@ easy_admin:
                     - { property: publisher, label: publisher }
                     - { property: pubCity, label: pubCity }
                     - { property: pubDate, label: pubDate }
+                    - { property: publisherAddress, label: publisherAddress }
                     - { property: print, label: print }
                     - { property: contentType, label: contentType, help: 'роман / сборник разкази / сборник / стихосбирка' }
                     - { property: nationality, label: nationality }

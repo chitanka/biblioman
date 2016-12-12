@@ -172,6 +172,11 @@ class Book {
 	private $pubDate;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $publisherAddress;
+
+	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $nationality;
@@ -546,6 +551,14 @@ class Book {
 
 	public function getPubDate() {
 		return $this->pubDate;
+	}
+
+	public function getPublisherAddress() {
+		return $this->publisherAddress;
+	}
+
+	public function setPublisherAddress($publisherAddress) {
+		$this->publisherAddress = $publisherAddress;
 	}
 
 	public function getNationality() {

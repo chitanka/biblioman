@@ -90,6 +90,7 @@ class BookController extends Controller {
 			'publisher',
 			'pubCity',
 			'pubDate',
+			'publisherAddress',
 			'print',
 			'contentType',
 			'nationality',
