@@ -172,7 +172,7 @@ class Book {
 	private $pubDate;
 
 	/**
-	 * @ORM\Column(type="text", nullable=true)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $publisherAddress;
 
