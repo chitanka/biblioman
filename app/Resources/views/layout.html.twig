@@ -20,6 +20,9 @@
 	<body class="{% spaceless %}{% block body_class '' %}{% endspaceless %}">
 		{% block body %}
 			<div class="container">
+				{% block search_form %}
+					{% include 'search_form.html.twig' %}
+				{% endblock %}
 				{% block content '' %}
 			</div>
 		{% endblock %}

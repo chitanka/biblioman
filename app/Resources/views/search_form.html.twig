@@ -1,0 +1,11 @@
+<form role="form" class="book-search-form" method="get" action="{{ path('books') }}">
+	<div class="form-group">
+		<label class="sr-only" for="q">Заглавие, автор, …</label>
+		<div class="input-group">
+			<input placeholder="заглавие, автор…" value="" tabindex="1" class="form-control input-lg" name="q" id="q" autofocus="" type="search">
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default btn-lg"><span class="fa fa-search"></span><span class="sr-only">Търсене</span></button>
+			</span>
+		</div>
+	</div>
+</form>

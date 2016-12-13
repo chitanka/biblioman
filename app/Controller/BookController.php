@@ -16,9 +16,21 @@ class BookController extends Controller {
 	public function indexAction(Request $request) {
 		$page = $request->query->get('page', 1);
 		$maxResults = 15;
+		/* @var $queryBuilder \Doctrine\ORM\QueryBuilder */
 		$queryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder()
 			->select('b')
 			->from('App:Book', 'b');
+		if ($searchQuery = $request->query->get('q')) {
+			$queryBuilder
+				->where('b.title LIKE ?1')
+				->where('b.subtitle LIKE ?1')
+				->orWhere('b.author LIKE ?1')
+				->orWhere('b.translator LIKE ?1')
+				->orWhere('b.compiler LIKE ?1')
+				->orWhere('b.editor LIKE ?1')
+				->orWhere('b.publisher LIKE ?1')
+				->setParameter('1', "%$searchQuery%");
+		}
 		$adapter = new DoctrineORMAdapter($queryBuilder);
 		$pager = new Pagerfanta($adapter);
 		$pager->setMaxPerPage($maxResults);
@@ -49,6 +61,7 @@ class BookController extends Controller {
 		return $this->render('Book/index.html.twig', [
 			'pager' => $pager,
 			'fields' => $fields,
+			'q' => $searchQuery,
 		]);
 	}
 
