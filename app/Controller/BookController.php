@@ -23,7 +23,7 @@ class BookController extends Controller {
 		if ($searchQuery = $request->query->get('q')) {
 			$queryBuilder
 				->where('b.title LIKE ?1')
-				->where('b.subtitle LIKE ?1')
+				->orWhere('b.subtitle LIKE ?1')
 				->orWhere('b.author LIKE ?1')
 				->orWhere('b.translator LIKE ?1')
 				->orWhere('b.compiler LIKE ?1')
