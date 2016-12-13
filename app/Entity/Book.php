@@ -308,10 +308,10 @@ class Book {
 	private $notesAboutOriginal;
 
 	/**
-	 * cover, back cover, info pages
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * Number of uploaded scans for the book
+	 * @ORM\Column(type="smallint")
 	 */
-	private $scans;
+	private $nbScans;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
@@ -605,8 +605,8 @@ class Book {
 		return $this->notes;
 	}
 
-	public function getScans() {
-		return $this->scans;
+	public function getNbScans() {
+		return $this->nbScans;
 	}
 
 	public function getVerified() {
@@ -855,8 +855,8 @@ class Book {
 		return $this;
 	}
 
-	public function setScans($scans) {
-		$this->scans = $scans;
+	public function setNbScans($nbScans) {
+		$this->nbScans = $nbScans;
 		return $this;
 	}
 
@@ -1081,51 +1081,51 @@ class Book {
 
 	public function setScan1File(File $image = null) { $this->scan1File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan1File() { return $this->scan1File; }
-	public function setScan1($scan) { $this->scan1 = $scan; }
+	public function setScan1($scan) { $this->scan1 = $scan; $this->incNbScans(); }
 	public function getScan1() { return $this->scan1; }
 	public function setScan2File(File $image = null) { $this->scan2File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan2File() { return $this->scan2File; }
-	public function setScan2($scan) { $this->scan2 = $scan; }
+	public function setScan2($scan) { $this->scan2 = $scan; $this->incNbScans(); }
 	public function getScan2() { return $this->scan2; }
 	public function setScan3File(File $image = null) { $this->scan3File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan3File() { return $this->scan3File; }
-	public function setScan3($scan) { $this->scan3 = $scan; }
+	public function setScan3($scan) { $this->scan3 = $scan; $this->incNbScans(); }
 	public function getScan3() { return $this->scan3; }
 	public function setScan4File(File $image = null) { $this->scan4File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan4File() { return $this->scan4File; }
-	public function setScan4($scan) { $this->scan4 = $scan; }
+	public function setScan4($scan) { $this->scan4 = $scan; $this->incNbScans(); }
 	public function getScan4() { return $this->scan4; }
 	public function setScan5File(File $image = null) { $this->scan5File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan5File() { return $this->scan5File; }
-	public function setScan5($scan) { $this->scan5 = $scan; }
+	public function setScan5($scan) { $this->scan5 = $scan; $this->incNbScans(); }
 	public function getScan5() { return $this->scan5; }
 	public function setScan6File(File $image = null) { $this->scan6File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan6File() { return $this->scan6File; }
-	public function setScan6($scan) { $this->scan6 = $scan; }
+	public function setScan6($scan) { $this->scan6 = $scan; $this->incNbScans(); }
 	public function getScan6() { return $this->scan6; }
 	public function setScan7File(File $image = null) { $this->scan7File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan7File() { return $this->scan7File; }
-	public function setScan7($scan) { $this->scan7 = $scan; }
+	public function setScan7($scan) { $this->scan7 = $scan; $this->incNbScans(); }
 	public function getScan7() { return $this->scan7; }
 	public function setScan8File(File $image = null) { $this->scan8File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan8File() { return $this->scan8File; }
-	public function setScan8($scan) { $this->scan8 = $scan; }
+	public function setScan8($scan) { $this->scan8 = $scan; $this->incNbScans(); }
 	public function getScan8() { return $this->scan8; }
 	public function setScan9File(File $image = null) { $this->scan9File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan9File() { return $this->scan9File; }
-	public function setScan9($scan) { $this->scan9 = $scan; }
+	public function setScan9($scan) { $this->scan9 = $scan; $this->incNbScans(); }
 	public function getScan9() { return $this->scan9; }
 	public function setScan10File(File $image = null) { $this->scan10File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan10File() { return $this->scan10File; }
-	public function setScan10($scan) { $this->scan10 = $scan; }
+	public function setScan10($scan) { $this->scan10 = $scan; $this->incNbScans(); }
 	public function getScan10() { return $this->scan10; }
 	public function setScan11File(File $image = null) { $this->scan11File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan11File() { return $this->scan11File; }
-	public function setScan11($scan) { $this->scan11 = $scan; }
+	public function setScan11($scan) { $this->scan11 = $scan; $this->incNbScans(); }
 	public function getScan11() { return $this->scan11; }
 	public function setScan12File(File $image = null) { $this->scan12File = $image; $this->setUpdatedAtOnImage($image); }
 	public function getScan12File() { return $this->scan12File; }
-	public function setScan12($scan) { $this->scan12 = $scan; }
+	public function setScan12($scan) { $this->scan12 = $scan; $this->incNbScans(); }
 	public function getScan12() { return $this->scan12; }
 
 	protected function setUpdatedAtOnImage($image) {
@@ -1215,10 +1215,26 @@ class Book {
 	/** @ORM\PrePersist */
 	public function onPreInsert() {
 		$this->setCreatedAt(new \DateTime);
+		$this->updateNbScans();
 	}
 
 	/** @ORM\PreUpdate */
 	public function onPreUpdate() {
 		$this->setUpdatedAt(new \DateTime);
+		$this->updateNbScans();
+	}
+
+	protected function updateNbScans() {
+		$nbScans = 0;
+		foreach (range(1, 12) as $i) {
+			if ($this->{"scan$i"} !== null) {
+				$nbScans++;
+			}
+		}
+		$this->setNbScans($nbScans);
+	}
+
+	protected function incNbScans() {
+		$this->setNbScans($this->getNbScans() + 1);
 	}
 }
