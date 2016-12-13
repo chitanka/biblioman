@@ -6,14 +6,17 @@
 	</div>
 	<div class="media-body">
 		<dl class="dl-horizontal">
-			<dt>Номер</dt>
-			<dd><a href="{{ path('books_show', { id: book.id }) }}">{{ book.id }}</a></dd>
 			{% for field in fields %}
 				{% if attribute(book, field) is not empty %}
 					<dt>{{ field|trans }}</dt>
 					<dd>{{ attribute(book, field) }}</dd>
 				{% endif %}
 			{% endfor %}
+			<dt>...</dt>
+			<dd>
+				<a href="{{ path('books_show', { id: book.id }) }}" title="Пълен преглед на записа" class="btn btn-default"><span class="fa fa-book"></span></a>
+				<a href="{{ path('easyadmin') }}?action=edit&entity=Book&id={{ book.id }}" title="Редактиране на записа" class="btn btn-default"><span class="fa fa-pencil"></span></a>
+			</dd>
 		</dl>
 	</div>
 </div>

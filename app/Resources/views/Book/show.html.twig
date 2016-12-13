@@ -29,8 +29,6 @@
 		</div>
 		<div class="media-body">
 			<dl class="dl-horizontal">
-				<dt>Номер</dt>
-				<dd>{{ book.id }}</dd>
 				{% for field in fields %}
 					{% if attribute(book, field) is not empty %}
 						<dt>{{ field|trans }}</dt>
