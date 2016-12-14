@@ -32,7 +32,13 @@
 				{% for field in fields %}
 					{% if attribute(book, field) is not empty %}
 						<dt>{{ field|trans }}</dt>
-						<dd>{{ attribute(book, field)|nl2br }}</dd>
+						<dd>
+							{% if attribute(book, field).timestamp is defined %}
+								{{ attribute(book, field)|date('d.m.Y H:s') }}
+							{% else %}
+								{{ attribute(book, field)|nl2br }}
+							{% endif %}
+						</dd>
 					{% endif %}
 				{% endfor %}
 			</dl>
