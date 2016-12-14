@@ -18,7 +18,9 @@ $('#book_title').on('change', function() {
 			}
 		});
 		if (duplicates.length) {
-			var $info = $('<div class="help-block">В базата вече е записана книга с това заглавие:<ul>'+duplicates.join('')+'</ul></div>').insertAfter($input);
+			var $info = $('<div class="help-block duplicates">В базата вече е записана книга с това заглавие:<ul>'+duplicates.join('')+'</ul></div>').insertAfter($input);
+		} else {
+			$input.next('.duplicates').remove();
 		}
 	});
 });
