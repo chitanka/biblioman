@@ -17,10 +17,9 @@ $('#book_title').on('change', function() {
 				duplicates.push('<li><a href="/books/'+book.id+'" target="_blank">от '+book.author+'</a></li>');
 			}
 		});
+		$input.next('.duplicates').remove();
 		if (duplicates.length) {
 			var $info = $('<div class="help-block duplicates">В базата вече е записана книга с това заглавие:<ul>'+duplicates.join('')+'</ul></div>').insertAfter($input);
-		} else {
-			$input.next('.duplicates').remove();
 		}
 	});
 });
