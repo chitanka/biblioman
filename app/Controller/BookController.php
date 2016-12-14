@@ -38,7 +38,7 @@ class BookController extends Controller {
 		return $this->render('Book/index.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'q' => $searchQuery,
+			'query' => $searchQuery,
 		]);
 	}
 

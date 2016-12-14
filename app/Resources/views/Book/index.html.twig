@@ -20,3 +20,13 @@
 	{% endif %}
 
 {% endblock %}
+
+{% block custom_javascript %}
+	<script>
+		{% if query is not empty %}
+		$(function() {
+			$(".book").highlight("{{ query }}");
+		});
+		{% endif %}
+	</script>
+{% endblock %}

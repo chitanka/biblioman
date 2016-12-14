@@ -14,6 +14,7 @@
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/font-awesome.min.css') }}">
 				<link href="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.min.css" type="text/css" rel="stylesheet">
 				<link href="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.gallery.min.css" type="text/css" rel="stylesheet">
+				<link href="{{ asset('css/biblioman.css') }}" rel="stylesheet">
 			{% endblock %}
 		{% endblock headers %}
 	</head>
@@ -29,8 +30,10 @@
 		{% block javascripts %}
 			<script src="{{ asset('bundles/easyadmin/javascript/jquery.min.js') }}"></script>
 			<script src="{{ asset('bundles/easyadmin/javascript/bootstrap.min.js') }}"></script>
+			<script src="{{ asset('bundles/easyadmin/javascript/jquery.highlight.min.js') }}"></script>
 			<script src="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
 		{% endblock %}
+		{% block custom_javascript '' %}
 	</body>
 </html>
