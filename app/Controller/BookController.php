@@ -42,7 +42,18 @@ class BookController extends Controller {
 		]);
 	}
 
-		/**
+	/**
+	 * @Route("/search", name="books_search")
+	 * TODO search by author
+	 */
+	public function searchTitleAction(Request $request) {
+		$books = $this->getDoctrine()->getManager()
+			->getRepository('App:Book')
+			->findBy(['title' => $request->query->get('title')]);
+		return $this->json($books);
+	}
+
+	/**
 	 * @Route("/{id}", name="books_show")
 	 */
 	public function showAction($id) {

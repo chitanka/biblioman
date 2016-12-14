@@ -11,7 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="App\Entity\BookRepository")
  * @Vich\Uploadable
  */
-class Book {
+class Book implements \JsonSerializable {
 
 	/**
 	 * @ORM\Column(type="integer")
@@ -1236,5 +1236,18 @@ class Book {
 
 	protected function incNbScans() {
 		$this->setNbScans($this->getNbScans() + 1);
+	}
+
+	/**
+	 * Specify data which should be serialized to JSON
+	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+	 * @return array
+	 */
+	public function jsonSerialize() {
+		return [
+			'id' => $this->getId(),
+			'title' => $this->getTitle(),
+			'author' => $this->getAuthor(),
+		];
 	}
 }
