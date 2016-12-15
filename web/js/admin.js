@@ -9,17 +9,15 @@ $('img').each(function() {
 $('#book_title').on('change', function() {
 	var $input = $(this);
 	var $form = $input.closest('form');
-	var id = $form.data('entity-id');
-	$.get('/books/search', { title: $input.val(), author: $form.find('#book_author').val() }, function(foundBooks) {
-		var duplicates = [];
-		$.each(foundBooks, function(i, book) {
-			if (book.id != id) {
-				duplicates.push('<li><a href="/books/'+book.id+'" target="_blank">от '+book.author+'</a></li>');
-			}
-		});
+	var params = {
+		title: $input.val(),
+		author: $form.find('#book_author').val(),
+		id: $form.data('entity-id')
+	};
+	$.get('/books/search-duplicates', params, function(foundBooks) {
 		$input.next('.duplicates').remove();
-		if (duplicates.length) {
-			var $info = $('<div class="help-block duplicates">В базата вече е записана книга с това заглавие:<ul>'+duplicates.join('')+'</ul></div>').insertAfter($input);
+		if ($.trim(foundBooks) !== '') {
+			$('<div class="help-block duplicates">'+foundBooks+'</div>').insertAfter($input);
 		}
 	});
 });

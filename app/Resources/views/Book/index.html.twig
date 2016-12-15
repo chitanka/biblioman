@@ -6,9 +6,7 @@
 
 	<h1>Книги</h1>
 	{% for book in pager.currentPageResults %}
-		<div>
-			{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
-		</div>
+		{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
 	{% else %}
 		<div class="alert alert-warning" role="alert">Няма намерени книги.</div>
 	{% endfor %}

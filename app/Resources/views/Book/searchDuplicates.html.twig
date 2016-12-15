@@ -1,0 +1,6 @@
+{% if books is not empty %}
+	<p>В базата вече е записана книга с това заглавие:</p>
+{% endif %}
+{% for book in books %}
+	{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
+{% endfor %}

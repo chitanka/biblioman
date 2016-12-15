@@ -43,14 +43,16 @@ class BookController extends Controller {
 	}
 
 	/**
-	 * @Route("/search", name="books_search")
-	 * TODO search by author
+	 * @Route("/search-duplicates", name="books_search_duplicates")
 	 */
-	public function searchTitleAction(Request $request) {
+	public function searchDuplicatesAction(Request $request) {
 		$books = $this->getDoctrine()->getManager()
 			->getRepository('App:Book')
-			->findBy(['title' => $request->query->get('title')]);
-		return $this->json($books);
+			->findDuplicatesByTitle($request->query->get('title'), $request->query->get('id'));
+		return $this->render('Book/searchDuplicates.html.twig', [
+			'books' => $books,
+			'fields' => $this->getParameter('book_fields_short'),
+		]);
 	}
 
 	/**
