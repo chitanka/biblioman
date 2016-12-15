@@ -1,6 +1,11 @@
 body {
+	padding: 20px 10px;
 	font-size: 15px;
 	line-height: 1.6;
+}
+.container .jumbotron {
+	padding-left: 50px;
+	padding-right: 50px;
 }
 .sitename {
 	font-variant: small-caps;
