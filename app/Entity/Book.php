@@ -31,7 +31,7 @@ class Book implements \JsonSerializable {
 	private $subtitle;
 
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
 	private $author;
 
@@ -66,7 +66,7 @@ class Book implements \JsonSerializable {
 	private $editor;
 
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
 	private $editorialStaff;
 
