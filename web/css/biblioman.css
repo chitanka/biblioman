@@ -7,7 +7,7 @@ body {
 	padding-left: 50px;
 	padding-right: 50px;
 }
-.sitename {
+.sitename, .navbar-brand {
 	font-variant: small-caps;
 	font-style: normal;
 	font-weight: 600;
