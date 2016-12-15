@@ -1,3 +1,13 @@
+body {
+	font-size: 15px;
+	line-height: 1.6;
+}
+.sitename {
+	font-variant: small-caps;
+	font-style: normal;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
 .highlight {
 	background: #FF9;
 	border-radius: 2px;
