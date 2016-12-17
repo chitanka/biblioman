@@ -11,7 +11,11 @@ class AdminController extends EasyAdminController {
 	 * @Route("/admin/", name="easyadmin")
 	 */
 	public function indexAction(Request $request) {
-		return parent::indexAction($request);
+		$response = parent::indexAction($request);
+		if (isset($this->entity['role'])) {
+			$this->denyAccessUnlessGranted($this->entity['role']);
+		}
+		return $response;
 	}
 
 	protected function prePersistBookEntity(Book $book) {

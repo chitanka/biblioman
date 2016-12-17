@@ -22,23 +22,7 @@
 		{% block body %}
 			<div class="container">
 				{% block navbar %}
-					<nav class="navbar navbar-default">
-						<div class="container-fluid">
-							<div class="navbar-header">
-								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-									<span class="sr-only">Включване/изключване на навигацията</span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-								</button>
-								<a class="navbar-brand" href="{{ path('homepage') }}">{{ sitename }}</a>
-							</div>
-
-							<div class="collapse navbar-collapse" id="navbar">
-								{% include 'search_form.html.twig' with { 'class': 'navbar-form navbar-right' } %}
-							</div><!-- /.navbar-collapse -->
-						</div><!-- /.container-fluid -->
-					</nav>
+					{% include 'navbar.html.twig' %}
 				{% endblock %}
 				{% block content '' %}
 			</div>

@@ -13,6 +13,10 @@ body {
 	font-weight: 600;
 	letter-spacing: 1px;
 }
+.navbar-text {
+	margin-bottom: 13px;
+	margin-top: 13px;
+}
 .highlight {
 	background: #FF9;
 	border-radius: 2px;

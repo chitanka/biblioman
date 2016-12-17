@@ -9,6 +9,7 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
     sitename: Библиоман
+    single_login_provider: ~
 
     book_fields_short:
         - author

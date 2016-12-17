@@ -5,10 +5,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
  * @ORM\Table
  * @ORM\Entity(repositoryClass="App\Entity\BookRepository")
+ * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
  */
 class Book implements \JsonSerializable {

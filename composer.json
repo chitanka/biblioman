@@ -23,9 +23,7 @@
 		"fortawesome/font-awesome": "v4.3.0",
 		"javiereguiluz/easyadmin-bundle": "dev-master",
 		"vich/uploader-bundle": "1.3.1",
-		"white-october/pagerfanta-bundle": ">=1.0",
-		"oneup/uploader-bundle": "1.7.2"
-
+		"white-october/pagerfanta-bundle": ">=1.0"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",

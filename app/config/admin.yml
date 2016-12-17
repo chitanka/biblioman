@@ -13,6 +13,7 @@ easy_admin:
         color_scheme: light
         brand_color: 'orange'
         form_theme: '@App/admin_layout.html.twig'
+        menu: ['Book']
         assets:
             css:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
@@ -23,6 +24,7 @@ easy_admin:
     entities:
         Book:
             class: App\Entity\Book
+            role: ROLE_EDITOR
             label: 'Books'
             image_base_path: /thumb
             disabled_actions: ['delete']
@@ -145,3 +147,11 @@ easy_admin:
                     - { property: scan12File, label: scanFile, type: vich_image }
                     #- { property: source, label: source }
         #Личности: App\Entity\Person
+        User:
+            class: App\Entity\User
+            role: ROLE_ADMIN
+            form:
+                fields:
+                    - username
+                    - email
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
