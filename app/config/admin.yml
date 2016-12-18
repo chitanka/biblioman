@@ -150,8 +150,17 @@ easy_admin:
         User:
             class: App\Entity\User
             role: ROLE_ADMIN
+            disabled_actions: [new, delete]
             form:
                 fields:
                     - username
                     - email
-                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+                    -
+                        property: roles
+                        type: choice
+                        type_options:
+                            multiple: true
+                            choices:
+                                ROLE_USER: ROLE_USER
+                                ROLE_EDITOR: ROLE_EDITOR
+                                ROLE_ADMIN: ROLE_ADMIN
