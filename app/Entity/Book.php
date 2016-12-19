@@ -444,7 +444,8 @@ class Book implements \JsonSerializable {
 	private $updatedAt;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\OneToMany(targetEntity="BookRevision", mappedBy="book")
+	 * @ORM\OrderBy({"createdAt" = "ASC"})
 	 */
 	private $revisions;
 
@@ -1237,16 +1238,122 @@ class Book implements \JsonSerializable {
 		$this->setNbScans($this->getNbScans() + 1);
 	}
 
+	/** @return BookRevision */
+	public function createRevision() {
+		$revision = new BookRevision();
+		$revision->setBook($this);
+		$revision->setCreatedAt(new \DateTime());
+		return $revision;
+	}
+
+	public function toArray() {
+		return [
+			'id' => $this->id,
+			'title' => $this->title,
+			'subtitle' => $this->subtitle,
+			'author' => $this->author,
+			'translator' => $this->translator,
+			'translatedFromLanguage' => $this->translatedFromLanguage,
+			'dateOfTranslation' => $this->dateOfTranslation,
+			'compiler' => $this->compiler,
+			'chiefEditor' => $this->chiefEditor,
+			'editor' => $this->editor,
+			'editorialStaff' => $this->editorialStaff,
+			'publisherEditor' => $this->publisherEditor,
+			'artistEditor' => $this->artistEditor,
+			'technicalEditor' => $this->technicalEditor,
+			'consultant' => $this->consultant,
+			'reviewer' => $this->reviewer,
+			'artist' => $this->artist,
+			'corrector' => $this->corrector,
+			'layout' => $this->layout,
+			'coverLayout' => $this->coverLayout,
+			'computerProcessing' => $this->computerProcessing,
+			'prepress' => $this->prepress,
+			'contentType' => $this->contentType,
+			'publisher' => $this->publisher,
+			'classifications' => $this->classifications,
+			'sequence' => $this->sequence,
+			'sequenceNr' => $this->sequenceNr,
+			'infoSources' => $this->infoSources,
+			'works' => $this->works,
+			'pubCity' => $this->pubCity,
+			'pubDate' => $this->pubDate,
+			'publisherAddress' => $this->publisherAddress,
+			'nationality' => $this->nationality,
+			'edition' => $this->edition,
+			'litGroup' => $this->litGroup,
+			'print' => $this->print,
+			'typeSettingIn' => $this->typeSettingIn,
+			'printSigned' => $this->printSigned,
+			'printOut' => $this->printOut,
+			'printerSheets' => $this->printerSheets,
+			'publisherSheets' => $this->publisherSheets,
+			'provisionPublisherSheets' => $this->provisionPublisherSheets,
+			'format' => $this->format,
+			'publisherCode' => $this->publisherCode,
+			'publisherOrder' => $this->publisherOrder,
+			'publisherNumber' => $this->publisherNumber,
+			'trackingCode' => $this->trackingCode,
+			'uniformProductClassification' => $this->uniformProductClassification,
+			'totalPrint' => $this->totalPrint,
+			'pageCount' => $this->pageCount,
+			'price' => $this->price,
+			'binding' => $this->binding,
+			'language' => $this->language,
+			'illustrated' => $this->illustrated,
+			'isbn10' => $this->isbn10,
+			'isbn13' => $this->isbn13,
+			'notes' => $this->notes,
+			'notesAboutOriginal' => $this->notesAboutOriginal,
+			'nbScans' => $this->nbScans,
+			'source' => $this->source,
+			'verified' => $this->verified,
+			'annotation' => $this->annotation,
+			'marketingSnippets' => $this->marketingSnippets,
+			'toc' => $this->toc,
+			'themes' => $this->themes,
+			'genre' => $this->genre,
+			'category' => $this->category,
+			'cover' => $this->cover,
+			'backCover' => $this->backCover,
+			'scan1' => $this->scan1,
+			'scan2' => $this->scan2,
+			'scan3' => $this->scan3,
+			'scan4' => $this->scan4,
+			'scan5' => $this->scan5,
+			'scan6' => $this->scan6,
+			'scan7' => $this->scan7,
+			'scan8' => $this->scan8,
+			'scan9' => $this->scan9,
+			'scan10' => $this->scan10,
+			'scan11' => $this->scan11,
+			'scan12' => $this->scan12,
+			'chitankaId' => $this->chitankaId,
+			'createdBy' => $this->createdBy,
+			'createdAt' => $this->createdAt,
+			'updatedAt' => $this->updatedAt,
+		];
+	}
+
 	/**
 	 * Specify data which should be serialized to JSON
 	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
 	 * @return array
 	 */
 	public function jsonSerialize() {
-		return [
-			'id' => $this->getId(),
-			'title' => $this->getTitle(),
-			'author' => $this->getAuthor(),
-		];
+		return $this->toArray();
+	}
+
+	public function getDifferences(Book $book) {
+		$ourFields = $this->toArray();
+		$otherFields = $book->toArray();
+		$diffs = [];
+		foreach ($ourFields as $field => $ourValue) {
+			if ($ourValue !== $otherFields[$field]) {
+				$diffs[$field] = [$ourValue, $otherFields[$field]];
+			}
+		}
+		return $diffs;
 	}
 }
