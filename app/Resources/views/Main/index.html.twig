@@ -8,6 +8,9 @@
 	<div class="alert alert-info">
 		<p>Търсят се помощници, които да участват с въвеждане на информация или със сканиране на корици.</p>
 		<p>Включете се с описване на личната си библиотека и помогнете за обогатяването на <i class="sitename">{{ sitename }}</i>.</p>
+		{% if is_granted('ROLE_EDITOR') %}
+			<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> Добавяне на нова книга</a></p>
+		{% endif %}
 	</div>
 	<h1>Последни книги</h1>
 	{% for book in recentBooks %}
