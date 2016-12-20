@@ -20,6 +20,8 @@
 								<li><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}"><span class="fa fa-plus"></span> Нова книга</a></li>
 								<li role="separator" class="divider"></li>
 							{% endif %}
+							<li><a href="{{ path('books_incomplete') }}"><span class="fa fa-battery-half"></span> Непълни записи</a></li>
+							<li role="separator" class="divider"></li>
 							<li><a href="{{ path('docs_books') }}"><span class="fa fa-file-text-o"></span> Как се въвеждат данните</a></li>
 						</ul>
 					</li>

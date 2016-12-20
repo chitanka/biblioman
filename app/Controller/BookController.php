@@ -43,6 +43,28 @@ class BookController extends Controller {
 	}
 
 	/**
+	 * @Route("/incomplete", name="books_incomplete")
+	 */
+	public function listIncompleteAction(Request $request) {
+		$page = $request->query->get('page', 1);
+		$maxResults = 15;
+		/* @var $queryBuilder \Doctrine\ORM\QueryBuilder */
+		$queryBuilder = $this->getDoctrine()->getManager()->createQueryBuilder()
+			->select('b')
+			->from('App:Book', 'b')
+			->where('b.isIncomplete = 1')
+			->orWhere('b.nbScans = 0');
+		$adapter = new DoctrineORMAdapter($queryBuilder);
+		$pager = new Pagerfanta($adapter);
+		$pager->setMaxPerPage($maxResults);
+		$pager->setCurrentPage($page);
+		return $this->render('Book/listIncomplete.html.twig', [
+			'pager' => $pager,
+			'fields' => $this->getParameter('book_fields_short'),
+		]);
+	}
+
+	/**
 	 * @Route("/search-duplicates", name="books_search_duplicates")
 	 */
 	public function searchDuplicatesAction(Request $request) {
