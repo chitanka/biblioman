@@ -12,7 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Book implements \JsonSerializable {
 
-	const LOCK_EXPIRE_TIME = 21600;
+	const LOCK_EXPIRE_TIME = 7200; // 2 hours
 
 	/**
 	 * @ORM\Column(type="integer")
