@@ -28,6 +28,9 @@
 			</a>
 		</div>
 		<div class="media-body">
+			{% if book.isIncomplete %}
+				<p class="text-danger">Записът е непълен.</p>
+			{% endif %}
 			<dl class="dl-horizontal">
 				{% for field in fields %}
 					{% if attribute(book, field) is not empty %}
@@ -59,6 +62,9 @@
 			{% endif %}
 		{% endfor %}
 	</div>
+		{% if book.nbScans == 0 %}
+			<p class="text-danger">Липсват сканирани страници.</p>
+		{% endif %}
 	</section>
 
 {% endblock %}

@@ -67,4 +67,5 @@ return [
 	'createdBy' => 'Въведено от',
 	'createdAt' => 'Създадено на',
 	'updatedAt' => 'Обновено на',
+	'Is incomplete' => 'Записът е непълен',
 ];

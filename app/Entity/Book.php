@@ -449,6 +449,12 @@ class Book implements \JsonSerializable {
 	 */
 	private $revisions;
 
+	/**
+	 * @var boolean
+	 * @ORM\Column(type="boolean")
+	 */
+	private $isIncomplete;
+
 //	/**
 //	 * @ORM\OneToMany(targetEntity="BookItem", mappedBy="book")
 //	 * @ORM\OrderBy({"position" = "ASC"})
@@ -1210,6 +1216,14 @@ class Book implements \JsonSerializable {
 	public function setNotesAboutOriginal($notesAboutOriginal) {
 		$this->notesAboutOriginal = $notesAboutOriginal;
 		return $this;
+	}
+
+	public function isIncomplete() {
+		return $this->isIncomplete;
+	}
+
+	public function setIsIncomplete($isIncomplete) {
+		$this->isIncomplete = $isIncomplete;
 	}
 
 	/** @ORM\PrePersist */
