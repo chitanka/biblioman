@@ -7,9 +7,15 @@
 	<div class="media-body">
 		<dl class="dl-horizontal">
 			{% for field in fields %}
-				{% if attribute(book, field) is not empty %}
+				{% set attr = attribute(book, field) %}
+				{% if attr is not empty %}
 					<dt>{{ field|trans }}</dt>
-					<dd>{{ attribute(book, field) }}</dd>
+					<dd>
+						{{ attr }}
+						{% if field == 'createdBy' %}
+							<a href="{{ path('fos_message_thread_new', { username: attr }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
+						{% endif %}
+					</dd>
 				{% endif %}
 			{% endfor %}
 			<dt>...</dt>

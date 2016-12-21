@@ -4,6 +4,10 @@ easy_admin_bundle:
     type:     annotation
     prefix:   /admin
 
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /messaging
+
 app:
     resource: "@App/Controller/"
     type:     annotation

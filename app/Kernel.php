@@ -19,6 +19,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 			new \JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
 			new \Vich\UploaderBundle\VichUploaderBundle(),
 			new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+			new \FOS\MessageBundle\FOSMessageBundle(),
 			new App(),
 		);
 

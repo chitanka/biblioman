@@ -1,0 +1,27 @@
+messenger:      Лични съобщения
+inbox:          Входяща кутия
+sent:           Изпратени
+deleted:        Кошче
+send_new:       Ново съобщение
+search:         Търсене
+threads_found:  една открита тема | %num% открити теми
+
+message_info:   От %sender% · %date%
+reply:          Отговор
+
+subject:        Тема
+starter:        Започната от
+startdate:      Начална дата
+messages:       Съобщения
+last_message:   Последно съобщение
+actions:        Действия
+new:            ново
+goto_last:      Към последното съобщение
+on:             На %date%
+by:             От %sender%
+no_thread:      Няма теми
+delete:         Изтриване
+undelete:       Възстановяване
+recipient:      Получател
+recipients:     Получатели
+body:           Съобщение

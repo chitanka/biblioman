@@ -33,13 +33,17 @@
 			{% endif %}
 			<dl class="dl-horizontal">
 				{% for field in fields %}
-					{% if attribute(book, field) is not empty %}
+					{% set attr = attribute(book, field) %}
+					{% if attr is not empty %}
 						<dt>{{ field|trans }}</dt>
 						<dd>
-							{% if attribute(book, field).timestamp is defined %}
-								{{ attribute(book, field)|date('d.m.Y H:s') }}
+							{% if attr.timestamp is defined %}
+								{{ attr|date('d.m.Y H:s') }}
 							{% else %}
-								{{ attribute(book, field)|nl2br }}
+								{{ attr|nl2br }}
+							{% endif %}
+							{% if field == 'createdBy' %}
+								<a href="{{ path('fos_message_thread_new', { username: attr }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
 							{% endif %}
 						</dd>
 					{% endif %}

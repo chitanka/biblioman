@@ -1,13 +1,14 @@
 <?php namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Entity\UserRepository")
  * @ORM\Table(name="`user`")
  */
-class User implements UserInterface, \JsonSerializable {
+class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 
 	const ROLE_DEFAULT = 'ROLE_USER';
 
@@ -47,6 +48,10 @@ class User implements UserInterface, \JsonSerializable {
 		$this->email = $email;
 		$this->roles = $roles;
 		$this->setLastLogin();
+	}
+
+	public function __toString() {
+		return $this->getUsername();
 	}
 
 	/**

@@ -1,0 +1,5 @@
+{% if fos_message_nb_unread() > 0 %}
+	<div class="alert alert-success" role="alert">
+		Имате <a href="{{ path('fos_message_inbox') }}">нови съобщения</a>.
+	</div>
+{% endif %}

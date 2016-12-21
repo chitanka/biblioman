@@ -1,0 +1,6 @@
+<ul class="nav nav-pills">
+	<li role="presentation" class="{{ messagePage is defined and messagePage == 'inbox' ? 'active' : '' }}"><a href="{{ url('fos_message_inbox') }}"><span class="fa fa-inbox"></span> {% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</a></li>
+	<li role="presentation" class="{{ messagePage is defined and messagePage == 'sent' ? 'active' : '' }}"><a href="{{ url('fos_message_sent') }}"><span class="fa fa-share"></span> {% trans from 'FOSMessageBundle' %}sent{% endtrans %}</a></li>
+	<li role="presentation" class="{{ messagePage is defined and messagePage == 'deleted' ? 'active' : '' }}"><a href="{{ url('fos_message_deleted') }}"><span class="fa fa-trash-o"></span> {% trans from 'FOSMessageBundle' %}deleted{% endtrans %}</a></li>
+	<li role="presentation" class="pull-right"><a href="{{ url('fos_message_thread_new' )}}" class="btn btn-default"><span class="fa fa-comment-o"></span> {% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</a></li>
+</ul>

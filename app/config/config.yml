@@ -70,3 +70,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_message:
+    db_driver: orm
+    thread_class: App\Entity\MessageThread
+    message_class: App\Entity\Message
+    user_transformer: app.user_transformer
+    new_thread_form:
+        type: app.new_message_thread_form_type
+        factory: app.new_message_thread_form_factory

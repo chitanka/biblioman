@@ -6,3 +6,14 @@ services:
         arguments: ["@doctrine.orm.entity_manager", "@security.token_storage", "%single_login_provider%"]
         tags:
             - { name: kernel.event_subscriber }
+
+    app.user_transformer:
+        class: App\Form\DataTransformer\UserToUsernameTransformer
+        arguments: ["@doctrine"]
+
+    app.new_message_thread_form_type:
+        class: App\Form\NewThreadMessageFormType
+
+    app.new_message_thread_form_factory:
+        class: App\Form\NewThreadMessageFormFactory
+        arguments: ["@form.factory", "@app.new_message_thread_form_type", "%fos_message.new_thread_form.name%", "%fos_message.new_thread_form.model%", "@app.user_transformer"]

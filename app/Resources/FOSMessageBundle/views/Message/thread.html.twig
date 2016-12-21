@@ -1,0 +1,43 @@
+{% extends '::layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block content %}
+
+	{% include 'FOSMessageBundle:Message:menu.html.twig' %}
+
+	<h2>{{ thread.subject }}</h2>
+
+	<div class="well well-sm text-muted">
+		До:
+		{% for participant in thread.otherParticipants(thread.createdBy) %}
+			{{ participant }}
+			{% if participant != app.user %}
+				<a href="{{ path('fos_message_thread_new', { username: participant.username }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
+			{% endif %}
+		{% endfor %}
+	</div>
+	{% for message in thread.messages %}
+		<div class="messenger_thread_message panel panel-default">
+			<div class="messenger_thread_message_info panel-heading">
+				{% if not fos_message_is_read(message) %}
+					<span class="label label-info">{% trans from 'FOSMessageBundle' %}new{% endtrans %}</span>
+				{% endif %}
+				{% trans with {'%sender%': message.sender, '%date%': message.createdAt|date('d.m.Y H:i')} from 'FOSMessageBundle' %}message_info{% endtrans %}
+			</div>
+
+			<div class="messenger_thread_message_body panel-body" id="message_{{ message.id }}">
+				{{ message.body|nl2br }}
+			</div>
+		</div>
+	{% endfor %}
+
+	<h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
+
+	<form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+		{{ form_widget(form) }}
+
+		<button type="submit" class="btn btn-primary">Изпращане</button>
+	</form>
+
+{% endblock %}

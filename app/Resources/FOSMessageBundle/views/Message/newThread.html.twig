@@ -1,0 +1,19 @@
+{% extends '::layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block content %}
+
+	{% include 'FOSMessageBundle:Message:menu.html.twig' %}
+
+	<h2>{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</h2>
+
+	{{ form_start(form, {'action': path('fos_message_thread_new'), 'method': 'POST'}) }}
+		{{ form_label(form.recipient) }}
+		{{ form_widget(form.recipient, { value: app.request.get('username') }) }}
+		{{ form_widget(form) }}
+
+		<button type="submit" class="btn btn-primary">Изпращане</button>
+	{{ form_end(form) }}
+
+{% endblock %}
