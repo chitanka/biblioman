@@ -8,7 +8,7 @@ function genThumbnail($filename, $thumbname, $width = null, $quality = null) {
 	$width = $width ?: 45;
 	$quality = $quality ?: 90;
 	list($width_orig, $height_orig) = getimagesize($filename);
-	if ($width == 'max' || $width_orig < $width) {
+	if ($width == 'max' || $width == 'orig' || $width_orig < $width) {
 		copy($filename, $thumbname);
 
 		return $thumbname;
