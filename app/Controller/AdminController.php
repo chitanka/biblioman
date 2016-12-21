@@ -44,6 +44,7 @@ class AdminController extends EasyAdminController {
 		if ($book->isLockedForUser($this->getUsername())) {
 			$form->addError(new FormError("В момента този запис се редактира от {$book->getLockedBy()}."));
 		} else {
+			$book->disableUpdatedTracking();
 			$book->setLock($this->getUsername());
 			$this->em->persist($book);
 			$this->em->flush();

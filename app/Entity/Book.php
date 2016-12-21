@@ -445,6 +445,8 @@ class Book implements \JsonSerializable {
 	 */
 	private $updatedAt;
 
+	private $updatedTrackingEnabled = true;
+
 	/**
 	 * @ORM\OneToMany(targetEntity="BookRevision", mappedBy="book")
 	 * @ORM\OrderBy({"createdAt" = "ASC"})
@@ -1032,6 +1034,10 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function disableUpdatedTracking() {
+		$this->updatedTrackingEnabled = false;
+	}
+
 	public function getMarketingSnippets() {
 		return $this->marketingSnippets;
 	}
@@ -1270,8 +1276,10 @@ class Book implements \JsonSerializable {
 
 	/** @ORM\PreUpdate */
 	public function onPreUpdate() {
-		$this->setUpdatedAt(new \DateTime);
-		$this->updateNbScans();
+		if ($this->updatedTrackingEnabled) {
+			$this->setUpdatedAt(new \DateTime);
+			$this->updateNbScans();
+		}
 	}
 
 	protected function updateNbScans() {
