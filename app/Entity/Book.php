@@ -431,6 +431,11 @@ class Book implements \JsonSerializable {
 	private $chitankaId;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $links;
+
+	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $createdBy;
@@ -1179,6 +1184,14 @@ class Book implements \JsonSerializable {
 
 	public function setChitankaId($chitankaId) {
 		$this->chitankaId = $chitankaId;
+	}
+
+	public function getLinks() {
+		return $this->links;
+	}
+
+	public function setLinks($links) {
+		$this->links = $links;
 	}
 
 	public function getToc() {

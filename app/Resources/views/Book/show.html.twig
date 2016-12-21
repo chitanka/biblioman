@@ -39,6 +39,8 @@
 						<dd>
 							{% if attr.timestamp is defined %}
 								{{ attr|date('d.m.Y H:s') }}
+							{% elseif field == 'links' %}
+								{{ attr | converturls | nl2br }}
 							{% else %}
 								{{ attr|nl2br }}
 							{% endif %}

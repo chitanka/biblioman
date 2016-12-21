@@ -79,3 +79,7 @@ fos_message:
     new_thread_form:
         type: app.new_message_thread_form_type
         factory: app.new_message_thread_form_factory
+
+liip_url_auto_converter:
+    linkclass: external
+    target: _blank

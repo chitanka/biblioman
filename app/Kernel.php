@@ -20,6 +20,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 			new \Vich\UploaderBundle\VichUploaderBundle(),
 			new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 			new \FOS\MessageBundle\FOSMessageBundle(),
+			new \Liip\UrlAutoConverterBundle\LiipUrlAutoConverterBundle(),
 			new App(),
 		);
 

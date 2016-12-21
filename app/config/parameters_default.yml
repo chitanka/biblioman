@@ -94,6 +94,7 @@ parameters:
         - toc
         - notes
         - notesAboutOriginal
+        - links
         - createdBy
         - createdAt
         - updatedAt

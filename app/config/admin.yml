@@ -131,6 +131,7 @@ easy_admin:
                     - { property: toc, label: toc }
                     - { property: notes, label: notes }
                     - { property: notesAboutOriginal, label: notesAboutOriginal  }
+                    - { property: links, label: links, help: linksHelp  }
                     - { property: isIncomplete }
                     - { property: coverFile, label: coverFile, type: vich_image, template: 'file_with_image.html.twig' }
                     - { property: backCoverFile, label: backCoverFile, type: vich_image }
