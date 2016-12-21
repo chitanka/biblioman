@@ -21,15 +21,25 @@ class BookController extends Controller {
 			->select('b')
 			->from('App:Book', 'b');
 		if ($searchQuery = $request->query->get('q')) {
-			$queryBuilder
-				->where('b.title LIKE ?1')
-				->orWhere('b.subtitle LIKE ?1')
-				->orWhere('b.author LIKE ?1')
-				->orWhere('b.translator LIKE ?1')
-				->orWhere('b.compiler LIKE ?1')
-				->orWhere('b.editor LIKE ?1')
-				->orWhere('b.publisher LIKE ?1')
-				->setParameter('1', "%$searchQuery%");
+			if (is_numeric($searchQuery)) {
+				$queryBuilder
+					->where('b.pubDate = ?1')
+					->setParameter('1', $searchQuery);
+			} else if (preg_match('/(\d+)-(\d+)/', $searchQuery, $matches)) {
+				$queryBuilder
+					->where('b.pubDate BETWEEN ?1 AND ?2')
+					->setParameters([1 => $matches[1], 2 => $matches[2]]);
+			} else {
+				$queryBuilder
+					->where('b.title LIKE ?1')
+					->orWhere('b.subtitle LIKE ?1')
+					->orWhere('b.author LIKE ?1')
+					->orWhere('b.translator LIKE ?1')
+					->orWhere('b.compiler LIKE ?1')
+					->orWhere('b.editor LIKE ?1')
+					->orWhere('b.publisher LIKE ?1')
+					->setParameter('1', "%$searchQuery%");
+			}
 		}
 		$adapter = new DoctrineORMAdapter($queryBuilder);
 		$pager = new Pagerfanta($adapter);
