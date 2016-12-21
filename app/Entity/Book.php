@@ -448,6 +448,7 @@ class Book implements \JsonSerializable {
 	private $updatedTrackingEnabled = true;
 
 	/**
+	 * @var BookRevision[]
 	 * @ORM\OneToMany(targetEntity="BookRevision", mappedBy="book")
 	 * @ORM\OrderBy({"createdAt" = "ASC"})
 	 */
@@ -649,6 +650,18 @@ class Book implements \JsonSerializable {
 
 	public function getRevisions() {
 		return $this->revisions;
+	}
+
+	public function hasRevisions() {
+		return count($this->getRevisions()) > 0;
+	}
+
+	public function getRevisionEditors() {
+		$editors = [];
+		foreach ($this->getRevisions() as $revision) {
+			$editors[] = $revision->getCreatedBy();
+		}
+		return array_unique($editors);
 	}
 
 	public function setId($id) {
