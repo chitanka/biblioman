@@ -8,9 +8,13 @@
 			{% elseif field == 'links' %}
 				{{ attr | converturls | nl2br }}
 			{% elseif field in searchableFields %}
-				{% for subvalue in attr|split(', ') %}
-					<a href="{{ path('books', { q: field ~ ':' ~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
-				{% endfor %}
+				{% if field in ['title', 'subtitle'] %}
+					<a href="{{ path('books', { q: field ~ ':' ~ attr }) }}">{{ attr }}</a>
+				{% else %}
+					{% for subvalue in attr|split(', ') %}
+						<a href="{{ path('books', { q: field ~ ':' ~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
+					{% endfor %}
+				{% endif %}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
