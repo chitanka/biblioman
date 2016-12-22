@@ -11,7 +11,7 @@ class MainController extends Controller {
 	public function indexAction() {
 		$recentBooks = $this->getDoctrine()->getManager()
 			->getRepository('App:Book')
-			->findRecent(32);
+			->findRecent(24);
 		return $this->render('Main/index.html.twig', [
 			'recentBooks' => $recentBooks,
 			'fields' => $this->getParameter('book_fields_short'),
