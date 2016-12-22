@@ -1,0 +1,22 @@
+{% macro printField(book, field, searchableFields) %}
+	{% set attr = attribute(book, field) %}
+	{% if attr is not empty %}
+		<dt>{{ field|trans }}</dt>
+		<dd>
+			{% if attr.timestamp is defined %}
+				{{ attr|date('d.m.Y H:s') }}
+			{% elseif field == 'links' %}
+				{{ attr | converturls | nl2br }}
+			{% elseif field in searchableFields %}
+				{% for subvalue in attr|split(', ') %}
+					<a href="{{ path('books', { q: field ~ ':' ~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
+				{% endfor %}
+			{% else %}
+				{{ attr|nl2br }}
+			{% endif %}
+			{% if field == 'createdBy' %}
+				<a href="{{ path('fos_message_thread_new', { username: attr }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
+			{% endif %}
+		</dd>
+	{% endif %}
+{% endmacro %}

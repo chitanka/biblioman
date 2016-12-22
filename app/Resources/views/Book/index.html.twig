@@ -21,9 +21,9 @@
 
 {% block custom_javascript %}
 	<script>
-		{% if query is not empty %}
+		{% if queryWoField is not empty %}
 		$(function() {
-			$(".book").highlight("{{ query }}");
+			$(".book").highlight("{{ queryWoField }}");
 		});
 		{% endif %}
 	</script>

@@ -11,6 +11,8 @@
 
 {% block content %}
 
+	{% import '_bookMacros.html.twig' as _ %}
+
 	<h1>{{ title }}</h1>
 
 	<ol class="breadcrumb">
@@ -33,22 +35,7 @@
 			{% endif %}
 			<dl class="dl-horizontal">
 				{% for field in fields %}
-					{% set attr = attribute(book, field) %}
-					{% if attr is not empty %}
-						<dt>{{ field|trans }}</dt>
-						<dd>
-							{% if attr.timestamp is defined %}
-								{{ attr|date('d.m.Y H:s') }}
-							{% elseif field == 'links' %}
-								{{ attr | converturls | nl2br }}
-							{% else %}
-								{{ attr|nl2br }}
-							{% endif %}
-							{% if field == 'createdBy' %}
-								<a href="{{ path('fos_message_thread_new', { username: attr }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
-							{% endif %}
-						</dd>
-					{% endif %}
+					{{ _.printField(book, field, searchableFields) }}
 				{% endfor %}
 				{% if book.hasRevisions %}
 					<dt>Промени от</dt>

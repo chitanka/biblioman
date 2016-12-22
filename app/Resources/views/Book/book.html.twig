@@ -1,3 +1,4 @@
+{% import '_bookMacros.html.twig' as _ %}
 <div class="media well book" itemscope itemtype="http://schema.org/Book">
 	<div class="media-left">
 		<div class="thumbnail" style="width: 210px">
@@ -7,16 +8,7 @@
 	<div class="media-body">
 		<dl class="dl-horizontal">
 			{% for field in fields %}
-				{% set attr = attribute(book, field) %}
-				{% if attr is not empty %}
-					<dt>{{ field|trans }}</dt>
-					<dd>
-						{{ attr }}
-						{% if field == 'createdBy' %}
-							<a href="{{ path('fos_message_thread_new', { username: attr }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
-						{% endif %}
-					</dd>
-				{% endif %}
+				{{ _.printField(book, field, searchableFields) }}
 			{% endfor %}
 			<dt>...</dt>
 			<dd>
