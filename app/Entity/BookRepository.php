@@ -5,6 +5,8 @@ use Doctrine\ORM\QueryBuilder;
 
 class BookRepository extends EntityRepository {
 
+	const FIELD_SEARCH_SEPARATOR = ':';
+
 	public static $searchableFields = [
 		'author',
 		'title',
@@ -54,6 +56,14 @@ class BookRepository extends EntityRepository {
 		'createdBy',
 	];
 
+
+	public static function getSearchableFieldsDefinition() {
+		return [
+			'fields' => self::$searchableFields,
+			'separator' => self::FIELD_SEARCH_SEPARATOR,
+		];
+	}
+
 	/**
 	 * @param int $maxResults
 	 * @return Book[]
@@ -88,8 +98,8 @@ class BookRepository extends EntityRepository {
 		if (empty($query)) {
 			return $qb;
 		}
-		if (strpos($query, ':') !== false) {
-			list($searchField, $fieldQuery) = explode(':', $query);
+		if (strpos($query, self::FIELD_SEARCH_SEPARATOR) !== false) {
+			list($searchField, $fieldQuery) = explode(self::FIELD_SEARCH_SEPARATOR, $query);
 			$fieldQuery = trim($fieldQuery);
 			$allowedFields = self::$searchableFields;
 			if (in_array($searchField, $allowedFields)) {

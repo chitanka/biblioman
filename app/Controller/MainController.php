@@ -15,7 +15,7 @@ class MainController extends Controller {
 		return $this->render('Main/index.html.twig', [
 			'recentBooks' => $recentBooks,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::$searchableFields,
+			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 		]);
 	}
 }

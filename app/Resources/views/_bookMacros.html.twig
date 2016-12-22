@@ -7,12 +7,12 @@
 				{{ attr|date('d.m.Y H:s') }}
 			{% elseif field == 'links' %}
 				{{ attr | converturls | nl2br }}
-			{% elseif field in searchableFields %}
+			{% elseif field in searchableFields.fields %}
 				{% if field in ['title', 'subtitle'] %}
-					<a href="{{ path('books', { q: field ~ ':' ~ attr }) }}">{{ attr }}</a>
+					<a href="{{ path('books', { q: field ~ searchableFields.separator ~ attr }) }}">{{ attr }}</a>
 				{% else %}
 					{% for subvalue in attr|split(', ') %}
-						<a href="{{ path('books', { q: field ~ ':' ~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
+						<a href="{{ path('books', { q: field ~ searchableFields.separator ~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
 			{% else %}

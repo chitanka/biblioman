@@ -20,11 +20,11 @@ class BookController extends Controller {
 		$searchQuery = $request->query->get('q');
 		$adapter = new DoctrineORMAdapter($this->repo()->filterByQuery($searchQuery));
 		$pager = $this->pager($request, $adapter);
-		$searchQueryWoField = trim(array_slice(explode(':', $searchQuery), -1)[0]);
+		$searchQueryWoField = trim(array_slice(explode(BookRepository::FIELD_SEARCH_SEPARATOR, $searchQuery), -1)[0]);
 		return $this->render('Book/index.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::$searchableFields,
+			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 			'query' => $searchQuery,
 			'queryWoField' => $searchQueryWoField,
 		]);
@@ -39,7 +39,7 @@ class BookController extends Controller {
 		return $this->render('Book/listIncomplete.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::$searchableFields,
+			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 		]);
 	}
 
@@ -51,7 +51,7 @@ class BookController extends Controller {
 		return $this->render('Book/searchDuplicates.html.twig', [
 			'books' => $books,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::$searchableFields,
+			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 		]);
 	}
 
@@ -66,7 +66,7 @@ class BookController extends Controller {
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
-			'searchableFields' => BookRepository::$searchableFields,
+			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 		]);
 	}
 
