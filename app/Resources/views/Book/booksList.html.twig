@@ -1,0 +1,5 @@
+{% for book in books %}
+	{% include 'App:Book:book.html.twig' %}
+{% else %}
+	<div class="alert alert-warning" role="alert">Няма намерени книги.</div>
+{% endfor %}

@@ -1,4 +1,8 @@
 <form role="form" class="{{ class|default('') }} book-search-form" method="get" action="{{ path('books') }}">
+	{% set mode = app.request.get('_mode') %}
+	{% if mode is not empty %}
+		<input type="hidden" name="_mode" value="{{ mode }}">
+	{% endif %}
 	<div class="form-group">
 		<label class="sr-only" for="q">Заглавие, автор, …</label>
 		<div class="input-group">

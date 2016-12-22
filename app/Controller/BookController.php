@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BookController extends Controller {
 
-	const ITEMS_PER_PAGE = 15;
+	const ITEMS_PER_PAGE = 24;
 
 	/**
 	 * @Route("/", name="books")

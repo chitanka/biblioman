@@ -1,0 +1,6 @@
+{% set urlParams = query is defined ? { q: query } : {} %}
+<div class="btn-group pull-right" role="group" aria-label="Вид на изгледа">
+	<a href="{{ path(route, urlParams) }}" class="btn btn-default {{ mode == 'list' ? 'active' : '' }}" title="Подробен преглед в списък"><span class="fa fa-list"></span></a>
+	<a href="{{ path(route, urlParams|merge({ _mode: 'mosaic' })) }}" class="btn btn-default {{ mode == 'mosaic' ? 'active' : '' }}" title="Мозаечен преглед"><span class="fa fa-th"></span></a>
+	<a href="{{ path(route, urlParams|merge({ _mode: 'mosaic_large' })) }}" class="btn btn-default {{ mode == 'mosaic_large' ? 'active' : '' }}" title="Мозаечен преглед с големи икони"><span class="fa fa-th-large"></span></a>
+</div>

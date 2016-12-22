@@ -12,11 +12,6 @@
 			<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> Добавяне на нова книга</a></p>
 		{% endif %}
 	</div>
-	<h1>Последни книги</h1>
-	{% for book in recentBooks %}
-		<div>
-			{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
-		</div>
-	{% endfor %}
+	{% include 'App:Book:books.html.twig' with { heading: 'Последни книги', route: 'homepage', books: recentBooks, mode: app.request.get('_mode', 'list') } %}
 
 {% endblock %}

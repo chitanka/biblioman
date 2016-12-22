@@ -1,0 +1,11 @@
+<div class="row">
+	{% for book in books %}
+		<div class="col-xs-4 col-md-2">
+			<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail" title="{{ book.title }} - {{ book.author }}">
+				<img src="/thumb/{{ book.cover|replace({'.jpg': '.150.jpg'}) }}" width="150" style="height: 220px">
+			</a>
+		</div>
+	{% else %}
+		<div class="alert alert-warning" role="alert">Няма намерени книги.</div>
+	{% endfor %}
+</div>

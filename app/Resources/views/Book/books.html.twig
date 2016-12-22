@@ -1,0 +1,11 @@
+<h1 class="clearfix">
+	{{ heading }}
+	{% include 'App:Book:modeLinks.html.twig' %}
+</h1>
+{% if mode == 'mosaic' %}
+	{% include 'App:Book:booksMosaic.html.twig' %}
+{% elseif mode == 'mosaic_large' %}
+	{% include 'App:Book:booksMosaicLarge.html.twig' %}
+{% else %}
+	{% include 'App:Book:booksList.html.twig' %}
+{% endif %}

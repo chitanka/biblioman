@@ -4,12 +4,7 @@
 
 {% block content %}
 
-	<h1>Книги</h1>
-	{% for book in pager.currentPageResults %}
-		{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
-	{% else %}
-		<div class="alert alert-warning" role="alert">Няма намерени книги.</div>
-	{% endfor %}
+	{% include 'App:Book:books.html.twig' with { heading: 'Книги', route: 'books', books: pager.currentPageResults, mode: app.request.get('_mode', 'list') } %}
 
 	{% if pager.haveToPaginate %}
 		<div class="text-center">
