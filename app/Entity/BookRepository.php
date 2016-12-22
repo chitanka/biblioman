@@ -51,6 +51,7 @@ class BookRepository extends EntityRepository {
 		'illustrated',
 		'isbn10',
 		'isbn13',
+		'createdBy',
 	];
 
 	/**
