@@ -9,11 +9,11 @@ vich_uploader:
 easy_admin:
     site_name: '%sitename%'
     design:
-        theme: 'default'
+        theme: default
         color_scheme: light
-        brand_color: 'orange'
+        brand_color: orange
         form_theme: '@App/admin_layout.html.twig'
-        menu: ['Book']
+        menu: [Book]
         assets:
             css:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
@@ -25,28 +25,28 @@ easy_admin:
         Book:
             class: App\Entity\Book
             role: ROLE_EDITOR
-            label: 'Books'
+            label: Books
             image_base_path: /thumb
-            disabled_actions: ['delete']
+            disabled_actions: [delete]
             list:
-                title: 'Books'
+                title: Books
                 actions:
-                    - { name: new, icon: plus, label: 'Добавяне' }
-                    - { name: edit, icon: pencil, label: 'Ред' }
-                    - { name: show, icon: eye, label: 'П' }
-                    - { name: delete, icon: trash, label: 'Изтр' }
+                    - { name: new, icon: plus, label: Book.actions.new }
+                    - { name: edit, icon: pencil, label: Book.actions.edit }
+                    - { name: show, icon: eye, label: Book.actions.show }
+                    - { name: delete, icon: trash, label: Book.actions.delete }
                 fields:
-                    - { property: id, label: № }
-                    - { property: cover, label: К, type: image }
-                    - { property: backCover, label: ЗК, type: image }
-                    - { property: title, label: Заглавие }
-                    - { property: author, label: Автор }
-                    - { property: publisher, label: Издател }
-                    - { property: pubDate, label: Година }
+                    - { property: id }
+                    - { property: cover, type: image }
+                    - { property: backCover, type: image }
+                    - { property: title }
+                    - { property: author }
+                    - { property: publisher }
+                    - { property: pubDate, label: Pub date short }
             show:
                 title: 'Книга (№%%entity_id%%)'
                 fields:
-                    - { property: id, label: № }
+                    - { property: id }
                     - { property: cover, type: image }
                     - { property: backCover, type: image }
                     - { property: title, label: Заглавие }
@@ -66,10 +66,10 @@ easy_admin:
                     - { property: scan11, type: image }
                     - { property: scan12, type: image }
             new:
-                title: 'Добавяне на нова книга'
-                action_label: 'Нова книга'
+                title: Book.new_title
+                action_label: Нова книга
             form:
-                title: 'Редактиране на книга (№%%entity_id%%)'
+                title: Book.form_title
                 fields:
                     - { property: isIncomplete }
                     - { type: divider }

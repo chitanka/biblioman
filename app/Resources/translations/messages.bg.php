@@ -1,5 +1,6 @@
 <?php
 return [
+	'ID' => '№',
 	'Books' => 'Книги',
 	'Author' => 'Автор',
 	'Title' => 'Заглавие',
@@ -27,6 +28,7 @@ return [
 	'Publisher' => 'Издател',
 	'Pub city' => 'Град на издателя',
 	'Pub date' => 'Година на издаване',
+	'Pub date short' => 'Година',
 	'Publisher address' => 'Адрес на издателя',
 	'Print' => 'Печатница',
 	'Content type' => 'Тип',
@@ -62,6 +64,8 @@ return [
 	'Notes about original' => 'Бележки за изданието, от което е направен преводът',
 	'Cover file' => 'Корица',
 	'Back cover file' => 'Задна корица',
+	'Cover' => 'К',
+	'Back cover' => 'ЗК',
 	'Source' => 'Източник',
 	'Scan file' => 'Сканирана страница',
 	'Created by' => 'Въведено от',
@@ -73,6 +77,16 @@ return [
 	'Url' => 'Адрес',
 	'Category' => 'Категория',
 	'Scans' => 'Сканове',
+	'Book' => [
+		'new_title' => 'Добавяне на нова книга',
+		'form_title' => 'Редактиране на книга (№%entity_id%)',
+		'actions' => [
+			'new' => 'Добавяне',
+			'edit' => 'Ред',
+			'show' => 'П',
+			'delete' => 'Изтр',
+		],
+	],
 	'BookLinkCategory' => [
 		'library' => 'Библиотеки',
 		'publisher' => 'Издателства',
