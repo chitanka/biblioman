@@ -27,7 +27,7 @@
 			</div>
 
 			<div class="messenger_thread_message_body panel-body" id="message_{{ message.id }}">
-				{{ message.body|nl2br }}
+				{{ message.body | converturls | nl2br }}
 			</div>
 		</div>
 	{% endfor %}
