@@ -95,4 +95,10 @@ tables
 	person
 		(name)
 
-ALTER TABLE book ADD scan1 VARCHAR(100) DEFAULT NULL, ADD scan2 VARCHAR(100) DEFAULT NULL, ADD scan3 VARCHAR(100) DEFAULT NULL, ADD scan4 VARCHAR(100) DEFAULT NULL, ADD scan5 VARCHAR(100) DEFAULT NULL, ADD scan6 VARCHAR(100) DEFAULT NULL, ADD scan7 VARCHAR(100) DEFAULT NULL, ADD scan8 VARCHAR(100) DEFAULT NULL, ADD scan9 VARCHAR(100) DEFAULT NULL, ADD scan10 VARCHAR(100) DEFAULT NULL;
+
+- анотация в tooltip
+- запис на _mode в User.settings
+- поддръжка на категории
+- начин за преглед на промените по книга
+- оценки
+- коментари
