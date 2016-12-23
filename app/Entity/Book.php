@@ -454,7 +454,6 @@ class Book implements \JsonSerializable {
 	/**
 	 * @var BookLink[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
-	 * @ORM\OrderBy({"category" = "ASC", "title" = "ASC"})
 	 */
 	private $links;
 
@@ -1104,7 +1103,8 @@ class Book implements \JsonSerializable {
 		foreach ($this->getLinks() as $link) {
 			$linksByCategory[$link->getCategory()][] = $link;
 		}
-		return $linksByCategory;
+		$linksByCategorySorted = array_filter(array_replace(array_fill_keys(BookLink::$categories, null), $linksByCategory));
+		return $linksByCategorySorted;
 	}
 
 	/**
