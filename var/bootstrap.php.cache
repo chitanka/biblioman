@@ -97,13 +97,13 @@ $this->set($key, $values);
 }
 public function __toString()
 {
-if (!$this->headers) {
+if (!$headers = $this->all()) {
 return'';
 }
-$max = max(array_map('strlen', array_keys($this->headers))) + 1;
+ksort($headers);
+$max = max(array_map('strlen', array_keys($headers))) + 1;
 $content ='';
-ksort($this->headers);
-foreach ($this->headers as $name => $values) {
+foreach ($headers as $name => $values) {
 $name = implode('-', array_map('ucfirst', explode('-', $name)));
 foreach ($values as $value) {
 $content .= sprintf("%-{$max}s %s\r\n", $name.':', $value);
@@ -117,7 +117,7 @@ return $this->headers;
 }
 public function keys()
 {
-return array_keys($this->headers);
+return array_keys($this->all());
 }
 public function replace(array $headers = array())
 {
@@ -133,16 +133,17 @@ $this->set($key, $values);
 public function get($key, $default = null, $first = true)
 {
 $key = str_replace('_','-', strtolower($key));
-if (!array_key_exists($key, $this->headers)) {
+$headers = $this->all();
+if (!array_key_exists($key, $headers)) {
 if (null === $default) {
 return $first ? null : array();
 }
 return $first ? $default : array($default);
 }
 if ($first) {
-return count($this->headers[$key]) ? $this->headers[$key][0] : $default;
+return count($headers[$key]) ? $headers[$key][0] : $default;
 }
-return $this->headers[$key];
+return $headers[$key];
 }
 public function set($key, $values, $replace = true)
 {
@@ -159,7 +160,7 @@ $this->cacheControl = $this->parseCacheControl($values[0]);
 }
 public function has($key)
 {
-return array_key_exists(str_replace('_','-', strtolower($key)), $this->headers);
+return array_key_exists(str_replace('_','-', strtolower($key)), $this->all());
 }
 public function contains($key, $value)
 {
@@ -362,6 +363,7 @@ return $headers;
 namespace Symfony\Component\HttpFoundation
 {
 use Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException;
+use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class Request
 {
@@ -414,6 +416,8 @@ protected $locale;
 protected $defaultLocale ='en';
 protected static $formats;
 protected static $requestFactory;
+private $isHostValid = true;
+private $isClientIpsValid = true;
 public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
 {
 $this->initialize($query, $request, $attributes, $cookies, $files, $server, $content);
@@ -726,7 +730,11 @@ $xForwardedForClientIps = $this->normalizeAndFilterClientIps($xForwardedForClien
 $clientIps = $xForwardedForClientIps;
 }
 if ($hasTrustedForwardedHeader && $hasTrustedClientIpHeader && $forwardedClientIps !== $xForwardedForClientIps) {
-throw new ConflictingHeadersException('The request has both a trusted Forwarded header and a trusted Client IP header, conflicting with each other with regards to the originating IP addresses of the request. This is the result of a misconfiguration. You should either configure your proxy only to send one of these headers, or configure Symfony to distrust one of them.');
+if (!$this->isClientIpsValid) {
+return array('0.0.0.0');
+}
+$this->isClientIpsValid = false;
+throw new ConflictingHeadersException('The request has both a trusted Forwarded header and a trusted Client IP header, conflicting with each other with regards to the originating IP addresses of the request. This is the result of a misconfiguration. You should either configure your proxy only to send one of these headers, or configure your project to distrust one of them.');
 }
 if (!$hasTrustedForwardedHeader && !$hasTrustedClientIpHeader) {
 return $this->normalizeAndFilterClientIps(array(), $ip);
@@ -888,7 +896,11 @@ $host = $this->server->get('SERVER_ADDR','');
 }
 $host = strtolower(preg_replace('/:\d+$/','', trim($host)));
 if ($host &&''!== preg_replace('/(?:^\[)?[a-zA-Z0-9-:\]_]+\.?/','', $host)) {
-throw new \UnexpectedValueException(sprintf('Invalid Host "%s"', $host));
+if (!$this->isHostValid) {
+return'';
+}
+$this->isHostValid = false;
+throw new SuspiciousOperationException(sprintf('Invalid Host "%s".', $host));
 }
 if (count(self::$trustedHostPatterns) > 0) {
 if (in_array($host, self::$trustedHosts)) {
@@ -900,7 +912,11 @@ self::$trustedHosts[] = $host;
 return $host;
 }
 }
-throw new \UnexpectedValueException(sprintf('Untrusted Host "%s"', $host));
+if (!$this->isHostValid) {
+return'';
+}
+$this->isHostValid = false;
+throw new SuspiciousOperationException(sprintf('Untrusted Host "%s".', $host));
 }
 return $host;
 }
