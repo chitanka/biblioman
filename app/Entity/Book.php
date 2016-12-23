@@ -1465,4 +1465,65 @@ class Book implements \JsonSerializable {
 		}
 		return $diffs;
 	}
+
+	public static function normalizedFieldValue($field, $value) {
+		switch ($field) {
+			case 'author':
+			case 'translator':
+			case 'compiler':
+			case 'editorialStaff':
+			case 'chiefEditor':
+			case 'editor':
+			case 'publisherEditor':
+			case 'consultant':
+			case 'artist':
+			case 'artistEditor':
+			case 'technicalEditor':
+			case 'reviewer':
+			case 'corrector':
+				return self::normalizePerson($value);
+			case 'publisher':
+				return self::normalizePublisher($value);
+		}
+		return $value;
+	}
+
+	public static function normalizePerson($name) {
+		$nameNormalized = $name;
+		$nameNormalized = preg_replace('/^(д\-р|проф\.|проф\. д\-р) /u', '', $nameNormalized);
+		return $nameNormalized;
+	}
+
+	public static function normalizePublisher($name) {
+		$nameNormalized = $name;
+		$prefixes = [
+			'Издателска къща',
+			'ИК',
+			'Издателство',
+			'Издателска компания',
+			'Книгоиздателска къща',
+			'КК',
+			'Държавно издателство',
+			'ДИ',
+			'ДФ',
+		];
+		$nameNormalized = preg_replace('/^('.implode('|', $prefixes).') ["„]?/u', '', $nameNormalized);
+		$nameNormalized = strtr($nameNormalized, [
+			'"' => '',
+			'„' => '',
+			'“' => '',
+			' ООД' => '',
+			' ЕООД' => '',
+			' АД' => '',
+			'Издателство на ЦК на ДКМС' => '',
+			'издателство на ЦК на ДКМС' => '',
+			'Университетско издателство' => '',
+		]);
+		$nameNormalized = trim($nameNormalized, ' ,-');
+		if (empty($nameNormalized)) {
+			// we do not want to be perfect
+			return $name;
+		}
+		return $nameNormalized;
+	}
 }

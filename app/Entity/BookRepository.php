@@ -108,7 +108,7 @@ class BookRepository extends EntityRepository {
 					$fieldQuery = trim($fieldQuery, '"');
 				} else {
 					$operator = 'LIKE';
-					$fieldQuery = "%$fieldQuery%";
+					$fieldQuery = '%'.Book::normalizedFieldValue($searchField, $fieldQuery).'%';
 				}
 				return $qb->where("b.{$searchField} $operator ?1")->setParameter('1', $fieldQuery);
 			}
