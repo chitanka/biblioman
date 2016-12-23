@@ -461,7 +461,7 @@ class Book implements \JsonSerializable {
 	 * @var boolean
 	 * @ORM\Column(type="boolean")
 	 */
-	private $isIncomplete;
+	private $isIncomplete = true;
 
 	/**
 	 * @var \DateTime
