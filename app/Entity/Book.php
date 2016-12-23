@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -22,6 +23,7 @@ class Book implements \JsonSerializable {
 	private $id;
 
 	/**
+	 * @var string
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $title;
@@ -426,16 +428,6 @@ class Book implements \JsonSerializable {
 	private $scan12File;
 
 	/**
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	private $chitankaId;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $links;
-
-	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $createdBy;
@@ -460,6 +452,13 @@ class Book implements \JsonSerializable {
 	private $revisions;
 
 	/**
+	 * @var BookLink[]|ArrayCollection
+	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
+	 * @ORM\OrderBy({"category" = "ASC", "title" = "ASC"})
+	 */
+	private $links;
+
+	/**
 	 * @var boolean
 	 * @ORM\Column(type="boolean")
 	 */
@@ -482,6 +481,15 @@ class Book implements \JsonSerializable {
 //	 * @ORM\OrderBy({"position" = "ASC"})
 //	 */
 //	private $items;
+
+	public function __construct() {
+		$this->revisions = new ArrayCollection();
+		$this->links = new ArrayCollection();
+	}
+
+	public function __toString() {
+		return $this->getTitle();
+	}
 
 	public function getId() {
 		return $this->id;
@@ -1066,6 +1074,40 @@ class Book implements \JsonSerializable {
 	}
 
 	/**
+	 * @return BookLink[]
+	 */
+	public function getLinks() {
+		return $this->links;
+	}
+
+	/**
+	 * @param BookLink[] $links
+	 */
+	public function setLinks($links) {
+		$this->links = $links;
+	}
+
+	public function addLink(BookLink $link) {
+		$link->setBook($this);
+		$this->links[] = $link;
+	}
+
+	public function removeLink(BookLink $link) {
+		$this->links->removeElement($link);
+	}
+
+	/**
+	 * @return BookLink[][]
+	 */
+	public function getLinksByCategory() {
+		$linksByCategory = [];
+		foreach ($this->getLinks() as $link) {
+			$linksByCategory[$link->getCategory()][] = $link;
+		}
+		return $linksByCategory;
+	}
+
+	/**
 	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
 	 */
 	public function setCoverFile(File $image = null) {
@@ -1176,22 +1218,6 @@ class Book implements \JsonSerializable {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
 			$this->setUpdatedAt(new \DateTime());
 		}
-	}
-
-	public function getChitankaId() {
-		return $this->chitankaId;
-	}
-
-	public function setChitankaId($chitankaId) {
-		$this->chitankaId = $chitankaId;
-	}
-
-	public function getLinks() {
-		return $this->links;
-	}
-
-	public function setLinks($links) {
-		$this->links = $links;
 	}
 
 	public function getToc() {
@@ -1413,7 +1439,6 @@ class Book implements \JsonSerializable {
 			'scan10' => $this->scan10,
 			'scan11' => $this->scan11,
 			'scan12' => $this->scan12,
-			'chitankaId' => $this->chitankaId,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,

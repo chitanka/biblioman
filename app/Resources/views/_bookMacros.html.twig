@@ -1,12 +1,19 @@
 {% macro printField(book, field, searchableFields) %}
 	{% set attr = attribute(book, field) %}
 	{% if attr is not empty %}
-		<dt>{{ field|trans }}</dt>
+		<dt>{{ field|humanize|trans }}</dt>
 		<dd>
 			{% if attr.timestamp is defined %}
 				{{ attr|date('d.m.Y H:s') }}
-			{% elseif field == 'links' %}
-				{{ attr | converturls | nl2br }}
+			{% elseif field == 'linksByCategory' %}
+				{% for category, links in attr %}
+					<b>{{ ('BookLinkCategory.' ~ category)|trans }}</b>
+					<ul>
+					{% for link in links %}
+						<li>{{ _self.printLink(link) }}</li>
+					{% endfor %}
+					</ul>
+				{% endfor %}
 			{% elseif field in searchableFields.fields %}
 				{% if field in ['title', 'subtitle'] %}
 					<a href="{{ path('books', { q: field ~ searchableFields.separator ~ attr }) }}">{{ attr }}</a>
@@ -23,4 +30,8 @@
 			{% endif %}
 		</dd>
 	{% endif %}
+{% endmacro %}
+
+{% macro printLink(link) %}
+	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}">{{ link.title|default(link.url) }}</a>
 {% endmacro %}

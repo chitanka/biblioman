@@ -34,7 +34,6 @@ parameters:
         - isbn13
         - createdBy
     book_fields_long:
-        - chitankaId
         - author
         - title
         - subtitle
@@ -94,7 +93,7 @@ parameters:
         - toc
         - notes
         - notesAboutOriginal
-        - links
+        - linksByCategory
         - createdBy
         - createdAt
         - updatedAt

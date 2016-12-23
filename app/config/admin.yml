@@ -71,84 +71,90 @@ easy_admin:
             form:
                 title: 'Редактиране на книга (№%%entity_id%%)'
                 fields:
-                    - { property: chitankaId, label: Номер в Моята библиотека }
-                    - { property: author, label: author, help: 'Ако са няколко, се отделят със запетая' }
-                    - { property: title, label: title }
-                    - { property: subtitle, label: subtitle }
-                    - { property: sequence, label: sequence }
-                    - { property: sequenceNr, label: sequenceNr }
-                    - { property: translator, label: translator }
-                    - { property: translatedFromLanguage, label: translatedFromLanguage }
-                    - { property: dateOfTranslation, label: dateOfTranslation }
-                    - { property: compiler, label: compiler }
-                    - { property: editorialStaff, label: editorialStaff, help: 'Няколко се отделят със запетая' }
-                    - { property: chiefEditor, label: chiefEditor }
-                    - { property: editor, label: editor }
-                    - { property: publisherEditor, label: publisherEditor }
-                    - { property: consultant, label: consultant }
-                    - { property: artist, label: artist, help: 'или Илюстрация на корицата, Художник на корицата' }
-                    - { property: artistEditor, label: artistEditor }
-                    - { property: technicalEditor, label: technicalEditor }
-                    - { property: reviewer, label: reviewer }
-                    - { property: corrector, label: corrector }
-                    - { property: layout, label: layout }
-                    - { property: coverLayout, label: coverLayout, help: 'или Дизайн на корицата' }
-                    - { property: computerProcessing, label: computerProcessing, help: 'или Компютърен дизайн' }
-                    - { property: prepress, label: prepress }
-                    - { property: publisher, label: publisher }
-                    - { property: pubCity, label: pubCity }
-                    - { property: pubDate, label: pubDate }
-                    - { property: publisherAddress, label: publisherAddress }
-                    - { property: print, label: print }
-                    - { property: contentType, label: contentType, help: 'роман / сборник разкази / сборник / стихосбирка' }
-                    - { property: nationality, label: nationality }
-                    - { property: language, label: language }
-                    - { property: edition, label: edition }
-                    - { property: litGroup, label: litGroup }
-                    - { property: typeSettingIn, label: typeSettingIn }
-                    - { property: printSigned, label: printSigned }
-                    - { property: printOut, label: printOut }
-                    - { property: printerSheets, label: printerSheets, help: 'среща се и като „обем“' }
-                    - { property: publisherSheets, label: publisherSheets }
-                    - { property: provisionPublisherSheets, label: provisionPublisherSheets, help: Условно издателски коли }
-                    - { property: format, label: format }
-                    - { property: publisherCode, label: publisherCode }
-                    - { property: trackingCode, label: trackingCode, help: 'От вида на „С-32“ или „Ч840“' }
-                    - { property: publisherOrder, label: publisherOrder }
-                    - { property: publisherNumber, label: publisherNumber }
-                    - { property: uniformProductClassification, label: uniformProductClassification, help: 'Код за единна класификация на продукцията' }
-                    - { property: pageCount, label: pageCount }
-                    - { property: totalPrint, label: totalPrint }
-                    - { property: price, label: price }
-                    - { property: binding, label: binding, help: 'мека / твърда' }
-                    - { property: illustrated, label: illustrated, type: checkbox }
-                    - { property: isbn10, label: isbn10 }
-                    - { property: isbn13, label: isbn13 }
-                    - { property: genre, label: genre }
-                    - { property: themes, label: themes }
-                    - { property: annotation, label: annotation }
-                    - { property: marketingSnippets, label: marketingSnippets, help: 'Обикновено на задната корица' }
-                    - { property: toc, label: toc }
-                    - { property: notes, label: notes }
-                    - { property: notesAboutOriginal, label: notesAboutOriginal  }
-                    - { property: links, label: links, help: linksHelp  }
                     - { property: isIncomplete }
-                    - { property: coverFile, label: coverFile, type: vich_image, template: 'file_with_image.html.twig' }
-                    - { property: backCoverFile, label: backCoverFile, type: vich_image }
-                    - { property: scan1File, label: scanFile, type: vich_image }
-                    - { property: scan2File, label: scanFile, type: vich_image }
-                    - { property: scan3File, label: scanFile, type: vich_image }
-                    - { property: scan4File, label: scanFile, type: vich_image }
-                    - { property: scan5File, label: scanFile, type: vich_image }
-                    - { property: scan6File, label: scanFile, type: vich_image }
-                    - { property: scan7File, label: scanFile, type: vich_image }
-                    - { property: scan8File, label: scanFile, type: vich_image }
-                    - { property: scan9File, label: scanFile, type: vich_image }
-                    - { property: scan10File, label: scanFile, type: vich_image }
-                    - { property: scan11File, label: scanFile, type: vich_image }
-                    - { property: scan12File, label: scanFile, type: vich_image }
+                    - { type: divider }
+                    - { property: author, help: help.author }
+                    - { property: title }
+                    - { property: subtitle }
+                    - { property: sequence }
+                    - { property: sequenceNr }
+                    - { property: translator }
+                    - { property: translatedFromLanguage }
+                    - { property: dateOfTranslation }
+                    - { property: compiler }
+                    - { property: editorialStaff, help: help.editorialStaff }
+                    - { property: chiefEditor }
+                    - { property: editor }
+                    - { property: publisherEditor }
+                    - { property: consultant }
+                    - { property: artist, help: help.artist }
+                    - { property: artistEditor }
+                    - { property: technicalEditor }
+                    - { property: reviewer }
+                    - { property: corrector }
+                    - { property: layout }
+                    - { property: coverLayout, help: help.coverLayout }
+                    - { property: computerProcessing, help: help.coverLayout }
+                    - { property: prepress }
+                    - { property: publisher }
+                    - { property: pubCity }
+                    - { property: pubDate }
+                    - { property: publisherAddress }
+                    - { property: print }
+                    - { property: contentType, help: help.contentType }
+                    - { property: nationality }
+                    - { property: language }
+                    - { property: edition }
+                    - { property: litGroup }
+                    - { property: typeSettingIn }
+                    - { property: printSigned }
+                    - { property: printOut }
+                    - { property: printerSheets, help: help.printerSheets }
+                    - { property: publisherSheets }
+                    - { property: provisionPublisherSheets, help: help.provisionPublisherSheets }
+                    - { property: format }
+                    - { property: publisherCode }
+                    - { property: trackingCode, help: help.trackingCode }
+                    - { property: publisherOrder }
+                    - { property: publisherNumber }
+                    - { property: uniformProductClassification, help: help.uniformProductClassification }
+                    - { property: pageCount }
+                    - { property: totalPrint }
+                    - { property: price }
+                    - { property: binding, help: help.binding }
+                    - { property: illustrated, type: checkbox }
+                    - { property: isbn10 }
+                    - { property: isbn13 }
+                    - { property: genre }
+                    - { property: themes }
+                    - { property: annotation }
+                    - { property: marketingSnippets, help: help.marketingSnippets }
+                    - { property: toc }
+                    - { property: notes }
+                    - { property: notesAboutOriginal }
+
+                    - { type: group, label: Links, icon: link }
+                    # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
+                    # See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
+                    - { property: links, type: collection, type_options: { entry_type: App\Form\BookLinkType, by_reference: false }, help: help.links }
+
+                    - { type: group, label: Scans, icon: image }
+                    - { property: coverFile, type: vich_image }
+                    - { property: backCoverFile, type: vich_image }
+                    - { property: scan1File, label: Scan file, type: vich_image }
+                    - { property: scan2File, label: Scan file, type: vich_image }
+                    - { property: scan3File, label: Scan file, type: vich_image }
+                    - { property: scan4File, label: Scan file, type: vich_image }
+                    - { property: scan5File, label: Scan file, type: vich_image }
+                    - { property: scan6File, label: Scan file, type: vich_image }
+                    - { property: scan7File, label: Scan file, type: vich_image }
+                    - { property: scan8File, label: Scan file, type: vich_image }
+                    - { property: scan9File, label: Scan file, type: vich_image }
+                    - { property: scan10File, label: Scan file, type: vich_image }
+                    - { property: scan11File, label: Scan file, type: vich_image }
+                    - { property: scan12File, label: Scan file, type: vich_image }
                     #- { property: source, label: source }
-        #Личности: App\Entity\Person
+
         User:
             class: App\Entity\User
             role: ROLE_ADMIN

@@ -1,0 +1,4 @@
+<div class="alert alert-warning" role="alert">Няма намерени книги.</div>
+{% if is_granted('ROLE_EDITOR') %}
+	<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> Добавяне на нова книга</a></p>
+{% endif %}
