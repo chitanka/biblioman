@@ -33,5 +33,5 @@
 {% endmacro %}
 
 {% macro printLink(link) %}
-	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}">{{ link.title|default(link.url|slice(0, 50)) }}</a>
+	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}">{{ link.author ? link.author ~ ': ' : '' }}{{ link.title|default(link.url|slice(0, 50)) }}</a>
 {% endmacro %}
