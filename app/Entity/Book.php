@@ -1093,8 +1093,10 @@ class Book implements \JsonSerializable {
 	}
 
 	public function addLink(BookLink $link) {
-		$link->setBook($this);
-		$this->links[] = $link;
+		if (!empty($link->getUrl())) {
+			$link->setBook($this);
+			$this->links[] = $link;
+		}
 	}
 
 	public function removeLink(BookLink $link) {
