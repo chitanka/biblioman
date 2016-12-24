@@ -31,7 +31,12 @@
 		</div>
 		<div class="media-body">
 			{% if book.isIncomplete %}
-				<p class="text-danger">Записът е непълен.</p>
+				<p class="text-danger">
+					Записът е непълен.
+					{% if book.reasonWhyIncomplete is not empty %}
+						({{ book.reasonWhyIncomplete }})
+					{% endif %}
+				</p>
 			{% endif %}
 			<dl class="dl-horizontal">
 				{% for field in fields %}

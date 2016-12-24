@@ -464,6 +464,12 @@ class Book implements \JsonSerializable {
 	private $isIncomplete = true;
 
 	/**
+	 * @var string
+	 * @ORM\Column(type="string", length=500, nullable=true)
+	 */
+	private $reasonWhyIncomplete;
+
+	/**
 	 * @var \DateTime
 	 * @ORM\Column(type="datetime", nullable=true)
 	 */
@@ -1296,6 +1302,14 @@ class Book implements \JsonSerializable {
 
 	public function setIsIncomplete($isIncomplete) {
 		$this->isIncomplete = $isIncomplete;
+	}
+
+	public function getReasonWhyIncomplete() {
+		return $this->reasonWhyIncomplete;
+	}
+
+	public function setReasonWhyIncomplete($reason) {
+		$this->reasonWhyIncomplete = $reason;
 	}
 
 	public function setLock($user) {

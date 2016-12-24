@@ -72,11 +72,13 @@ return [
 	'Created at' => 'Създадено на',
 	'Updated at' => 'Обновено на',
 	'Is incomplete' => 'Записът е непълен',
+	'Reason why incomplete' => 'Причина защо е непълен',
 	'Links' => 'Връзки в Мрежата',
 	'Links by category' => 'Връзки в Мрежата',
 	'Url' => 'Адрес',
 	'Category' => 'Категория',
 	'Scans' => 'Сканове',
+	'Metadata' => 'Метаданни',
 	'Book' => [
 		'new_title' => 'Добавяне на нова книга',
 		'form_title' => 'Редактиране на книга (№%entity_id%)',

@@ -71,8 +71,6 @@ easy_admin:
             form:
                 title: Book.form_title
                 fields:
-                    - { property: isIncomplete }
-                    - { type: divider }
                     - { property: author, help: help.author }
                     - { property: title }
                     - { property: subtitle }
@@ -154,6 +152,9 @@ easy_admin:
                     - { property: scan11File, label: Scan file, type: vich_image }
                     - { property: scan12File, label: Scan file, type: vich_image }
                     #- { property: source, label: source }
+                    - { type: group, label: Metadata, icon: file-text-o }
+                    - isIncomplete
+                    - reasonWhyIncomplete
 
         User:
             class: App\Entity\User
