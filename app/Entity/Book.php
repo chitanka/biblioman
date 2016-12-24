@@ -1506,7 +1506,13 @@ class Book implements \JsonSerializable {
 
 	public static function normalizePerson($name) {
 		$nameNormalized = $name;
-		$nameNormalized = preg_replace('/^(д\-р|проф\.|проф\. д\-р) /u', '', $nameNormalized);
+		$prefixes = [
+			'д-р',
+			'проф.',
+			'проф. д-р',
+			'акад.',
+		];
+		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') /u', '', $nameNormalized);
 		return $nameNormalized;
 	}
 
@@ -1523,7 +1529,7 @@ class Book implements \JsonSerializable {
 			'ДИ',
 			'ДФ',
 		];
-		$nameNormalized = preg_replace('/^('.implode('|', $prefixes).') ["„]?/u', '', $nameNormalized);
+		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') ["„]?/u', '', $nameNormalized);
 		$nameNormalized = strtr($nameNormalized, [
 			'"' => '',
 			'„' => '',
@@ -1541,5 +1547,9 @@ class Book implements \JsonSerializable {
 			return $name;
 		}
 		return $nameNormalized;
+	}
+
+	private static function gluePrefixesForRegExp($prefixes) {
+		return implode('|', array_map('preg_quote', $prefixes));
 	}
 }
