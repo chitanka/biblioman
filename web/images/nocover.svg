@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   width="513"
+   height="663"
+   version="1.0"
+   sodipodi:docbase="/home/rugby471/Desktop"
+   sodipodi:docname="Placeholdbook.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5">
+    <linearGradient
+       id="linearGradient6081">
+      <stop
+         style="stop-color:#b1b1b1;stop-opacity:1;"
+         offset="0"
+         id="stop6083" />
+      <stop
+         style="stop-color:#dddddd;stop-opacity:1;"
+         offset="1"
+         id="stop6085" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6081"
+       id="linearGradient6087"
+       x1="20.992085"
+       y1="334.124"
+       x2="80.761192"
+       y2="334.12399"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6081"
+       id="linearGradient8034"
+       x1="390.74249"
+       y1="315.17279"
+       x2="109.69122"
+       y2="45.48283"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:window-height="711"
+     inkscape:window-width="1024"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="0.68597285"
+     inkscape:cx="440.96988"
+     inkscape:cy="324.04563"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:current-layer="svg2" />
+  <rect
+     style="fill:url(#linearGradient6087);fill-opacity:1.0;stroke:#797979;stroke-width:2.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;opacity:1"
+     id="rect2161"
+     width="472.3219"
+     height="619.26648"
+     x="20.992085"
+     y="24.490765"
+     rx="26.321093"
+     ry="26.321093" />
+  <path
+     style="opacity:0.53225804;fill:url(#linearGradient8034);fill-opacity:1.0;stroke:#747474;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 465.70864,29.664973 L 85.226877,29.664973 L 85.155707,638.58303 L 465.70864,638.58303 C 478.15065,638.58303 488.16717,627.04001 488.16717,612.70178 L 488.16717,55.546221 C 488.16717,41.20801 478.15065,29.664973 465.70864,29.664973 z "
+     id="rect4114"
+     sodipodi:nodetypes="ccccccc" />
+  <text
+     xml:space="preserve"
+     style="font-size:77.75618744px;text-align:start;text-anchor:start;font-family:Bitstream Vera Sans"
+     x="105.87347"
+     y="206.21556"
+     id="text11010"><tspan
+       sodipodi:role="line"
+       id="tspan11012"
+       x="105.87347"
+       y="206.21556"><tspan
+         x="105.87347"
+         y="206.21556"
+         id="tspan11014"
+         style="text-align:start;text-anchor:start"> Липсва</tspan><tspan
+         dx="0"
+         x="488.88345"
+         y="206.21556"
+         id="tspan11016"
+         style="text-align:start;text-anchor:start" /></tspan><tspan
+       sodipodi:role="line"
+       id="tspan11018"
+       x="109.0627"
+       y="303.4108"><tspan
+         x="109.0627"
+         y="303.4108"
+         id="tspan11020"
+         style="text-align:start;text-anchor:start"> корица</tspan></tspan></text>
+</svg>
