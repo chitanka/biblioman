@@ -1528,6 +1528,8 @@ class Book implements \JsonSerializable {
 				return self::normalizePerson($value);
 			case 'publisher':
 				return self::normalizePublisher($value);
+			case 'illustrated':
+				return self::normalizeIllustrated($value);
 		}
 		return $value;
 	}
@@ -1579,6 +1581,10 @@ class Book implements \JsonSerializable {
 
 	private static function normalizeGenericValue($value) {
 		return preg_replace('/ \(не е указан[ао]\)/u', '', $value);
+	}
+
+	private static function normalizeIllustrated($value) {
+		return $value === 'да' ? 1 : 0;
 	}
 
 	private static function gluePrefixesForRegExp($prefixes) {

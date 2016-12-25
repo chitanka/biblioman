@@ -18,16 +18,19 @@ class BookController extends Controller {
 	 * @Route("/", name="books")
 	 */
 	public function indexAction(Request $request) {
-		$searchQuery = $request->query->get('q');
-		$adapter = new DoctrineORMAdapter($this->repo()->filterByQuery($searchQuery));
+		$searchQuery = BookRepository::getStructuredSearchQuery($request->query->get('q'));
+		$adapter = new DoctrineORMAdapter($this->repo()->filterByQuery($searchQuery->raw));
 		$pager = $this->pager($request, $adapter);
-		$searchQueryWoField = trim(array_slice(explode(BookRepository::FIELD_SEARCH_SEPARATOR, $searchQuery), -1)[0]);
+		$fields = $this->getParameter('book_fields_short');
+		if ($searchQuery->field && !in_array($searchQuery->field, $fields)) {
+			// include the search field in the book output
+			$fields[] = $searchQuery->field;
+		}
 		return $this->render('Book/index.html.twig', [
 			'pager' => $pager,
-			'fields' => $this->getParameter('book_fields_short'),
+			'fields' => $fields,
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 			'query' => $searchQuery,
-			'queryWoField' => $searchQueryWoField,
 		]);
 	}
 

@@ -64,6 +64,20 @@ class BookRepository extends EntityRepository {
 		];
 	}
 
+	public static function getStructuredSearchQuery($searchQuery) {
+		if (strpos($searchQuery, self::FIELD_SEARCH_SEPARATOR) !== false) {
+			list($field, $term) = explode(self::FIELD_SEARCH_SEPARATOR, $searchQuery);
+		} else {
+			$field = '';
+			$term = $searchQuery;
+		}
+		$structure = new \stdClass();
+		$structure->raw = $searchQuery;
+		$structure->field = trim($field);
+		$structure->term = trim($term);
+		return $structure;
+	}
+
 	/**
 	 * @param int $maxResults
 	 * @return Book[]
