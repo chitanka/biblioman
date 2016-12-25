@@ -76,6 +76,7 @@ return [
 	'Links' => 'Връзки в Мрежата',
 	'Links by category' => 'Връзки в Мрежата',
 	'Url' => 'Адрес',
+	'Categorization' => 'Категоризация',
 	'Category' => 'Категория',
 	'Scans' => 'Сканове',
 	'Metadata' => 'Метаданни',

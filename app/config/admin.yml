@@ -123,14 +123,16 @@ easy_admin:
                     - { property: illustrated, type: checkbox }
                     - { property: isbn10 }
                     - { property: isbn13 }
-                    - { property: genre }
-                    - { property: themes }
-                    - { property: category }
                     - { property: annotation }
                     - { property: marketingSnippets, help: help.marketingSnippets }
                     - { property: toc }
                     - { property: notes }
                     - { property: notesAboutOriginal }
+
+                    - { type: group, label: Categorization, icon: tag }
+                    - { property: category }
+                    - { property: genre }
+                    - { property: themes }
 
                     - { type: group, label: Links, icon: link }
                     # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
