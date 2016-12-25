@@ -15,6 +15,22 @@
 		{% endfor %}
 	</ol>
 
+	{% if tree is not empty %}
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="headingSubcategories">
+				<h4 class="panel-title">
+					<a role="button" data-toggle="collapse" href="#subcategoriesTree" aria-expanded="false" aria-controls="subcategoriesTree">
+						<span class="fa fa-caret-right"></span> Подкатегории
+					</a>
+				</h4>
+			</div>
+			<div id="subcategoriesTree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSubcategories">
+				<div class="panel-body">
+					{{ tree|raw }}
+				</div>
+			</div>
+		</div>
+	{% endif %}
 	{% include 'App:Book:booksList.html.twig' with { books: pager.currentPageResults } %}
 	{% include 'App:Book:pager.html.twig' %}
 

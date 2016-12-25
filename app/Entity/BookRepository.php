@@ -135,11 +135,14 @@ class BookRepository extends EntityRepository {
 	}
 
 	/**
+	 * @param BookCategory $category
 	 * @return QueryBuilder
 	 */
 	public function filterByCategory(BookCategory $category) {
-		return $this->createQueryBuilder('b')
-			->where('b.category = ?1')->setParameter(1, $category);
+		$qb = $this->createQueryBuilder('b')->where('b.category IN (:categories)');
+		$categories = array_merge([$category], $this->getCategoryRepository()->children($category));
+		$qb->setParameter('categories', $categories);
+		return $qb;
 	}
 
 	/**
@@ -149,5 +152,10 @@ class BookRepository extends EntityRepository {
 		return $this->createQueryBuilder('b')
 			->where('b.isIncomplete = 1')
 			->orWhere('b.nbScans = 0');
+	}
+
+	/** @return \Gedmo\Tree\Entity\Repository\NestedTreeRepository */
+	public function getCategoryRepository() {
+		return $this->_em->getRepository(BookCategory::class);
 	}
 }

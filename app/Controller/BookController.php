@@ -34,21 +34,8 @@ class BookController extends Controller {
 	 * @Route("/categories", name="books_categories")
 	 */
 	public function listCategoriesAction() {
-		$repo = $this->getDoctrine()->getManager()->getRepository('App:BookCategory');
-		$options = [
-			'decorate' => true,
-			'rootOpen' => '<ul>',
-			'rootClose' => '</ul>',
-			'childOpen' => '<li>',
-			'childClose' => '</li>',
-			'nodeDecorator' => function($category) {
-				return '<a href="'.$this->generateUrl('books_by_category', ['slug' => $category['slug']]).'">'.$category['name'].'</a>';
-			}
-		];
-		$htmlTree = $repo->childrenHierarchy(null /* starting from root nodes */, false /* false: load only direct children */, $options);
-
 		return $this->render('Book/listCategories.html.twig', [
-			'tree' => $htmlTree,
+			'tree' => $this->generateCategoryTree(),
 		]);
 	}
 
@@ -56,13 +43,14 @@ class BookController extends Controller {
 	 * @Route("/categories/{slug}", name="books_by_category")
 	 */
 	public function listByCategoryAction(Request $request, $slug) {
-		$repo = $this->getDoctrine()->getManager()->getRepository('App:BookCategory');
+		$repo = $this->repo()->getCategoryRepository();
 		$category = $repo->findOneBy(['slug' => $slug]);
 		$adapter = new DoctrineORMAdapter($this->repo()->filterByCategory($category));
 		$pager = $this->pager($request, $adapter);
 		return $this->render('Book/listByCategory.html.twig', [
 			'category' => $category,
 			'categoryPath' => $repo->getPath($category),
+			'tree' => $this->generateCategoryTree($category),
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
@@ -119,5 +107,22 @@ class BookController extends Controller {
 	/** @return BookRepository */
 	private function repo() {
 		return $this->getDoctrine()->getManager()->getRepository('App:Book');
+	}
+
+	private function generateCategoryTree($rootCategory = null) {
+		return $this->repo()->getCategoryRepository()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
+	}
+
+	private function categoryTreeOptions() {
+		return [
+			'decorate' => true,
+			'rootOpen' => '<ul>',
+			'rootClose' => '</ul>',
+			'childOpen' => '<li>',
+			'childClose' => '</li>',
+			'nodeDecorator' => function($category) {
+				return '<a href="'.$this->generateUrl('books_by_category', ['slug' => $category['slug']]).'">'.$category['name'].'</a>';
+			}
+		];
 	}
 }
