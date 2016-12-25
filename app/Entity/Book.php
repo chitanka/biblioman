@@ -1510,6 +1510,7 @@ class Book implements \JsonSerializable {
 	}
 
 	public static function normalizedFieldValue($field, $value) {
+		$value = self::normalizeGenericValue($value);
 		switch ($field) {
 			case 'author':
 			case 'translator':
@@ -1574,6 +1575,10 @@ class Book implements \JsonSerializable {
 			return $name;
 		}
 		return $nameNormalized;
+	}
+
+	private static function normalizeGenericValue($value) {
+		return preg_replace('/ \(не е указан[ао]\)/u', '', $value);
 	}
 
 	private static function gluePrefixesForRegExp($prefixes) {
