@@ -2,7 +2,11 @@
 <div class="media well book" itemscope itemtype="http://schema.org/Book">
 	<div class="media-left">
 		<div class="thumbnail" style="width: 210px">
-			<img src="/thumb/{{ book.cover|replace({'.jpg': '.200.jpg'}) }}" width="200" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}">
+			{% if book.cover %}
+				<img src="/thumb/{{ book.cover|replace({'.jpg': '.200.jpg'}) }}" width="200" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}">
+			{% else %}
+				<img src="/thumb/nocover.200.png" width="200">
+			{% endif %}
 		</div>
 	</div>
 	<div class="media-body">

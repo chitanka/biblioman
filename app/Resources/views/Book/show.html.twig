@@ -22,12 +22,20 @@
 
 	<div class="media well" itemscope itemtype="http://schema.org/Book">
 		<div class="media-left" data-featherlight-gallery data-featherlight-filter="a">
-			<a href="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
-				<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300">
-			</a>
-			<a href="/thumb/{{ book.backCover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
-				<img src="/thumb/{{ book.backCover|replace({'.jpg': '.300.jpg'}) }}" width="300">
-			</a>
+			{% if book.cover %}
+				<a href="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
+					<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300">
+				</a>
+			{% else %}
+				<img src="/thumb/nocover.300.png" width="300" class="thumbnail">
+			{% endif %}
+			{% if book.backCover %}
+				<a href="/thumb/{{ book.backCover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
+					<img src="/thumb/{{ book.backCover|replace({'.jpg': '.300.jpg'}) }}" width="300">
+				</a>
+			{% else %}
+				<img src="/thumb/nobackcover.300.png" width="300" class="thumbnail">
+			{% endif %}
 		</div>
 		<div class="media-body">
 			{% if book.isIncomplete %}
