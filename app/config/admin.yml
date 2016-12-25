@@ -87,7 +87,7 @@ easy_admin:
                     - { property: publisherEditor }
                     - { property: consultant }
                     - { property: artist, help: help.artist }
-                    - { property: artistEditor }
+                    - { property: artistEditor, help: help.artistEditor }
                     - { property: technicalEditor }
                     - { property: reviewer }
                     - { property: corrector }
