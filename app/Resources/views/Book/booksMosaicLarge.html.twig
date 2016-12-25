@@ -1,9 +1,13 @@
 <div class="row">
 	{% for book in books %}
 		<div class="col-xs-6 col-md-3">
-			<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail" title="{{ book.title }} - {{ book.author }}">
-				<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300" style="height: 400px">
-			</a>
+			{% if book.cover %}
+				<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail" title="{{ book.title }} - {{ book.author }}">
+					<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300" style="height: 400px">
+				</a>
+			{% else %}
+				<img src="/thumb/nocover.260.png" width="260" class="thumbnail" style="height: 400px">
+			{% endif %}
 		</div>
 	{% else %}
 		{% include 'App:Book:notFound.html.twig' %}
