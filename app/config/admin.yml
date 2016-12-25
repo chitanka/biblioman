@@ -65,6 +65,9 @@ easy_admin:
                     - { property: scan10, type: image }
                     - { property: scan11, type: image }
                     - { property: scan12, type: image }
+                    - { property: scan13, type: image }
+                    - { property: scan14, type: image }
+                    - { property: scan15, type: image }
             new:
                 title: Book.new_title
                 action_label: Нова книга
@@ -157,6 +160,9 @@ easy_admin:
                     - { property: scan10File, label: Scan file, type: vich_image }
                     - { property: scan11File, label: Scan file, type: vich_image }
                     - { property: scan12File, label: Scan file, type: vich_image }
+                    - { property: scan13File, label: Scan file, type: vich_image }
+                    - { property: scan14File, label: Scan file, type: vich_image }
+                    - { property: scan15File, label: Scan file, type: vich_image }
                     #- { property: source, label: source }
                     - { type: group, label: Metadata, icon: file-text-o }
                     - isIncomplete

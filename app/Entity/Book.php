@@ -426,6 +426,18 @@ class Book implements \JsonSerializable {
 	private $scan12;
 	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan12") @var File */
 	private $scan12File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan13;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan13") @var File */
+	private $scan13File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan14;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan14") @var File */
+	private $scan14File;
+	/** @ORM\Column(type="string", length=100, nullable=true) */
+	private $scan15;
+	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan15") @var File */
+	private $scan15File;
 
 	/**
 	 * @ORM\Column(type="string", length=50)
@@ -1221,6 +1233,18 @@ class Book implements \JsonSerializable {
 	public function getScan12File() { return $this->scan12File; }
 	public function setScan12($scan) { $this->scan12 = $scan; $this->incNbScans(); }
 	public function getScan12() { return $this->scan12; }
+	public function setScan13File(File $image = null) { $this->scan13File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan13File() { return $this->scan13File; }
+	public function setScan13($scan) { $this->scan13 = $scan; $this->incNbScans(); }
+	public function getScan13() { return $this->scan13; }
+	public function setScan14File(File $image = null) { $this->scan14File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan14File() { return $this->scan14File; }
+	public function setScan14($scan) { $this->scan14 = $scan; $this->incNbScans(); }
+	public function getScan14() { return $this->scan14; }
+	public function setScan15File(File $image = null) { $this->scan15File = $image; $this->setUpdatedAtOnImage($image); }
+	public function getScan15File() { return $this->scan15File; }
+	public function setScan15($scan) { $this->scan15 = $scan; $this->incNbScans(); }
+	public function getScan15() { return $this->scan15; }
 
 	protected function setUpdatedAtOnImage($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
@@ -1352,7 +1376,7 @@ class Book implements \JsonSerializable {
 
 	protected function updateNbScans() {
 		$nbScans = 0;
-		foreach (range(1, 12) as $i) {
+		foreach (range(1, 15) as $i) {
 			if ($this->{"scan$i"} !== null) {
 				$nbScans++;
 			}
@@ -1455,6 +1479,9 @@ class Book implements \JsonSerializable {
 			'scan10' => $this->scan10,
 			'scan11' => $this->scan11,
 			'scan12' => $this->scan12,
+			'scan13' => $this->scan13,
+			'scan14' => $this->scan14,
+			'scan15' => $this->scan15,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,
