@@ -7,6 +7,9 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    app.file_namer:
+        class: App\File\Namer
+
     app.user_transformer:
         class: App\Form\DataTransformer\UserToUsernameTransformer
         arguments: ["@doctrine"]

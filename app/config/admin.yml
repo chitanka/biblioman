@@ -4,7 +4,7 @@ vich_uploader:
         scan:
             uri_prefix:         /thumb
             upload_destination: %kernel.root_dir%/../data/scans
-            namer:              vich_uploader.namer_uniqid
+            namer:              app.file_namer
 
 easy_admin:
     site_name: '%sitename%'
