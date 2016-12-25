@@ -1,5 +1,6 @@
 <?php namespace App\Controller;
 
+use App\Entity\BookCategory;
 use App\Entity\BookRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -42,14 +43,12 @@ class BookController extends Controller {
 	/**
 	 * @Route("/categories/{slug}", name="books_by_category")
 	 */
-	public function listByCategoryAction(Request $request, $slug) {
-		$repo = $this->repo()->getCategoryRepository();
-		$category = $repo->findOneBy(['slug' => $slug]);
+	public function listByCategoryAction(Request $request, BookCategory $category) {
 		$adapter = new DoctrineORMAdapter($this->repo()->filterByCategory($category));
 		$pager = $this->pager($request, $adapter);
 		return $this->render('Book/listByCategory.html.twig', [
 			'category' => $category,
-			'categoryPath' => $repo->getPath($category),
+			'categoryPath' => $this->repo()->getCategoryRepository()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
