@@ -1,5 +1,6 @@
 <?php
 return [
+	'Data from paper' => 'Данни от хартията',
 	'ID' => '№',
 	'Books' => 'Книги',
 	'Author' => 'Автор',

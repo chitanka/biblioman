@@ -71,6 +71,7 @@ easy_admin:
             form:
                 title: Book.form_title
                 fields:
+                    - { type: group, label: Data from paper, icon: book }
                     - { property: author, help: help.author }
                     - { property: title }
                     - { property: subtitle }
@@ -126,8 +127,10 @@ easy_admin:
                     - { property: annotation }
                     - { property: marketingSnippets, help: help.marketingSnippets }
                     - { property: toc }
-                    - { property: notes }
                     - { property: notesAboutOriginal }
+
+                    - { type: group, label: Notes, icon: sticky-note-o }
+                    - { property: notes }
 
                     - { type: group, label: Categorization, icon: tag }
                     - { property: category }
