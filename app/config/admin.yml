@@ -125,6 +125,7 @@ easy_admin:
                     - { property: isbn13 }
                     - { property: genre }
                     - { property: themes }
+                    - { property: category }
                     - { property: annotation }
                     - { property: marketingSnippets, help: help.marketingSnippets }
                     - { property: toc }

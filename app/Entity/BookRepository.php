@@ -137,6 +137,14 @@ class BookRepository extends EntityRepository {
 	/**
 	 * @return QueryBuilder
 	 */
+	public function filterByCategory(BookCategory $category) {
+		return $this->createQueryBuilder('b')
+			->where('b.category = ?1')->setParameter(1, $category);
+	}
+
+	/**
+	 * @return QueryBuilder
+	 */
 	public function filterIncomplete() {
 		return $this->createQueryBuilder('b')
 			->where('b.isIncomplete = 1')

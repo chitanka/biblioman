@@ -21,6 +21,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 			new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 			new \FOS\MessageBundle\FOSMessageBundle(),
 			new \Liip\UrlAutoConverterBundle\LiipUrlAutoConverterBundle(),
+			new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 			new App(),
 		);
 

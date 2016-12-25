@@ -25,7 +25,8 @@
 		"vich/uploader-bundle": "1.3.1",
 		"white-october/pagerfanta-bundle": ">=1.0",
 		"friendsofsymfony/message-bundle": "^1.3",
-		"liip/url-auto-converter-bundle": "dev-master"
+		"liip/url-auto-converter-bundle": "dev-master",
+		"stof/doctrine-extensions-bundle": "^1.2"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",

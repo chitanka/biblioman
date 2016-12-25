@@ -4,17 +4,8 @@
 
 {% block content %}
 
-	<h1>Непълни записи за книги</h1>
-	{% for book in pager.currentPageResults %}
-		{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
-	{% else %}
-		<div class="alert alert-warning" role="alert">Няма намерени записи.</div>
-	{% endfor %}
-
-	{% if pager.haveToPaginate %}
-		<div class="text-center">
-			{{ pagerfanta(pager, 'twitter_bootstrap3', { 'omitFirstPage': true, 'prev_message': '←', 'next_message': '→' }) }}
-		</div>
-	{% endif %}
+	<h1>{{ block('title') }}</h1>
+	{% include 'App:Book:booksList.html.twig' with { books: pager.currentPageResults } %}
+	{% include 'App:Book:pager.html.twig' %}
 
 {% endblock %}

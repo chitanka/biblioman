@@ -6,11 +6,7 @@
 
 	{% include 'App:Book:books.html.twig' with { heading: 'Книги', route: 'books', books: pager.currentPageResults, mode: app.request.get('_mode', 'list') } %}
 
-	{% if pager.haveToPaginate %}
-		<div class="text-center">
-			{{ pagerfanta(pager, 'twitter_bootstrap3', { 'omitFirstPage': true, 'prev_message': '←', 'next_message': '→' }) }}
-		</div>
-	{% endif %}
+	{% include 'App:Book:pager.html.twig' %}
 
 {% endblock %}
 

@@ -29,6 +29,7 @@ parameters:
         - nationality
         - edition
         - genre
+        - category
         - format
         - isbn10
         - isbn13
@@ -88,6 +89,7 @@ parameters:
         - isbn13
         - genre
         - themes
+        - category
         - annotation
         - marketingSnippets
         - toc

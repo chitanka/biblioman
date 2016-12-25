@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Книги в категория „{{ category.name }}“{% endblock %}
+
+{% block content %}
+
+	<h1>{{ block('title') }}</h1>
+
+	<ol class="breadcrumb">
+		<li><a href="{{ path('books_categories') }}">Категории</a></li>
+		{% for categoryInPath in categoryPath %}
+			<li>
+				<a href="{{ path('books_by_category', { slug: categoryInPath.slug }) }}" class="{{ categoryInPath == category ? 'active' : '' }}">{{ categoryInPath.name }}</a>
+			</li>
+		{% endfor %}
+	</ol>
+
+	{% include 'App:Book:booksList.html.twig' with { books: pager.currentPageResults } %}
+	{% include 'App:Book:pager.html.twig' %}
+
+{% endblock %}

@@ -352,7 +352,7 @@ class Book implements \JsonSerializable {
 	private $genre;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\ManyToOne(targetEntity="BookCategory")
 	 */
 	private $category;
 

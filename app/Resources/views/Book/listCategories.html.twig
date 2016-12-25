@@ -1,0 +1,10 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Категории книги{% endblock %}
+
+{% block content %}
+
+	<h1>{{ block('title') }}</h1>
+	{{ tree|raw }}
+
+{% endblock %}

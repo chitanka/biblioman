@@ -31,6 +31,45 @@ class BookController extends Controller {
 	}
 
 	/**
+	 * @Route("/categories", name="books_categories")
+	 */
+	public function listCategoriesAction() {
+		$repo = $this->getDoctrine()->getManager()->getRepository('App:BookCategory');
+		$options = [
+			'decorate' => true,
+			'rootOpen' => '<ul>',
+			'rootClose' => '</ul>',
+			'childOpen' => '<li>',
+			'childClose' => '</li>',
+			'nodeDecorator' => function($category) {
+				return '<a href="'.$this->generateUrl('books_by_category', ['slug' => $category['slug']]).'">'.$category['name'].'</a>';
+			}
+		];
+		$htmlTree = $repo->childrenHierarchy(null /* starting from root nodes */, false /* false: load only direct children */, $options);
+
+		return $this->render('Book/listCategories.html.twig', [
+			'tree' => $htmlTree,
+		]);
+	}
+
+	/**
+	 * @Route("/categories/{slug}", name="books_by_category")
+	 */
+	public function listByCategoryAction(Request $request, $slug) {
+		$repo = $this->getDoctrine()->getManager()->getRepository('App:BookCategory');
+		$category = $repo->findOneBy(['slug' => $slug]);
+		$adapter = new DoctrineORMAdapter($this->repo()->filterByCategory($category));
+		$pager = $this->pager($request, $adapter);
+		return $this->render('Book/listByCategory.html.twig', [
+			'category' => $category,
+			'categoryPath' => $repo->getPath($category),
+			'pager' => $pager,
+			'fields' => $this->getParameter('book_fields_short'),
+			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+		]);
+	}
+
+	/**
 	 * @Route("/incomplete", name="books_incomplete")
 	 */
 	public function listIncompleteAction(Request $request) {
