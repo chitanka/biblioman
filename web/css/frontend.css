@@ -16,6 +16,9 @@ body {
 .overall-footer ul {
 	margin-bottom: 2em;
 }
+.overall-footer li + li {
+	margin-left: 1.5em;
+}
 .overall-footer a {
 	color: #fff;
 }

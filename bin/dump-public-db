@@ -1,0 +1,17 @@
+#!/bin/bash
+
+. `dirname $0`/parse_yaml.sh
+
+config_file=$1
+out_file=$2
+
+eval $(parse_yaml $config_file)
+
+db=$parameters_database_name
+db_credentials="--host=$parameters_database_host --user=$parameters_database_user --password=$parameters_database_password"
+# Public tables
+tables="book book_category book_link book_revision"
+
+mysqldump $db_credentials -d $db > $out_file
+mysqldump $db_credentials $db $tables --max_allowed_packet=1M >> $out_file
+gzip -f $out_file
