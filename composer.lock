@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a582af80cfbec32f71fd66ea0243c4bd",
-    "content-hash": "ecdabdd649287da75fea94ccff40cd75",
+    "hash": "a285eb934a5858aef9956fd6c12c8dd3",
+    "content-hash": "eed2a5df6259263314c3d09f90c0fb34",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1008,68 +1008,17 @@
             "time": "2016-12-14 20:12:38"
         },
         {
-            "name": "incenteev/composer-parameter-handler",
-            "version": "v2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Incenteev/ParameterHandler.git",
-                "reference": "d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc",
-                "reference": "d7ce7f06136109e81d1cb9d57066c4d4a99cf1cc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/yaml": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "composer/composer": "1.0.*@dev",
-                "phpspec/prophecy-phpunit": "~1.0",
-                "symfony/filesystem": "~2.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Incenteev\\ParameterHandler\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christophe Coevoet",
-                    "email": "stof@notk.org"
-                }
-            ],
-            "description": "Composer script handling your ignored parameter file",
-            "homepage": "https://github.com/Incenteev/ParameterHandler",
-            "keywords": [
-                "parameters management"
-            ],
-            "time": "2015-11-10 17:04:01"
-        },
-        {
             "name": "javiereguiluz/easyadmin-bundle",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "24c33c63aeea83fce249347f786cb33a524bbdcb"
+                "reference": "7f6f48bd5fae0b6a2171e42e09de5621f38a28b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/24c33c63aeea83fce249347f786cb33a524bbdcb",
-                "reference": "24c33c63aeea83fce249347f786cb33a524bbdcb",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/7f6f48bd5fae0b6a2171e42e09de5621f38a28b9",
+                "reference": "7f6f48bd5fae0b6a2171e42e09de5621f38a28b9",
                 "shasum": ""
             },
             "require": {
@@ -1140,7 +1089,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2016-12-23 20:41:27"
+            "time": "2016-12-26 17:06:12"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2533,12 +2482,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "7bc268e8c0f8f313828cf87f211be5b66b4d9452"
+                "reference": "5a0157f928bd83dfb7534a10b5c7acd75949d579"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/7bc268e8c0f8f313828cf87f211be5b66b4d9452",
-                "reference": "7bc268e8c0f8f313828cf87f211be5b66b4d9452",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/5a0157f928bd83dfb7534a10b5c7acd75949d579",
+                "reference": "5a0157f928bd83dfb7534a10b5c7acd75949d579",
                 "shasum": ""
             },
             "require": {
@@ -2667,7 +2616,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-12-23 17:11:40"
+            "time": "2016-12-26 17:57:20"
         },
         {
             "name": "twig/extensions",
