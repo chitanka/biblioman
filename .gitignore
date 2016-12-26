@@ -6,6 +6,7 @@
 /vendor/
 /web/bundles/
 /web/cache/*
+/web/db.sql.gz
 *.min.js
 *.swp
 /composer.phar
