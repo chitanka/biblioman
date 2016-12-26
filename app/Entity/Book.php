@@ -1584,7 +1584,7 @@ class Book implements \JsonSerializable {
 	}
 
 	private static function normalizeIllustrated($value) {
-		return $value === 'да' ? 1 : 0;
+		return in_array($value, ['да', '1', 'true']) ? 1 : 0;
 	}
 
 	private static function gluePrefixesForRegExp($prefixes) {
