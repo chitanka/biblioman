@@ -18,12 +18,12 @@
 				<a href="{{ path('books_by_category', { slug: attr.slug }) }}">{{ attr.name }}</a>
 			{% elseif field in searchableFields.fields %}
 				{% if field in ['title', 'subtitle'] %}
-					<a href="{{ path('books', { q: field ~ searchableFields.separator ~ attr }) }}">{{ attr }}</a>
+					<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ attr }) }}">{{ attr }}</a>
 				{% elseif attr is same as(true) %}
-					<a href="{{ path('books', { q: field ~ searchableFields.separator ~ 'да' }) }}">да</a>
+					<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ 'да' }) }}">да</a>
 				{% else %}
 					{% for subvalue in attr|split(', ') %}
-						<a href="{{ path('books', { q: field ~ searchableFields.separator ~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
+						<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
 			{% else %}
