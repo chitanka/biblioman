@@ -1,50 +1,7 @@
-всеки друг проект е ограничен (жанрово, времево, по наличност — за библиотеки и т.н.) и се прави от микроекипи.
-
-
 book
-	title
-	authors
-	annotation
-	content_type enum(none single collection anthology almanac)
-	revisions
-	publishers
-	classifications
-	sequence, sequence nr
 	info_sources
 	works
-	pub_date
-	nationality
-	edition (Поредност на изданието)
-	Съставител
-	Превод
-	Художник
-	Други-екип
-	Печат
-	format
-	Печатни коли
-	page_count
-	price
-	binding
-	language
-	illustrated
-	notes
-	scans - cover, back cover, info pages
 	verified
-	----
-	themes
-	genre
-	category
-
-work
-	Вид на произведението
-
-book_authors
-	book_id
-	author_type enum(author compiler painter translator)
-	person_id
-	year
-
-book_revision
 
 classification
 	name
@@ -56,47 +13,6 @@ book_classification
 
 info_source (id name url)
 
-book_content
-  book_id
-  level
-  work_idx COMMENT Пореден номер на произведението в книгата
-  work_type enum(work foreword afterword interview article poem nongenre group)
-  title
-  title_orig
-  authors_orig
-  page_num COMMENT Номер на страница на която е произведението.
-
-work_authors
-  work_id
-  is_default COMMENT Дали авторът е подразбиращ се (от книгата).
-  person_id
-
-work_translators
-  work_id
-  from_lang
-  trans_year
-  is_default COMMENT Дали е основния преводач на книгата.
-  person_id COMMENT Код на лице (преводач).
-
-
-кола
-	signature
-
-
-tables
-	book
-		(title)
-	book_authors
-		(book, author_name, person)
-	book_translators
-		(book, translator_name, person)
-	book_persons
-		(book, person_name, person)
-	person
-		(name)
-
-
-- анотация в tooltip
 - запис на _mode в User.settings
 - начин за преглед на промените по книга
 - оценки
