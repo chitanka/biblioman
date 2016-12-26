@@ -106,3 +106,7 @@ parameters:
         - createdBy
         - createdAt
         - updatedAt
+
+    footer_links:
+        - { icon: code, url: https://github.com/chitanka/biblioman, text: Изходен код }
+        - { icon: database, url: /biblioman.sql.gz, text: База от данни }

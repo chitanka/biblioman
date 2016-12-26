@@ -33,6 +33,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         sitename: "%sitename%"
+        footer_links: "%footer_links%"
 
 # Assetic Configuration
 assetic:

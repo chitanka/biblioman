@@ -1,5 +1,6 @@
 <ul class="list-inline">
-	<li><a href="https://github.com/chitanka/biblioman"><span class="fa fa-code"></span> Изходен код</a></li>
-	<li><a href="/db.sql.gz"><span class="fa fa-database"></span> База от данни</a></li>
+	{% for link in footer_links %}
+		<li><a href="{{ link.url }}"><span class="fa fa-{{ link.icon }}"></span> {{ link.text }}</a></li>
+	{% endfor %}
 </ul>
-<p>Направено с любов.</p>
+<p>Създадено с любов.</p>
