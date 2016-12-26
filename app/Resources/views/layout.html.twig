@@ -13,21 +13,34 @@
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/font-awesome.min.css') }}">
 				<link href="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.min.css" type="text/css" rel="stylesheet">
 				<link href="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.gallery.min.css" type="text/css" rel="stylesheet">
-				<link href="{{ asset('css/biblioman.css') }}" rel="stylesheet">
+				<link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
 			{% endblock %}
 		{% endblock headers %}
 	</head>
 	<body class="{% spaceless %}{% block body_class '' %}{% endspaceless %}">
 		{% block body %}
-			<div class="container">
-				{% block navbar %}
-					{% include 'navbar.html.twig' %}
-				{% endblock %}
-				{% block messages %}
-					{% include 'messages.html.twig' %}
-				{% endblock %}
-				{% block content '' %}
+			<header class="overall-header">
+				<div class="container">
+					{% block navbar %}
+						{% include 'navbar.html.twig' %}
+					{% endblock %}
+				</div>
+			</header>
+			<div id="content">
+				<div class="container">
+					{% block messages %}
+						{% include 'messages.html.twig' %}
+					{% endblock %}
+					{% block content '' %}
+				</div>
 			</div>
+			<footer class="overall-footer">
+				<div class="container">
+					{% block footer %}
+						{% include 'footer.html.twig' %}
+					{% endblock %}
+				</div>
+			</footer>
 		{% endblock %}
 		{% block javascripts %}
 			<script src="{{ asset('bundles/easyadmin/javascript/jquery.min.js') }}"></script>
@@ -35,6 +48,7 @@
 			<script src="{{ asset('bundles/easyadmin/javascript/jquery.highlight.min.js') }}"></script>
 			<script src="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 			<script src="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="{{ asset('js/frontend.js') }}"></script>
 		{% endblock %}
 		{% block custom_javascript '' %}
 	</body>

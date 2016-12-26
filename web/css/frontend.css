@@ -1,7 +1,23 @@
 body {
-	padding: 20px 10px;
 	font-size: 15px;
 	line-height: 1.6;
+}
+.overall-header {
+	margin-top: 20px;
+}
+.overall-footer {
+	background-color: #2a2730;
+	color: #99979c;
+	margin-top: 100px;
+	padding-bottom: 50px;
+	padding-top: 50px;
+	text-align: center;
+}
+.overall-footer ul {
+	margin-bottom: 2em;
+}
+.overall-footer a {
+	color: #fff;
 }
 .container .jumbotron {
 	padding-left: 50px;
@@ -25,5 +41,8 @@ body {
 @media screen and (min-width: 992px) {
 	#q {
 		min-width: 500px;
+	}
+	.popover {
+		min-width: 40em;
 	}
 }

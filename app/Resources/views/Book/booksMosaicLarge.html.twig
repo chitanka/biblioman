@@ -2,11 +2,11 @@
 	{% for book in books %}
 		<div class="col-xs-6 col-md-3">
 			{% if book.cover %}
-				<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail" title="{{ book.title }} - {{ book.author }}">
+				<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger" data-content="{{ book.annotation }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
 					<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300" style="height: 400px">
 				</a>
 			{% else %}
-				<img src="/thumb/nocover.260.png" width="260" class="thumbnail" style="height: 400px">
+				<img src="/thumb/nocover.260.png" width="260" class="thumbnail" style="height: 400px" title="{{ book.title }} - {{ book.author }}">
 			{% endif %}
 		</div>
 	{% else %}
