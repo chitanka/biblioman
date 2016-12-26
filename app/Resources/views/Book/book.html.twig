@@ -3,7 +3,7 @@
 	<div class="media-left">
 		<div class="thumbnail" style="width: 210px">
 			{% if book.cover %}
-				<img src="/thumb/{{ book.cover|replace({'.jpg': '.200.jpg'}) }}" width="200" data-featherlight="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}">
+				<img src="/thumb/{{ _.thumb(book.cover, 200) }}" width="200" data-featherlight="/thumb/{{ _.thumb(book.cover, 800) }}">
 			{% else %}
 				<img src="/thumb/nocover.200.png" width="200">
 			{% endif %}

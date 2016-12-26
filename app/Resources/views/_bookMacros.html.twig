@@ -39,3 +39,7 @@
 {% macro printLink(link) %}
 	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}">{{ link.author ? link.author ~ ': ' : '' }}{{ link.title|default(link.url|slice(0, 50)) }}</a>
 {% endmacro %}
+
+{% macro thumb(image, width) -%}
+	{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
+{%- endmacro %}

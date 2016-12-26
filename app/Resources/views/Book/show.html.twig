@@ -23,15 +23,15 @@
 	<div class="media well" itemscope itemtype="http://schema.org/Book">
 		<div class="media-left" data-featherlight-gallery data-featherlight-filter="a">
 			{% if book.cover %}
-				<a href="/thumb/{{ book.cover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
-					<img src="/thumb/{{ book.cover|replace({'.jpg': '.300.jpg'}) }}" width="300">
+				<a href="/thumb/{{ _.thumb(book.cover, 800) }}" class="thumbnail" style="width: 310px">
+					<img src="/thumb/{{ _.thumb(book.cover, 300) }}" width="300">
 				</a>
 			{% else %}
 				<img src="/thumb/nocover.300.png" width="300" class="thumbnail">
 			{% endif %}
 			{% if book.backCover %}
-				<a href="/thumb/{{ book.backCover|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail" style="width: 310px">
-					<img src="/thumb/{{ book.backCover|replace({'.jpg': '.300.jpg'}) }}" width="300">
+				<a href="/thumb/{{ _.thumb(book.backCover, 800) }}" class="thumbnail" style="width: 310px">
+					<img src="/thumb/{{ _.thumb(book.backCover, 300) }}" width="300">
 				</a>
 			{% else %}
 				<img src="/thumb/nobackcover.300.png" width="300" class="thumbnail">
@@ -78,8 +78,8 @@
 			{% set scan = attribute(book, "scan"~i) %}
 			{% if scan is not empty %}
 				<div class="col-xs-6 col-md-3">
-					<a href="/thumb/{{ scan|replace({'.jpg': '.800.jpg'}) }}" class="thumbnail">
-						<img src="/thumb/{{ scan|replace({'.jpg': '.300.jpg'}) }}" width="300" style="max-height: 370px">
+					<a href="/thumb/{{ _.thumb(scan, 800) }}" class="thumbnail">
+						<img src="/thumb/{{ _.thumb(scan, 300) }}" width="300" style="max-height: 370px">
 					</a>
 				</div>
 			{% endif %}
