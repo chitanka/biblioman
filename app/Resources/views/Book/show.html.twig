@@ -1,43 +1,41 @@
 {% extends "layout.html.twig" %}
 
-{% set title %}
-<i>{{ book.title }}</i>
-{% if book.author is not empty %}
-	от {{ book.author }}
-{% endif %}
-{% endset %}
-
-{% block title %}{{ title }}{% endblock %}
+{% block title %}
+	<i>{{ book.title }}</i>
+	{% if book.author is not empty %}
+		от {{ book.author }}
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 
 	{% import '_bookMacros.html.twig' as _ %}
 
-	<h1>{{ title }}</h1>
+	<h1>{{ block('title') }}</h1>
 
 	<ol class="breadcrumb">
 		<li><a href="{{ path('books') }}">Книги</a></li>
 		<li class="active">№ {{ book.id }}</li>
 	</ol>
 
-	<div class="media well" itemscope itemtype="http://schema.org/Book">
-		<div class="media-left" data-featherlight-gallery data-featherlight-filter="a">
+	<div class="row" itemscope itemtype="http://schema.org/Book">
+		<div class="col-xs-5 col-md-4" data-featherlight-gallery data-featherlight-filter="a">
 			{% if book.cover %}
-				<a href="/thumb/{{ _.thumb(book.cover, 800) }}" class="thumbnail" style="width: 310px">
+				<a href="/thumb/{{ _.thumb(book.cover, 800) }}" class="thumbnail" style="width: 310px; max-width: 100%">
 					<img src="/thumb/{{ _.thumb(book.cover, 300) }}" width="300">
 				</a>
 			{% else %}
 				<img src="/thumb/nocover.300.png" width="300" class="thumbnail">
 			{% endif %}
 			{% if book.backCover %}
-				<a href="/thumb/{{ _.thumb(book.backCover, 800) }}" class="thumbnail" style="width: 310px">
+				<a href="/thumb/{{ _.thumb(book.backCover, 800) }}" class="thumbnail" style="width: 310px; max-width: 100%">
 					<img src="/thumb/{{ _.thumb(book.backCover, 300) }}" width="300">
 				</a>
 			{% else %}
 				<img src="/thumb/nobackcover.300.png" width="300" class="thumbnail">
 			{% endif %}
 		</div>
-		<div class="media-body">
+		<div class="col-xs-7 col-md-8">
 			{% if book.isIncomplete %}
 				<p class="text-danger">
 					Записът е непълен.
