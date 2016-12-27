@@ -1586,6 +1586,7 @@ class Book implements \JsonSerializable {
 			'Издателство на ЦК на ДКМС' => '',
 			'издателство на ЦК на ДКМС' => '',
 			'Университетско издателство' => '',
+			'Ltd' => '',
 		]);
 		$nameNormalized = trim($nameNormalized, ' ,-');
 		if (empty($nameNormalized)) {
