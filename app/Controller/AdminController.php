@@ -29,7 +29,7 @@ class AdminController extends EasyAdminController {
 
 	protected function preUpdateBookEntity(Book $book) {
 		$diffs = $this->bookPreEdit->getDifferences($book);
-		if ($diffs) {
+		if ($diffs && ($this->getUsername() != $book->getCreatedBy() || $book->hasRevisions())) {
 			$revision = $book->createRevision();
 			$revision->setDiffs($diffs);
 			$revision->setCreatedBy($this->getUsername());

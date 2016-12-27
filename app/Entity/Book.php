@@ -1503,9 +1503,11 @@ class Book implements \JsonSerializable {
 		$diffs = [];
 		foreach ($ourFields as $field => $ourValue) {
 			if ($ourValue !== $otherFields[$field]) {
-				$diffs[$field] = [$ourValue, $otherFields[$field]];
+				$diffs[$field] = [(string) $ourValue, (string) $otherFields[$field]];
 			}
 		}
+		// do not track changes to these fields
+		$diffs = array_diff_key($diffs, array_flip(['updatedAt', 'nbScans']));
 		return $diffs;
 	}
 
