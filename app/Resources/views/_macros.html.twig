@@ -4,7 +4,7 @@
 		<dt>{{ field|humanize|trans }}</dt>
 		<dd class="entity-field entity-field{{ field }}">
 			{% if attr.timestamp is defined %}
-				{{ attr|date('d.m.Y H:s') }}
+				{{ _self.printDate(attr) }}
 			{% elseif field == 'linksByCategory' %}
 				{% for category, links in attr %}
 					<b>{{ ('BookLinkCategory.' ~ category)|trans }}</b>
@@ -18,19 +18,19 @@
 				<a href="{{ path('books_by_category', { slug: attr.slug }) }}">{{ attr.name }}</a>
 			{% elseif field in searchableFields.fields %}
 				{% if field in ['title', 'subtitle'] %}
-					<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ attr }) }}">{{ attr }}</a>
+					{{ _self.printSearchLink(attr, field, searchableFields) }}
 				{% elseif attr is same as(true) %}
-					<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ 'да' }) }}">да</a>
+					{{ _self.printSearchLink('да', field, searchableFields) }}
 				{% else %}
 					{% for subvalue in attr|split(', ') %}
-						<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ subvalue }) }}">{{ subvalue }}</a>{% if not loop.last %},{% endif %}
+						{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
 			{% if field == 'createdBy' %}
-				<a href="{{ path('fos_message_thread_new', { username: attr }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
+				{{ _self.printUserMessageLink(attr) }}
 			{% endif %}
 		</dd>
 	{% endif %}
@@ -38,6 +38,23 @@
 
 {% macro printLink(link) %}
 	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}">{{ link.author ? link.author ~ ': ' : '' }}{{ link.title|default(link.url|slice(0, 50)) }}</a>
+{% endmacro %}
+
+{% macro printSearchLink(term, field, searchableFields) %}
+	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term }}</a>
+{% endmacro %}
+
+{% macro printUser(user) %}
+	{{ user }}
+	{{ _self.printUserMessageLink(user) }}
+{% endmacro %}
+
+{% macro printUserMessageLink(user) %}
+	<a href="{{ path('fos_message_thread_new', { username: user }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
+{% endmacro %}
+
+{% macro printDate(date) %}
+	<time datetime="{{ date|date('c') }}">{{ date|date('d.m.Y H:i') }}</time>
 {% endmacro %}
 
 {% macro thumb(image, width) -%}

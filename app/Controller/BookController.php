@@ -1,5 +1,6 @@
 <?php namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\BookRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -85,13 +86,18 @@ class BookController extends Controller {
 	}
 
 	/**
+	 * @Route("/{id}/revisions", name="books_show_revisions")
+	 */
+	public function showRevisionsAction(Book $book) {
+		return $this->render('Book/showRevisions.html.twig', [
+			'book' => $book,
+		]);
+	}
+
+	/**
 	 * @Route("/{id}", name="books_show")
 	 */
-	public function showAction($id) {
-		$book = $this->repo()->find($id);
-		if (!$book) {
-			throw $this->createNotFoundException('Book not found');
-		}
+	public function showAction(Book $book) {
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),

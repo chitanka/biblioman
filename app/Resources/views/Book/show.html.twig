@@ -9,7 +9,7 @@
 
 {% block content %}
 
-	{% import '_bookMacros.html.twig' as _ %}
+	{% import '_macros.html.twig' as _ %}
 
 	<h1>{{ block('title') }}</h1>
 
@@ -49,15 +49,12 @@
 					{{ _.printField(book, field, searchableFields) }}
 				{% endfor %}
 				{% if book.hasRevisions %}
-					<dt>Промени от</dt>
+					<dt>Промени</dt>
 					<dd>
-						<ul class="list-inline">
-						{% for revisionEditor in book.revisionEditors %}
-							<li>
-								{{ revisionEditor }}
-								<a href="{{ path('fos_message_thread_new', { username: revisionEditor }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
-							</li>
-						{% endfor %}
+						<ul class="list-unstyled">
+							{% for revision in book.revisions %}
+								<li><a href="{{ path('books_show_revisions', { id: book.id }) }}#revision-{{ revision.id }}">{{ revision.createdBy }} &middot; {{ _.printDate(revision.createdAt) }} &times;{{ revision.diffs|length }}</a></li>
+							{% endfor %}
 						</ul>
 					</dd>
 				{% endif %}

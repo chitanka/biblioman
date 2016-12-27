@@ -49,3 +49,26 @@ body {
 		min-width: 40em;
 	}
 }
+
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: none;
+}
+.ins-block {
+	display: block;
+	border-left: 0.5em solid #47ad09;
+	padding-left: 0.5em;
+}
+.del-block {
+	display: block;
+	border-left: 0.5em solid #91081f;
+	padding-left: 0.5em;
+	color: #666;
+}
+
+div:target {
+	border-left: 0.3em solid darkorange;
+	box-shadow: 2px 2px 10px -5px darkorange;
+}
