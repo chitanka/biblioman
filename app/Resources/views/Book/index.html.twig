@@ -1,6 +1,11 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Книги{% endblock %}
+{% block title %}
+	Книги
+	{% if query.raw is not empty %}
+		— {{ query.raw }}
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 
