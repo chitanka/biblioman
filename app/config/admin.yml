@@ -79,6 +79,7 @@ easy_admin:
                     - { property: author, help: help.author }
                     - { property: title }
                     - { property: subtitle }
+                    - { property: subtitle2 }
                     - { property: sequence }
                     - { property: sequenceNr }
                     - { property: translator }

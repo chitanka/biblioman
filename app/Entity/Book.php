@@ -34,6 +34,11 @@ class Book implements \JsonSerializable {
 	private $subtitle;
 
 	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $subtitle2;
+
+	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
 	private $author;
@@ -722,6 +727,15 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function getSubtitle2() {
+		return $this->subtitle2;
+	}
+
+	public function setSubtitle2($subtitle2) {
+		$this->subtitle2 = $subtitle2;
+		return $this;
+	}
+
 	public function getCompiler() {
 		return $this->compiler;
 	}
@@ -1401,6 +1415,7 @@ class Book implements \JsonSerializable {
 			'id' => $this->id,
 			'title' => $this->title,
 			'subtitle' => $this->subtitle,
+			'subtitle2' => $this->subtitle2,
 			'author' => $this->author,
 			'translator' => $this->translator,
 			'translatedFromLanguage' => $this->translatedFromLanguage,

@@ -45,6 +45,7 @@ parameters:
         - author
         - title
         - subtitle
+        - subtitle2
         - sequence
         - sequenceNr
         - translator
