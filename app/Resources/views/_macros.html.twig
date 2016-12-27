@@ -40,9 +40,9 @@
 	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}">{{ link.author ? link.author ~ ': ' : '' }}{{ link.title|default(link.url|slice(0, 50)) }}</a>
 {% endmacro %}
 
-{% macro printSearchLink(term, field, searchableFields) %}
+{% macro printSearchLink(term, field, searchableFields) -%}
 	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term }}</a>
-{% endmacro %}
+{%- endmacro %}
 
 {% macro printUser(user) %}
 	{{ user }}
