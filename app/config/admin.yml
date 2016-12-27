@@ -96,7 +96,7 @@ easy_admin:
                     - { property: technicalEditor }
                     - { property: reviewer }
                     - { property: corrector }
-                    - { property: layout }
+                    - { property: layout, help: help.layout }
                     - { property: coverLayout, help: help.coverLayout }
                     - { property: computerProcessing, help: help.coverLayout }
                     - { property: prepress }
