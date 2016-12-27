@@ -5,6 +5,7 @@ vich_uploader:
             uri_prefix:         /thumb
             upload_destination: %kernel.root_dir%/../data/scans
             namer:              app.file_namer
+            delete_on_update:   false
 
 easy_admin:
     site_name: '%sitename%'
