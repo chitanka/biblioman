@@ -18,7 +18,7 @@
 				<dt>...</dt>
 				<dd>
 					<a href="{{ path('books_show', { id: book.id }) }}" title="Пълен преглед на записа" class="btn btn-default"><span class="fa fa-book"></span></a>
-					<a href="{{ path('easyadmin') }}?action=edit&entity=Book&id={{ book.id }}" title="Редактиране на записа" class="btn btn-default"><span class="fa fa-pencil"></span></a>
+					{{ _.printEditLink(book) }}
 					{% if book.isIncomplete %}
 						<span class="text-danger">Записът е непълен.</span>
 					{% endif %}

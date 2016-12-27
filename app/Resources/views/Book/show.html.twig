@@ -60,7 +60,7 @@
 				{% endif %}
 				<dt>...</dt>
 				<dd>
-					<a href="{{ path('easyadmin') }}?action=edit&entity=Book&id={{ book.id }}" title="Редактиране на записа" class="btn btn-default"><span class="fa fa-pencil"></span></a>
+					{{ _.printEditLink(book) }}
 				</dd>
 			</dl>
 		</div>

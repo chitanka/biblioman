@@ -61,6 +61,10 @@
 <i>{{ _self.maxlength(book.title, 60) }}</i>{% if book.author is not empty %}{{ glue|default(' – ') }}{{ _self.maxlength(book.author, 40) }}{% endif %}
 {% endmacro %}
 
+{% macro printEditLink(book) %}
+	<a href="{{ path('easyadmin', { action: 'edit', entity: 'Book', id: book.id }) }}" title="Редактиране на записа" class="btn btn-default"><span class="fa fa-pencil"></span></a>
+{% endmacro %}
+
 {% macro thumb(image, width) -%}
 	{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
 {%- endmacro %}
