@@ -1,5 +1,8 @@
-{% if app.user and fos_message_nb_unread() > 0 %}
-	<div class="alert alert-success" role="alert">
-		Имате <a href="{{ path('fos_message_inbox') }}">нови съобщения</a>.
-	</div>
-{% endif %}
+<div class="user-messages clearfix">
+	{% if app.user and fos_message_nb_unread() > 0 %}
+		<div class="alert alert-success new-messages-alert pull-right" role="alert">
+			<span class="fa fa-comments-o"></span>
+			Имате <a href="{{ path('fos_message_inbox') }}">нови съобщения</a>.
+		</div>
+	{% endif %}
+</div>

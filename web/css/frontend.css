@@ -36,6 +36,14 @@ body {
 	margin-bottom: 13px;
 	margin-top: 13px;
 }
+.new-messages-alert {
+	background-color: orangered;
+	color: white;
+	font-weight: bold;
+}
+.new-messages-alert a {
+	color: white;
+}
 .highlight {
 	background: #FF9;
 	border-radius: 2px;
