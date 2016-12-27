@@ -86,6 +86,17 @@ class BookController extends Controller {
 	}
 
 	/**
+	 * @Route("/revisions", name="books_revisions")
+	 */
+	public function showAllRevisionsAction(Request $request) {
+		$adapter = new DoctrineORMAdapter($this->repo()->revisions());
+		$pager = $this->pager($request, $adapter, 30);
+		return $this->render('Book/showAllRevisions.html.twig', [
+			'pager' => $pager,
+		]);
+	}
+
+	/**
 	 * @Route("/{id}/revisions", name="books_show_revisions")
 	 */
 	public function showRevisionsAction(Book $book) {
@@ -105,9 +116,9 @@ class BookController extends Controller {
 		]);
 	}
 
-	private function pager(Request $request, $adapter) {
+	private function pager(Request $request, $adapter, $maxPerPage = null) {
 		$pager = new Pagerfanta($adapter);
-		$pager->setMaxPerPage(self::ITEMS_PER_PAGE);
+		$pager->setMaxPerPage($maxPerPage ?: self::ITEMS_PER_PAGE);
 		$pager->setCurrentPage($request->query->get('page', 1));
 		return $pager;
 	}

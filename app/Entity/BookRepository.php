@@ -174,4 +174,13 @@ class BookRepository extends EntityRepository {
 	public function getCategoryRepository() {
 		return $this->_em->getRepository(BookCategory::class);
 	}
+
+	public function revisions() {
+		return $this->getRevisionRepository()->allInReverse();
+	}
+
+	/** @return BookRevisionRepository */
+	public function getRevisionRepository() {
+		return $this->_em->getRepository(BookRevision::class);
+	}
 }

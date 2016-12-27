@@ -3,9 +3,7 @@
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 				<span class="sr-only">Включване/изключване на навигацията</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+				<span class="fa fa-navicon"></span>
 			</button>
 			<a class="navbar-brand" href="{{ path('homepage') }}">{{ sitename }}</a>
 		</div>
@@ -39,6 +37,7 @@
 								<li role="separator" class="divider"></li>
 							{% endif %}
 							<li><a href="{{ path('books_incomplete') }}"><span class="fa fa-battery-half fa-fw"></span> Непълни записи</a></li>
+							<li><a href="{{ path('books_revisions') }}"><span class="fa fa-eraser fa-fw"></span> Промени</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ path('docs_books') }}"><span class="fa fa-file-text-o fa-fw"></span> Как се въвеждат данните</a></li>
 						</ul>

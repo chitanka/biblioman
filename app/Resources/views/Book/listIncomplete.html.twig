@@ -6,6 +6,6 @@
 
 	<h1>{{ block('title') }}</h1>
 	{% include 'App:Book:booksList.html.twig' with { books: pager.currentPageResults } %}
-	{% include 'App:Book:pager.html.twig' %}
+	{% include 'pager.html.twig' %}
 
 {% endblock %}

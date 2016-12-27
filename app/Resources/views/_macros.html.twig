@@ -57,6 +57,17 @@
 	<time datetime="{{ date|date('c') }}">{{ date|date('d.m.Y H:i') }}</time>
 {% endmacro %}
 
+{% macro printTitleWithAuthor(book, glue) %}
+<i>{{ _self.maxlength(book.title, 60) }}</i>{% if book.author is not empty %}{{ glue|default(' – ') }}{{ _self.maxlength(book.author, 40) }}{% endif %}
+{% endmacro %}
+
 {% macro thumb(image, width) -%}
 	{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
+{%- endmacro %}
+
+{% macro maxlength(string, maxlength, suffix) -%}
+	{{ string|slice(0, maxlength) }}
+	{% if string|length > maxlength %}
+		{{ suffix|default('…') }}
+	{% endif %}
 {%- endmacro %}

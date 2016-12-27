@@ -6,7 +6,7 @@
 
 	{% include 'App:Book:books.html.twig' with { heading: 'Книги', route: 'books', books: pager.currentPageResults, mode: app.request.get('_mode', 'list') } %}
 
-	{% include 'App:Book:pager.html.twig' %}
+	{% include 'pager.html.twig' %}
 
 {% endblock %}
 
