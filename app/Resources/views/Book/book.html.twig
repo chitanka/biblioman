@@ -1,7 +1,7 @@
 {% import '_macros.html.twig' as _ %}
 <div class="well book" itemscope itemtype="http://schema.org/Book">
 	<div class="row">
-		<div class="col-xs-5 col-md-4">
+		<div class="col-xs-5 col-md-3">
 			<div class="thumbnail" style="width: 210px; max-width: 100%">
 				{% if book.cover %}
 					<img src="/thumb/{{ _.thumb(book.cover, 200) }}" width="200" data-featherlight="/thumb/{{ _.thumb(book.cover, 800) }}">
@@ -10,7 +10,7 @@
 				{% endif %}
 			</div>
 		</div>
-		<div class="col-xs-7 col-md-8">
+		<div class="col-xs-7 col-md-9">
 			<dl class="dl-horizontal">
 				{% for field in fields %}
 					{{ _.printField(book, field, searchableFields) }}
