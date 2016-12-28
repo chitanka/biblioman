@@ -26,6 +26,8 @@
 						{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
+			{% elseif field == 'infoSources' %}
+				{{ attr | converturls | nl2br }}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}

@@ -68,7 +68,7 @@ return [
 	'Back cover file' => 'Задна корица',
 	'Cover' => 'К',
 	'Back cover' => 'ЗК',
-	'Source' => 'Източник',
+	'Info sources' => 'Източници',
 	'Scan file' => 'Сканирана страница',
 	'Created by' => 'Въведено от',
 	'Created at' => 'Създадено на',
@@ -115,6 +115,7 @@ return [
 		'binding' => 'мека / твърда',
 		'marketingSnippets' => 'Обикновено на задната корица',
 		'links' => 'Връзки към други сайтове в Мрежата, в които има информация за книгата',
+		'infoSources' => 'По един източник на ред',
 	],
 	'label.form.empty_value' => '',
 ];

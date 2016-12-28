@@ -162,11 +162,6 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $infoSources;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
 	private $works;
 
 	/**
@@ -324,11 +319,6 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $source;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
 	private $verified;
 
 	/**
@@ -443,6 +433,11 @@ class Book implements \JsonSerializable {
 	private $scan15;
 	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan15") @var File */
 	private $scan15File;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $infoSources;
 
 	/**
 	 * @ORM\Column(type="string", length=50)
@@ -1054,17 +1049,8 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
-	public function getSource() {
-		return $this->source;
-	}
-
 	public function getCreatedBy() {
 		return $this->createdBy;
-	}
-
-	public function setSource($source) {
-		$this->source = $source;
-		return $this;
 	}
 
 	public function setCreatedBy($createdBy) {
@@ -1440,7 +1426,6 @@ class Book implements \JsonSerializable {
 			'classifications' => $this->classifications,
 			'sequence' => $this->sequence,
 			'sequenceNr' => $this->sequenceNr,
-			'infoSources' => $this->infoSources,
 			'works' => $this->works,
 			'pubCity' => $this->pubCity,
 			'pubDate' => $this->pubDate,
@@ -1472,7 +1457,6 @@ class Book implements \JsonSerializable {
 			'notes' => $this->notes,
 			'notesAboutOriginal' => $this->notesAboutOriginal,
 			'nbScans' => $this->nbScans,
-			'source' => $this->source,
 			'verified' => $this->verified,
 			'annotation' => $this->annotation,
 			'marketingSnippets' => $this->marketingSnippets,
@@ -1500,6 +1484,7 @@ class Book implements \JsonSerializable {
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,
+			'infoSources' => $this->infoSources,
 		];
 	}
 

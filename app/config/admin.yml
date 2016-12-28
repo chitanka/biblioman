@@ -165,8 +165,8 @@ easy_admin:
                     - { property: scan13File, label: Scan file, type: vich_image }
                     - { property: scan14File, label: Scan file, type: vich_image }
                     - { property: scan15File, label: Scan file, type: vich_image }
-                    #- { property: source, label: source }
                     - { type: group, label: Metadata, icon: file-text-o }
+                    - { property: infoSources, help: help.infoSources }
                     - isIncomplete
                     - reasonWhyIncomplete
 

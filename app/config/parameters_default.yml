@@ -103,10 +103,11 @@ parameters:
         - toc
         - notes
         - notesAboutOriginal
-        - linksByCategory
         - createdBy
         - createdAt
         - updatedAt
+        - infoSources
+        - linksByCategory
 
     footer_links:
         - { icon: code, url: https://github.com/chitanka/biblioman, text: Изходен код }
