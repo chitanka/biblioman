@@ -60,7 +60,9 @@
 				{% endif %}
 				<dt>...</dt>
 				<dd>
-					{{ _.printEditLink(book) }}
+					{% if is_granted('ROLE_EDITOR') %}
+						{{ _.printEditLink(book) }}
+					{% endif %}
 				</dd>
 			</dl>
 		</div>
