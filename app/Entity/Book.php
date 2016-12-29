@@ -1560,11 +1560,13 @@ class Book implements \JsonSerializable {
 			'ДИ',
 			'ДФ',
 		];
-		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') ["„]?/u', '', $nameNormalized);
+		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') ["„«]?/u', '', $nameNormalized);
 		$nameNormalized = strtr($nameNormalized, [
 			'"' => '',
 			'„' => '',
 			'“' => '',
+			'«' => '',
+			'»' => '',
 			' ООД' => '',
 			' ЕООД' => '',
 			' АД' => '',
