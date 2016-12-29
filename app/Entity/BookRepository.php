@@ -30,7 +30,7 @@ class BookRepository extends EntityRepository {
 		'computerProcessing',
 		'prepress',
 		'publisher',
-		'pubCity',
+		'publisherCity',
 		'publishingDate',
 		'print',
 		'contentType',

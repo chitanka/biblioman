@@ -28,7 +28,7 @@ return [
 	'Computer processing' => 'Компютърна обработка',
 	'Prepress' => 'Предпечатна подготовка',
 	'Publisher' => 'Издател',
-	'Pub city' => 'Град на издателя',
+	'Publisher city' => 'Град на издателя',
 	'Publishing date' => 'Година на издаване',
 	'Publishing date short' => 'Година',
 	'Publisher address' => 'Адрес на издателя',

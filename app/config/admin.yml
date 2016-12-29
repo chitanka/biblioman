@@ -101,7 +101,7 @@ easy_admin:
                     - { property: computerProcessing, help: help.coverLayout }
                     - { property: prepress }
                     - { property: publisher }
-                    - { property: pubCity }
+                    - { property: publisherCity }
                     - { property: publishingDate }
                     - { property: publisherAddress }
                     - { property: print }

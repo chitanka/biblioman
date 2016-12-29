@@ -67,7 +67,7 @@ parameters:
         - computerProcessing
         - prepress
         - publisher
-        - pubCity
+        - publisherCity
         - publishingDate
         - publisherAddress
         - print
