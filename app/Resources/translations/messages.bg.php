@@ -96,6 +96,7 @@ return [
 	'BookLinkCategory' => [
 		'library' => 'Библиотеки',
 		'publisher' => 'Издателства',
+		'encyclopedia' => 'Енциклопедии',
 		'blog' => 'Блогове',
 		'forum' => 'Форуми',
 		'bookstore' => 'Книжарници',
