@@ -32,7 +32,7 @@ parameters:
         - artistEditor
         - technicalEditor
         - publisher
-        - pubDate
+        - publishingDate
         - nationality
         - edition
         - genre
@@ -68,7 +68,7 @@ parameters:
         - prepress
         - publisher
         - pubCity
-        - pubDate
+        - publishingDate
         - publisherAddress
         - print
         - contentType

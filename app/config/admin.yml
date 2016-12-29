@@ -43,7 +43,7 @@ easy_admin:
                     - { property: title }
                     - { property: author }
                     - { property: publisher }
-                    - { property: pubDate, label: Pub date short }
+                    - { property: publishingDate, label: Pub date short }
             show:
                 title: 'Книга (№%%entity_id%%)'
                 fields:
@@ -53,7 +53,7 @@ easy_admin:
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
-                    - { property: pubDate, label: Година }
+                    - { property: publishingDate, label: Година }
                     - { property: scan1, type: image }
                     - { property: scan2, type: image }
                     - { property: scan3, type: image }
@@ -102,7 +102,7 @@ easy_admin:
                     - { property: prepress }
                     - { property: publisher }
                     - { property: pubCity }
-                    - { property: pubDate }
+                    - { property: publishingDate }
                     - { property: publisherAddress }
                     - { property: print }
                     - { property: contentType, help: help.contentType }

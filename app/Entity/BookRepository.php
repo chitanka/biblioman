@@ -31,7 +31,7 @@ class BookRepository extends EntityRepository {
 		'prepress',
 		'publisher',
 		'pubCity',
-		'pubDate',
+		'publishingDate',
 		'print',
 		'contentType',
 		'nationality',
@@ -131,12 +131,12 @@ class BookRepository extends EntityRepository {
 		}
 		if (is_numeric($query)) {
 			return $qb
-				->where('b.pubDate = ?1')
+				->where('b.publishingDate = ?1')
 				->setParameter('1', $query);
 		}
 		if (preg_match('/(\d+)-(\d+)/', $query, $matches)) {
 			return $qb
-				->where('b.pubDate BETWEEN ?1 AND ?2')
+				->where('b.publishingDate BETWEEN ?1 AND ?2')
 				->setParameters([1 => $matches[1], 2 => $matches[2]]);
 		}
 		return $qb
