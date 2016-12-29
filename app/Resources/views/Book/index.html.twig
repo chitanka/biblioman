@@ -19,7 +19,7 @@
 	<script>
 		{% if query.term is not empty %}
 		$(function() {
-			$(".entity-field{{ query.field }}").highlight("{{ query.term }}");
+			$(".entity-field{{ query.field }}").highlight("{{ query.normalized }}");
 		});
 		{% endif %}
 	</script>

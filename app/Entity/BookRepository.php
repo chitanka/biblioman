@@ -77,6 +77,7 @@ class BookRepository extends EntityRepository {
 		$structure->raw = $searchQuery;
 		$structure->field = trim($field);
 		$structure->term = trim($term);
+		$structure->normalized = Book::normalizedFieldValue($field, $term);
 		return $structure;
 	}
 
