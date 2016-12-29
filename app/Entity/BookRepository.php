@@ -15,6 +15,7 @@ class BookRepository extends EntityRepository {
 		'translator',
 		'translatedFromLanguage',
 		'dateOfTranslation',
+		'otherAuthors',
 		'compiler',
 		'chiefEditor',
 		'editor',
@@ -145,6 +146,7 @@ class BookRepository extends EntityRepository {
 			->orWhere('b.subtitle LIKE ?1')
 			->orWhere('b.author LIKE ?1')
 			->orWhere('b.translator LIKE ?1')
+			->orWhere('b.otherAuthors LIKE ?1')
 			->orWhere('b.compiler LIKE ?1')
 			->orWhere('b.editor LIKE ?1')
 			->orWhere('b.publisher LIKE ?1')

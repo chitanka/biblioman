@@ -51,6 +51,7 @@ parameters:
         - translator
         - translatedFromLanguage
         - dateOfTranslation
+        - otherAuthors
         - compiler
         - editorialStaff
         - chiefEditor

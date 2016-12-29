@@ -59,6 +59,11 @@ class Book implements \JsonSerializable {
 	private $dateOfTranslation;
 
 	/**
+	 * @ORM\Column(type="string", length=500, nullable=true)
+	 */
+	private $otherAuthors;
+
+	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $compiler;
@@ -731,6 +736,10 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function getOtherAuthors() {
+		return $this->otherAuthors;
+	}
+
 	public function getCompiler() {
 		return $this->compiler;
 	}
@@ -764,6 +773,10 @@ class Book implements \JsonSerializable {
 
 	public function getPrepress() {
 		return $this->prepress;
+	}
+
+	public function setOtherAuthors($authors) {
+		$this->otherAuthors = $authors;
 	}
 
 	public function setCompiler($compiler) {
@@ -1406,6 +1419,7 @@ class Book implements \JsonSerializable {
 			'translator' => $this->translator,
 			'translatedFromLanguage' => $this->translatedFromLanguage,
 			'dateOfTranslation' => $this->dateOfTranslation,
+			'otherAuthors' => $this->otherAuthors,
 			'compiler' => $this->compiler,
 			'chiefEditor' => $this->chiefEditor,
 			'editor' => $this->editor,
