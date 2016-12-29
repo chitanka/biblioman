@@ -57,6 +57,9 @@ class BookRepository extends EntityRepository {
 		'genre',
 		'themes',
 		'createdBy',
+		'nbScans',
+		'isIncomplete',
+		'reasonWhyIncomplete',
 	];
 
 

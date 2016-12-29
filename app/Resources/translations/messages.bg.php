@@ -82,6 +82,7 @@ return [
 	'Categorization' => 'Категоризация',
 	'Category' => 'Категория',
 	'Scans' => 'Сканове',
+	'Nb scans' => 'Брой сканове',
 	'Metadata' => 'Метаданни',
 	'Book' => [
 		'new_title' => 'Добавяне на нова книга',

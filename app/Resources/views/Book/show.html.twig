@@ -40,7 +40,7 @@
 				<p class="text-danger">
 					Записът е непълен.
 					{% if book.reasonWhyIncomplete is not empty %}
-						({{ book.reasonWhyIncomplete }})
+						({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
 					{% endif %}
 				</p>
 			{% endif %}
