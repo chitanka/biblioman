@@ -17,7 +17,7 @@
 			{% elseif field == 'category' %}
 				<a href="{{ path('books_by_category', { slug: attr.slug }) }}">{{ attr.name }}</a>
 			{% elseif field in searchableFields.fields %}
-				{% if field in ['title', 'subtitle'] %}
+				{% if field in ['title', 'subtitle', 'provisionPublisherSheets'] %}
 					{{ _self.printSearchLink(attr, field, searchableFields) }}
 				{% elseif attr is same as(true) %}
 					{{ _self.printSearchLink('да', field, searchableFields) }}
