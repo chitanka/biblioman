@@ -19,7 +19,7 @@
 	</ol>
 
 	<div class="row" itemscope itemtype="http://schema.org/Book">
-		<div class="col-xs-5 col-md-4" data-featherlight-gallery data-featherlight-filter="a">
+		<div class="col-md-4" data-featherlight-gallery data-featherlight-filter="a">
 			{% if book.cover %}
 				<a href="/thumb/{{ _.thumb(book.cover, 800) }}" class="thumbnail" style="width: 310px; max-width: 100%">
 					<img src="/thumb/{{ _.thumb(book.cover, 300) }}" width="300">
@@ -35,7 +35,7 @@
 				<img src="/thumb/nobackcover.300.png" width="300" class="thumbnail">
 			{% endif %}
 		</div>
-		<div class="col-xs-7 col-md-8">
+		<div class="col-md-8">
 			{% if book.isIncomplete %}
 				<p class="text-danger">
 					Записът е непълен.
