@@ -170,6 +170,7 @@ easy_admin:
                     - { type: group, label: Metadata, icon: file-text-o }
                     - { property: infoSources, help: help.infoSources }
                     - { property: adminComment, help: help.adminComment }
+                    - { property: ocredText, help: help.ocredText }
                     - isIncomplete
                     - reasonWhyIncomplete
 

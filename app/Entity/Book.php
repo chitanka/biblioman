@@ -455,6 +455,11 @@ class Book implements \JsonSerializable {
 	private $adminComment;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $ocredText;
+
+	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $createdBy;
@@ -1375,6 +1380,14 @@ class Book implements \JsonSerializable {
 
 	public function setAdminComment($reason) {
 		$this->adminComment = $reason;
+	}
+
+	public function getOcredText() {
+		return $this->ocredText;
+	}
+
+	public function setOcredText($reason) {
+		$this->ocredText = $reason;
 	}
 
 	public function setLock($user) {
