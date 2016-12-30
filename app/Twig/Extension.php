@@ -17,7 +17,7 @@ class Extension extends \Twig_Extension {
 	}
 
 	public function autolink($content) {
-		$content = preg_replace_callback('/(номер|#|№) ?(\d+)/', function($matches) {
+		$content = preg_replace_callback('/(запис|книга|номер|#|№) ?(\d+)/', function($matches) {
 			$url = $this->router->generate('books_show', ['id' => $matches[2]]);
 			return '<a href="'.$url.'">'.$matches[0].'</a>';
 		}, $content);
