@@ -168,6 +168,7 @@ easy_admin:
                     - { property: scan15File, label: Scan file, type: vich_image }
                     - { type: group, label: Metadata, icon: file-text-o }
                     - { property: infoSources, help: help.infoSources }
+                    - { property: adminComment, help: help.adminComment }
                     - isIncomplete
                     - reasonWhyIncomplete
 

@@ -445,6 +445,11 @@ class Book implements \JsonSerializable {
 	private $infoSources;
 
 	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $adminComment;
+
+	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $createdBy;
@@ -1349,6 +1354,14 @@ class Book implements \JsonSerializable {
 
 	public function setReasonWhyIncomplete($reason) {
 		$this->reasonWhyIncomplete = $reason;
+	}
+
+	public function getAdminComment() {
+		return $this->adminComment;
+	}
+
+	public function setAdminComment($reason) {
+		$this->adminComment = $reason;
 	}
 
 	public function setLock($user) {
