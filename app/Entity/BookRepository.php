@@ -62,6 +62,15 @@ class BookRepository extends EntityRepository {
 		'reasonWhyIncomplete',
 	];
 
+	public static $sortableFields = [
+		'title',
+		'sequence',
+		'publisher',
+		'publisherCity',
+		'publishingDate',
+		'createdAt',
+		'updatedAt',
+	];
 
 	public static function getSearchableFieldsDefinition() {
 		return [
@@ -112,10 +121,27 @@ class BookRepository extends EntityRepository {
 
 	/**
 	 * @param string $query
+	 * @param string $sort
 	 * @return QueryBuilder
 	 */
-	public function filterByQuery($query) {
-		$qb = $this->createQueryBuilder('b');
+	public function filterByQuery($query, $sort = null) {
+		$alias = 'b';
+		$qb = $this->createQueryBuilder($alias);
+		if (empty($sort)) {
+			$sort = 'title';
+		}
+		foreach (explode(',', $sort) as $orderBy) {
+			$orderBy = ltrim($orderBy);
+			if (strpos($orderBy, '-') === false) {
+				$field = $orderBy;
+				$order = 'asc';
+			} else {
+				list($field, $order) = explode('-', ltrim($orderBy));
+			}
+			if (in_array($field, self::$sortableFields)) {
+				$qb->addOrderBy("$alias.$field", $order);
+			}
+		}
 		if (empty($query)) {
 			return $qb;
 		}

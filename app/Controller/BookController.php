@@ -20,7 +20,7 @@ class BookController extends Controller {
 	 */
 	public function indexAction(Request $request) {
 		$searchQuery = BookRepository::getStructuredSearchQuery($request->query->get('q'));
-		$adapter = new DoctrineORMAdapter($this->repo()->filterByQuery($searchQuery->raw));
+		$adapter = new DoctrineORMAdapter($this->repo()->filterByQuery($searchQuery->raw, $request->query->get('sort')));
 		$pager = $this->pager($request, $adapter);
 		$fields = $this->getParameter('book_fields_short');
 		if ($searchQuery->field && !in_array($searchQuery->field, $fields)) {
