@@ -20,3 +20,10 @@ services:
     app.new_message_thread_form_factory:
         class: App\Form\NewThreadMessageFormFactory
         arguments: ["@form.factory", "@app.new_message_thread_form_type", "%fos_message.new_thread_form.name%", "%fos_message.new_thread_form.model%", "@app.user_transformer"]
+
+    app.twig.extension:
+        class:     App\Twig\Extension
+        arguments: ['@router']
+        public:    false
+        tags:
+            - { name: twig.extension }
