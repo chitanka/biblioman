@@ -22,7 +22,12 @@
 						{{ _.printEditLink(book) }}
 					{% endif %}
 					{% if book.isIncomplete %}
-						<span class="text-danger">Записът е непълен.</span>
+						<span class="text-danger">
+							Записът е непълен.
+							{% if book.reasonWhyIncomplete is not empty %}
+								({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+							{% endif %}
+						</span>
 					{% endif %}
 					{% if book.nbScans == 0 %}
 						<span class="text-danger">Липсват сканирани страници.</span>
