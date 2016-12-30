@@ -80,6 +80,7 @@ easy_admin:
                     - { property: title }
                     - { property: subtitle }
                     - { property: subtitle2 }
+                    - { property: volumeTitle, help: help.volumeTitle }
                     - { property: sequence }
                     - { property: sequenceNr }
                     - { property: translator }

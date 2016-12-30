@@ -11,6 +11,8 @@ class BookRepository extends EntityRepository {
 		'author',
 		'title',
 		'subtitle',
+		'subtitle2',
+		'volumeTitle',
 		'sequence',
 		'translator',
 		'translatedFromLanguage',
