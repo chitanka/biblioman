@@ -21,8 +21,8 @@ parameters:
     book_fields_short:
         - author
         - title
-        - subtitle
         - volumeTitle
+        - subtitle
         - sequence
         - chiefEditor
         - editor
@@ -45,9 +45,9 @@ parameters:
     book_fields_long:
         - author
         - title
+        - volumeTitle
         - subtitle
         - subtitle2
-        - volumeTitle
         - sequence
         - sequenceNr
         - translator

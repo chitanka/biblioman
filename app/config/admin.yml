@@ -78,9 +78,9 @@ easy_admin:
                     - { type: group, label: Data from paper, icon: book }
                     - { property: author, help: help.author }
                     - { property: title }
+                    - { property: volumeTitle, help: help.volumeTitle }
                     - { property: subtitle }
                     - { property: subtitle2 }
-                    - { property: volumeTitle, help: help.volumeTitle }
                     - { property: sequence }
                     - { property: sequenceNr }
                     - { property: translator }
