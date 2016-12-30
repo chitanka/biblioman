@@ -32,7 +32,7 @@
 				{{ attr|nl2br }}
 			{% endif %}
 			{% if field == 'createdBy' %}
-				{{ _self.printUserMessageLink(attr) }}
+				{{ _self.printUserMessageLink(attr, book) }}
 			{% endif %}
 		</dd>
 	{% endif %}
@@ -46,13 +46,13 @@
 	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term }}</a>
 {%- endmacro %}
 
-{% macro printUser(user) %}
+{% macro printUser(user, book) %}
 	{{ user }}
-	{{ _self.printUserMessageLink(user) }}
+	{{ _self.printUserMessageLink(user, book) }}
 {% endmacro %}
 
-{% macro printUserMessageLink(user) %}
-	<a href="{{ path('fos_message_thread_new', { username: user }) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
+{% macro printUserMessageLink(user, book) %}
+	<a href="{{ path('fos_message_thread_new', { username: user }|merge( book is not empty ? { subject: 'Относно №'~book.id } : {} )) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
 {% endmacro %}
 
 {% macro printDate(date) %}

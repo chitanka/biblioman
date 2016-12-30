@@ -11,6 +11,8 @@
 	{{ form_start(form, {'action': path('fos_message_thread_new'), 'method': 'POST'}) }}
 		{{ form_label(form.recipient) }}
 		{{ form_widget(form.recipient, { value: app.request.get('username') }) }}
+		{{ form_label(form.subject) }}
+		{{ form_widget(form.subject, { value: app.request.get('subject') }) }}
 		{{ form_widget(form) }}
 
 		<button type="submit" class="btn btn-primary">Изпращане</button>
