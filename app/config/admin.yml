@@ -143,6 +143,7 @@ easy_admin:
                     - { property: category }
                     - { property: genre }
                     - { property: themes }
+                    - { property: universalDecimalClassification, help: help.universalDecimalClassification }
 
                     - { type: group, label: Links, icon: link }
                     # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.

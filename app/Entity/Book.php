@@ -271,6 +271,11 @@ class Book implements \JsonSerializable {
 	private $uniformProductClassification;
 
 	/**
+	 * @ORM\Column(type="string", length=30, nullable=true)
+	 */
+	private $universalDecimalClassification;
+
+	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $totalPrint;
@@ -1349,6 +1354,15 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function getUniversalDecimalClassification() {
+		return $this->universalDecimalClassification;
+	}
+
+	public function setUniversalDecimalClassification($universalDecimalClassification) {
+		$this->universalDecimalClassification = $universalDecimalClassification;
+		return $this;
+	}
+
 	public function getNotesAboutOriginal() {
 		return $this->notesAboutOriginal;
 	}
@@ -1500,6 +1514,7 @@ class Book implements \JsonSerializable {
 			'publisherNumber' => $this->publisherNumber,
 			'trackingCode' => $this->trackingCode,
 			'uniformProductClassification' => $this->uniformProductClassification,
+			'universalDecimalClassification' => $this->universalDecimalClassification,
 			'totalPrint' => $this->totalPrint,
 			'pageCount' => $this->pageCount,
 			'price' => $this->price,

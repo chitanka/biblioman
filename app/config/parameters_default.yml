@@ -90,7 +90,6 @@ parameters:
         - trackingCode
         - publisherOrder
         - publisherNumber
-        - uniformProductClassification
         - pageCount
         - totalPrint
         - price
@@ -98,6 +97,8 @@ parameters:
         - illustrated
         - isbn10
         - isbn13
+        - uniformProductClassification
+        - universalDecimalClassification
         - genre
         - themes
         - category

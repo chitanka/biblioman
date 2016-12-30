@@ -52,6 +52,7 @@ class BookRepository extends EntityRepository {
 		'publisherOrder',
 		'publisherNumber',
 		'uniformProductClassification',
+		'universalDecimalClassification',
 		'binding',
 		'illustrated',
 		'isbn10',
