@@ -298,7 +298,7 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $language;
+	private $language = 'български';
 
 	/**
 	 * @ORM\Column(type="boolean", nullable=true)
