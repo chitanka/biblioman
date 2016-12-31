@@ -24,21 +24,19 @@ parameters:
         - volumeTitle
         - subtitle
         - sequence
-        - chiefEditor
-        - editor
-        - publisherEditor
+        - edition
+        - category
+        - genre
         - translator
         - compiler
+        - editor
+        - chiefEditor
+        - publisherEditor
         - artist
         - artistEditor
         - technicalEditor
         - publisher
         - publishingDate
-        - nationality
-        - edition
-        - genre
-        - category
-        - format
         - isbn10
         - isbn13
         - createdBy
@@ -50,15 +48,23 @@ parameters:
         - subtitle2
         - sequence
         - sequenceNr
+        - otherAuthors
+        - contentType
+        - nationality
+        - language
+        - edition
+        - category
+        - genre
+        - themes
+        - _divider
         - translator
         - translatedFromLanguage
         - dateOfTranslation
-        - otherAuthors
         - compiler
-        - editorialStaff
-        - chiefEditor
         - editor
+        - chiefEditor
         - publisherEditor
+        - editorialStaff
         - consultant
         - artist
         - artistEditor
@@ -69,15 +75,13 @@ parameters:
         - coverLayout
         - computerProcessing
         - prepress
+        - _divider
         - publisher
         - publisherCity
         - publishingDate
         - publisherAddress
         - print
-        - contentType
-        - nationality
-        - language
-        - edition
+        - _divider
         - litGroup
         - typeSettingIn
         - printSigned
@@ -92,24 +96,25 @@ parameters:
         - publisherNumber
         - pageCount
         - totalPrint
-        - price
         - binding
+        - price
         - illustrated
+        - _divider
         - isbn10
         - isbn13
         - uniformProductClassification
         - universalDecimalClassification
-        - genre
-        - themes
-        - category
+        - _divider
         - annotation
         - marketingSnippets
         - toc
         - notes
         - notesAboutOriginal
+        - _divider
         - createdBy
         - createdAt
         - updatedAt
+        - _divider
         - infoSources
         - linksByCategory
 
