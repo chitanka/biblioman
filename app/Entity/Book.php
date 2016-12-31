@@ -1653,7 +1653,7 @@ class Book implements \JsonSerializable {
 	}
 
 	private static function normalizeGenericValue($value) {
-		return preg_replace('/ \(не е указан[ао]\)/u', '', $value);
+		return preg_replace('/ \(не е указан[ао]?|не е посочен[ао]?\)/u', '', $value);
 	}
 
 	private static function normalizeIllustrated($value) {
