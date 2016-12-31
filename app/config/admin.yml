@@ -54,21 +54,6 @@ easy_admin:
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
                     - { property: publishingDate, label: Година }
-                    - { property: scan1, type: image }
-                    - { property: scan2, type: image }
-                    - { property: scan3, type: image }
-                    - { property: scan4, type: image }
-                    - { property: scan5, type: image }
-                    - { property: scan6, type: image }
-                    - { property: scan7, type: image }
-                    - { property: scan8, type: image }
-                    - { property: scan9, type: image }
-                    - { property: scan10, type: image }
-                    - { property: scan11, type: image }
-                    - { property: scan12, type: image }
-                    - { property: scan13, type: image }
-                    - { property: scan14, type: image }
-                    - { property: scan15, type: image }
             new:
                 title: Book.new_title
                 action_label: Нова книга
@@ -150,24 +135,13 @@ easy_admin:
                     # See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
                     - { property: links, type: collection, type_options: { entry_type: App\Form\BookLinkType, by_reference: false }, help: help.links }
 
-                    - { type: group, label: Scans, icon: image }
+                    - { type: group, label: Covers, icon: image }
                     - { property: coverFile, type: vich_image }
                     - { property: backCoverFile, type: vich_image }
-                    - { property: scan1File, label: Scan file, type: vich_image }
-                    - { property: scan2File, label: Scan file, type: vich_image }
-                    - { property: scan3File, label: Scan file, type: vich_image }
-                    - { property: scan4File, label: Scan file, type: vich_image }
-                    - { property: scan5File, label: Scan file, type: vich_image }
-                    - { property: scan6File, label: Scan file, type: vich_image }
-                    - { property: scan7File, label: Scan file, type: vich_image }
-                    - { property: scan8File, label: Scan file, type: vich_image }
-                    - { property: scan9File, label: Scan file, type: vich_image }
-                    - { property: scan10File, label: Scan file, type: vich_image }
-                    - { property: scan11File, label: Scan file, type: vich_image }
-                    - { property: scan12File, label: Scan file, type: vich_image }
-                    - { property: scan13File, label: Scan file, type: vich_image }
-                    - { property: scan14File, label: Scan file, type: vich_image }
-                    - { property: scan15File, label: Scan file, type: vich_image }
+
+                    - { type: group, label: Scans, icon: image }
+                    - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, help: help.scans, css_class: 'scans' }
+
                     - { type: group, label: Metadata, icon: file-text-o }
                     - { property: infoSources, help: help.infoSources }
                     - { property: adminComment, help: help.adminComment }

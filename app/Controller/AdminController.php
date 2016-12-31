@@ -35,6 +35,9 @@ class AdminController extends EasyAdminController {
 			$revision->setCreatedBy($this->getUsername());
 			$this->em->persist($revision);
 		}
+		foreach ($book->getScans() as $scan) {
+			$scan->setCreatedBy($this->getUsername());
+		}
 		$book->clearLock();
 	}
 

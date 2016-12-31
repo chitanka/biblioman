@@ -7,3 +7,11 @@
 .form-control:focus {
 	background-color: #FFEDBE;
 }
+.scans .field-collection > label {
+	display: none;
+}
+.field-book_scan {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+}

@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class BookScan {
 
 	/**
+	 * @var int
 	 * @ORM\Column(type="integer")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
@@ -19,30 +20,51 @@ class BookScan {
 	private $id;
 
 	/**
+	 * @var Book
 	 * @ORM\ManyToOne(targetEntity="Book", inversedBy="scans")
 	 */
 	private $book;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @var string
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $title;
+
+	/**
+	 * @var string
+	 * @ORM\Column(type="string", length=30)
 	 */
 	private $name;
 
 	/**
-	 * @Vich\UploadableField(mapping="book_name", fileNameProperty="name")
 	 * @var File
+	 * @Vich\UploadableField(mapping="scan", fileNameProperty="name")
 	 */
 	private $file;
 
 	/**
+	 * @var \DateTime
 	 * @ORM\Column(type="datetime")
 	 */
 	private $createdAt;
 
 	/**
-	 * @ORM\Column(type="datetime")
+	 * @var string
+	 * @ORM\Column(type="string", length=50)
 	 */
-	private $updatedAt;
+	private $createdBy;
+
+	public function __toString() {
+		$title = $this->getTitle();
+		if (empty($title)) {
+			return '';
+		}
+		if (is_numeric($title)) {
+			return 'Страница '.$title;
+		}
+		return $title;
+	}
 
 	public function getId() {
 		return $this->id;
@@ -52,14 +74,24 @@ class BookScan {
 		return $this->book;
 	}
 
-	public function setId($id) {
-		$this->id = $id;
-		return $this;
-	}
-
 	public function setBook($book) {
 		$this->book = $book;
-		return $this;
+	}
+
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	public function getTitle() {
+		return $this->title;
+	}
+
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	public function getName() {
+		return $this->name;
 	}
 
 	/**
@@ -67,10 +99,6 @@ class BookScan {
 	 */
 	public function setFile(File $file = null) {
 		$this->file = $file;
-
-		if ($file && $file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-			$this->setUpdatedAt(new \DateTime());
-		}
 	}
 
 	/**
@@ -80,36 +108,24 @@ class BookScan {
 		return $this->file;
 	}
 
-	/**
-	 * @param string $name
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
-
 	public function getCreatedAt() {
 		return $this->createdAt;
 	}
 
-	public function getUpdatedAt() {
-		return $this->updatedAt;
-	}
-
 	public function setCreatedAt($createdAt) {
 		$this->createdAt = $createdAt;
-		return $this;
 	}
 
-	public function setUpdatedAt($updatedAt) {
-		$this->updatedAt = $updatedAt;
-		return $this;
+	public function getCreatedBy() {
+		return $this->createdBy;
+	}
+
+	public function setCreatedBy($createdBy) {
+		if (!empty($this->getId())) {
+			return;
+		}
+		$this->createdBy = $createdBy;
+		$this->setCreatedAt(new \DateTime());
 	}
 
 }

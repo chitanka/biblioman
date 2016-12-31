@@ -388,66 +388,12 @@ class Book implements \JsonSerializable {
 	 */
 	private $backCoverFile;
 
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan1;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan1") @var File */
-	private $scan1File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan2;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan2") @var File */
-	private $scan2File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan3;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan3") @var File */
-	private $scan3File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan4;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan4") @var File */
-	private $scan4File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan5;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan5") @var File */
-	private $scan5File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan6;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan6") @var File */
-	private $scan6File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan7;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan7") @var File */
-	private $scan7File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan8;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan8") @var File */
-	private $scan8File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan9;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan9") @var File */
-	private $scan9File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan10;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan10") @var File */
-	private $scan10File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan11;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan11") @var File */
-	private $scan11File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan12;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan12") @var File */
-	private $scan12File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan13;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan13") @var File */
-	private $scan13File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan14;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan14") @var File */
-	private $scan14File;
-	/** @ORM\Column(type="string", length=100, nullable=true) */
-	private $scan15;
-	/** @Vich\UploadableField(mapping="scan", fileNameProperty="scan15") @var File */
-	private $scan15File;
+	/**
+	 * @var BookScan[]
+	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist"})
+	 * @ORM\OrderBy({"name" = "ASC"})
+	 */
+	private $scans;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -1226,66 +1172,33 @@ class Book implements \JsonSerializable {
 		return $this->backCover;
 	}
 
-	public function setScan1File(File $image = null) { $this->scan1File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan1File() { return $this->scan1File; }
-	public function setScan1($scan) { $this->scan1 = $scan; $this->incNbScans(); }
-	public function getScan1() { return $this->scan1; }
-	public function setScan2File(File $image = null) { $this->scan2File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan2File() { return $this->scan2File; }
-	public function setScan2($scan) { $this->scan2 = $scan; $this->incNbScans(); }
-	public function getScan2() { return $this->scan2; }
-	public function setScan3File(File $image = null) { $this->scan3File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan3File() { return $this->scan3File; }
-	public function setScan3($scan) { $this->scan3 = $scan; $this->incNbScans(); }
-	public function getScan3() { return $this->scan3; }
-	public function setScan4File(File $image = null) { $this->scan4File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan4File() { return $this->scan4File; }
-	public function setScan4($scan) { $this->scan4 = $scan; $this->incNbScans(); }
-	public function getScan4() { return $this->scan4; }
-	public function setScan5File(File $image = null) { $this->scan5File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan5File() { return $this->scan5File; }
-	public function setScan5($scan) { $this->scan5 = $scan; $this->incNbScans(); }
-	public function getScan5() { return $this->scan5; }
-	public function setScan6File(File $image = null) { $this->scan6File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan6File() { return $this->scan6File; }
-	public function setScan6($scan) { $this->scan6 = $scan; $this->incNbScans(); }
-	public function getScan6() { return $this->scan6; }
-	public function setScan7File(File $image = null) { $this->scan7File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan7File() { return $this->scan7File; }
-	public function setScan7($scan) { $this->scan7 = $scan; $this->incNbScans(); }
-	public function getScan7() { return $this->scan7; }
-	public function setScan8File(File $image = null) { $this->scan8File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan8File() { return $this->scan8File; }
-	public function setScan8($scan) { $this->scan8 = $scan; $this->incNbScans(); }
-	public function getScan8() { return $this->scan8; }
-	public function setScan9File(File $image = null) { $this->scan9File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan9File() { return $this->scan9File; }
-	public function setScan9($scan) { $this->scan9 = $scan; $this->incNbScans(); }
-	public function getScan9() { return $this->scan9; }
-	public function setScan10File(File $image = null) { $this->scan10File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan10File() { return $this->scan10File; }
-	public function setScan10($scan) { $this->scan10 = $scan; $this->incNbScans(); }
-	public function getScan10() { return $this->scan10; }
-	public function setScan11File(File $image = null) { $this->scan11File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan11File() { return $this->scan11File; }
-	public function setScan11($scan) { $this->scan11 = $scan; $this->incNbScans(); }
-	public function getScan11() { return $this->scan11; }
-	public function setScan12File(File $image = null) { $this->scan12File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan12File() { return $this->scan12File; }
-	public function setScan12($scan) { $this->scan12 = $scan; $this->incNbScans(); }
-	public function getScan12() { return $this->scan12; }
-	public function setScan13File(File $image = null) { $this->scan13File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan13File() { return $this->scan13File; }
-	public function setScan13($scan) { $this->scan13 = $scan; $this->incNbScans(); }
-	public function getScan13() { return $this->scan13; }
-	public function setScan14File(File $image = null) { $this->scan14File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan14File() { return $this->scan14File; }
-	public function setScan14($scan) { $this->scan14 = $scan; $this->incNbScans(); }
-	public function getScan14() { return $this->scan14; }
-	public function setScan15File(File $image = null) { $this->scan15File = $image; $this->setUpdatedAtOnImage($image); }
-	public function getScan15File() { return $this->scan15File; }
-	public function setScan15($scan) { $this->scan15 = $scan; $this->incNbScans(); }
-	public function getScan15() { return $this->scan15; }
+	/**
+	 * @return BookScan[]
+	 */
+	public function getScans() {
+		return $this->scans;
+	}
+
+	/**
+	 * @param BookScan[] $scans
+	 */
+	public function setScans($scans) {
+		$this->scans = $scans;
+		$this->updateNbScans();
+	}
+
+	public function addScan(BookScan $scan) {
+		if (!empty($scan->getFile())) {
+			$scan->setBook($this);
+			$this->scans[] = $scan;
+			$this->updateNbScans();
+		}
+	}
+
+	public function removeScan(BookScan $scan) {
+		$this->scans->removeElement($scan);
+		$this->updateNbScans();
+	}
 
 	protected function setUpdatedAtOnImage($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
@@ -1441,13 +1354,7 @@ class Book implements \JsonSerializable {
 	}
 
 	protected function updateNbScans() {
-		$nbScans = 0;
-		foreach (range(1, 15) as $i) {
-			if ($this->{"scan$i"} !== null) {
-				$nbScans++;
-			}
-		}
-		$this->setNbScans($nbScans);
+		$this->setNbScans(count($this->scans));
 	}
 
 	protected function incNbScans() {
@@ -1535,21 +1442,6 @@ class Book implements \JsonSerializable {
 			'category' => $this->category,
 			'cover' => $this->cover,
 			'backCover' => $this->backCover,
-			'scan1' => $this->scan1,
-			'scan2' => $this->scan2,
-			'scan3' => $this->scan3,
-			'scan4' => $this->scan4,
-			'scan5' => $this->scan5,
-			'scan6' => $this->scan6,
-			'scan7' => $this->scan7,
-			'scan8' => $this->scan8,
-			'scan9' => $this->scan9,
-			'scan10' => $this->scan10,
-			'scan11' => $this->scan11,
-			'scan12' => $this->scan12,
-			'scan13' => $this->scan13,
-			'scan14' => $this->scan14,
-			'scan15' => $this->scan15,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,
