@@ -21,14 +21,14 @@
 	<div class="row" itemscope itemtype="http://schema.org/Book">
 		<div class="col-md-4" data-featherlight-gallery data-featherlight-filter="a">
 			{% if book.cover %}
-				<a href="/thumb/{{ _.thumb(book.cover, 800) }}" class="thumbnail" style="width: 310px; max-width: 100%">
+				<a href="/thumb/{{ _.thumb(book.cover, 1000) }}" class="thumbnail" style="width: 310px; max-width: 100%">
 					<img src="/thumb/{{ _.thumb(book.cover, 300) }}" width="300">
 				</a>
 			{% else %}
 				<img src="/thumb/nocover.300.png" width="300" class="thumbnail">
 			{% endif %}
 			{% if book.backCover %}
-				<a href="/thumb/{{ _.thumb(book.backCover, 800) }}" class="thumbnail" style="width: 310px; max-width: 100%">
+				<a href="/thumb/{{ _.thumb(book.backCover, 1000) }}" class="thumbnail" style="width: 310px; max-width: 100%">
 					<img src="/thumb/{{ _.thumb(book.backCover, 300) }}" width="300">
 				</a>
 			{% else %}
@@ -75,7 +75,7 @@
 			{% set scan = attribute(book, "scan"~i) %}
 			{% if scan is not empty %}
 				<div class="col-xs-6 col-md-3">
-					<a href="/thumb/{{ _.thumb(scan, 800) }}" class="thumbnail">
+					<a href="/thumb/{{ _.thumb(scan, 1000) }}" class="thumbnail">
 						<img src="/thumb/{{ _.thumb(scan, 300) }}" width="300" style="max-height: 370px">
 					</a>
 				</div>
