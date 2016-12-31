@@ -17,7 +17,7 @@
 				{% endfor %}
 				<dt>...</dt>
 				<dd>
-					<a href="{{ path('books_show', { id: book.id }) }}" title="Пълен преглед на записа" class="btn btn-default"><span class="fa fa-book"></span></a>
+					{{ _.printShowLink(book) }}
 					{% if is_granted('ROLE_EDITOR') %}
 						{{ _.printEditLink(book) }}
 					{% endif %}
