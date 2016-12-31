@@ -12,7 +12,7 @@ easy_admin:
     design:
         theme: default
         color_scheme: light
-        brand_color: orange
+        brand_color: '#2B547E'
         form_theme: '@App/admin_layout.html.twig'
         menu: [Book]
         assets:
