@@ -1,4 +1,8 @@
 {% macro printField(book, field, searchableFields) %}
+	{% if field == '_divider' %}
+		<dt role="separator"></dt>
+		<dd role="separator"><hr></dd>
+	{% else %}
 	{% set attr = attribute(book, field) %}
 	{% if attr is not empty %}
 		<dt>{{ field|humanize|trans }}</dt>
@@ -28,6 +32,8 @@
 				{% endif %}
 			{% elseif field == 'infoSources' %}
 				{{ attr | converturls | nl2br }}
+			{% elseif field == 'notes' %}
+				{{ attr | converturls | autolink | nl2br }}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
@@ -35,6 +41,7 @@
 				{{ _self.printUserMessageLink(attr, book) }}
 			{% endif %}
 		</dd>
+	{% endif %}
 	{% endif %}
 {% endmacro %}
 
