@@ -124,7 +124,7 @@ easy_admin:
                     - { property: publisherOrder }
                     - { property: publisherNumber }
                     - { property: uniformProductClassification, help: help.uniformProductClassification }
-                    - { property: pageCount }
+                    - { property: pageCount, help: help.pageCount }
                     - { property: totalPrint }
                     - { property: price }
                     - { property: binding, help: help.binding }
