@@ -43,7 +43,7 @@ easy_admin:
                     - { property: title }
                     - { property: author }
                     - { property: publisher }
-                    - { property: publishingDate, label: Pub date short }
+                    - { property: publishingDate, label: Publishing date short }
             show:
                 title: 'Книга (№%%entity_id%%)'
                 fields:
