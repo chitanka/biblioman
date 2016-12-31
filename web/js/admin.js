@@ -1,6 +1,6 @@
 $.featherlight.defaults.autostart = false;
 $('img').each(function() {
-	var bigImage = $(this).attr('src').replace(/\.jpg/, '.1000.jpg');
+	var bigImage = $(this).attr('src').replace(/\.(jpg|png)/, '.1000.$1');
 	$(this).attr('data-featherlight', bigImage);
 }).featherlight(null, {
 	
