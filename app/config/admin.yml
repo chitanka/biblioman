@@ -115,8 +115,7 @@ easy_admin:
                     - { property: price }
                     - { property: binding, help: help.binding }
                     - { property: illustrated, type: checkbox }
-                    - { property: isbn10 }
-                    - { property: isbn13 }
+                    - { property: isbn, help: help.isbn }
                     - { property: annotation }
                     - { property: marketingSnippets, help: help.marketingSnippets }
                     - { property: toc }

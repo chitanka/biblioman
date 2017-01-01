@@ -312,14 +312,14 @@ class Book implements \JsonSerializable {
 	private $illustrated;
 
 	/**
-	 * @ORM\Column(type="string", length=15, nullable=true)
+	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $isbn10;
+	private $isbn;
 
 	/**
-	 * @ORM\Column(type="string", length=18, nullable=true)
+	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $isbn13;
+	private $isbnClean;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -1033,22 +1033,21 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
-	public function getIsbn10() {
-		return $this->isbn10;
+	public function getIsbn() {
+		return $this->isbn;
 	}
 
-	public function getIsbn13() {
-		return $this->isbn13;
+	public function getIsbnClean() {
+		return $this->isbnClean;
 	}
 
-	public function setIsbn10($isbn10) {
-		$this->isbn10 = $isbn10;
-		return $this;
+	public function setIsbn($isbn) {
+		$this->isbn = self::normalizeIsbn($isbn);
+		$this->setIsbnClean(self::normalizeSearchableIsbn($this->isbn));
 	}
 
-	public function setIsbn13($isbn13) {
-		$this->isbn13 = $isbn13;
-		return $this;
+	public function setIsbnClean($isbnClean) {
+		$this->isbnClean = $isbnClean;
 	}
 
 	public function getCreatedBy() {
@@ -1444,8 +1443,7 @@ class Book implements \JsonSerializable {
 			'binding' => $this->binding,
 			'language' => $this->language,
 			'illustrated' => $this->illustrated,
-			'isbn10' => $this->isbn10,
-			'isbn13' => $this->isbn13,
+			'isbn' => $this->isbn,
 			'notes' => $this->notes,
 			'notesAboutOriginal' => $this->notesAboutOriginal,
 			'nbScans' => $this->nbScans,
@@ -1508,6 +1506,10 @@ class Book implements \JsonSerializable {
 				return self::normalizePublisher($value);
 			case 'illustrated':
 				return self::normalizeIllustrated($value);
+			case 'isbn':
+				return self::normalizeIsbn($value);
+			case 'isbnClean':
+				return self::normalizeSearchableIsbn($value);
 		}
 		return $value;
 	}
@@ -1566,6 +1568,15 @@ class Book implements \JsonSerializable {
 
 	private static function normalizeIllustrated($value) {
 		return in_array($value, ['да', '1', 'true']) ? 1 : 0;
+	}
+
+	private static function normalizeIsbn($isbn) {
+		$isbnFixed = str_replace('Х', 'X', $isbn); // replace cyrillic Х
+		return $isbnFixed;
+	}
+
+	private static function normalizeSearchableIsbn($isbn) {
+		return preg_replace('/[^\dX,]/', '', self::normalizeIsbn($isbn));
 	}
 
 	private static function gluePrefixesForRegExp($prefixes) {

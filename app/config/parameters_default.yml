@@ -37,8 +37,7 @@ parameters:
         - technicalEditor
         - publisher
         - publishingDate
-        - isbn10
-        - isbn13
+        - isbn
         - createdBy
     book_fields_long:
         - author
@@ -101,8 +100,7 @@ parameters:
         - price
         - illustrated
         - _divider
-        - isbn10
-        - isbn13
+        - isbn
         - uniformProductClassification
         - universalDecimalClassification
         - _divider

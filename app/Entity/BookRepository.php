@@ -56,8 +56,8 @@ class BookRepository extends EntityRepository {
 		'universalDecimalClassification',
 		'binding',
 		'illustrated',
-		'isbn10',
-		'isbn13',
+		'isbn',
+		'isbnClean',
 		'genre',
 		'themes',
 		'createdBy',
@@ -79,6 +79,7 @@ class BookRepository extends EntityRepository {
 	private static $linkedSearchableFields = [
 		'author' => ['otherAuthors'],
 		'title' => ['altTitle'],
+		'isbn' => ['isbnClean'],
 	];
 
 	public static function getSearchableFieldsDefinition() {
@@ -159,6 +160,9 @@ class BookRepository extends EntityRepository {
 			$fieldQuery = trim($fieldQuery);
 			$allowedFields = self::$searchableFields;
 			if (in_array($searchField, $allowedFields)) {
+				if ($searchField == 'isbn') {
+					$searchField = 'isbnClean';
+				}
 				if ($fieldQuery[0] === '"') {
 					$operator = '=';
 					$fieldQuery = trim($fieldQuery, '"');
@@ -181,7 +185,7 @@ class BookRepository extends EntityRepository {
 				->where('b.publishingDate = ?1')
 				->setParameter('1', $query);
 		}
-		if (preg_match('/(\d+)-(\d+)/', $query, $matches)) {
+		if (preg_match('/^(\d+)-(\d+)$/', $query, $matches)) {
 			return $qb
 				->where('b.publishingDate BETWEEN ?1 AND ?2')
 				->setParameters([1 => $matches[1], 2 => $matches[2]]);
