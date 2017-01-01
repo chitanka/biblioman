@@ -43,6 +43,7 @@ parameters:
     book_fields_long:
         - author
         - title
+        - altTitle
         - volumeTitle
         - subtitle
         - subtitle2

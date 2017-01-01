@@ -10,6 +10,7 @@ class BookRepository extends EntityRepository {
 	public static $searchableFields = [
 		'author',
 		'title',
+		'altTitle',
 		'subtitle',
 		'subtitle2',
 		'volumeTitle',
@@ -73,6 +74,11 @@ class BookRepository extends EntityRepository {
 		'publishingDate',
 		'createdAt',
 		'updatedAt',
+	];
+
+	private static $linkedSearchableFields = [
+		'author' => ['otherAuthors'],
+		'title' => ['altTitle'],
 	];
 
 	public static function getSearchableFieldsDefinition() {
@@ -160,7 +166,14 @@ class BookRepository extends EntityRepository {
 					$operator = 'LIKE';
 					$fieldQuery = '%'.Book::normalizedFieldValue($searchField, $fieldQuery).'%';
 				}
-				return $qb->where("b.{$searchField} $operator ?1")->setParameter('1', $fieldQuery);
+				$qb->where("b.{$searchField} $operator ?1");
+				if (isset(self::$linkedSearchableFields[$searchField])) {
+					foreach (self::$linkedSearchableFields[$searchField] as $linkedSearchableField) {
+						$qb->orWhere("b.{$linkedSearchableField} $operator ?1");
+					}
+				}
+				$qb->setParameter('1', $fieldQuery);
+				return $qb;
 			}
 		}
 		if (is_numeric($query)) {
@@ -175,6 +188,7 @@ class BookRepository extends EntityRepository {
 		}
 		return $qb
 			->where('b.title LIKE ?1')
+			->orWhere('b.altTitle LIKE ?1')
 			->orWhere('b.subtitle LIKE ?1')
 			->orWhere('b.author LIKE ?1')
 			->orWhere('b.translator LIKE ?1')

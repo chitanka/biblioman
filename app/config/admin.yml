@@ -63,6 +63,7 @@ easy_admin:
                     - { type: group, label: Data from paper, icon: book }
                     - { property: author, help: help.author }
                     - { property: title }
+                    - { property: altTitle, help: help.altTitle }
                     - { property: volumeTitle, help: help.volumeTitle }
                     - { property: subtitle }
                     - { property: subtitle2 }
