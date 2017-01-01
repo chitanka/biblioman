@@ -2,13 +2,9 @@
 <div class="row">
 	{% for book in books %}
 		<div class="col-xs-6 col-md-3">
-			{% if book.cover %}
-				<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
-					<img src="/thumb/{{ _.thumb(book.cover, 300) }}" width="300" style="height: 400px">
-				</a>
-			{% else %}
-				<img src="/thumb/nocover.260.png" width="260" class="thumbnail" style="height: 400px" title="{{ book.title }} - {{ book.author }}">
-			{% endif %}
+			<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
+				<img src="/thumb/{{ _.thumb(book.cover ? book.cover : 'nocover.png', 300) }}" width="300" style="height: 400px">
+			</a>
 		</div>
 	{% else %}
 		{% include 'App:Book:notFound.html.twig' %}
