@@ -43,6 +43,12 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 	 */
 	private $roles;
 
+	/**
+	 * @var array
+	 * @ORM\Column(type="object")
+	 */
+	private $preferences;
+
 	public function __construct($username, $email, array $roles = []) {
 		$this->username = $username;
 		$this->email = $email;
@@ -54,44 +60,22 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 		return $this->getUsername();
 	}
 
-	/**
-	 * @return mixed
-	 */
 	public function getId() {
 		return $this->id;
 	}
 
-	/**
-	 * @param mixed $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function getUsername() {
 		return $this->username;
 	}
 
-	/**
-	 * @param string $username
-	 */
 	public function setUsername($username) {
 		$this->username = $username;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getEmail() {
 		return $this->email;
 	}
 
-	/**
-	 * @param string $email
-	 */
 	public function setEmail($email) {
 		$this->email = $email;
 	}
@@ -124,6 +108,31 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 		$this->roles = $roles;
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getPreferences() {
+		return $this->preferences;
+	}
+
+	public function getPreference($name, $default = null) {
+		if (isset($this->preferences[$name])) {
+			return $this->preferences[$name];
+		}
+		return $default;
+	}
+
+	/**
+	 * @param array $preferences
+	 */
+	public function setPreferences($preferences) {
+		$this->preferences = $preferences;
+	}
+
+	public function setPreference($name, $value) {
+		$this->preferences[$name] = $value;
+	}
+
 	public function getPassword() {
 		return null;
 	}
@@ -132,8 +141,7 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 		return null;
 	}
 
-	public function eraseCredentials() {
-	}
+	public function eraseCredentials() {}
 
 	public function jsonSerialize() {
 		return [
