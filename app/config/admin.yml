@@ -69,7 +69,7 @@ easy_admin:
                     - { property: subtitle2 }
                     - { property: sequence }
                     - { property: sequenceNr }
-                    - { property: translator }
+                    - { property: translator, help: help.translator }
                     - { property: translatedFromLanguage }
                     - { property: dateOfTranslation }
                     - { property: otherAuthors, help: help.otherAuthors }
