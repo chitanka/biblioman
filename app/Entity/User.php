@@ -45,7 +45,7 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 
 	/**
 	 * @var array
-	 * @ORM\Column(type="object")
+	 * @ORM\Column(type="object", nullable=true)
 	 */
 	private $preferences;
 
