@@ -1571,7 +1571,11 @@ class Book implements \JsonSerializable {
 	}
 
 	private static function normalizeIsbn($isbn) {
-		$isbnFixed = str_replace('Х', 'X', $isbn); // replace cyrillic Х
+		$isbnFixed = strtr($isbn, [
+			'Х' => 'X', // replace cyrillic Х
+			'–' => '-',
+			'—' => '-',
+		]);
 		return $isbnFixed;
 	}
 
