@@ -25,6 +25,7 @@ class BookRepository extends EntityRepository {
 		'publisherEditor',
 		'consultant',
 		'artist',
+		'illustrator',
 		'artistEditor',
 		'technicalEditor',
 		'reviewer',

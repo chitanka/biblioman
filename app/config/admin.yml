@@ -80,6 +80,7 @@ easy_admin:
                     - { property: publisherEditor }
                     - { property: consultant }
                     - { property: artist, help: help.artist }
+                    - { property: illustrator }
                     - { property: artistEditor, help: help.artistEditor }
                     - { property: technicalEditor }
                     - { property: reviewer }

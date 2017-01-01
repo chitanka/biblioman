@@ -22,6 +22,7 @@ return [
 	'Publisher editor' => 'Редактор на издателството',
 	'Consultant' => 'Консултант',
 	'Artist' => 'Художник',
+	'Illustrator' => 'Художник на илюстрациите',
 	'Artist editor' => 'Художествен редактор',
 	'Technical editor' => 'Технически редактор',
 	'Reviewer' => 'Рецензент',

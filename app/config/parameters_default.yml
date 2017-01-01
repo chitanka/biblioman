@@ -33,6 +33,7 @@ parameters:
         - chiefEditor
         - publisherEditor
         - artist
+        - illustrator
         - artistEditor
         - technicalEditor
         - publisher
@@ -67,6 +68,7 @@ parameters:
         - editorialStaff
         - consultant
         - artist
+        - illustrator
         - artistEditor
         - technicalEditor
         - reviewer

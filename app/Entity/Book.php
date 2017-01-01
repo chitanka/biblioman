@@ -125,6 +125,12 @@ class Book implements \JsonSerializable {
 	private $artist;
 
 	/**
+	 * @var string
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $illustrator;
+
+	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $corrector;
@@ -821,6 +827,14 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function getIllustrator() {
+		return $this->illustrator;
+	}
+
+	public function setIllustrator($illustrator) {
+		$this->illustrator = $illustrator;
+	}
+
 	public function setCorrector($corrector) {
 		$this->corrector = $corrector;
 		return $this;
@@ -1406,6 +1420,7 @@ class Book implements \JsonSerializable {
 			'consultant' => $this->consultant,
 			'reviewer' => $this->reviewer,
 			'artist' => $this->artist,
+			'illustrator' => $this->illustrator,
 			'corrector' => $this->corrector,
 			'layout' => $this->layout,
 			'coverLayout' => $this->coverLayout,
