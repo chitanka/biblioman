@@ -48,7 +48,6 @@ parameters:
         - subtitle
         - subtitle2
         - sequence
-        - sequenceNr
         - otherAuthors
         - contentType
         - nationality
