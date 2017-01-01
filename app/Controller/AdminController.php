@@ -41,6 +41,14 @@ class AdminController extends EasyAdminController {
 		$book->clearLock();
 	}
 
+	protected function createBookNewForm(Book $book, $fields) {
+		$form = $this->createNewForm($book, $fields);
+		if ($title = $this->request->query->get('title')) {
+			$form->get('title')->setData($title);
+		}
+		return $form;
+	}
+
 	protected function createBookEditForm(Book $book, $fields) {
 		$form = $this->createEditForm($book, $fields);
 		$this->bookPreEdit = clone $book;
