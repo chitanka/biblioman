@@ -77,6 +77,19 @@ class BookRepository extends EntityRepository {
 		'updatedAt',
 	];
 
+	private static $globallySearchableFields = [
+		'title',
+		'altTitle',
+		'subtitle',
+		'sequence',
+		'author',
+		'translator',
+		'otherAuthors',
+		'compiler',
+		'editor',
+		'publisher',
+	];
+
 	private static $linkedSearchableFields = [
 		'author' => ['otherAuthors'],
 		'title' => ['altTitle'],
@@ -171,10 +184,10 @@ class BookRepository extends EntityRepository {
 					$operator = 'LIKE';
 					$fieldQuery = '%'.Book::normalizedFieldValue($searchField, $fieldQuery).'%';
 				}
-				$qb->where("b.{$searchField} $operator ?1");
+				$qb->where("$alias.$searchField $operator ?1");
 				if (isset(self::$linkedSearchableFields[$searchField])) {
 					foreach (self::$linkedSearchableFields[$searchField] as $linkedSearchableField) {
-						$qb->orWhere("b.{$linkedSearchableField} $operator ?1");
+						$qb->orWhere("$alias.$linkedSearchableField $operator ?1");
 					}
 				}
 				$qb->setParameter('1', $fieldQuery);
@@ -183,25 +196,19 @@ class BookRepository extends EntityRepository {
 		}
 		if (is_numeric($query)) {
 			return $qb
-				->where('b.publishingDate = ?1')
+				->where("$alias.publishingDate = ?1")
 				->setParameter('1', $query);
 		}
 		if (preg_match('/^(\d+)-(\d+)$/', $query, $matches)) {
 			return $qb
-				->where('b.publishingDate BETWEEN ?1 AND ?2')
+				->where("$alias.publishingDate BETWEEN ?1 AND ?2")
 				->setParameters([1 => $matches[1], 2 => $matches[2]]);
 		}
-		return $qb
-			->where('b.title LIKE ?1')
-			->orWhere('b.altTitle LIKE ?1')
-			->orWhere('b.subtitle LIKE ?1')
-			->orWhere('b.author LIKE ?1')
-			->orWhere('b.translator LIKE ?1')
-			->orWhere('b.otherAuthors LIKE ?1')
-			->orWhere('b.compiler LIKE ?1')
-			->orWhere('b.editor LIKE ?1')
-			->orWhere('b.publisher LIKE ?1')
-			->setParameter('1', "%$query%");
+		foreach (self::$globallySearchableFields as $globallySearchableField) {
+			$qb->orWhere("$alias.$globallySearchableField LIKE ?1");
+		}
+		$qb->setParameter('1', "%$query%");
+		return $qb;
 	}
 
 	/**
