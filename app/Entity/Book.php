@@ -1228,6 +1228,14 @@ class Book implements \JsonSerializable {
 		$this->updateNbScans();
 	}
 
+	public function setCreatorByNewScans($user) {
+		foreach ($this->getScans() as $scan) {
+			if (empty($scan->getId())) {
+				$scan->setCreatedBy($user);
+			}
+		}
+	}
+
 	protected function setUpdatedAtOnImage($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
 			$this->setUpdatedAt(new \DateTime());

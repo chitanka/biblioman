@@ -121,9 +121,6 @@ class BookScan {
 	}
 
 	public function setCreatedBy($createdBy) {
-		if (!empty($this->getId())) {
-			return;
-		}
 		$this->createdBy = $createdBy;
 		$this->setCreatedAt(new \DateTime());
 	}
