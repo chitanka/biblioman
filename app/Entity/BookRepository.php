@@ -46,6 +46,7 @@ class BookRepository extends EntityRepository {
 		'typeSettingIn',
 		'printSigned',
 		'printOut',
+		'printerSheets',
 		'publisherSheets',
 		'provisionPublisherSheets',
 		'format',
