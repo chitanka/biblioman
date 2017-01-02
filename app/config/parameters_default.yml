@@ -74,6 +74,7 @@ parameters:
         - corrector
         - layout
         - coverLayout
+        - libraryDesign
         - computerProcessing
         - prepress
         - _divider

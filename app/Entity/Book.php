@@ -148,6 +148,11 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
+	private $libraryDesign;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
 	private $computerProcessing;
 
 	/**
@@ -759,6 +764,14 @@ class Book implements \JsonSerializable {
 	public function setCoverLayout($coverLayout) {
 		$this->coverLayout = $coverLayout;
 		return $this;
+	}
+
+	public function getLibraryDesign() {
+		return $this->libraryDesign;
+	}
+
+	public function setLibraryDesign($libraryDesign) {
+		$this->libraryDesign = $libraryDesign;
 	}
 
 	public function setComputerProcessing($computerProcessing) {
@@ -1448,6 +1461,7 @@ class Book implements \JsonSerializable {
 			'corrector' => $this->corrector,
 			'layout' => $this->layout,
 			'coverLayout' => $this->coverLayout,
+			'libraryDesign' => $this->libraryDesign,
 			'computerProcessing' => $this->computerProcessing,
 			'prepress' => $this->prepress,
 			'contentType' => $this->contentType,

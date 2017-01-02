@@ -32,6 +32,7 @@ class BookRepository extends EntityRepository {
 		'corrector',
 		'layout',
 		'coverLayout',
+		'libraryDesign',
 		'computerProcessing',
 		'prepress',
 		'publisher',

@@ -87,9 +87,10 @@ easy_admin:
                     - { property: technicalEditor }
                     - { property: reviewer }
                     - { property: corrector }
-                    - { property: layout, help: help.layout }
+                    - { property: layout }
                     - { property: coverLayout, help: help.coverLayout }
-                    - { property: computerProcessing, help: help.coverLayout }
+                    - { property: libraryDesign }
+                    - { property: computerProcessing, help: help.computerProcessing }
                     - { property: prepress }
                     - { property: publisher }
                     - { property: publisherCity }
