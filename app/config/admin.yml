@@ -14,7 +14,9 @@ easy_admin:
         color_scheme: light
         brand_color: '#2B547E'
         form_theme: '@App/admin_layout.html.twig'
-        menu: [Book]
+        menu:
+            - { label: Main page, route: homepage }
+            - Book
         assets:
             css:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css

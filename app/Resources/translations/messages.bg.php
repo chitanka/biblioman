@@ -1,5 +1,6 @@
 <?php
 return [
+	'Main page' => 'Начална страница',
 	'Data from paper' => 'Данни от хартията',
 	'ID' => '№',
 	'Books' => 'Книги',
