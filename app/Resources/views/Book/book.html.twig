@@ -30,7 +30,7 @@
 						</span>
 					{% endif %}
 					{% if book.nbScans == 0 %}
-						<span class="text-danger">Липсват сканирани страници.</span>
+						<span class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</span>
 					{% endif %}
 				</dd>
 			</dl>
