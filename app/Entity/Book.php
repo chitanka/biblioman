@@ -1073,10 +1073,12 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	/** @return \DateTime */
 	public function getCreatedAt() {
 		return $this->createdAt;
 	}
 
+	/** @return \DateTime */
 	public function getUpdatedAt() {
 		return $this->updatedAt;
 	}
@@ -1402,6 +1404,20 @@ class Book implements \JsonSerializable {
 		$revision = new BookRevision();
 		$revision->setBook($this);
 		$revision->setCreatedAt(new \DateTime());
+		return $revision;
+	}
+
+	public function createRevisionIfNecessary(Book $oldBook, $user) {
+		$diffs = $oldBook->getDifferences($this);
+		if (empty($diffs)) {
+			return null;
+		}
+		if ($user == $this->getCreatedBy() && ((time() - $this->getUpdatedAt()->getTimestamp()) < 3600) && !$this->hasRevisions()) {
+			return null;
+		}
+		$revision = $this->createRevision();
+		$revision->setDiffs($diffs);
+		$revision->setCreatedBy($user);
 		return $revision;
 	}
 
