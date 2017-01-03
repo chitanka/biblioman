@@ -369,12 +369,12 @@ class Book implements \JsonSerializable {
 	private $toc;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
 	private $themes;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
 	private $genre;
 
