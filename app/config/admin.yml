@@ -70,7 +70,8 @@ easy_admin:
                     - { property: subtitle }
                     - { property: subtitle2 }
                     - { property: sequence }
-                    - { property: sequenceNr }
+                    - { property: sequenceNr, css_class: 'col-sm-6' }
+                    - { property: subsequenceNr, css_class: 'col-sm-6' }
                     - { property: translator, help: help.translator }
                     - { property: translatedFromLanguage }
                     - { property: dateOfTranslation }

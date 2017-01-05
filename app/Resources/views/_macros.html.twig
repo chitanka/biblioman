@@ -41,7 +41,7 @@
 				{{ _self.printUserMessageLink(attr, book) }}
 			{% endif %}
 			{% if field == 'sequence' and book.sequenceNr is not empty %}
-				№ {{ book.sequenceNr }}
+				№ {{ book.sequenceNr }}{% if book.subsequenceNr is not empty %}.{{ book.subsequenceNr }}{% endif %}
 			{% endif %}
 		</dd>
 	{% endif %}

@@ -12,6 +12,7 @@ return [
 	'Volume title' => 'Заглавие на том',
 	'Sequence' => 'Поредица / Серия',
 	'Sequence nr' => '№ в поредица / серия',
+	'Subsequence nr' => 'Втори номер в поредица',
 	'Translator' => 'Преводач',
 	'Translated from language' => 'Език, от който е преведено',
 	'Date of translation' => 'Година на превод',

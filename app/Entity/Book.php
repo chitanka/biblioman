@@ -182,9 +182,14 @@ class Book implements \JsonSerializable {
 	private $sequence;
 
 	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
+	 * @ORM\Column(type="smallint", nullable=true)
 	 */
 	private $sequenceNr;
+
+	/**
+	 * @ORM\Column(type="smallint", nullable=true)
+	 */
+	private $subsequenceNr;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
@@ -406,7 +411,7 @@ class Book implements \JsonSerializable {
 	private $backCoverFile;
 
 	/**
-	 * @var BookScan[]
+	 * @var BookScan[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist"})
 	 * @ORM\OrderBy({"name" = "ASC"})
 	 */
@@ -445,7 +450,7 @@ class Book implements \JsonSerializable {
 	private $updatedTrackingEnabled = true;
 
 	/**
-	 * @var BookRevision[]
+	 * @var BookRevision[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookRevision", mappedBy="book")
 	 * @ORM\OrderBy({"createdAt" = "ASC"})
 	 */
@@ -490,6 +495,7 @@ class Book implements \JsonSerializable {
 	public function __construct() {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
+		$this->scans = new ArrayCollection();
 	}
 
 	public function __toString() {
@@ -578,6 +584,9 @@ class Book implements \JsonSerializable {
 		return $this->sequenceNr;
 	}
 
+	public function getSubsequenceNr() {
+		return $this->subsequenceNr;
+	}
 	public function getInfoSources() {
 		return $this->infoSources;
 	}
@@ -881,6 +890,9 @@ class Book implements \JsonSerializable {
 	public function setSequenceNr($sequenceNr) {
 		$this->sequenceNr = $sequenceNr;
 		return $this;
+	}
+	public function setSubsequenceNr($sequenceNr) {
+		$this->subsequenceNr = $sequenceNr;
 	}
 
 	public function setInfoSources($infoSources) {
