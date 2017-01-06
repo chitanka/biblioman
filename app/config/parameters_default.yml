@@ -71,6 +71,8 @@ parameters:
         - artistEditor
         - technicalEditor
         - reviewer
+        - scienceEditor
+        - copyreader
         - corrector
         - layout
         - coverLayout

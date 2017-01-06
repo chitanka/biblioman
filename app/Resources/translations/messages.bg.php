@@ -27,6 +27,8 @@ return [
 	'Illustrator' => 'Художник на илюстрациите',
 	'Artist editor' => 'Художествен редактор',
 	'Technical editor' => 'Технически редактор',
+	'Science editor' => 'Научен редактор',
+	'Copyreader' => 'Стилов редактор',
 	'Reviewer' => 'Рецензент',
 	'Corrector' => 'Коректор',
 	'Layout' => 'Оформление',

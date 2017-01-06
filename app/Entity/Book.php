@@ -117,6 +117,16 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
+	private $scienceEditor;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $copyreader;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
 	private $reviewer;
 
 	/**
@@ -182,11 +192,13 @@ class Book implements \JsonSerializable {
 	private $sequence;
 
 	/**
+	 * @var int
 	 * @ORM\Column(type="smallint", nullable=true)
 	 */
 	private $sequenceNr;
 
 	/**
+	 * @var int
 	 * @ORM\Column(type="smallint", nullable=true)
 	 */
 	private $subsequenceNr;
@@ -532,6 +544,22 @@ class Book implements \JsonSerializable {
 
 	public function getTechnicalEditor() {
 		return $this->technicalEditor;
+	}
+
+	public function getScienceEditor() {
+		return $this->scienceEditor;
+	}
+
+	public function setScienceEditor($scienceEditor) {
+		$this->scienceEditor = $scienceEditor;
+	}
+
+	public function getCopyreader() {
+		return $this->copyreader;
+	}
+
+	public function setCopyreader($copyreader) {
+		$this->copyreader = $copyreader;
 	}
 
 	public function getConsultant() {
@@ -1468,6 +1496,8 @@ class Book implements \JsonSerializable {
 			'technicalEditor' => $this->technicalEditor,
 			'consultant' => $this->consultant,
 			'reviewer' => $this->reviewer,
+			'scienceEditor' => $this->scienceEditor,
+			'copyreader' => $this->copyreader,
 			'artist' => $this->artist,
 			'illustrator' => $this->illustrator,
 			'corrector' => $this->corrector,

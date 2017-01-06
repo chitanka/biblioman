@@ -87,6 +87,8 @@ easy_admin:
                     - { property: artistEditor, help: help.artistEditor }
                     - { property: technicalEditor }
                     - { property: reviewer }
+                    - { property: scienceEditor }
+                    - { property: copyreader }
                     - { property: corrector }
                     - { property: layout }
                     - { property: coverLayout, help: help.coverLayout }
