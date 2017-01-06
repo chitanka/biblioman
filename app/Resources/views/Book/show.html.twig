@@ -1,17 +1,17 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	<i>{{ book.title }}</i>
 	{% if book.author is not empty %}
-		от {{ book.author }}
+		<span class="author">{{ book.author }}</span><br>
 	{% endif %}
+	<i class="title">{{ book.title }}</i>
 {% endblock %}
 
 {% block content %}
 
 	{% import '_macros.html.twig' as _ %}
 
-	<h1>{{ block('title') }}</h1>
+	<h1 class="book-heading">{{ block('title') }}</h1>
 
 	<ol class="breadcrumb">
 		<li><a href="{{ path('books') }}">Книги</a></li>

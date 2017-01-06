@@ -5,7 +5,7 @@
 			<meta charset="utf-8">
 			<meta name="description" content="{% block description '' %}">
 			<meta name="viewport" content="initial-scale=1.0, width=device-width">
-			<title>{{ block('title') is defined ? block('title')|striptags ~ ' — ' ~ sitename : sitename }}</title>
+			<title>{{ block('title') is defined ? block('title')|replace({'<br>': ' — '})|striptags ~ ' — ' ~ sitename : sitename }}</title>
 			<link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
 			<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 			{% block stylesheets %}
