@@ -103,7 +103,7 @@ easy_admin:
                     - { property: contentType, help: help.contentType }
                     - { property: nationality }
                     - { property: language }
-                    - { property: edition }
+                    - { property: edition, help: help.edition }
                     - { property: litGroup }
                     - { property: typeSettingIn }
                     - { property: printSigned }
