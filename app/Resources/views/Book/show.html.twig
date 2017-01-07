@@ -19,20 +19,20 @@
 	</ol>
 
 	<div class="row" itemscope itemtype="http://schema.org/Book">
-		<div class="col-md-4" data-featherlight-gallery data-featherlight-filter="a">
+		<div class="col-md-4">
 			{% if book.cover %}
-				<a href="/thumb/{{ _.thumb(book.cover, 1000) }}" class="thumbnail" style="width: 310px; max-width: 100%">
-					<img src="/thumb/{{ _.thumb(book.cover, 300) }}" width="300">
+				<a href="{{ _.thumb(book.cover, 1000) }}" class="thumbnail thumb-link" style="width: 310px; max-width: 100%">
+					<img src="{{ _.thumb(book.cover, 300) }}" width="300">
 				</a>
 			{% else %}
-				<img src="/thumb/nocover.300.png" width="300" class="thumbnail">
+				<img src="{{ _.thumb('nocover.png', 300) }}" width="300" class="thumbnail">
 			{% endif %}
 			{% if book.backCover %}
-				<a href="/thumb/{{ _.thumb(book.backCover, 1000) }}" class="thumbnail" style="width: 310px; max-width: 100%">
-					<img src="/thumb/{{ _.thumb(book.backCover, 300) }}" width="300">
+				<a href="{{ _.thumb(book.backCover, 1000) }}" class="thumbnail thumb-link" style="width: 310px; max-width: 100%">
+					<img src="{{ _.thumb(book.backCover, 300) }}" width="300">
 				</a>
 			{% else %}
-				<img src="/thumb/nobackcover.300.png" width="300" class="thumbnail">
+				<img src="{{ _.thumb('nobackcover.png', 300) }}" width="300" class="thumbnail">
 			{% endif %}
 		</div>
 		<div class="col-md-8">
@@ -68,13 +68,13 @@
 		</div>
 	</div>
 
-	<section data-featherlight-gallery data-featherlight-filter="a">
+	<section>
 	<h2>Сканирани страници</h2>
 	<div class="row">
 		{% for scan in book.scans %}
 			<div class="col-xs-6 col-md-3">
-				<a href="/thumb/{{ _.thumb(scan.name, 1000) }}" class="thumbnail">
-					<img src="/thumb/{{ _.thumb(scan.name, 300) }}" width="300" style="max-height: 370px" title="{{ scan }}">
+				<a href="{{ _.thumb(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html="{{ scan }}">
+					<img src="{{ _.thumb(scan.name, 300) }}" width="300" style="max-height: 370px" title="{{ scan }}">
 				</a>
 			</div>
 		{% else %}

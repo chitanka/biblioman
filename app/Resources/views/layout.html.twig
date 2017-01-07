@@ -11,8 +11,7 @@
 			{% block stylesheets %}
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/bootstrap.min.css') }}">
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/font-awesome.min.css') }}">
-				<link href="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.min.css" type="text/css" rel="stylesheet">
-				<link href="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.gallery.min.css" type="text/css" rel="stylesheet">
+				<link rel="stylesheet" href="{{ asset('lightgallery/css/lightgallery.min.css') }}">
 				<link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
 			{% endblock %}
 		{% endblock headers %}
@@ -46,9 +45,15 @@
 			<script src="{{ asset('bundles/easyadmin/javascript/jquery.min.js') }}"></script>
 			<script src="{{ asset('bundles/easyadmin/javascript/bootstrap.min.js') }}"></script>
 			<script src="{{ asset('bundles/easyadmin/javascript/jquery.highlight.min.js') }}"></script>
-			<script src="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-			<script src="//cdn.rawgit.com/noelboss/featherlight/1.6.1/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+			<script src="{{ asset('lightgallery/js/lightgallery.min.js') }}"></script>
+			<script src="{{ asset('lightgallery-plugins/js/lg-zoom.min.js') }}"></script>
+			<script src="{{ asset('lightgallery-plugins/js/lg-fullscreen.min.js') }}"></script>
 			<script src="{{ asset('js/frontend.js') }}"></script>
+			<script>
+				$('body').lightGallery({
+					selector: '.thumb-link'
+				});
+			</script>
 		{% endblock %}
 		{% block custom_javascript '' %}
 	</body>

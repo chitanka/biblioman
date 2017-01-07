@@ -88,7 +88,7 @@
 {% endmacro %}
 
 {% macro thumb(image, width) -%}
-	{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
+	/thumb/{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
 {%- endmacro %}
 
 {% macro maxlength(string, maxlength, suffix) -%}
