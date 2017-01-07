@@ -70,6 +70,11 @@ class Book implements \JsonSerializable {
 	private $dateOfTranslation;
 
 	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $adaptedBy;
+
+	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
 	private $otherAuthors;
@@ -775,6 +780,14 @@ class Book implements \JsonSerializable {
 
 	public function getOtherAuthors() {
 		return $this->otherAuthors;
+	}
+
+	public function getAdaptedBy() {
+		return $this->adaptedBy;
+	}
+
+	public function setAdaptedBy($adaptedBy) {
+		$this->adaptedBy = $adaptedBy;
 	}
 
 	public function getCompiler() {
@@ -1486,6 +1499,7 @@ class Book implements \JsonSerializable {
 			'translator' => $this->translator,
 			'translatedFromLanguage' => $this->translatedFromLanguage,
 			'dateOfTranslation' => $this->dateOfTranslation,
+			'adaptedBy' => $this->adaptedBy,
 			'otherAuthors' => $this->otherAuthors,
 			'compiler' => $this->compiler,
 			'chiefEditor' => $this->chiefEditor,
@@ -1584,6 +1598,8 @@ class Book implements \JsonSerializable {
 		$value = self::normalizeGenericValue($value);
 		switch ($field) {
 			case 'author':
+			case 'otherAuthors':
+			case 'adaptedBy':
 			case 'translator':
 			case 'compiler':
 			case 'editorialStaff':

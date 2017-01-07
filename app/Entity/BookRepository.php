@@ -18,6 +18,7 @@ class BookRepository extends EntityRepository {
 		'translator',
 		'translatedFromLanguage',
 		'dateOfTranslation',
+		'adaptedBy',
 		'otherAuthors',
 		'compiler',
 		'chiefEditor',
@@ -97,7 +98,7 @@ class BookRepository extends EntityRepository {
 	];
 
 	private static $linkedSearchableFields = [
-		'author' => ['otherAuthors'],
+		'author' => ['adaptedBy', 'otherAuthors'],
 		'title' => ['altTitle'],
 		'isbn' => ['isbnClean'],
 	];

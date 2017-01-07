@@ -75,6 +75,7 @@ easy_admin:
                     - { property: translator, help: help.translator }
                     - { property: translatedFromLanguage }
                     - { property: dateOfTranslation }
+                    - { property: adaptedBy }
                     - { property: otherAuthors, help: help.otherAuthors }
                     - { property: compiler }
                     - { property: editorialStaff, help: help.editorialStaff }
