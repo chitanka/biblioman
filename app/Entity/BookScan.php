@@ -63,6 +63,9 @@ class BookScan {
 		if (is_numeric($title)) {
 			return 'Страница '.$title;
 		}
+		if (preg_match('/^\d+[- ,]\d+$/', $title)) {
+			return 'Страници '.$title;
+		}
 		return $title;
 	}
 
