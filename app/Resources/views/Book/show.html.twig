@@ -21,14 +21,14 @@
 	<div class="row" itemscope itemtype="http://schema.org/Book">
 		<div class="col-md-4">
 			{% if book.cover %}
-				<a href="{{ _.thumb(book.cover, 1000) }}" class="thumbnail thumb-link" style="width: 310px; max-width: 100%">
+				<a href="{{ _.thumb(book.cover, 1000) }}" class="thumbnail thumb-link" style="width: 310px; max-width: 100%" data-sub-html="Корица">
 					<img src="{{ _.thumb(book.cover, 300) }}" width="300">
 				</a>
 			{% else %}
 				<img src="{{ _.thumb('nocover.png', 300) }}" width="300" class="thumbnail">
 			{% endif %}
 			{% if book.backCover %}
-				<a href="{{ _.thumb(book.backCover, 1000) }}" class="thumbnail thumb-link" style="width: 310px; max-width: 100%">
+				<a href="{{ _.thumb(book.backCover, 1000) }}" class="thumbnail thumb-link" style="width: 310px; max-width: 100%" data-sub-html="Задна корица">
 					<img src="{{ _.thumb(book.backCover, 300) }}" width="300">
 				</a>
 			{% else %}
@@ -72,11 +72,14 @@
 	<h2>Сканирани страници</h2>
 	<div class="row">
 		{% for scan in book.scans %}
-			<div class="col-xs-6 col-md-3">
-				<a href="{{ _.thumb(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html="{{ scan }}">
-					<img src="{{ _.thumb(scan.name, 300) }}" width="300" style="max-height: 370px" title="{{ scan }}">
+			<figure class="col-xs-6 col-md-3">
+				<a href="{{ _.thumb(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
+					<img src="{{ _.thumb(scan.name, 300) }}" width="300" style="max-height: 370px">
+					<figcaption class="caption">
+						{{ scan }}
+					</figcaption>
 				</a>
-			</div>
+			</figure>
 		{% else %}
 			<p class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</p>
 		{% endfor %}

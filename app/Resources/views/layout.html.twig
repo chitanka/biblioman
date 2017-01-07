@@ -51,7 +51,8 @@
 			<script src="{{ asset('js/frontend.js') }}"></script>
 			<script>
 				$('body').lightGallery({
-					selector: '.thumb-link'
+					selector: '.thumb-link',
+					subHtmlSelectorRelative: true
 				});
 			</script>
 		{% endblock %}

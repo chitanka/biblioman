@@ -94,3 +94,7 @@ div:target {
 .entity-fieldinfoSources {
 	margin-top: 1em;
 }
+.thumbnail .caption {
+	padding: .3em 0;
+	text-align: center;
+}
