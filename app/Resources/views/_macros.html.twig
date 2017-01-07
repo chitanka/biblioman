@@ -5,7 +5,7 @@
 	{% else %}
 	{% set attr = attribute(book, field) %}
 	{% if attr is not empty %}
-		<dt>{{ field|humanize|trans }}</dt>
+		<dt class="entity-field{{ field }}">{{ field|humanize|trans }}</dt>
 		<dd class="entity-field entity-field{{ field }}" title="{{ field|humanize|trans }}">
 			{% if attr.timestamp is defined %}
 				{{ _self.printDate(attr) }}
@@ -30,10 +30,12 @@
 						{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
+			{% elseif field == 'toc' %}
+				{{ attr | format_whitespaces }}
 			{% elseif field == 'infoSources' %}
-				{{ attr | converturls | nl2br }}
+				{{ attr | converturls | format_whitespaces }}
 			{% elseif field == 'notes' %}
-				{{ attr | converturls | autolink | nl2br }}
+				{{ attr | converturls | autolink | format_whitespaces }}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}

@@ -13,6 +13,7 @@ class Extension extends \Twig_Extension {
 	public function getFilters() {
 		return [
 			new \Twig_SimpleFilter('autolink', [$this, 'autolink'], ['is_safe' => ['html']]),
+			new \Twig_SimpleFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
 		];
 	}
 
@@ -21,6 +22,14 @@ class Extension extends \Twig_Extension {
 			$url = $this->router->generate('books_show', ['id' => $matches[2]]);
 			return '<a href="'.$url.'">'.$matches[0].'</a>';
 		}, $content);
+		return $content;
+	}
+
+	public function formatWhitespaces($content) {
+		$content = nl2br($content);
+		$content = strtr($content, [
+			"\t" => str_repeat("\xC2\xA0", 8), // non-breaking space
+		]);
 		return $content;
 	}
 

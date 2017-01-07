@@ -84,5 +84,13 @@ div:target {
 	text-align: center;
 }
 .book-heading .author {
-	font-size: 80%;
+	font-size: 70%;
+	font-variant: small-caps;
+}
+.entity-fieldtoc,
+.entity-fieldmarketingSnippets,
+.entity-fieldnotes,
+.entity-fieldnotesAboutOriginal,
+.entity-fieldinfoSources {
+	margin-top: 1em;
 }
