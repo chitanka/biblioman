@@ -11,7 +11,10 @@
 	display: none;
 }
 .field-book_scan {
-	border-bottom: 1px solid #eee;
+	border-bottom: 3px dotted #808080;
 	padding-bottom: 1em;
 	margin-bottom: 1em;
+}
+.field-book_scan .field-checkbox {
+	display: none;
 }
