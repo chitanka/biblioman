@@ -429,7 +429,7 @@ class Book implements \JsonSerializable {
 
 	/**
 	 * @var BookScan[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist"})
+	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"name" = "ASC"})
 	 */
 	private $scans;
