@@ -7,9 +7,6 @@
 .form-control:focus {
 	background-color: #FFEDBE;
 }
-.scans .field-collection > label {
-	display: none;
-}
 .field-book_scan {
 	border-bottom: 3px dotted #808080;
 	padding-bottom: 1em;

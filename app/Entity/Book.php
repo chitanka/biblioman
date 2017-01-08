@@ -428,6 +428,17 @@ class Book implements \JsonSerializable {
 	private $backCoverFile;
 
 	/**
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $fullContent;
+
+	/**
+	 * @Vich\UploadableField(mapping="fullcontent", fileNameProperty="fullContent")
+	 * @var File
+	 */
+	private $fullContentFile;
+
+	/**
 	 * @var BookScan[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"name" = "ASC"})
@@ -1215,7 +1226,7 @@ class Book implements \JsonSerializable {
 	 */
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;
-		$this->setUpdatedAtOnImage($image);
+		$this->setUpdatedAtOnFileUpload($image);
 	}
 
 	/**
@@ -1244,7 +1255,7 @@ class Book implements \JsonSerializable {
 	 */
 	public function setBackCoverFile(File $image = null) {
 		$this->backCoverFile = $image;
-		$this->setUpdatedAtOnImage($image);
+		$this->setUpdatedAtOnFileUpload($image);
 	}
 
 	/**
@@ -1266,6 +1277,24 @@ class Book implements \JsonSerializable {
 	 */
 	public function getBackCover() {
 		return $this->backCover;
+	}
+
+	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
+	public function setFullContentFile(File $file = null) {
+		$this->fullContentFile = $file;
+		$this->setUpdatedAtOnFileUpload($file);
+	}
+	/** @return File */
+	public function getFullContentFile() {
+		return $this->fullContentFile;
+	}
+	/** @param string $fullContent */
+	public function setFullContent($fullContent) {
+		$this->fullContent = $fullContent;
+	}
+	/** @return string */
+	public function getFullContent() {
+		return $this->fullContent;
 	}
 
 	/**
@@ -1304,7 +1333,7 @@ class Book implements \JsonSerializable {
 		}
 	}
 
-	protected function setUpdatedAtOnImage($image) {
+	protected function setUpdatedAtOnFileUpload($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
 			$this->setUpdatedAt(new \DateTime());
 		}

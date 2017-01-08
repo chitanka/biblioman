@@ -6,6 +6,11 @@ vich_uploader:
             upload_destination: %kernel.root_dir%/../data/scans
             namer:              app.file_namer
             delete_on_update:   false
+        fullcontent:
+            uri_prefix:         /fullcontent
+            upload_destination: %kernel.root_dir%/../data/fullcontent
+            namer:              app.file_namer
+            delete_on_update:   false
 
 easy_admin:
     site_name: '%sitename%'
@@ -147,7 +152,9 @@ easy_admin:
                     - { property: coverFile, type: vich_image }
                     - { property: backCoverFile, type: vich_image }
 
-                    - { type: group, label: Scans, icon: image }
+                    - { type: group, label: Files, icon: image }
+                    - { property: fullContentFile, help: help.fullContentFile, type: vich_file }
+                    - { type: divider }
                     - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, help: help.scans, css_class: 'scans' }
 
                     - { type: group, label: Metadata, icon: file-text-o }

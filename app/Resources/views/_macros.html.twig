@@ -87,6 +87,12 @@
 	<a href="{{ path('easyadmin', { action: 'edit', entity: 'Book', id: book.id }) }}" title="Редактиране на записа" class="btn btn-default"><span class="fa fa-pencil"></span></a>
 {% endmacro %}
 
+{% macro printFullContentLink(book) %}
+	{% if book.fullContent is not empty %}
+		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-default" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+	{% endif %}
+{% endmacro %}
+
 {% macro thumb(image, width) -%}
 	/thumb/{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
 {%- endmacro %}
