@@ -117,7 +117,7 @@ easy_admin:
                     - { property: printerSheets, help: help.printerSheets }
                     - { property: publisherSheets }
                     - { property: provisionPublisherSheets, help: help.provisionPublisherSheets }
-                    - { property: format }
+                    - { property: format, help: help.format }
                     - { property: publisherCode }
                     - { property: trackingCode, help: help.trackingCode }
                     - { property: publisherOrder }
