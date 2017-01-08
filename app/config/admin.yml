@@ -44,10 +44,10 @@ easy_admin:
                     - { name: show, icon: eye, label: Book.actions.show }
                     - { name: delete, icon: trash, label: Book.actions.delete }
                 fields:
-                    - { property: id }
+                    - { property: id, template: 'link.html.twig' }
                     - { property: cover, type: image }
                     - { property: backCover, type: image }
-                    - { property: title }
+                    - { property: title, template: 'link.html.twig' }
                     - { property: author }
                     - { property: publisher }
                     - { property: publishingDate, label: Publishing date short }
