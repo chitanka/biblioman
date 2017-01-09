@@ -89,7 +89,7 @@
 
 {% macro printFullContentLink(book) %}
 	{% if book.fullContent is not empty %}
-		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-default" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
 	{% endif %}
 {% endmacro %}
 
