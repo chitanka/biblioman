@@ -75,7 +75,7 @@ class Book implements \JsonSerializable {
 	private $adaptedBy;
 
 	/**
-	 * @ORM\Column(type="string", length=500, nullable=true)
+	 * @ORM\Column(type="string", length=700, nullable=true)
 	 */
 	private $otherAuthors;
 
