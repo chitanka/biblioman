@@ -98,7 +98,7 @@ return [
 	'Metadata' => 'Метаданни',
 	'Admin comment' => 'Административен коментар',
 	'Ocred text' => 'Текст след OCR',
-	'Mising scan title' => '⚠ Няма заглавие ☹',
+	'Missing scan title' => '⚠ Няма заглавие ☹',
 	'Book' => [
 		'new_title' => 'Добавяне на нова книга',
 		'form_title' => 'Редактиране на книга (№%entity_id%)',
