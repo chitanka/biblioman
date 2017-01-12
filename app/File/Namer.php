@@ -16,19 +16,21 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface {
 	 * @return string The file name.
 	 */
 	public function name($object, PropertyMapping $mapping) {
-		$file = $mapping->getFile($object);
-		$name = uniqid();
+		$extension = $this->fixExtension($mapping->getFile($object));
+		return uniqid().'.'.$extension;
+	}
 
-		if ($extension = $this->getExtension($file)) {
-			$extension = strtolower($extension);
-			if (in_array($extension, ['tif', 'tiff'])) {
-				$pathname = $file->getPathname();
-				shell_exec("convert $pathname $pathname.jpg && mv $pathname.jpg $pathname");
-			}
-			$extension = preg_replace('/(tiff?|jpeg)/', 'jpg', $extension);
-			$name = sprintf('%s.%s', $name, $extension);
+	private function fixExtension(\Symfony\Component\HttpFoundation\File\UploadedFile $file) {
+		$extension = strtolower($this->getExtension($file));
+		if (in_array($extension, ['tif', 'tiff'])) {
+			$pathname = $file->getPathname();
+			shell_exec("convert $pathname $pathname.png && mv $pathname.png $pathname");
 		}
-
-		return $name;
+		$extension = strtr($extension, [
+			'tiff' => 'png',
+			'tif' => 'png',
+			'jpeg' => 'jpg',
+		]);
+		return $extension;
 	}
 }
