@@ -22,20 +22,18 @@
 				{{ _.printUser(revision.createdBy) }} &middot; {{ _.printDate(revision.createdAt) }}
 			</div>
 			<div class="panel-body">
-				<table class="table table-bordered table-condensed">
+				<table class="table table-bordered table-hover table-condensed">
 					<tr>
 						<th style="width:20%">Поле</th>
 						<th style="width:40%">Стара стойност</th>
 						<th style="width:40%">Нова стойност</th>
 					</tr>
 					{% for modifiedField, diffValues in revision.diffs %}
-						{% if modifiedField != 'updatedAt' %}
-							<tr>
-								<th>{{ modifiedField|humanize|trans }}</th>
-								<td><div class="del-block">{{ diffValues.0|nl2br }}</div></td>
-								<td><div class="ins-block">{{ diffValues.1|nl2br }}</div></td>
-							</tr>
-						{% endif %}
+						<tr>
+							<th>{{ modifiedField|humanize|trans }}</th>
+							<td><div class="del-block">{{ diffValues.0|nl2br }}</div></td>
+							<td><div class="ins-block">{{ diffValues.1|nl2br }}</div></td>
+						</tr>
 					{% endfor %}
 				</table>
 			</div>
