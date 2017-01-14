@@ -50,14 +50,14 @@ if (substr_count($query, '.') == 2) {
 	list($name, $format) = explode('.', basename($query));
 	$width = null;
 }
-$file = sprintf('%s/../../data/scans/%s/%s.%s', dirname(__FILE__), dirname($query), $name, $format);
+$file = sprintf('%s/../../data/%s/%s.%s', dirname(__FILE__), dirname($query), $name, $format);
 
 if ($format == 'jpg') {
 	$format = 'jpeg';
 }
 
 if (file_exists($file)) {
-	$expires = 30240000; // 350 days
+	$expires = 2592000; // 30 days
 	header("Cache-Control: maxage=$expires");
 	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 	header('Content-Type: image/'.$format);

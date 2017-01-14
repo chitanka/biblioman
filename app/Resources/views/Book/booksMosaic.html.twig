@@ -3,7 +3,7 @@
 	{% for book in books %}
 		<div class="col-xs-4 col-md-2">
 			<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
-				<img src="{{ _.thumb(book.cover ? book.cover : 'nocover.png', 150) }}" width="150" style="height: 220px">
+				<img src="{{ _.thumbCover(book.cover ? book.cover : 'nocover.png', 150) }}" width="150" style="height: 220px">
 			</a>
 		</div>
 	{% else %}

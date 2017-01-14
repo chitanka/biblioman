@@ -411,7 +411,7 @@ class Book implements \JsonSerializable {
 	private $cover;
 
 	/**
-	 * @Vich\UploadableField(mapping="scan", fileNameProperty="cover")
+	 * @Vich\UploadableField(mapping="cover", fileNameProperty="cover")
 	 * @var File
 	 */
 	private $coverFile;
@@ -422,7 +422,7 @@ class Book implements \JsonSerializable {
 	private $backCover;
 
 	/**
-	 * @Vich\UploadableField(mapping="scan", fileNameProperty="backCover")
+	 * @Vich\UploadableField(mapping="cover", fileNameProperty="backCover")
 	 * @var File
 	 */
 	private $backCoverFile;

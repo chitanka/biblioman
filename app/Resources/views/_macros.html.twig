@@ -93,8 +93,16 @@
 	{% endif %}
 {% endmacro %}
 
-{% macro thumb(image, width) -%}
-	/thumb/{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
+{% macro thumbCover(image, width) -%}
+	{{ _self.thumb(image, width, 'covers') }}
+{%- endmacro %}
+
+{% macro thumbScan(image, width) -%}
+	{{ _self.thumb(image, width, 'scans') }}
+{%- endmacro %}
+
+{% macro thumb(image, width, type) -%}
+	/thumb/{{ type }}/{{ image|replace({'.jpg': '.'~width~'.jpg', '.png': '.'~width~'.png'}) }}
 {%- endmacro %}
 
 {% macro maxlength(string, maxlength, suffix) -%}
