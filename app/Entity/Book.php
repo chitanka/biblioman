@@ -1598,6 +1598,7 @@ class Book implements \JsonSerializable {
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,
 			'infoSources' => $this->infoSources,
+			'scans' => $this->getScans(),
 		];
 	}
 

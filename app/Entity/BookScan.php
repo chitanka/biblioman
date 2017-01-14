@@ -9,7 +9,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table
  * @Vich\Uploadable
  */
-class BookScan {
+class BookScan implements \JsonSerializable {
 
 	/**
 	 * @var int
@@ -67,6 +67,25 @@ class BookScan {
 			return 'Страници '.$title;
 		}
 		return $title;
+	}
+
+	public function toArray() {
+		return [
+			'id' => $this->id,
+			'name' => $this->name,
+			'title' => $this->title,
+			'createdBy' => $this->createdBy,
+			'createdAt' => $this->createdAt,
+		];
+	}
+
+	/**
+	 * Specify data which should be serialized to JSON
+	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+	 * @return array
+	 */
+	public function jsonSerialize() {
+		return $this->toArray();
 	}
 
 	public function getId() {
