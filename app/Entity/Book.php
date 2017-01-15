@@ -1652,6 +1652,7 @@ class Book implements \JsonSerializable {
 			case 'isbnClean':
 				return self::normalizeSearchableIsbn($value);
 		}
+		$value = trim($value);
 		return $value;
 	}
 
@@ -1662,8 +1663,10 @@ class Book implements \JsonSerializable {
 			'проф.',
 			'проф. д-р',
 			'акад.',
+			'инж.',
 		];
 		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') /u', '', $nameNormalized);
+		$nameNormalized = preg_replace('/ \(.+\)$/', '', $nameNormalized);
 		return $nameNormalized;
 	}
 
