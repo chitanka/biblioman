@@ -39,7 +39,7 @@ easy_admin:
             class: App\Entity\Book
             role: ROLE_EDITOR
             label: Books
-            image_base_path: /thumb
+            image_base_path: /thumb/covers
             disabled_actions: [delete]
             list:
                 title: Books
