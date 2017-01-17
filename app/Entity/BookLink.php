@@ -11,8 +11,10 @@ class BookLink {
 	public static $categories = [
 		'library',
 		'publisher',
+		'bibliography',
 		'encyclopedia',
 		'blog',
+		'personal',
 		'forum',
 		'bookstore',
 	];

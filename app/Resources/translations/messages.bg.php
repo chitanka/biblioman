@@ -112,8 +112,10 @@ return [
 	'BookLinkCategory' => [
 		'library' => 'Библиотеки',
 		'publisher' => 'Издателства',
+		'bibliography' => 'Библиографии',
 		'encyclopedia' => 'Енциклопедии',
 		'blog' => 'Блогове',
+		'personal' => 'Лични сайтове',
 		'forum' => 'Форуми',
 		'bookstore' => 'Книжарници',
 	],
