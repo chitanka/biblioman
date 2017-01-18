@@ -22,13 +22,8 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface {
 
 	private function fixExtension(\Symfony\Component\HttpFoundation\File\UploadedFile $file) {
 		$extension = strtolower($this->getExtension($file));
-		if (in_array($extension, ['tif', 'tiff'])) {
-			$pathname = $file->getPathname();
-			shell_exec("convert $pathname $pathname.png && mv $pathname.png $pathname");
-		}
 		$extension = strtr($extension, [
-			'tiff' => 'png',
-			'tif' => 'png',
+			'tiff' => 'tif',
 			'jpeg' => 'jpg',
 		]);
 		return $extension;

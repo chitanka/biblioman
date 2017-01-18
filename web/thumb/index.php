@@ -1,9 +1,13 @@
 <?php
-function genThumbnail($filename, $thumbname, $width = null, $quality = null) {
-	$dir = dirname($thumbname);
+function makeSureDirExists($file) {
+	$dir = dirname($file);
 	if ( ! file_exists($dir)) {
 		mkdir($dir, 0755, true);
 	}
+}
+
+function genThumbnail($filename, $thumbname, $width = null, $quality = null) {
+	makeSureDirExists($thumbname);
 
 	$width = $width ?: 45;
 	$quality = $quality ?: 90;
@@ -40,31 +44,52 @@ function genThumbnail($filename, $thumbname, $width = null, $quality = null) {
 	return $thumbname;
 }
 
+function sanitize($s) {
+	$s = preg_replace('#[^a-z\d./]#', '', $s);
+	$s = strtr($s, ['..' => '.']);
+	return $s;
+}
 
-$query = ltrim($_SERVER['QUERY_STRING'], '/');
-$query = strtr($query, array('..' => '.'));
+function notFound($file) {
+	header('HTTP/1.1 404 Not Found');
+	error_log($file . ' not found');
+	die();
+}
+
+$query = ltrim(sanitize($_SERVER['QUERY_STRING']), '/');
 
 if (substr_count($query, '.') == 2) {
 	list($name, $width, $format) = explode('.', basename($query));
 } else {
 	list($name, $format) = explode('.', basename($query));
-	$width = null;
+	$width = 1000;
 }
-$file = sprintf('%s/../../data/%s/%s.%s', dirname(__FILE__), dirname($query), $name, $format);
+$file = sprintf('%s/../../data/%s/%s.%s', __DIR__, dirname($query), $name, $format);
 
 if ($format == 'jpg') {
 	$format = 'jpeg';
 }
 
-if (file_exists($file)) {
-	$expires = 2592000; // 30 days
-	header("Cache-Control: maxage=$expires");
-	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
-	header('Content-Type: image/'.$format);
-	$thumb = dirname(__FILE__) . '/../cache' . $_SERVER['REQUEST_URI'];
-	ini_set('memory_limit', '256M');
-	readfile(genThumbnail($file, $thumb, $width, 90));
-} else {
-	header('HTTP/1.1 404 Not Found');
-	error_log($file.' not found');
+$thumb = realpath(__DIR__ . '/../cache') . sanitize($_SERVER['REQUEST_URI']);
+
+if (!file_exists($file)) {
+	if ($format != 'png') {
+		notFound($file);
+	}
+	$tifFile = realpath(str_replace('.png', '.tif', $file));
+	if (!$tifFile) {
+		notFound($file);
+	}
+	makeSureDirExists($thumb);
+	$resize = is_numeric($width) ? '-resize ' . ((int) $width) . 'x' : '';
+	shell_exec("convert $tifFile $resize $thumb");
 }
+$expires = 2592000; // 30 days
+header("Cache-Control: maxage=$expires");
+header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
+header('Content-Type: image/'.$format);
+ini_set('memory_limit', '256M');
+if (!file_exists($thumb)) {
+	$thumb = genThumbnail($file, $thumb, $width, 90);
+}
+readfile($thumb);
