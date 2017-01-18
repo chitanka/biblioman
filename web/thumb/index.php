@@ -80,9 +80,11 @@ if (!file_exists($file)) {
 	if (!$tifFile) {
 		notFound($file);
 	}
-	makeSureDirExists($thumb);
-	$resize = is_numeric($width) ? '-resize ' . ((int) $width) . 'x' : '';
-	shell_exec("convert $tifFile $resize $thumb");
+	$file = dirname($thumb) . '/orig_' . basename($file);
+	if (!file_exists($file)) {
+		makeSureDirExists($file);
+		shell_exec("convert $tifFile $file");
+	}
 }
 $expires = 2592000; // 30 days
 header("Cache-Control: maxage=$expires");
