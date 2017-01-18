@@ -14,6 +14,7 @@ class Extension extends \Twig_Extension {
 		return [
 			new \Twig_SimpleFilter('autolink', [$this, 'autolink'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
+			new \Twig_SimpleFilter('thumb', [$this, 'createThumbPath']),
 		];
 	}
 
@@ -31,6 +32,11 @@ class Extension extends \Twig_Extension {
 			"\t" => str_repeat("\xC2\xA0", 8), // non-breaking space
 		]);
 		return $content;
+	}
+
+	public function createThumbPath($image, $type, $width) {
+		$image = preg_replace('/\.tif$/', '.png', $image);
+		return "/thumb/$type/" . preg_replace('/\.(.+)$/', ".$width.$1", $image);
 	}
 
 	public function getName() {
