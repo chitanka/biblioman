@@ -41,7 +41,7 @@ class BookLink {
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string", length=10)
+	 * @ORM\Column(type="string", length=15)
 	 */
 	private $category;
 
