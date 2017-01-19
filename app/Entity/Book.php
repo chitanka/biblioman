@@ -13,6 +13,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Book implements \JsonSerializable {
 
+	const STATE_INCOMPLETE = 'incomplete';
+	const STATE_VERIFIED_0 = 'verified_0';
+	const STATE_VERIFIED_1 = 'verified_1';
+	const STATE_VERIFIED_2 = 'verified_2';
+	const STATE_VERIFIED_3 = 'verified_3';
+
 	const LOCK_EXPIRE_TIME = 3600; // 1 hour
 
 	/**
@@ -528,6 +534,13 @@ class Book implements \JsonSerializable {
 
 	public function __toString() {
 		return $this->getTitle();
+	}
+
+	public function getState() {
+		if ($this->isIncomplete()) {
+			return self::STATE_INCOMPLETE;
+		}
+		return self::STATE_VERIFIED_0;
 	}
 
 	public function getId() {

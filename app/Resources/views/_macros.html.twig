@@ -108,6 +108,7 @@
 {% macro printBookEditInfo(book, searchableFields) %}
 	{% if book.isIncomplete %}
 		<div class="text-danger">
+			<span class="fa fa-warning"></span>
 			Записът е непълен.
 			{% if book.reasonWhyIncomplete is not empty %}
 				({{ _self.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})

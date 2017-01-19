@@ -1,5 +1,5 @@
 {% import '_macros.html.twig' as _ %}
-<div class="well book" itemscope itemtype="http://schema.org/Book">
+<div class="well book book-{{ book.state }}" itemscope itemtype="http://schema.org/Book">
 	<div class="row">
 		<div class="col-md-3">
 			<div class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right" style="width: 210px; max-width: 100%">

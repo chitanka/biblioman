@@ -90,6 +90,9 @@ div:target {
 .book-buttons {
 	margin-top: .6em;
 }
+.book-incomplete {
+	border-left: 0.2em solid red;
+}
 .entity-fieldtoc,
 .entity-fieldmarketingSnippets,
 .entity-fieldnotes,

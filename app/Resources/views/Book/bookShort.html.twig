@@ -1,8 +1,8 @@
 {% import '_macros.html.twig' as _ %}
-<div class="well book-short" itemscope itemtype="http://schema.org/Book">
+<div class="well book-short book-{{ book.state }}" itemscope itemtype="http://schema.org/Book">
 	<div class="row">
 		<div class="col-md-4">
-			<div class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right" style="width: 210px; max-width: 100%">
+			<div class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right" style="width: 160px; max-width: 100%">
 				{% if book.cover %}
 					<a href="{{ _.thumbCover(book.cover, 1000) }}" class="thumb-link">
 						<img src="{{ _.thumbCover(book.cover, 150) }}" width="150">
