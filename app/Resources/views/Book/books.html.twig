@@ -6,6 +6,8 @@
 	{% include 'App:Book:booksMosaic.html.twig' %}
 {% elseif mode == 'mosaic_large' %}
 	{% include 'App:Book:booksMosaicLarge.html.twig' %}
-{% else %}
+{% elseif mode == 'list' %}
 	{% include 'App:Book:booksList.html.twig' %}
+{% else %}
+	{% include 'App:Book:booksListcols.html.twig' %}
 {% endif %}

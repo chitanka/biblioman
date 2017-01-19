@@ -1,0 +1,11 @@
+{% for bookRow in books|batch(2) %}
+	<div class="row">
+		{% for book in bookRow %}
+			<div class="col-xs-12 col-md-6">
+				{% include 'App:Book:bookShort.html.twig' %}
+			</div>
+		{% endfor %}
+	</div>
+{% else %}
+	{% include 'App:Book:notFound.html.twig' %}
+{% endfor %}

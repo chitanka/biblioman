@@ -1,0 +1,49 @@
+{% import '_macros.html.twig' as _ %}
+<div class="well book-short" itemscope itemtype="http://schema.org/Book">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right" style="width: 210px; max-width: 100%">
+				{% if book.cover %}
+					<a href="{{ _.thumbCover(book.cover, 1000) }}" class="thumb-link">
+						<img src="{{ _.thumbCover(book.cover, 200) }}" width="200">
+					</a>
+				{% else %}
+					<img src="{{ _.thumbCover('nocover.png', 200) }}" width="200">
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="book-title">
+				{{ book.title }}{% if book.volumeTitle is not empty %}; <span class="book-volumeTitle">{{ book.volumeTitle }}</span>{% endif %}
+			</div>
+			{% if book.subtitle is not empty %}
+				<div class="book-subtitle">{{ book.subtitle }}</div>
+			{% endif %}
+			{% if book.author is not empty %}
+				<div class="book-author">{{ book.author }}</div>
+			{% endif %}
+			{% if book.sequence is not empty %}
+				<div class="book-sequence">{{ book.sequence }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">{{ book.sequenceNr }}</span>{% endif %}</div>
+			{% endif %}
+			{% if book.publisher is not empty %}
+				<div class="book-publisher">{{ book.publisher }}{% if book.publishingDate is not empty %}, <span class="book-publishingDate">{{ book.publishingDate }}</span>{% endif %}</div>
+			{% endif %}
+			{{ _.printShowLink(book) }}
+			{{ _.printFullContentLink(book) }}
+			{% if is_granted('ROLE_EDITOR') %}
+				{{ _.printEditLink(book) }}
+			{% endif %}
+			{% if book.isIncomplete %}
+				<span class="text-danger">
+					Записът е непълен.
+					{% if book.reasonWhyIncomplete is not empty %}
+						({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+					{% endif %}
+				</span>
+			{% endif %}
+			{% if book.nbScans == 0 %}
+				<span class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</span>
+			{% endif %}
+		</div>
+	</div>
+</div>
