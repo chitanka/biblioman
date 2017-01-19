@@ -1611,6 +1611,13 @@ class Book implements \JsonSerializable {
 		return $this->toArray();
 	}
 
+	/**
+	 * @return Book
+	 */
+	public function __clone() {
+		$this->scans = clone $this->scans;
+	}
+
 	public function getDifferences(Book $book) {
 		$ourFields = $this->toArray();
 		$otherFields = $book->toArray();
