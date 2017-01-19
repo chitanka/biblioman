@@ -23,7 +23,7 @@
 				<div class="book-author">{{ book.author }}</div>
 			{% endif %}
 			{% if book.sequence is not empty %}
-				<div class="book-sequence">{{ book.sequence }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">{{ book.sequenceNr }}</span>{% endif %}</div>
+				<div class="book-sequence">{{ book.sequence }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№ {{ book.sequenceNr }}</span>{% endif %}</div>
 			{% endif %}
 			{% if book.publisher is not empty %}
 				<div class="book-publisher">{{ book.publisher }}{% if book.publishingDate is not empty %}, <span class="book-publishingDate">{{ book.publishingDate }}</span>{% endif %}</div>
