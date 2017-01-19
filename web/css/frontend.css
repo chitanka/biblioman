@@ -87,6 +87,9 @@ div:target {
 	font-size: 70%;
 	font-variant: small-caps;
 }
+.book-buttons {
+	margin-top: .6em;
+}
 .entity-fieldtoc,
 .entity-fieldmarketingSnippets,
 .entity-fieldnotes,

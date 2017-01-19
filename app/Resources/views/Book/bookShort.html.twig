@@ -28,22 +28,13 @@
 			{% if book.publisher is not empty %}
 				<div class="book-publisher">{{ book.publisher }}{% if book.publishingDate is not empty %}, <span class="book-publishingDate">{{ book.publishingDate }}</span>{% endif %}</div>
 			{% endif %}
-			{{ _.printShowLink(book) }}
-			{{ _.printFullContentLink(book) }}
-			{% if is_granted('ROLE_EDITOR') %}
-				{{ _.printEditLink(book) }}
+			{% if book.category is not empty %}
+				<div class="book-category"><span class="fa fa-folder-o"></span> {{ _.printCategoryLink(book.category) }}</div>
 			{% endif %}
-			{% if book.isIncomplete %}
-				<div class="text-danger">
-					Записът е непълен.
-					{% if book.reasonWhyIncomplete is not empty %}
-						({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
-					{% endif %}
-				</div>
-			{% endif %}
-			{% if book.nbScans == 0 %}
-				<div class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</div>
-			{% endif %}
+			<div class="book-buttons">
+				{{ _.printBookButtons(book) }}
+				{{ _.printBookEditInfo(book, searchableFields) }}
+			</div>
 		</div>
 	</div>
 </div>

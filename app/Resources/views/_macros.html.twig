@@ -19,7 +19,7 @@
 					</ul>
 				{% endfor %}
 			{% elseif field == 'category' %}
-				<a href="{{ path('books_by_category', { slug: attr.slug }) }}">{{ attr.name }}</a>
+				{{ _self.printCategoryLink(attr) }}
 			{% elseif field in searchableFields.fields %}
 				{% if field in ['title', 'subtitle', 'subtitle2', 'provisionPublisherSheets'] %}
 					{{ _self.printSearchLink(attr, field, searchableFields) }}
@@ -90,6 +90,32 @@
 {% macro printFullContentLink(book) %}
 	{% if book.fullContent is not empty %}
 		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+	{% endif %}
+{% endmacro %}
+
+{% macro printCategoryLink(category) %}
+	<a href="{{ path('books_by_category', { slug: category.slug }) }}">{{ category.name }}</a>
+{% endmacro %}
+
+{% macro printBookButtons(book) %}
+	{{ _self.printShowLink(book) }}
+	{{ _self.printFullContentLink(book) }}
+	{% if is_granted('ROLE_EDITOR') %}
+		{{ _self.printEditLink(book) }}
+	{% endif %}
+{% endmacro %}
+
+{% macro printBookEditInfo(book, searchableFields) %}
+	{% if book.isIncomplete %}
+		<div class="text-danger">
+			Записът е непълен.
+			{% if book.reasonWhyIncomplete is not empty %}
+				({{ _self.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+			{% endif %}
+		</div>
+	{% endif %}
+	{% if book.nbScans == 0 %}
+		<div class="text-danger">{{ _self.printMissingScansSearchLink(searchableFields) }}</div>
 	{% endif %}
 {% endmacro %}
 
