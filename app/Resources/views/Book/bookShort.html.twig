@@ -15,23 +15,32 @@
 		<div class="col-md-8">
 			<div class="book-title-and-author">
 				<div class="book-title">
-					{{ book.title }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.volumeTitle }}</span>{% endif %}
+					{{ _.printSearchLink(book.title, 'title', searchableFields) }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.volumeTitle }}</span>{% endif %}
 				</div>
 				{% if book.subtitle is not empty %}
-					<div class="book-subtitle">{{ book.subtitle }}</div>
+					<div class="book-subtitle">{{ _.printSearchLink(book.subtitle, 'subtitle', searchableFields) }}</div>
 				{% endif %}
 				{% if book.author is not empty %}
-					<div class="book-author">{{ book.author }}</div>
+					<div class="book-author">{{ _.printSearchLink(book.author, 'author', searchableFields) }}</div>
 				{% endif %}
 			</div>
 			{% if book.sequence is not empty %}
-				<div class="book-sequence">{{ book.sequence }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№ {{ book.sequenceNr }}</span>{% endif %}</div>
+				<div class="book-sequence">
+					<span class="fa fa-list-alt fa-fw"></span>
+					{{ _.printSearchLink(book.sequence, 'sequence', searchableFields) }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№ {{ book.sequenceNr }}</span>{% endif %}
+				</div>
 			{% endif %}
 			{% if book.publisher is not empty %}
-				<div class="book-publisher">{{ book.publisher }}{% if book.publishingDate is not empty %}, <span class="book-publishingDate">{{ book.publishingDate }}</span>{% endif %}</div>
+				<div class="book-publisher">
+					<span class="fa fa-sun-o fa-fw"></span>
+					{{ _.printSearchLink(book.publisher, 'publisher', searchableFields) }}{% if book.publishingDate is not empty %}, <span class="book-publishingDate">{{ _.printSearchLink(book.publishingDate, 'publishingDate', searchableFields) }}</span>{% endif %}
+				</div>
 			{% endif %}
 			{% if book.category is not empty %}
-				<div class="book-category"><span class="fa fa-folder-o"></span> {{ _.printCategoryLink(book.category) }}</div>
+				<div class="book-category">
+					<span class="fa fa-folder-o fa-fw"></span>
+					{{ _.printCategoryLink(book.category) }}
+				</div>
 			{% endif %}
 			<div class="book-buttons">
 				{{ _.printBookButtons(book) }}

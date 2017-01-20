@@ -58,6 +58,12 @@
 	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term }}</a>
 {%- endmacro %}
 
+{% macro printSearchLinks(term, field, searchableFields) -%}
+	{% for subvalue in term|split(', ') %}
+		{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
+	{% endfor %}
+{%- endmacro %}
+
 {% macro printMissingScansSearchLink(searchableFields) -%}
 	<a href="{{ path('books', { q: 'nbScans' ~ searchableFields.separator ~' 0' }) }}">Липсват сканирани страници.</a>
 {%- endmacro %}
