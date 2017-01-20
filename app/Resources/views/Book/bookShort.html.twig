@@ -15,7 +15,7 @@
 		<div class="col-md-8">
 			<div class="book-title-and-author">
 				<div class="book-title">
-					{{ book.title }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle">; {{ book.volumeTitle }}</span>{% endif %}
+					{{ book.title }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.volumeTitle }}</span>{% endif %}
 				</div>
 				{% if book.subtitle is not empty %}
 					<div class="book-subtitle">{{ book.subtitle }}</div>

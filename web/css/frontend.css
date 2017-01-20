@@ -96,7 +96,7 @@ div:target {
 	font-weight: bold;
 }
 .book-volumeTitle {
-	font-size: 90%;
+	color: #666;
 }
 .book-buttons {
 	margin-top: .5em;
