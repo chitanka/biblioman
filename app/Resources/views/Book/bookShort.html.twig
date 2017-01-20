@@ -13,15 +13,17 @@
 			</div>
 		</div>
 		<div class="col-md-8">
-			<div class="book-title">
-				{{ book.title }}{% if book.volumeTitle is not empty %}; <span class="book-volumeTitle">{{ book.volumeTitle }}</span>{% endif %}
+			<div class="book-title-and-author">
+				<div class="book-title">
+					{{ book.title }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle">; {{ book.volumeTitle }}</span>{% endif %}
+				</div>
+				{% if book.subtitle is not empty %}
+					<div class="book-subtitle">{{ book.subtitle }}</div>
+				{% endif %}
+				{% if book.author is not empty %}
+					<div class="book-author">{{ book.author }}</div>
+				{% endif %}
 			</div>
-			{% if book.subtitle is not empty %}
-				<div class="book-subtitle">{{ book.subtitle }}</div>
-			{% endif %}
-			{% if book.author is not empty %}
-				<div class="book-author">{{ book.author }}</div>
-			{% endif %}
 			{% if book.sequence is not empty %}
 				<div class="book-sequence">{{ book.sequence }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№ {{ book.sequenceNr }}</span>{% endif %}</div>
 			{% endif %}

@@ -87,8 +87,21 @@ div:target {
 	font-size: 70%;
 	font-variant: small-caps;
 }
+.book-title-and-author {
+	margin-bottom: .4em;
+	padding-bottom: .4em;
+	border-bottom: 1px solid #e0e0e0;
+}
+.book-title {
+	font-weight: bold;
+}
+.book-volumeTitle {
+	font-size: 90%;
+}
 .book-buttons {
-	margin-top: .6em;
+	margin-top: .5em;
+	padding-top: .8em;
+	border-top: 1px solid #e0e0e0;
 }
 .book-incomplete {
 	border-left: 0.2em solid red;
@@ -103,4 +116,13 @@ div:target {
 .thumbnail .caption {
 	padding: .3em 0;
 	text-align: center;
+}
+
+@media (min-width:768px){
+	.dl-horizontal dt {
+		width: 205px;
+	}
+	.dl-horizontal dd{
+		margin-left: 220px;
+	}
 }
