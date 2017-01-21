@@ -92,6 +92,9 @@ div:target {
 	padding-bottom: .4em;
 	border-bottom: 1px solid #e0e0e0;
 }
+.book-snippet-extra-info {
+	font-size: 90%;
+}
 .book-title {
 	font-weight: bold;
 }
