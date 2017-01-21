@@ -55,6 +55,11 @@ class BookScan implements \JsonSerializable {
 	 */
 	private $createdBy;
 
+	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	private $updatedAt;
+
 	public function __toString() {
 		$title = $this->getTitle();
 		if (empty($title)) {
@@ -76,6 +81,7 @@ class BookScan implements \JsonSerializable {
 			'title' => $this->title,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
+			'updatedAt' => $this->updatedAt,
 		];
 	}
 
@@ -121,6 +127,9 @@ class BookScan implements \JsonSerializable {
 	 */
 	public function setFile(File $file = null) {
 		$this->file = $file;
+		if ($file && $file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+			$this->setUpdatedAt(new \DateTime());
+		}
 	}
 
 	/**
@@ -145,6 +154,14 @@ class BookScan implements \JsonSerializable {
 	public function setCreatedBy($createdBy) {
 		$this->createdBy = $createdBy;
 		$this->setCreatedAt(new \DateTime());
+	}
+
+	public function getUpdatedAt() {
+		return $this->updatedAt;
+	}
+
+	public function setUpdatedAt($updatedAt) {
+		$this->updatedAt = $updatedAt;
 	}
 
 }
