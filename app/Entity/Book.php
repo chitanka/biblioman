@@ -1644,6 +1644,9 @@ class Book implements \JsonSerializable {
 		$diffs = [];
 		$excludedFields = ['updatedAt', 'nbScans'];
 		foreach ($ourFields as $field => $ourValue) {
+			if ($ourValue instanceof \Doctrine\ORM\PersistentCollection) {
+				continue;
+			}
 			if (!in_array($field, $excludedFields) && $ourValue !== $otherFields[$field]) {
 				$diffs[$field] = [(string) $ourValue, (string) $otherFields[$field]];
 			}
