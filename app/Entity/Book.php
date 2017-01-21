@@ -447,7 +447,7 @@ class Book implements \JsonSerializable {
 	/**
 	 * @var BookScan[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
-	 * @ORM\OrderBy({"name" = "ASC"})
+	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
 	private $scans;
 
@@ -1314,7 +1314,14 @@ class Book implements \JsonSerializable {
 	 * @return BookScan[]
 	 */
 	public function getScans() {
-		return $this->scans;
+		$sortedScans = [];
+		foreach ($this->scans as $scan) {
+			$key = (int) $scan->getTitle();
+			$sortedScans[$key] = $scan;
+		}
+		ksort($sortedScans);
+		$sortedScans = array_values($sortedScans);
+		return $sortedScans;
 	}
 
 	/**
