@@ -118,11 +118,14 @@ div:target {
 	text-align: center;
 }
 
-@media (min-width:768px){
+.dl-horizontal dt.entity-fieldnotesAboutOriginal {
+	white-space: normal;
+}
+@media (min-width:768px) {
 	.dl-horizontal dt {
 		width: 205px;
 	}
-	.dl-horizontal dd{
+	.dl-horizontal dd {
 		margin-left: 220px;
 	}
 }

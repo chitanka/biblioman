@@ -27,7 +27,7 @@
 			{% if book.sequence is not empty %}
 				<div class="book-sequence">
 					<span class="fa fa-list-alt fa-fw"></span>
-					{{ _.printSearchLink(book.sequence, 'sequence', searchableFields) }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№ {{ book.sequenceNr }}</span>{% endif %}
+					{{ _.printSearchLink(book.sequence, 'sequence', searchableFields) }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№{{ book.sequenceNr }}</span>{% endif %}
 				</div>
 			{% endif %}
 			{% if book.publisher is not empty %}
