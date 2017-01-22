@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6940b1cd1a2dee5ae0cc8e1eaf1bed8",
+    "content-hash": "de9288964bd6bf7f1c14cba9d22e8169",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1008,16 +1008,16 @@
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
-            "version": "v1.16.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/javiereguiluz/EasyAdminBundle.git",
-                "reference": "2bf7a787902b5f20bcececd0a40602c1ca6e67b0"
+                "reference": "7e850b6c680880dd2b5b513f22f8edd23ff5894e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/2bf7a787902b5f20bcececd0a40602c1ca6e67b0",
-                "reference": "2bf7a787902b5f20bcececd0a40602c1ca6e67b0",
+                "url": "https://api.github.com/repos/javiereguiluz/EasyAdminBundle/zipball/7e850b6c680880dd2b5b513f22f8edd23ff5894e",
+                "reference": "7e850b6c680880dd2b5b513f22f8edd23ff5894e",
                 "shasum": ""
             },
             "require": {
@@ -1037,6 +1037,7 @@
                 "symfony/framework-bundle": "~2.3|~3.0",
                 "symfony/http-foundation": "~2.3|~3.0",
                 "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/polyfill-mbstring": "^1.0",
                 "symfony/property-access": "~2.3|~3.0",
                 "symfony/security-bundle": "~2.3|~3.0",
                 "symfony/twig-bridge": "^2.3.4|~3.0",
@@ -1055,6 +1056,7 @@
                 "symfony/finder": "~2.3|~3.0",
                 "symfony/phpunit-bridge": "^2.7",
                 "symfony/validator": "~2.3|~3.0",
+                "symfony/var-dumper": "~2.3|~3.0",
                 "symfony/yaml": "~2.3|~3.0"
             },
             "type": "symfony-bundle",
@@ -1087,7 +1089,7 @@
                 "backend",
                 "generator"
             ],
-            "time": "2016-12-11T19:45:42+00:00"
+            "time": "2017-01-21 19:54:05"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -3095,6 +3097,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "javiereguiluz/easyadmin-bundle": 20,
         "liip/url-auto-converter-bundle": 20
     },
     "prefer-stable": false,
