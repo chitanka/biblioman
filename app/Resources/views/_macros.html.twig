@@ -26,7 +26,7 @@
 				{% elseif attr is same as(true) %}
 					{{ _self.printSearchLink('да', field, searchableFields) }}
 				{% else %}
-					{% for subvalue in attr|split(', ') %}
+					{% for subvalue in attr|split('; ') %}
 						{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
