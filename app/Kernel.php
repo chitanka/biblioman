@@ -4,7 +4,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 
-    protected $rootDir = __DIR__;
+	protected $rootDir = __DIR__;
 
 	public function registerBundles() {
 		$bundles = array(
@@ -28,6 +28,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 		if (in_array($this->getEnvironment(), array('dev', 'test'))) {
 			$bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
 			$bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+			$bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
 		}
 
 		return $bundles;
