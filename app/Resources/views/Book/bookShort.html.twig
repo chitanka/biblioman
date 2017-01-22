@@ -21,7 +21,7 @@
 					<div class="book-subtitle">{{ _.printSearchLink(book.subtitle, 'subtitle', searchableFields) }}</div>
 				{% endif %}
 				{% if book.author is not empty %}
-					<div class="book-author">{{ _.printSearchLink(book.author, 'author', searchableFields) }}</div>
+					<div class="book-author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</div>
 				{% endif %}
 			</div>
 			<div class="book-snippet-extra-info">

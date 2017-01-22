@@ -59,7 +59,7 @@
 {%- endmacro %}
 
 {% macro printSearchLinks(term, field, searchableFields) -%}
-	{% for subvalue in term|split(', ') %}
+	{% for subvalue in term|split('; ') %}
 		{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 	{% endfor %}
 {%- endmacro %}
