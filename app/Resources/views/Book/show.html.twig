@@ -5,6 +5,9 @@
 		<span class="author">{{ book.author }}</span><br>
 	{% endif %}
 	<span class="title">{{ book.title }}</span>
+	{% if book.volumeTitle is not empty %}
+		<span class="book-volumeTitle">• {{ book.volumeTitle }}</span>
+	{% endif %}
 {% endblock %}
 
 {% block content %}
