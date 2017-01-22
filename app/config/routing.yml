@@ -11,3 +11,7 @@ fos_message:
 app:
     resource: "@App/Controller/"
     type:     annotation
+
+chitanka_wiki:
+    resource: "@ChitankaWikiBundle/Resources/config/routing.yml"
+    prefix:   /

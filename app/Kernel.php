@@ -22,6 +22,7 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 			new \FOS\MessageBundle\FOSMessageBundle(),
 			new \Liip\UrlAutoConverterBundle\LiipUrlAutoConverterBundle(),
 			new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+			new \Chitanka\WikiBundle\ChitankaWikiBundle(),
 			new App(),
 		);
 
