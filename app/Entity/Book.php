@@ -209,6 +209,11 @@ class Book implements \JsonSerializable {
 	private $sequenceNr;
 
 	/**
+	 * @ORM\Column(type="string", length=100, nullable=true)
+	 */
+	private $subsequence;
+
+	/**
 	 * @var int
 	 * @ORM\Column(type="smallint", nullable=true)
 	 */
@@ -646,6 +651,9 @@ class Book implements \JsonSerializable {
 		return $this->sequenceNr;
 	}
 
+	public function getSubsequence() {
+		return $this->subsequence;
+	}
 	public function getSubsequenceNr() {
 		return $this->subsequenceNr;
 	}
@@ -960,6 +968,9 @@ class Book implements \JsonSerializable {
 	public function setSequenceNr($sequenceNr) {
 		$this->sequenceNr = $sequenceNr;
 		return $this;
+	}
+	public function setSubsequence($sequence) {
+		$this->subsequence = $sequence;
 	}
 	public function setSubsequenceNr($sequenceNr) {
 		$this->subsequenceNr = $sequenceNr;
@@ -1587,6 +1598,8 @@ class Book implements \JsonSerializable {
 			'classifications' => $this->classifications,
 			'sequence' => $this->sequence,
 			'sequenceNr' => $this->sequenceNr,
+			'subsequence' => $this->subsequence,
+			'subsequenceNr' => $this->subsequenceNr,
 			'works' => $this->works,
 			'publisherCity' => $this->publisherCity,
 			'publishingDate' => $this->publishingDate,

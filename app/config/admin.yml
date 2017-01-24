@@ -81,7 +81,8 @@ easy_admin:
                     - { property: subtitle2 }
                     - { property: sequence }
                     - { property: sequenceNr }
-                    #- { property: subsequenceNr, css_class: 'col-sm-6' }
+                    - { property: subsequence }
+                    - { property: subsequenceNr }
                     - { property: translator, help: help.translator }
                     - { property: translatedFromLanguage }
                     - { property: dateOfTranslation }
