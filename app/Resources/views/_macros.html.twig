@@ -21,9 +21,7 @@
 			{% elseif field == 'category' %}
 				{{ _self.printCategoryLink(attr) }}
 			{% elseif field in searchableFields.fields %}
-				{% if field in ['title', 'subtitle', 'subtitle2', 'provisionPublisherSheets'] %}
-					{{ _self.printSearchLink(attr, field, searchableFields) }}
-				{% elseif attr is same as(true) %}
+				{% if attr is same as(true) %}
 					{{ _self.printSearchLink('да', field, searchableFields) }}
 				{% else %}
 					{% for subvalue in attr|split('; ') %}
