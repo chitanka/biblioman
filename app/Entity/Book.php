@@ -1194,6 +1194,9 @@ class Book implements \JsonSerializable {
 
 	/** @return \DateTime */
 	public function getUpdatedAt() {
+		if ($this->updatedAt == $this->createdAt) {
+			return null;
+		}
 		return $this->updatedAt;
 	}
 
@@ -1642,8 +1645,8 @@ class Book implements \JsonSerializable {
 			'cover' => $this->cover,
 			'backCover' => $this->backCover,
 			'createdBy' => $this->createdBy,
-			'createdAt' => $this->createdAt,
-			'updatedAt' => $this->updatedAt,
+			'createdAt' => $this->getCreatedAt(),
+			'updatedAt' => $this->getUpdatedAt(),
 			'infoSources' => $this->infoSources,
 			'scans' => $this->getScans(),
 		];
