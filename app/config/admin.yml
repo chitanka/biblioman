@@ -138,6 +138,7 @@ easy_admin:
                     - { property: marketingSnippets, help: help.marketingSnippets }
                     - { property: toc }
                     - { property: notesAboutOriginal }
+                    - { property: otherFields, help: help.otherFields }
 
                     - { type: group, label: Notes, icon: sticky-note-o }
                     - { property: notes }

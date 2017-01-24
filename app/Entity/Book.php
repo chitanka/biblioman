@@ -363,6 +363,11 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
+	private $otherFields;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
 	private $notes;
 
 	/**
@@ -1030,6 +1035,14 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function getOtherFields() {
+		return $this->otherFields;
+	}
+
+	public function setOtherFields($otherFields) {
+		$this->otherFields = $otherFields;
+	}
+
 	public function setNotes($notes) {
 		$this->notes = $notes;
 		return $this;
@@ -1601,6 +1614,7 @@ class Book implements \JsonSerializable {
 			'binding' => $this->binding,
 			'language' => $this->language,
 			'illustrated' => $this->illustrated,
+			'otherFields' => $this->otherFields,
 			'isbn' => $this->isbn,
 			'notes' => $this->notes,
 			'notesAboutOriginal' => $this->notesAboutOriginal,

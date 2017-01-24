@@ -86,6 +86,7 @@ parameters:
         - publishingDate
         - publisherAddress
         - print
+        - otherFields
         - _divider
         - litGroup
         - typeSettingIn
