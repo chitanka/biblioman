@@ -15,6 +15,7 @@ class BookRepository extends EntityRepository {
 		'subtitle2',
 		'volumeTitle',
 		'sequence',
+		'subsequence',
 		'translator',
 		'translatedFromLanguage',
 		'dateOfTranslation',
@@ -77,6 +78,8 @@ class BookRepository extends EntityRepository {
 		'title',
 		'sequence',
 		'sequenceNr',
+		'subsequence',
+		'subsequenceNr',
 		'publisher',
 		'publisherCity',
 		'publishingDate',
@@ -89,6 +92,7 @@ class BookRepository extends EntityRepository {
 		'altTitle',
 		'subtitle',
 		'sequence',
+		'subsequence',
 		'author',
 		'translator',
 		'otherAuthors',
@@ -101,6 +105,8 @@ class BookRepository extends EntityRepository {
 		'author' => ['adaptedBy', 'otherAuthors'],
 		'title' => ['altTitle'],
 		'isbn' => ['isbnClean'],
+		'sequence' => ['subsequence'],
+		'subsequence' => ['sequence'],
 	];
 
 	public static function getSearchableFieldsDefinition() {
