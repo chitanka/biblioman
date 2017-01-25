@@ -1731,7 +1731,7 @@ class Book implements \JsonSerializable {
 	}
 
 	public static function normalizePublisher($name) {
-		$nameNormalized = $name;
+		$nameNormalized = trim($name);
 		$prefixes = [
 			'Издателска къща',
 			'ИК',
@@ -1758,8 +1758,9 @@ class Book implements \JsonSerializable {
 			'издателство на ЦК на ДКМС' => '',
 			'Университетско издателство' => '',
 			'Ltd' => '',
+			' —' => '',
 		]);
-		$nameNormalized = trim($nameNormalized, ' ,-—');
+		$nameNormalized = trim($nameNormalized, ' ,-');
 		if (empty($nameNormalized)) {
 			// we do not want to be perfect
 			return $name;
