@@ -3,14 +3,18 @@
 {% block title %}
 	Книги
 	{% if query.raw is not empty %}
-		— {{ query.raw }}
+		<br>
+		<span class="extra-info">
+			<span class="fa fa-search"></span>
+			{{ query.field|humanize|trans }}: {{ query.term }}
+		</span>
 	{% endif %}
 {% endblock %}
 
 {% block content %}
 
-	{% include 'App:Book:books.html.twig' with { heading: 'Книги', route: 'books', books: pager.currentPageResults, mode: app.request.get('_mode', 'listcols') } %}
-
+	{% set t %}{{ block('title') }}{% endset %}{# prevent html escaping #}
+	{% include 'Book/books.html.twig' with { heading: t, books: pager.currentPageResults } %}
 	{% include 'pager.html.twig' %}
 
 {% endblock %}

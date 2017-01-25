@@ -109,6 +109,10 @@ div:target {
 .book-incomplete {
 	border-left: 0.2em solid red;
 }
+h1 .extra-info {
+	opacity: .7;
+	font-size: 70%;
+}
 .entity-fieldtoc,
 .entity-fieldmarketingSnippets,
 .entity-fieldnotes,
