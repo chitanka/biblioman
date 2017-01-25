@@ -4,8 +4,7 @@
 
 {% block content %}
 
-	<h1>{{ block('title') }}</h1>
-
+	{% set contentAfterHeading %}
 	<ol class="breadcrumb">
 		<li><a href="{{ path('books_categories') }}">Категории</a></li>
 		{% for categoryInPath in categoryPath %}
@@ -31,7 +30,9 @@
 			</div>
 		</div>
 	{% endif %}
-	{% include 'App:Book:booksList.html.twig' with { books: pager.currentPageResults } %}
+	{% endset %}
+
+	{% include 'Book/books.html.twig' with { heading: block('title'), contentAfterHeading: contentAfterHeading, books: pager.currentPageResults } %}
 	{% include 'pager.html.twig' %}
 
 {% endblock %}

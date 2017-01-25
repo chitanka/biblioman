@@ -4,8 +4,7 @@
 
 {% block content %}
 
-	<h1>{{ block('title') }}</h1>
-	{% include 'App:Book:booksList.html.twig' with { books: pager.currentPageResults } %}
+	{% include 'Book/books.html.twig' with { heading: block('title'), books: pager.currentPageResults } %}
 	{% include 'pager.html.twig' %}
 
 {% endblock %}

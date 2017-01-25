@@ -1,7 +1,11 @@
+{% if mode is not defined %}
+	{% set mode = app.request.get('_mode', 'listcols') %}
+{% endif %}
 <h1 class="clearfix">
 	{{ heading }}
 	{% include 'App:Book:modeLinks.html.twig' %}
 </h1>
+{{ contentAfterHeading|default('') }}
 {% if mode == 'mosaic' %}
 	{% include 'App:Book:booksMosaic.html.twig' %}
 {% elseif mode == 'mosaic_large' %}
