@@ -37,7 +37,7 @@ parameters:
         - artistEditor
         - technicalEditor
         - publisher
-        - publishingDate
+        - publishingYear
         - isbn
         - createdBy
     book_fields_long:
@@ -84,7 +84,7 @@ parameters:
         - _divider
         - publisher
         - publisherCity
-        - publishingDate
+        - publishingYear
         - publisherAddress
         - print
         - otherFields

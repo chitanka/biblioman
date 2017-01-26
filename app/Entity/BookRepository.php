@@ -42,7 +42,7 @@ class BookRepository extends EntityRepository {
 		'prepress',
 		'publisher',
 		'publisherCity',
-		'publishingDate',
+		'publishingYear',
 		'print',
 		'contentType',
 		'nationality',
@@ -82,7 +82,7 @@ class BookRepository extends EntityRepository {
 		'subsequenceNr',
 		'publisher',
 		'publisherCity',
-		'publishingDate',
+		'publishingYear',
 		'createdAt',
 		'updatedAt',
 	];
@@ -209,12 +209,12 @@ class BookRepository extends EntityRepository {
 		}
 		if (is_numeric($query)) {
 			return $qb
-				->where("$alias.publishingDate = ?1")
+				->where("$alias.publishingYear = ?1")
 				->setParameter('1', $query);
 		}
 		if (preg_match('/^(\d+)-(\d+)$/', $query, $matches)) {
 			return $qb
-				->where("$alias.publishingDate BETWEEN ?1 AND ?2")
+				->where("$alias.publishingYear BETWEEN ?1 AND ?2")
 				->setParameters([1 => $matches[1], 2 => $matches[2]]);
 		}
 		foreach (self::$globallySearchableFields as $globallySearchableField) {

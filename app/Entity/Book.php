@@ -232,7 +232,7 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $publishingDate;
+	private $publishingYear;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
@@ -669,8 +669,8 @@ class Book implements \JsonSerializable {
 		return $this->publisherCity;
 	}
 
-	public function getPublishingDate() {
-		return $this->publishingDate;
+	public function getPublishingYear() {
+		return $this->publishingYear;
 	}
 
 	public function getPublisherAddress() {
@@ -991,8 +991,8 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
-	public function setPublishingDate($publishingDate) {
-		$this->publishingDate = $publishingDate;
+	public function setPublishingYear($publishingYear) {
+		$this->publishingYear = $publishingYear;
 		return $this;
 	}
 
@@ -1605,7 +1605,7 @@ class Book implements \JsonSerializable {
 			'subsequenceNr' => $this->subsequenceNr,
 			'works' => $this->works,
 			'publisherCity' => $this->publisherCity,
-			'publishingDate' => $this->publishingDate,
+			'publishingYear' => $this->publishingYear,
 			'publisherAddress' => $this->publisherAddress,
 			'nationality' => $this->nationality,
 			'edition' => $this->edition,

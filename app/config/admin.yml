@@ -55,7 +55,7 @@ easy_admin:
                     - { property: title, template: 'link.html.twig' }
                     - { property: author }
                     - { property: publisher }
-                    - { property: publishingDate, label: Publishing date short }
+                    - { property: publishingYear, label: Publishing year short }
             show:
                 title: 'Книга (№%%entity_id%%)'
                 fields:
@@ -65,7 +65,7 @@ easy_admin:
                     - { property: title, label: Заглавие }
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
-                    - { property: publishingDate, label: Година }
+                    - { property: publishingYear, label: Година }
             new:
                 title: Book.new_title
                 action_label: Нова книга
@@ -109,7 +109,7 @@ easy_admin:
                     - { property: prepress }
                     - { property: publisher }
                     - { property: publisherCity }
-                    - { property: publishingDate }
+                    - { property: publishingYear }
                     - { property: publisherAddress }
                     - { property: print }
                     - { property: contentType, help: help.contentType }
