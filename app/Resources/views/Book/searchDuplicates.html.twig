@@ -2,5 +2,5 @@
 	<p>В базата вече е записана книга с това заглавие. Ако вашето издание не фигурира в долния списък, можете спокойно да продължите с въвеждането.</p>
 {% endif %}
 {% for book in books %}
-	{% include 'App:Book:book.html.twig' with {book: book, fields: fields} %}
+	{% include 'Book/book.html.twig' with {book: book, fields: fields} %}
 {% endfor %}

@@ -1,5 +1,5 @@
 {% for book in books %}
-	{% include 'App:Book:book.html.twig' %}
+	{% include 'Book/book.html.twig' %}
 {% else %}
-	{% include 'App:Book:notFound.html.twig' %}
+	{% include 'Book/notFound.html.twig' %}
 {% endfor %}

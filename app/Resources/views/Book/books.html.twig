@@ -3,15 +3,15 @@
 {% endif %}
 <h1 class="clearfix">
 	{{ heading }}
-	{% include 'App:Book:modeLinks.html.twig' %}
+	{% include 'Book/modeLinks.html.twig' %}
 </h1>
 {{ contentAfterHeading|default('') }}
 {% if mode == 'mosaic' %}
-	{% include 'App:Book:booksMosaic.html.twig' %}
+	{% include 'Book/booksMosaic.html.twig' %}
 {% elseif mode == 'mosaic_large' %}
-	{% include 'App:Book:booksMosaicLarge.html.twig' %}
+	{% include 'Book/booksMosaicLarge.html.twig' %}
 {% elseif mode == 'list' %}
-	{% include 'App:Book:booksList.html.twig' %}
+	{% include 'Book/booksList.html.twig' %}
 {% else %}
-	{% include 'App:Book:booksListcols.html.twig' %}
+	{% include 'Book/booksListcols.html.twig' %}
 {% endif %}
