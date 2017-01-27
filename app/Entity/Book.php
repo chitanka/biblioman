@@ -399,6 +399,11 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
+	private $notesAboutAuthor;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
 	private $marketingSnippets;
 
 	/**
@@ -1224,6 +1229,14 @@ class Book implements \JsonSerializable {
 		return $this;
 	}
 
+	public function getNotesAboutAuthor() {
+		return $this->notesAboutAuthor;
+	}
+
+	public function setNotesAboutAuthor($notesAboutAuthor) {
+		$this->notesAboutAuthor = $notesAboutAuthor;
+	}
+
 	/**
 	 * @return BookLink[]
 	 */
@@ -1637,6 +1650,7 @@ class Book implements \JsonSerializable {
 			'nbScans' => $this->nbScans,
 			'verified' => $this->verified,
 			'annotation' => $this->annotation,
+			'notesAboutAuthor' => $this->getNotesAboutAuthor(),
 			'marketingSnippets' => $this->marketingSnippets,
 			'toc' => $this->toc,
 			'themes' => $this->themes,

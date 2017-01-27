@@ -112,6 +112,7 @@ parameters:
         - universalDecimalClassification
         - _divider
         - annotation
+        - notesAboutAuthor
         - marketingSnippets
         - toc
         - notes

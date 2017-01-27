@@ -136,6 +136,7 @@ easy_admin:
                     - { property: illustrated, type: checkbox }
                     - { property: isbn, help: help.isbn }
                     - { property: annotation }
+                    - { property: notesAboutAuthor, help: help.notesAboutAuthor }
                     - { property: marketingSnippets, help: help.marketingSnippets }
                     - { property: toc }
                     - { property: notesAboutOriginal }
