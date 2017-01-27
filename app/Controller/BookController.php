@@ -3,8 +3,6 @@
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\BookRepository;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,15 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BookController extends Controller {
 
-	const ITEMS_PER_PAGE = 24;
-
 	/**
 	 * @Route("/", name="books")
 	 */
 	public function indexAction(Request $request) {
 		$searchQuery = BookRepository::getStructuredSearchQuery($request->query->get('q'));
-		$adapter = new DoctrineORMAdapter($this->repo()->filterByQuery($searchQuery->raw, $request->query->get('sort')));
-		$pager = $this->pager($request, $adapter);
+		$query = $this->bookRepo()->filterByQuery($searchQuery->raw, $request->query->get('sort'));
+		$pager = $this->pager($request, $query);
 		$fields = $this->getParameter('book_fields_short');
 		if ($searchQuery->field && !in_array($searchQuery->field, $fields)) {
 			// include the search field in the book output
@@ -48,11 +44,10 @@ class BookController extends Controller {
 	 * @Route("/categories/{slug}", name="books_by_category")
 	 */
 	public function listByCategoryAction(Request $request, BookCategory $category) {
-		$adapter = new DoctrineORMAdapter($this->repo()->filterByCategory($category));
-		$pager = $this->pager($request, $adapter);
+		$pager = $this->pager($request, $this->bookRepo()->filterByCategory($category));
 		return $this->render('Book/listByCategory.html.twig', [
 			'category' => $category,
-			'categoryPath' => $this->repo()->getCategoryRepository()->getPath($category),
+			'categoryPath' => $this->bookRepo()->getCategoryRepository()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -64,8 +59,7 @@ class BookController extends Controller {
 	 * @Route("/incomplete", name="books_incomplete")
 	 */
 	public function listIncompleteAction(Request $request) {
-		$adapter = new DoctrineORMAdapter($this->repo()->filterIncomplete());
-		$pager = $this->pager($request, $adapter);
+		$pager = $this->pager($request, $this->bookRepo()->filterIncomplete());
 		return $this->render('Book/listIncomplete.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -77,7 +71,7 @@ class BookController extends Controller {
 	 * @Route("/search-duplicates", name="books_search_duplicates")
 	 */
 	public function searchDuplicatesAction(Request $request) {
-		$books = $this->repo()->findDuplicatesByTitle($request->query->get('title'), $request->query->get('id'));
+		$books = $this->bookRepo()->findDuplicatesByTitle($request->query->get('title'), $request->query->get('id'));
 		return $this->render('Book/searchDuplicates.html.twig', [
 			'books' => $books,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -89,8 +83,7 @@ class BookController extends Controller {
 	 * @Route("/revisions", name="books_revisions")
 	 */
 	public function showAllRevisionsAction(Request $request) {
-		$adapter = new DoctrineORMAdapter($this->repo()->revisions());
-		$pager = $this->pager($request, $adapter, 30);
+		$pager = $this->pager($request, $this->bookRepo()->revisions(), 30);
 		return $this->render('Book/showAllRevisions.html.twig', [
 			'pager' => $pager,
 		]);
@@ -116,20 +109,8 @@ class BookController extends Controller {
 		]);
 	}
 
-	private function pager(Request $request, $adapter, $maxPerPage = null) {
-		$pager = new Pagerfanta($adapter);
-		$pager->setMaxPerPage($maxPerPage ?: self::ITEMS_PER_PAGE);
-		$pager->setCurrentPage($request->query->get('page', 1));
-		return $pager;
-	}
-
-	/** @return BookRepository */
-	private function repo() {
-		return $this->getDoctrine()->getManager()->getRepository('App:Book');
-	}
-
 	private function generateCategoryTree($rootCategory = null) {
-		return $this->repo()->getCategoryRepository()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
+		return $this->bookRepo()->getCategoryRepository()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
 	}
 
 	private function categoryTreeOptions() {

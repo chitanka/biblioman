@@ -132,15 +132,11 @@ class BookRepository extends EntityRepository {
 	}
 
 	/**
-	 * @param int $maxResults
-	 * @return Book[]
+	 * @return QueryBuilder
 	 */
-	public function findRecent($maxResults = 5) {
+	public function recent() {
 		return $this->createQueryBuilder('b')
-			->orderBy('b.createdAt', 'DESC')
-			->setMaxResults($maxResults)
-			->getQuery()
-			->getResult();
+			->orderBy('b.createdAt', 'DESC');
 	}
 
 	/**

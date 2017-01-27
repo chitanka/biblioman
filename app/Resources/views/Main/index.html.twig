@@ -12,6 +12,7 @@
 	{% if is_granted('ROLE_EDITOR') %}
 		<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> Добавяне на нова книга</a></p>
 	{% endif %}
-	{% include 'Book/books.html.twig' with { heading: 'Последни книги', route: 'homepage', books: recentBooks, mode: app.request.get('_mode', 'listcols') } %}
+	{% include 'Book/books.html.twig' with { heading: 'Последни книги', route: 'homepage', books: pager.currentPageResults } %}
+	{% include 'pager.html.twig' %}
 
 {% endblock %}
