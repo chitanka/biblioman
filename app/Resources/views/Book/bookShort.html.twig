@@ -46,6 +46,9 @@
 			</div>
 			<div class="book-buttons">
 				{{ _.printBookButtons(book) }}
+				<span class="book-snippet-extra-info">
+					&bull; <span class="fa fa-user-plus"></span> {{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }} {{ _.printUserMessageLink(book.createdBy, book) }}
+				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}
 			</div>
 		</div>
