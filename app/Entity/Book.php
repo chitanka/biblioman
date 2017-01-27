@@ -222,11 +222,6 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $works;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
 	private $publisherCity;
 
 	/**
@@ -487,11 +482,13 @@ class Book implements \JsonSerializable {
 	private $createdBy;
 
 	/**
+	 * @var \DateTime
 	 * @ORM\Column(type="datetime")
 	 */
 	private $createdAt;
 
 	/**
+	 * @var \DateTime
 	 * @ORM\Column(type="datetime")
 	 */
 	private $updatedAt;
@@ -547,709 +544,184 @@ class Book implements \JsonSerializable {
 		$this->scans = new ArrayCollection();
 	}
 
-	public function __toString() {
-		return $this->getTitle();
-	}
-
-	public function getState() {
-		if ($this->isIncomplete()) {
-			return self::STATE_INCOMPLETE;
-		}
-		return self::STATE_VERIFIED_0;
-	}
-
-	public function getId() {
-		return $this->id;
-	}
-
-	public function getTitle() {
-		return $this->title;
-	}
-
-	public function getAuthor() {
-		return $this->author;
-	}
-
-	public function getTranslator() {
-		return $this->translator;
-	}
-
-	public function getEditor() {
-		return $this->editor;
-	}
-
-	public function getPublisherEditor() {
-		return $this->publisherEditor;
-	}
-
-	public function getArtistEditor() {
-		return $this->artistEditor;
-	}
-
-	public function getTechnicalEditor() {
-		return $this->technicalEditor;
-	}
-
-	public function getScienceEditor() {
-		return $this->scienceEditor;
-	}
-
-	public function setScienceEditor($scienceEditor) {
-		$this->scienceEditor = $scienceEditor;
-	}
-
-	public function getCopyreader() {
-		return $this->copyreader;
-	}
-
-	public function setCopyreader($copyreader) {
-		$this->copyreader = $copyreader;
-	}
-
-	public function getConsultant() {
-		return $this->consultant;
-	}
-
-	public function setConsultant($consultant) {
-		$this->consultant = $consultant;
-		return $this;
-	}
-
-	public function getReviewer() {
-		return $this->reviewer;
-	}
-
-	public function setReviewer($reviewer) {
-		$this->reviewer = $reviewer;
-		return $this;
-	}
-
-	public function getArtist() {
-		return $this->artist;
-	}
-
-	public function getCorrector() {
-		return $this->corrector;
-	}
-
-	public function getAnnotation() {
-		return $this->annotation;
-	}
-
-	public function getContentType() {
-		return $this->contentType;
-	}
-
-	public function getPublisher() {
-		return $this->publisher;
-	}
-
-	public function getClassifications() {
-		return $this->classifications;
-	}
-
-	public function getSequence() {
-		return $this->sequence;
-	}
-
-	public function getSequenceNr() {
-		return $this->sequenceNr;
-	}
-
-	public function getSubsequence() {
-		return $this->subsequence;
-	}
-	public function getSubsequenceNr() {
-		return $this->subsequenceNr;
-	}
-	public function getInfoSources() {
-		return $this->infoSources;
-	}
-
-	public function getWorks() {
-		return $this->works;
-	}
-
-	public function getPublisherCity() {
-		return $this->publisherCity;
-	}
-
-	public function getPublishingYear() {
-		return $this->publishingYear;
-	}
-
-	public function getPublisherAddress() {
-		return $this->publisherAddress;
-	}
-
-	public function setPublisherAddress($publisherAddress) {
-		$this->publisherAddress = $publisherAddress;
-	}
-
-	public function getNationality() {
-		return $this->nationality;
-	}
-
-	public function getEdition() {
-		return $this->edition;
-	}
-
-	public function getPrint() {
-		return $this->print;
-	}
-
-	public function getPrinterSheets() {
-		return $this->printerSheets;
-	}
-
-	public function getFormat() {
-		return $this->format;
-	}
-
-	public function getPageCount() {
-		return $this->pageCount;
-	}
-
-	public function getPrice() {
-		return $this->price;
-	}
-
-	public function getBinding() {
-		return $this->binding;
-	}
-
-	public function getLanguage() {
-		return $this->language;
-	}
-
-	public function getIllustrated() {
-		return $this->illustrated;
-	}
-
-	public function getNotes() {
-		return $this->notes;
-	}
-
-	public function getNbScans() {
-		return $this->nbScans;
-	}
-
-	public function getVerified() {
-		return $this->verified;
-	}
-
-	public function getThemes() {
-		return $this->themes;
-	}
-
-	public function getGenre() {
-		return $this->genre;
-	}
-
-	public function getCategory() {
-		return $this->category;
-	}
-
-	public function getRevisions() {
-		return $this->revisions;
-	}
-
-	public function hasRevisions() {
-		return count($this->getRevisions()) > 0;
-	}
-
-	public function getRevisionEditors() {
-		$editors = [];
-		foreach ($this->getRevisions() as $revision) {
-			$editors[] = $revision->getCreatedBy();
-		}
-		return array_unique($editors);
-	}
-
-	public function setId($id) {
-		$this->id = $id;
-		return $this;
-	}
-
-	public function setTitle($title) {
-		$this->title = $title;
-		return $this;
-	}
-
-	public function setAuthor($author) {
-		$this->author = $author;
-		return $this;
-	}
-
-	public function setTranslator($translator) {
-		$this->translator = $translator;
-		return $this;
-	}
-
-	public function getAltTitle() {
-		return $this->altTitle;
-	}
-
-	public function setAltTitle($altTitle) {
-		$this->altTitle = $altTitle;
-	}
-
-	public function getSubtitle() {
-		return $this->subtitle;
-	}
-
-	public function setSubtitle($subtitle) {
-		$this->subtitle = $subtitle;
-		return $this;
-	}
-
-	public function getSubtitle2() {
-		return $this->subtitle2;
-	}
-
-	public function setSubtitle2($subtitle2) {
-		$this->subtitle2 = $subtitle2;
-		return $this;
-	}
-
-	public function getVolumeTitle() {
-		return $this->volumeTitle;
-	}
-
-	public function setVolumeTitle($volumeTitle) {
-		$this->volumeTitle = $volumeTitle;
-	}
-
-	public function getOtherAuthors() {
-		return $this->otherAuthors;
-	}
-
-	public function getAdaptedBy() {
-		return $this->adaptedBy;
-	}
-
-	public function setAdaptedBy($adaptedBy) {
-		$this->adaptedBy = $adaptedBy;
-	}
-
-	public function getCompiler() {
-		return $this->compiler;
-	}
-
-	public function getLayout() {
-		return $this->layout;
-	}
-
-	public function getComputerProcessing() {
-		return $this->computerProcessing;
-	}
-
-	public function setLayout($layout) {
-		$this->layout = $layout;
-		return $this;
-	}
-
-	public function getCoverLayout() {
-		return $this->coverLayout;
-	}
-
-	public function setCoverLayout($coverLayout) {
-		$this->coverLayout = $coverLayout;
-		return $this;
-	}
-
-	public function getLibraryDesign() {
-		return $this->libraryDesign;
-	}
-
-	public function setLibraryDesign($libraryDesign) {
-		$this->libraryDesign = $libraryDesign;
-	}
-
-	public function setComputerProcessing($computerProcessing) {
-		$this->computerProcessing = $computerProcessing;
-		return $this;
-	}
-
-	public function getPrepress() {
-		return $this->prepress;
-	}
-
-	public function setOtherAuthors($authors) {
-		$this->otherAuthors = $authors;
-	}
-
-	public function setCompiler($compiler) {
-		$this->compiler = $compiler;
-		return $this;
-	}
-
-	public function setPrepress($prepress) {
-		$this->prepress = $prepress;
-		return $this;
-	}
-
-	public function setEditor($editor) {
-		$this->editor = $editor;
-		return $this;
-	}
-
-	public function getChiefEditor() {
-		return $this->chiefEditor;
-	}
-
-	public function setChiefEditor($chiefEditor) {
-		$this->chiefEditor = $chiefEditor;
-		return $this;
-	}
-
-	public function getEditorialStaff() {
-		return $this->editorialStaff;
-	}
-
-	public function setEditorialStaff($editorialStaff) {
-		$this->editorialStaff = $editorialStaff;
-		return $this;
-	}
-
-	public function setPublisherEditor($publisherEditor) {
-		$this->publisherEditor = $publisherEditor;
-		return $this;
-	}
-
-	public function setArtistEditor($artistEditor) {
-		$this->artistEditor = $artistEditor;
-		return $this;
-	}
-
-	public function setTechnicalEditor($technicalEditor) {
-		$this->technicalEditor = $technicalEditor;
-		return $this;
-	}
-
-	public function setArtist($artist) {
-		$this->artist = $artist;
-		return $this;
-	}
-
-	public function getIllustrator() {
-		return $this->illustrator;
-	}
-
-	public function setIllustrator($illustrator) {
-		$this->illustrator = $illustrator;
-	}
-
-	public function setCorrector($corrector) {
-		$this->corrector = $corrector;
-		return $this;
-	}
-
-	public function setAnnotation($annotation) {
-		$this->annotation = $annotation;
-		return $this;
-	}
-
-	public function setContentType($contentType) {
-		$this->contentType = $contentType;
-		return $this;
-	}
-
-	public function setPublisher($publisher) {
-		$this->publisher = $publisher;
-		return $this;
-	}
-
-	public function setClassifications($classifications) {
-		$this->classifications = $classifications;
-		return $this;
-	}
-
-	public function setSequence($sequence) {
-		$this->sequence = $sequence;
-		return $this;
-	}
-
-	public function setSequenceNr($sequenceNr) {
-		$this->sequenceNr = $sequenceNr;
-		return $this;
-	}
-	public function setSubsequence($sequence) {
-		$this->subsequence = $sequence;
-	}
-	public function setSubsequenceNr($sequenceNr) {
-		$this->subsequenceNr = $sequenceNr;
-	}
-
-	public function setInfoSources($infoSources) {
-		$this->infoSources = $infoSources;
-		return $this;
-	}
-
-	public function setWorks($works) {
-		$this->works = $works;
-		return $this;
-	}
-
-	public function setPublisherCity($publisherCity) {
-		$this->publisherCity = $publisherCity;
-		return $this;
-	}
-
-	public function setPublishingYear($publishingYear) {
-		$this->publishingYear = $publishingYear;
-		return $this;
-	}
-
-	public function setNationality($nationality) {
-		$this->nationality = $nationality;
-		return $this;
-	}
-
-	public function setEdition($edition) {
-		$this->edition = $edition;
-		return $this;
-	}
-
-	public function setPrint($print) {
-		$this->print = $print;
-		return $this;
-	}
-
-	public function setPrinterSheets($printerSheets) {
-		$this->printerSheets = $printerSheets;
-		return $this;
-	}
-
-	public function setFormat($format) {
-		$this->format = $format;
-		return $this;
-	}
-
-	public function setPageCount($pageCount) {
-		$this->pageCount = $pageCount;
-		return $this;
-	}
-
-	public function setPrice($price) {
-		$this->price = $price;
-		return $this;
-	}
-
-	public function setBinding($binding) {
-		$this->binding = $binding;
-		return $this;
-	}
-
-	public function setLanguage($language) {
-		$this->language = $language;
-		return $this;
-	}
-
-	public function setIllustrated($illustrated) {
-		$this->illustrated = $illustrated;
-		return $this;
-	}
-
-	public function getOtherFields() {
-		return $this->otherFields;
-	}
-
-	public function setOtherFields($otherFields) {
-		$this->otherFields = $otherFields;
-	}
-
-	public function setNotes($notes) {
-		$this->notes = $notes;
-		return $this;
-	}
-
-	public function setNbScans($nbScans) {
-		$this->nbScans = $nbScans;
-		return $this;
-	}
-
-	public function setVerified($verified) {
-		$this->verified = $verified;
-		return $this;
-	}
-
-	public function setThemes($themes) {
-		$this->themes = $themes;
-		return $this;
-	}
-
-	public function setGenre($genre) {
-		$this->genre = $genre;
-		return $this;
-	}
-
-	public function setCategory($category) {
-		$this->category = $category;
-		return $this;
-	}
-
-	public function setRevisions($revisions) {
-		$this->revisions = $revisions;
-		return $this;
-	}
-
-	public function getTypeSettingIn() {
-		return $this->typeSettingIn;
-	}
-
-	public function getPrintSigned() {
-		return $this->printSigned;
-	}
-
-	public function getPrintOut() {
-		return $this->printOut;
-	}
-
-	public function getPublisherSheets() {
-		return $this->publisherSheets;
-	}
-
-	public function setTypeSettingIn($typeSettingIn) {
-		$this->typeSettingIn = $typeSettingIn;
-		return $this;
-	}
-
-	public function setPrintSigned($printSigned) {
-		$this->printSigned = $printSigned;
-		return $this;
-	}
-
-	public function setPrintOut($printOut) {
-		$this->printOut = $printOut;
-		return $this;
-	}
-
-	public function setPublisherSheets($publisherSheets) {
-		$this->publisherSheets = $publisherSheets;
-		return $this;
-	}
-
-	public function getProvisionPublisherSheets() {
-		return $this->provisionPublisherSheets;
-	}
-
-	public function getPublisherCode() {
-		return $this->publisherCode;
-	}
-
-	public function getPublisherOrder() {
-		return $this->publisherOrder;
-	}
-
-	public function getPublisherNumber() {
-		return $this->publisherNumber;
-	}
-
-	public function setProvisionPublisherSheets($provisionPublisherSheets) {
-		$this->provisionPublisherSheets = $provisionPublisherSheets;
-		return $this;
-	}
-
-	public function setPublisherCode($publisherCode) {
-		$this->publisherCode = $publisherCode;
-		return $this;
-	}
-
-	public function setPublisherOrder($publisherOrder) {
-		$this->publisherOrder = $publisherOrder;
-		return $this;
-	}
-
-	public function setPublisherNumber($publisherNumber) {
-		$this->publisherNumber = $publisherNumber;
-		return $this;
-	}
-
-	public function getIsbn() {
-		return $this->isbn;
-	}
-
-	public function getIsbnClean() {
-		return $this->isbnClean;
-	}
-
-	public function setIsbn($isbn) {
-		$this->isbn = self::normalizeIsbn($isbn);
-		$this->setIsbnClean(self::normalizeSearchableIsbn($this->isbn));
-	}
-
-	public function setIsbnClean($isbnClean) {
-		$this->isbnClean = $isbnClean;
-	}
-
-	public function getCreatedBy() {
-		return $this->createdBy;
-	}
-
-	public function setCreatedBy($createdBy) {
-		$this->createdBy = $createdBy;
-		return $this;
-	}
-
-	/** @return \DateTime */
-	public function getCreatedAt() {
-		return $this->createdAt;
-	}
-
-	/** @return \DateTime */
-	public function getUpdatedAt() {
-//		if ($this->updatedAt == $this->createdAt) {
-//			return null;
-//		}
-		return $this->updatedAt;
-	}
-
-	public function setCreatedAt($createdAt) {
-		$this->createdAt = $createdAt;
-		$this->setUpdatedAt($createdAt);
-		return $this;
-	}
-
-	public function setUpdatedAt($updatedAt) {
-		$this->updatedAt = $updatedAt;
-		return $this;
-	}
-
-	public function disableUpdatedTracking() {
-		$this->updatedTrackingEnabled = false;
-	}
-
-	public function getMarketingSnippets() {
-		return $this->marketingSnippets;
-	}
-
-	public function setMarketingSnippets($marketingSnippets) {
-		$this->marketingSnippets = $marketingSnippets;
-		return $this;
-	}
-
-	public function getNotesAboutAuthor() {
-		return $this->notesAboutAuthor;
-	}
-
-	public function setNotesAboutAuthor($notesAboutAuthor) {
-		$this->notesAboutAuthor = $notesAboutAuthor;
-	}
-
-	/**
-	 * @return BookLink[]
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
-
-	/**
-	 * @param BookLink[] $links
-	 */
-	public function setLinks($links) {
-		$this->links = $links;
-	}
+	public function getId() { return $this->id; }
+	public function setId($id) { $this->id = $id; }
+	public function getTitle() { return $this->title; }
+	public function setTitle($title) { $this->title = $title; }
+	public function getAltTitle() { return $this->altTitle; }
+	public function setAltTitle($altTitle) { $this->altTitle = $altTitle; }
+	public function getSubtitle() { return $this->subtitle; }
+	public function setSubtitle($subtitle) { $this->subtitle = $subtitle; }
+	public function getSubtitle2() { return $this->subtitle2; }
+	public function setSubtitle2($subtitle2) { $this->subtitle2 = $subtitle2; }
+	public function getVolumeTitle() { return $this->volumeTitle; }
+	public function setVolumeTitle($volumeTitle) { $this->volumeTitle = $volumeTitle; }
+	public function getAuthor() { return $this->author; }
+	public function setAuthor($author) { $this->author = $author; }
+	public function getTranslator() { return $this->translator; }
+	public function setTranslator($translator) { $this->translator = $translator; }
+	public function getTranslatedFromLanguage() { return $this->translatedFromLanguage; }
+	public function setTranslatedFromLanguage($translatedFromLanguage) { $this->translatedFromLanguage = $translatedFromLanguage; }
+	public function getDateOfTranslation() { return $this->dateOfTranslation; }
+	public function setDateOfTranslation($dateOfTranslation) { $this->dateOfTranslation = $dateOfTranslation; }
+	public function getAdaptedBy() { return $this->adaptedBy; }
+	public function setAdaptedBy($adaptedBy) { $this->adaptedBy = $adaptedBy; }
+	public function getOtherAuthors() { return $this->otherAuthors; }
+	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = $otherAuthors; }
+	public function getCompiler() { return $this->compiler; }
+	public function setCompiler($compiler) { $this->compiler = $compiler; }
+	public function getChiefEditor() { return $this->chiefEditor; }
+	public function setChiefEditor($chiefEditor) { $this->chiefEditor = $chiefEditor; }
+	public function getEditor() { return $this->editor; }
+	public function setEditor($editor) { $this->editor = $editor; }
+	public function getEditorialStaff() { return $this->editorialStaff; }
+	public function setEditorialStaff($editorialStaff) { $this->editorialStaff = $editorialStaff; }
+	public function getPublisherEditor() { return $this->publisherEditor; }
+	public function setPublisherEditor($publisherEditor) { $this->publisherEditor = $publisherEditor; }
+	public function getArtistEditor() { return $this->artistEditor; }
+	public function setArtistEditor($artistEditor) { $this->artistEditor = $artistEditor; }
+	public function getTechnicalEditor() { return $this->technicalEditor; }
+	public function setTechnicalEditor($technicalEditor) { $this->technicalEditor = $technicalEditor; }
+	public function getConsultant() { return $this->consultant; }
+	public function setConsultant($consultant) { $this->consultant = $consultant; }
+	public function getScienceEditor() { return $this->scienceEditor; }
+	public function setScienceEditor($scienceEditor) { $this->scienceEditor = $scienceEditor; }
+	public function getCopyreader() { return $this->copyreader; }
+	public function setCopyreader($copyreader) { $this->copyreader = $copyreader; }
+	public function getReviewer() { return $this->reviewer; }
+	public function setReviewer($reviewer) { $this->reviewer = $reviewer; }
+	public function getArtist() { return $this->artist; }
+	public function setArtist($artist) { $this->artist = $artist; }
+	public function getIllustrator() { return $this->illustrator; }
+	public function setIllustrator($illustrator) { $this->illustrator = $illustrator; }
+	public function getCorrector() { return $this->corrector; }
+	public function setCorrector($corrector) { $this->corrector = $corrector; }
+	public function getLayout() { return $this->layout; }
+	public function setLayout($layout) { $this->layout = $layout; }
+	public function getCoverLayout() { return $this->coverLayout; }
+	public function setCoverLayout($coverLayout) { $this->coverLayout = $coverLayout; }
+	public function getLibraryDesign() { return $this->libraryDesign; }
+	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = $libraryDesign; }
+	public function getComputerProcessing() { return $this->computerProcessing; }
+	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = $computerProcessing; }
+	public function getPrepress() { return $this->prepress; }
+	public function setPrepress($prepress) { $this->prepress = $prepress; }
+	public function getContentType() { return $this->contentType; }
+	public function setContentType($contentType) { $this->contentType = $contentType; }
+	public function getPublisher() { return $this->publisher; }
+	public function setPublisher($publisher) { $this->publisher = $publisher; }
+	public function getClassifications() { return $this->classifications; }
+	public function setClassifications($classifications) { $this->classifications = $classifications; }
+	public function getSequence() { return $this->sequence; }
+	public function setSequence($sequence) { $this->sequence = $sequence; }
+	public function getSequenceNr() { return $this->sequenceNr; }
+	public function setSequenceNr($sequenceNr) { $this->sequenceNr = $sequenceNr; }
+	public function getSubsequence() { return $this->subsequence; }
+	public function setSubsequence($subsequence) { $this->subsequence = $subsequence; }
+	public function getSubsequenceNr() { return $this->subsequenceNr; }
+	public function setSubsequenceNr($subsequenceNr) { $this->subsequenceNr = $subsequenceNr; }
+	public function getPublisherCity() { return $this->publisherCity; }
+	public function setPublisherCity($publisherCity) { $this->publisherCity = $publisherCity; }
+	public function getPublishingYear() { return $this->publishingYear; }
+	public function setPublishingYear($publishingYear) { $this->publishingYear = $publishingYear; }
+	public function getPublisherAddress() { return $this->publisherAddress; }
+	public function setPublisherAddress($publisherAddress) { $this->publisherAddress = $publisherAddress; }
+	public function getNationality() { return $this->nationality; }
+	public function setNationality($nationality) { $this->nationality = $nationality; }
+	public function getEdition() { return $this->edition; }
+	public function setEdition($edition) { $this->edition = $edition; }
+	public function getLitGroup() { return $this->litGroup; }
+	public function setLitGroup($litGroup) { $this->litGroup = $litGroup; }
+	public function getPrint() { return $this->print; }
+	public function setPrint($print) { $this->print = $print; }
+	public function getTypeSettingIn() { return $this->typeSettingIn; }
+	public function setTypeSettingIn($typeSettingIn) { $this->typeSettingIn = $typeSettingIn; }
+	public function getPrintSigned() { return $this->printSigned; }
+	public function setPrintSigned($printSigned) { $this->printSigned = $printSigned; }
+	public function getPrintOut() { return $this->printOut; }
+	public function setPrintOut($printOut) { $this->printOut = $printOut; }
+	public function getPrinterSheets() { return $this->printerSheets; }
+	public function setPrinterSheets($printerSheets) { $this->printerSheets = $printerSheets; }
+	public function getPublisherSheets() { return $this->publisherSheets; }
+	public function setPublisherSheets($publisherSheets) { $this->publisherSheets = $publisherSheets; }
+	public function getProvisionPublisherSheets() { return $this->provisionPublisherSheets; }
+	public function setProvisionPublisherSheets($provisionPublisherSheets) { $this->provisionPublisherSheets = $provisionPublisherSheets; }
+	public function getFormat() { return $this->format; }
+	public function setFormat($format) { $this->format = $format; }
+	public function getPublisherCode() { return $this->publisherCode; }
+	public function setPublisherCode($publisherCode) { $this->publisherCode = $publisherCode; }
+	public function getPublisherOrder() { return $this->publisherOrder; }
+	public function setPublisherOrder($publisherOrder) { $this->publisherOrder = $publisherOrder; }
+	public function getPublisherNumber() { return $this->publisherNumber; }
+	public function setPublisherNumber($publisherNumber) { $this->publisherNumber = $publisherNumber; }
+	public function getTrackingCode() { return $this->trackingCode; }
+	public function setTrackingCode($trackingCode) { $this->trackingCode = $trackingCode; }
+	public function getUniformProductClassification() { return $this->uniformProductClassification; }
+	public function setUniformProductClassification($uniformProductClassification) { $this->uniformProductClassification = $uniformProductClassification; }
+	public function getUniversalDecimalClassification() { return $this->universalDecimalClassification; }
+	public function setUniversalDecimalClassification($universalDecimalClassification) { $this->universalDecimalClassification = $universalDecimalClassification; }
+	public function getTotalPrint() { return $this->totalPrint; }
+	public function setTotalPrint($totalPrint) { $this->totalPrint = $totalPrint; }
+	public function getPageCount() { return $this->pageCount; }
+	public function setPageCount($pageCount) { $this->pageCount = $pageCount; }
+	public function getPrice() { return $this->price; }
+	public function setPrice($price) { $this->price = $price; }
+	public function getBinding() { return $this->binding; }
+	public function setBinding($binding) { $this->binding = $binding; }
+	public function getLanguage() { return $this->language; }
+	public function setLanguage($language) { $this->language = $language; }
+	public function getIllustrated() { return $this->illustrated; }
+	public function setIllustrated($illustrated) { $this->illustrated = $illustrated; }
+	public function getIsbn() { return $this->isbn; }
+	public function setIsbn($isbn) { $this->isbn = self::normalizeIsbn($isbn); $this->setIsbnClean(self::normalizeSearchableIsbn($this->isbn)); }
+	public function getIsbnClean() { return $this->isbnClean; }
+	public function setIsbnClean($isbnClean) { $this->isbnClean = $isbnClean; }
+	public function getOtherFields() { return $this->otherFields; }
+	public function setOtherFields($otherFields) { $this->otherFields = $otherFields; }
+	public function getNotes() { return $this->notes; }
+	public function setNotes($notes) { $this->notes = $notes; }
+	public function getNotesAboutOriginal() { return $this->notesAboutOriginal; }
+	public function setNotesAboutOriginal($notesAboutOriginal) { $this->notesAboutOriginal = $notesAboutOriginal; }
+	public function getNbScans() { return $this->nbScans; }
+	public function setNbScans($nbScans) { $this->nbScans = $nbScans; }
+	public function getVerified() { return $this->verified; }
+	public function setVerified($verified) { $this->verified = $verified; }
+	public function getAnnotation() { return $this->annotation; }
+	public function setAnnotation($annotation) { $this->annotation = $annotation; }
+	public function getNotesAboutAuthor() { return $this->notesAboutAuthor; }
+	public function setNotesAboutAuthor($notesAboutAuthor) { $this->notesAboutAuthor = $notesAboutAuthor; }
+	public function getMarketingSnippets() { return $this->marketingSnippets; }
+	public function setMarketingSnippets($marketingSnippets) { $this->marketingSnippets = $marketingSnippets; }
+	public function getToc() { return $this->toc; }
+	public function setToc($toc) { $this->toc = $toc; }
+	public function getThemes() { return $this->themes; }
+	public function setThemes($themes) { $this->themes = $themes; }
+	public function getGenre() { return $this->genre; }
+	public function setGenre($genre) { $this->genre = $genre; }
+	public function getCategory() { return $this->category; }
+	public function setCategory($category) { $this->category = $category; }
+	public function getInfoSources() { return $this->infoSources; }
+	public function setInfoSources($infoSources) { $this->infoSources = $infoSources; }
+	public function getAdminComment() { return $this->adminComment; }
+	public function setAdminComment($adminComment) { $this->adminComment = $adminComment; }
+	public function getOcredText() { return $this->ocredText; }
+	public function setOcredText($ocredText) { $this->ocredText = $ocredText; }
+	public function getCreatedBy() { return $this->createdBy; }
+	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
+	public function getCreatedAt() { return $this->createdAt; }
+	public function setCreatedAt($createdAt) { $this->createdAt = $createdAt; }
+	public function getUpdatedAt() { return $this->updatedAt; }
+	public function setUpdatedAt($updatedAt) { $this->updatedAt = $updatedAt; }
+	public function getRevisions() { return $this->revisions; }
+	public function setRevisions($revisions) { $this->revisions = $revisions; }
+	public function isIncomplete() { return $this->isIncomplete; }
+	public function setIsIncomplete($isIncomplete) { $this->isIncomplete = $isIncomplete; }
+	public function getReasonWhyIncomplete() { return $this->reasonWhyIncomplete; }
+	public function setReasonWhyIncomplete($reasonWhyIncomplete) { $this->reasonWhyIncomplete = $reasonWhyIncomplete; }
+
+	public function getLinks() { return $this->links; }
+	/** @param BookLink[] $links */
+	public function setLinks($links) { $this->links = $links; }
 
 	public function addLink(BookLink $link) {
 		if (!empty($link->getUrl())) {
@@ -1274,81 +746,34 @@ class Book implements \JsonSerializable {
 		return $linksByCategorySorted;
 	}
 
-	/**
-	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-	 */
-	public function setCoverFile(File $image = null) {
-		$this->coverFile = $image;
-		$this->setUpdatedAtOnFileUpload($image);
+	public function getState() {
+		if ($this->isIncomplete()) {
+			return self::STATE_INCOMPLETE;
+		}
+		return self::STATE_VERIFIED_0;
 	}
 
-	/**
-	 * @return File
-	 */
-	public function getCoverFile() {
-		return $this->coverFile;
+	public function disableUpdatedTracking() {
+		$this->updatedTrackingEnabled = false;
 	}
 
-	/**
-	 * @param string $cover
-	 */
-	public function setCover($cover) {
-		$this->cover = $cover;
-	}
+	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
+	public function setCoverFile(File $image = null) { $this->coverFile = $image; $this->setUpdatedAtOnFileUpload($image); }
+	public function getCoverFile() { return $this->coverFile; }
+	public function setCover($cover) { $this->cover = $cover; }
+	public function getCover() { return $this->cover; }
 
-	/**
-	 * @return string
-	 */
-	public function getCover() {
-		return $this->cover;
-	}
-
-	/**
-	 * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-	 */
-	public function setBackCoverFile(File $image = null) {
-		$this->backCoverFile = $image;
-		$this->setUpdatedAtOnFileUpload($image);
-	}
-
-	/**
-	 * @return File
-	 */
-	public function getBackCoverFile() {
-		return $this->backCoverFile;
-	}
-
-	/**
-	 * @param string $backCover
-	 */
-	public function setBackCover($backCover) {
-		$this->backCover = $backCover;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getBackCover() {
-		return $this->backCover;
-	}
+	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
+	public function setBackCoverFile(File $image = null) { $this->backCoverFile = $image; $this->setUpdatedAtOnFileUpload($image); }
+	public function getBackCoverFile() { return $this->backCoverFile; }
+	public function setBackCover($backCover) { $this->backCover = $backCover; }
+	public function getBackCover() { return $this->backCover; }
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
-	public function setFullContentFile(File $file = null) {
-		$this->fullContentFile = $file;
-		$this->setUpdatedAtOnFileUpload($file);
-	}
-	/** @return File */
-	public function getFullContentFile() {
-		return $this->fullContentFile;
-	}
-	/** @param string $fullContent */
-	public function setFullContent($fullContent) {
-		$this->fullContent = $fullContent;
-	}
-	/** @return string */
-	public function getFullContent() {
-		return $this->fullContent;
-	}
+	public function setFullContentFile(File $file = null) { $this->fullContentFile = $file; $this->setUpdatedAtOnFileUpload($file); }
+	public function getFullContentFile() { return $this->fullContentFile; }
+	public function setFullContent($fullContent) { $this->fullContent = $fullContent; }
+	public function getFullContent() { return $this->fullContent; }
 
 	/**
 	 * @return BookScan[]
@@ -1399,117 +824,6 @@ class Book implements \JsonSerializable {
 		}
 	}
 
-	public function getToc() {
-		return $this->toc;
-	}
-
-	public function setToc($toc) {
-		$this->toc = $toc;
-		return $this;
-	}
-
-	public function getTranslatedFromLanguage() {
-		return $this->translatedFromLanguage;
-	}
-
-	public function setTranslatedFromLanguage($translatedFromLanguage) {
-		$this->translatedFromLanguage = $translatedFromLanguage;
-		return $this;
-	}
-	public function getDateOfTranslation() {
-		return $this->dateOfTranslation;
-	}
-
-	public function setDateOfTranslation($dateOfTranslation) {
-		$this->dateOfTranslation = $dateOfTranslation;
-		return $this;
-	}
-
-	public function getTotalPrint() {
-		return $this->totalPrint;
-	}
-
-	public function setTotalPrint($totalPrint) {
-		$this->totalPrint = $totalPrint;
-		return $this;
-	}
-
-	public function getLitGroup() {
-		return $this->litGroup;
-	}
-
-	public function setLitGroup($litGroup) {
-		$this->litGroup = $litGroup;
-		return $this;
-	}
-	public function getTrackingCode() {
-		return $this->trackingCode;
-	}
-
-	public function setTrackingCode($trackingCode) {
-		$this->trackingCode = $trackingCode;
-		return $this;
-	}
-
-	public function getUniformProductClassification() {
-		return $this->uniformProductClassification;
-	}
-
-	public function setUniformProductClassification($uniformProductClassification) {
-		$this->uniformProductClassification = $uniformProductClassification;
-		return $this;
-	}
-
-	public function getUniversalDecimalClassification() {
-		return $this->universalDecimalClassification;
-	}
-
-	public function setUniversalDecimalClassification($universalDecimalClassification) {
-		$this->universalDecimalClassification = $universalDecimalClassification;
-		return $this;
-	}
-
-	public function getNotesAboutOriginal() {
-		return $this->notesAboutOriginal;
-	}
-
-	public function setNotesAboutOriginal($notesAboutOriginal) {
-		$this->notesAboutOriginal = $notesAboutOriginal;
-		return $this;
-	}
-
-	public function isIncomplete() {
-		return $this->isIncomplete;
-	}
-
-	public function setIsIncomplete($isIncomplete) {
-		$this->isIncomplete = $isIncomplete;
-	}
-
-	public function getReasonWhyIncomplete() {
-		return $this->reasonWhyIncomplete;
-	}
-
-	public function setReasonWhyIncomplete($reason) {
-		$this->reasonWhyIncomplete = $reason;
-	}
-
-	public function getAdminComment() {
-		return $this->adminComment;
-	}
-
-	public function setAdminComment($reason) {
-		$this->adminComment = $reason;
-	}
-
-	public function getOcredText() {
-		return $this->ocredText;
-	}
-
-	public function setOcredText($reason) {
-		$this->ocredText = $reason;
-	}
-
 	public function setLock($user) {
 		$this->lockedBy = $user;
 		$this->lockedAt = new \DateTime();
@@ -1554,6 +868,18 @@ class Book implements \JsonSerializable {
 		$this->setNbScans($this->getNbScans() + 1);
 	}
 
+	public function hasRevisions() {
+		return count($this->getRevisions()) > 0;
+	}
+
+	public function getRevisionEditors() {
+		$editors = [];
+		foreach ($this->getRevisions() as $revision) {
+			$editors[] = $revision->getCreatedBy();
+		}
+		return array_unique($editors);
+	}
+
 	/** @return BookRevision */
 	public function createRevision() {
 		$revision = new BookRevision();
@@ -1574,6 +900,10 @@ class Book implements \JsonSerializable {
 		$revision->setDiffs($diffs);
 		$revision->setCreatedBy($user);
 		return $revision;
+	}
+
+	public function __toString() {
+		return $this->getTitle();
 	}
 
 	public function toArray() {
@@ -1616,7 +946,6 @@ class Book implements \JsonSerializable {
 			'sequenceNr' => $this->sequenceNr,
 			'subsequence' => $this->subsequence,
 			'subsequenceNr' => $this->subsequenceNr,
-			'works' => $this->works,
 			'publisherCity' => $this->publisherCity,
 			'publishingYear' => $this->publishingYear,
 			'publisherAddress' => $this->publisherAddress,
