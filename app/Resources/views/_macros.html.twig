@@ -65,6 +65,12 @@
 	{% endfor %}
 {%- endmacro %}
 
+{% macro printSortLink(route, routeParams, field, direction, currentSort) %}
+	{% set sort = field ~ '-' ~ direction %}
+	{% set fieldHuman = field|humanize|trans %}
+	<a href="{{ path(route, routeParams|merge({ sort: sort })) }}" title="{{ ('sort-'~direction)|trans({'%field%': fieldHuman}) }}"><span class="fa fa-fw {{ sort == currentSort ? 'fa-check' : '' }}"></span> {{ fieldHuman }} <span class="fa {{ direction == 'asc' ? 'fa-chevron-up' : 'fa-chevron-down' }}"></span></a>
+{% endmacro %}
+
 {% macro printMissingScansSearchLink(searchableFields) -%}
 	<a href="{{ path('books', { q: 'nbScans' ~ searchableFields.separator ~' 0' }) }}">Липсват сканирани страници.</a>
 {%- endmacro %}

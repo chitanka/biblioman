@@ -76,12 +76,8 @@ class BookRepository extends EntityRepository {
 
 	public static $sortableFields = [
 		'title',
-		'sequence',
 		'sequenceNr',
-		'subsequence',
 		'subsequenceNr',
-		'publisher',
-		'publisherCity',
 		'publishingYear',
 		'createdAt',
 		'updatedAt',

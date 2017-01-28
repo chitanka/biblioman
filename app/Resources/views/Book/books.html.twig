@@ -4,6 +4,9 @@
 <h1 class="clearfix">
 	{{ heading }}
 	{% include 'Book/modeLinks.html.twig' %}
+	{% if sortableFields is defined %}
+		{% include 'Book/sortLinks.html.twig' %}
+	{% endif %}
 </h1>
 {{ contentAfterHeading|default('') }}
 {% if mode == 'mosaic' %}

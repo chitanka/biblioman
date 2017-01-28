@@ -27,6 +27,7 @@ class BookController extends Controller {
 			'pager' => $pager,
 			'fields' => $fields,
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'sortableFields' => BookRepository::$sortableFields,
 			'query' => $searchQuery,
 		]);
 	}
