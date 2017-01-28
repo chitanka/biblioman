@@ -38,6 +38,8 @@ parameters:
         - technicalEditor
         - publisher
         - publishingYear
+        - binding
+        - pageCount
         - isbn
         - createdBy
     book_fields_long:
