@@ -72,6 +72,25 @@
 		</div>
 	</div>
 
+	{% if book.hasOtherCovers %}
+		<h2>Други корици</h2>
+		<div class="row">
+			{% for cover in book.otherCovers %}
+				<figure class="col-xs-6 col-md-3">
+					<a href="{{ _.thumbCover(cover.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
+						<img src="{{ _.thumbCover(cover.name, 300) }}" width="300" style="max-height: 370px">
+						<figcaption class="caption">
+							{% if cover.title %}
+								{{ cover.title }} •
+							{% endif %}
+							{{ ('BookCover.'~cover.type)|trans }}
+						</figcaption>
+					</a>
+				</figure>
+			{% endfor %}
+		</div>
+	{% endif %}
+
 	<section>
 	<h2>Сканирани страници</h2>
 	<div class="row">

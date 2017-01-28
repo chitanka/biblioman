@@ -376,12 +376,6 @@ class Book implements \JsonSerializable {
 	private $notesAboutOriginal;
 
 	/**
-	 * Number of uploaded scans for the book
-	 * @ORM\Column(type="smallint")
-	 */
-	private $nbScans;
-
-	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
 	private $verified;
@@ -422,6 +416,17 @@ class Book implements \JsonSerializable {
 	private $category;
 
 	/**
+	 * @ORM\Column(type="string", length=50, nullable=true)
+	 */
+	private $fullContent;
+
+	/**
+	 * @Vich\UploadableField(mapping="fullcontent", fileNameProperty="fullContent")
+	 * @var File
+	 */
+	private $fullContentFile;
+
+	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $cover;
@@ -444,15 +449,23 @@ class Book implements \JsonSerializable {
 	private $backCoverFile;
 
 	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
+	 * @var BookCover[]|ArrayCollection
+	 * @ORM\OneToMany(targetEntity="BookCover", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
+	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
-	private $fullContent;
+	private $covers;
 
 	/**
-	 * @Vich\UploadableField(mapping="fullcontent", fileNameProperty="fullContent")
-	 * @var File
+	 * Number of uploaded covers for the book
+	 * @ORM\Column(type="smallint")
 	 */
-	private $fullContentFile;
+	private $nbCovers;
+
+	/**
+	 * Temporary storage for new covers, uploaded through the special fields
+	 * @var array
+	 */
+	private $newCovers = [];
 
 	/**
 	 * @var BookScan[]|ArrayCollection
@@ -460,6 +473,12 @@ class Book implements \JsonSerializable {
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
 	private $scans;
+
+	/**
+	 * Number of uploaded scans for the book
+	 * @ORM\Column(type="smallint")
+	 */
+	private $nbScans;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -542,6 +561,7 @@ class Book implements \JsonSerializable {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
 		$this->scans = new ArrayCollection();
+		$this->covers = new ArrayCollection();
 	}
 
 	public function getId() { return $this->id; }
@@ -682,8 +702,6 @@ class Book implements \JsonSerializable {
 	public function setNotes($notes) { $this->notes = $notes; }
 	public function getNotesAboutOriginal() { return $this->notesAboutOriginal; }
 	public function setNotesAboutOriginal($notesAboutOriginal) { $this->notesAboutOriginal = $notesAboutOriginal; }
-	public function getNbScans() { return $this->nbScans; }
-	public function setNbScans($nbScans) { $this->nbScans = $nbScans; }
 	public function getVerified() { return $this->verified; }
 	public function setVerified($verified) { $this->verified = $verified; }
 	public function getAnnotation() { return $this->annotation; }
@@ -734,9 +752,7 @@ class Book implements \JsonSerializable {
 		$this->links->removeElement($link);
 	}
 
-	/**
-	 * @return BookLink[][]
-	 */
+	/** @return BookLink[][] */
 	public function getLinksByCategory() {
 		$linksByCategory = [];
 		foreach ($this->getLinks() as $link) {
@@ -757,27 +773,98 @@ class Book implements \JsonSerializable {
 		$this->updatedTrackingEnabled = false;
 	}
 
-	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
-	public function setCoverFile(File $image = null) { $this->coverFile = $image; $this->setUpdatedAtOnFileUpload($image); }
-	public function getCoverFile() { return $this->coverFile; }
-	public function setCover($cover) { $this->cover = $cover; }
-	public function getCover() { return $this->cover; }
-
-	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
-	public function setBackCoverFile(File $image = null) { $this->backCoverFile = $image; $this->setUpdatedAtOnFileUpload($image); }
-	public function getBackCoverFile() { return $this->backCoverFile; }
-	public function setBackCover($backCover) { $this->backCover = $backCover; }
-	public function getBackCover() { return $this->backCover; }
-
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
 	public function setFullContentFile(File $file = null) { $this->fullContentFile = $file; $this->setUpdatedAtOnFileUpload($file); }
 	public function getFullContentFile() { return $this->fullContentFile; }
 	public function setFullContent($fullContent) { $this->fullContent = $fullContent; }
 	public function getFullContent() { return $this->fullContent; }
 
-	/**
-	 * @return BookScan[]
-	 */
+	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
+	public function setCoverFile(File $image = null) {
+		$this->coverFile = $image;
+		$this->addCover($this->createCover($image, BookCover::TYPE_FRONT));
+		$this->setUpdatedAtOnFileUpload($image);
+	}
+	public function getCoverFile() { return $this->coverFile; }
+	public function setCover($cover) { $this->cover = $cover; }
+	public function getCover() { return $this->cover; }
+
+	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
+	public function setBackCoverFile(File $image = null) {
+		$this->backCoverFile = $image;
+		$this->addCover($this->createCover($image, BookCover::TYPE_BACK));
+		$this->setUpdatedAtOnFileUpload($image);
+	}
+	public function getBackCoverFile() { return $this->backCoverFile; }
+	public function setBackCover($backCover) { $this->backCover = $backCover; }
+	public function getBackCover() { return $this->backCover; }
+
+	/** @return BookCover[] */
+	public function getCovers() { return $this->covers; }
+	/** @param BookCover[] $covers */
+	public function setCovers($covers) { $this->covers = $covers; $this->updateNbCovers(); }
+
+	public function hasOtherCovers() {
+		return count($this->getOtherCovers()) > 0;
+	}
+
+	public function getOtherCovers() {
+		$otherCovers = [];
+		$specialCoverNames = [$this->getCover(), $this->getBackCover()];
+		foreach ($this->getCovers() as $cover) {
+			if (!in_array($cover->getName(), $specialCoverNames)) {
+				$otherCovers[] = $cover;
+			}
+		}
+		return $otherCovers;
+	}
+
+	/** @param BookCover[] $covers */
+	public function setOtherCovers($covers) {
+		foreach ($covers as $cover) {
+			if ($cover->isNew()) {
+				$cover->setBook($this);
+				$this->covers[] = $cover;
+			}
+		}
+	}
+
+	public function addCover(BookCover $cover) {
+		if (!empty($cover->getFile()) && !empty($cover->getName())) {
+			$cover->setBook($this);
+			$this->covers[] = $cover;
+			$this->updateNbCovers();
+		}
+	}
+
+	public function removeCover(BookCover $cover) {
+		$this->covers->removeElement($cover);
+		$this->updateNbCovers();
+	}
+
+	public function getNbCovers() { return $this->nbCovers; }
+	public function setNbCovers($nbCovers) { $this->nbCovers = $nbCovers; }
+
+	protected function updateNbCovers() {
+		$this->setNbCovers(count($this->covers));
+	}
+
+	protected function createCover(File $image, $type, $title = null) {
+		if (isset($this->newCovers[$type])) {
+			$cover = $this->newCovers[$type];
+			$cover->setName($image->getBasename());
+			$cover->setFile($image);
+		} else {
+			$this->newCovers[$type] = $cover = new BookCover();
+			$cover->setBook($this);
+			$cover->setFile($image);
+			$cover->setType($type);
+			$cover->setTitle($title);
+		}
+		return $cover;
+	}
+
+	/** @return BookScan[] */
 	public function getScans() {
 		$sortedScans = [];
 		foreach ($this->scans as $scan) {
@@ -789,9 +876,7 @@ class Book implements \JsonSerializable {
 		return $sortedScans;
 	}
 
-	/**
-	 * @param BookScan[] $scans
-	 */
+	/** @param BookScan[] $scans */
 	public function setScans($scans) {
 		$this->scans = $scans;
 		$this->updateNbScans();
@@ -810,11 +895,26 @@ class Book implements \JsonSerializable {
 		$this->updateNbScans();
 	}
 
+	public function getNbScans() { return $this->nbScans; }
+	public function setNbScans($nbScans) { $this->nbScans = $nbScans; }
+
+	protected function updateNbScans() {
+		$this->setNbScans(count($this->scans));
+	}
+
 	public function setCreatorByNewScans($user) {
 		foreach ($this->getScans() as $scan) {
 			if (empty($scan->getId())) {
 				$scan->setCreatedBy($user);
 			}
+		}
+		foreach ($this->getCovers() as $cover) {
+			if (empty($cover->getId())) {
+				$cover->setCreatedBy($user);
+			}
+		}
+		foreach ($this->newCovers as $newCover) {
+			$newCover->setCreatedBy($user);
 		}
 	}
 
@@ -849,6 +949,7 @@ class Book implements \JsonSerializable {
 	/** @ORM\PrePersist */
 	public function onPreInsert() {
 		$this->setCreatedAt(new \DateTime);
+		$this->updateNbCovers();
 		$this->updateNbScans();
 	}
 
@@ -856,16 +957,9 @@ class Book implements \JsonSerializable {
 	public function onPreUpdate() {
 		if ($this->updatedTrackingEnabled) {
 			$this->setUpdatedAt(new \DateTime);
+			$this->updateNbCovers();
 			$this->updateNbScans();
 		}
-	}
-
-	protected function updateNbScans() {
-		$this->setNbScans(count($this->scans));
-	}
-
-	protected function incNbScans() {
-		$this->setNbScans($this->getNbScans() + 1);
 	}
 
 	public function hasRevisions() {

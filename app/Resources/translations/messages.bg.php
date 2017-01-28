@@ -82,6 +82,8 @@ return [
 	'Cover' => 'К',
 	'Back cover' => 'ЗК',
 	'Covers' => 'Корици',
+	'Other covers' => 'Други корици',
+	'Type' => 'Вид',
 	'Full content file' => 'Файл с пълното съдържание',
 	'Info sources' => 'Източници',
 	'Created by' => 'Въведено от',
@@ -121,6 +123,12 @@ return [
 		'personal' => 'Лични сайтове',
 		'forum' => 'Форуми',
 		'bookstore' => 'Книжарници',
+	],
+	'BookCover' => [
+		'front' => 'предна',
+		'back' => 'задна',
+		'inner' => 'вътрешна',
+		'other' => 'друга',
 	],
 	'help' => [
 		'author' => 'Ако са няколко, се отделят с точка и запетая',

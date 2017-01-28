@@ -159,11 +159,12 @@ easy_admin:
                     - { type: group, label: Covers, icon: image }
                     - { property: coverFile, type: vich_image }
                     - { property: backCoverFile, type: vich_image }
+                    - { property: otherCovers, type: collection, type_options: { entry_type: App\Form\BookCoverType, by_reference: false }, css_class: 'files' }
 
                     - { type: group, label: Files, icon: image }
                     - { property: fullContentFile, help: help.fullContentFile, type: vich_file }
                     - { type: divider }
-                    - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, help: help.scans, css_class: 'scans' }
+                    - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, help: help.scans, css_class: 'files' }
 
                     - { type: group, label: Metadata, icon: file-text-o }
                     - { property: infoSources, help: help.infoSources }

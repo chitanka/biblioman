@@ -7,11 +7,13 @@
 .form-control:focus {
 	background-color: #FFEDBE;
 }
+.field-book_cover,
 .field-book_scan {
 	border-bottom: 3px dotted #808080;
 	padding-bottom: 1em;
 	margin-bottom: 1em;
 }
+.field-book_cover .field-checkbox,
 .field-book_scan .field-checkbox {
 	display: none;
 }
