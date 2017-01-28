@@ -50,6 +50,18 @@ function sanitize($s) {
 	return $s;
 }
 
+function sendFile($file, $format) {
+	$format = strtr($format, [
+		'jpg' => 'jpeg',
+		'tif' => 'tiff',
+	]);
+	$expires = 2592000; // 30 days
+	header("Cache-Control: maxage=$expires");
+	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
+	header('Content-Type: image/'.$format);
+	readfile($file);
+}
+
 function notFound($file) {
 	header('HTTP/1.1 404 Not Found');
 	error_log($file . ' not found');
@@ -62,12 +74,16 @@ if (substr_count($query, '.') == 2) {
 	list($name, $width, $format) = explode('.', basename($query));
 } else {
 	list($name, $format) = explode('.', basename($query));
-	$width = 1000;
+	$width = null;
 }
 $file = sprintf('%s/../../data/%s/%s.%s', __DIR__, dirname($query), $name, $format);
 
-if ($format == 'jpg') {
-	$format = 'jpeg';
+if ($width === null) {
+	if (file_exists($file)) {
+		sendFile($file, $format);
+	} else {
+		notFound($file);
+	}
 }
 
 $thumb = realpath(__DIR__ . '/../cache') . sanitize($_SERVER['REQUEST_URI']);
@@ -86,12 +102,9 @@ if (!file_exists($file)) {
 		shell_exec("convert $tifFile $file");
 	}
 }
-$expires = 2592000; // 30 days
-header("Cache-Control: maxage=$expires");
-header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
-header('Content-Type: image/'.$format);
-ini_set('memory_limit', '256M');
 if (!file_exists($thumb)) {
+	ini_set('memory_limit', '256M');
 	$thumb = genThumbnail($file, $thumb, $width, 90);
 }
-readfile($thumb);
+
+sendFile($thumb, $format);
