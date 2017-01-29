@@ -148,8 +148,8 @@ easy_admin:
 
                     - { type: group, label: Categorization, icon: tag }
                     - { property: category }
-                    - { property: genre }
-                    - { property: themes }
+                    - { property: genre, help: help.genre }
+                    - { property: themes, help: help.themes }
                     - { property: universalDecimalClassification, help: help.universalDecimalClassification }
 
                     - { type: group, label: Links, icon: link }
