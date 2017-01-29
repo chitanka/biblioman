@@ -67,6 +67,7 @@ parameters:
         - compiler
         - editor
         - chiefEditor
+        - managingEditor
         - publisherEditor
         - editorialStaff
         - consultant

@@ -23,6 +23,7 @@ class BookRepository extends EntityRepository {
 		'otherAuthors',
 		'compiler',
 		'chiefEditor',
+		'managingEditor',
 		'editor',
 		'editorialStaff',
 		'publisherEditor',

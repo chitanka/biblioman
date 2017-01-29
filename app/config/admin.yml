@@ -91,6 +91,7 @@ easy_admin:
                     - { property: compiler }
                     - { property: editorialStaff, help: help.editorialStaff }
                     - { property: chiefEditor }
+                    - { property: managingEditor }
                     - { property: editor }
                     - { property: publisherEditor }
                     - { property: consultant }

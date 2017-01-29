@@ -98,6 +98,11 @@ class Book implements \JsonSerializable {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
+	private $managingEditor;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
 	private $editor;
 
 	/**
@@ -592,6 +597,8 @@ class Book implements \JsonSerializable {
 	public function setCompiler($compiler) { $this->compiler = $compiler; }
 	public function getChiefEditor() { return $this->chiefEditor; }
 	public function setChiefEditor($chiefEditor) { $this->chiefEditor = $chiefEditor; }
+	public function getManagingEditor() { return $this->managingEditor; }
+	public function setManagingEditor($managingEditor) { $this->managingEditor = $managingEditor; }
 	public function getEditor() { return $this->editor; }
 	public function setEditor($editor) { $this->editor = $editor; }
 	public function getEditorialStaff() { return $this->editorialStaff; }
@@ -1016,6 +1023,7 @@ class Book implements \JsonSerializable {
 			'otherAuthors' => $this->otherAuthors,
 			'compiler' => $this->compiler,
 			'chiefEditor' => $this->chiefEditor,
+			'managingEditor' => $this->managingEditor,
 			'editor' => $this->editor,
 			'editorialStaff' => $this->editorialStaff,
 			'publisherEditor' => $this->publisherEditor,
