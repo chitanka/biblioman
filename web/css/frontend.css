@@ -137,3 +137,12 @@ h1 .extra-info {
 		margin-left: 220px;
 	}
 }
+
+@media (max-width:991px) {
+	.books-mosaic img {
+		height: 35vw;
+	}
+	.books-mosaic-large img {
+		height: 50vw;
+	}
+}

@@ -1,12 +1,14 @@
 {% import '_macros.html.twig' as _ %}
-<div class="row">
-	{% for book in books %}
-		<div class="col-xs-4 col-md-2">
-			<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
-				<img src="{{ _.thumbCover(book.cover ? book.cover : 'nocover.png', 150) }}" width="150" style="height: 220px">
-			</a>
-		</div>
-	{% else %}
-		{% include 'Book/notFound.html.twig' %}
-	{% endfor %}
-</div>
+{% for bookRow in books|batch(6) %}
+	<div class="row books-mosaic">
+		{% for book in bookRow %}
+			<div class="col-xs-4 col-md-2">
+				<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
+					<img src="{{ _.thumbCover(book.cover ? book.cover : 'nocover.png', 150) }}">
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+{% else %}
+	{% include 'Book/notFound.html.twig' %}
+{% endfor %}
