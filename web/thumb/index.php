@@ -59,6 +59,7 @@ function sendFile($file, $format) {
 	header("Cache-Control: maxage=$expires");
 	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 	header('Content-Type: image/'.$format);
+	header('Content-Length: '.filesize($file));
 	readfile($file);
 }
 
@@ -89,10 +90,7 @@ if ($width === null) {
 $thumb = realpath(__DIR__ . '/../cache') . sanitize($_SERVER['REQUEST_URI']);
 
 if (!file_exists($file)) {
-	if ($format != 'png') {
-		notFound($file);
-	}
-	$tifFile = realpath(str_replace('.png', '.tif', $file));
+	$tifFile = realpath(preg_replace('/\.[^.]+$/', '.tif', $file));
 	if (!$tifFile) {
 		notFound($file);
 	}

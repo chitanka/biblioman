@@ -50,6 +50,13 @@ class BookCover implements \JsonSerializable {
 	private $name;
 
 	/**
+	 * Internal storage format
+	 * @var string
+	 * @ORM\Column(type="string", length=4, nullable=true)
+	 */
+	private $internalFormat;
+
+	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=10)
 	 */
@@ -93,6 +100,7 @@ class BookCover implements \JsonSerializable {
 		return [
 			'id' => $this->id,
 			'name' => $this->name,
+			'internalFormat' => $this->internalFormat,
 			'title' => $this->title,
 			'type' => $this->type,
 			'createdBy' => $this->createdBy,
@@ -120,24 +128,36 @@ class BookCover implements \JsonSerializable {
 	public function getTitle() { return $this->title; }
 	public function setTitle($title) { $this->title = $title; }
 	public function getName() { return $this->name; }
-	public function setName($name) { $this->name = $name; }
+	public function setName($name) {
+		// TODO make it smarter
+		$this->name = str_replace('.tif', '.jpg', $name);
+	}
+	public function getInternalFormat() { return $this->internalFormat; }
+	public function setInternalFormat($internalFormat) { $this->internalFormat = $internalFormat; }
 	public function getType() { return $this->type; }
 	public function setType($type) { $this->type = $type; }
+
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
 	public function setFile(File $file = null) {
 		$this->file = $file;
 		if ($file) {
 			if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+				$this->setInternalFormat($file->guessExtension());
 				$this->setUpdatedAt(new \DateTime());
 			}
-			$this->setHash(md5_file($file->getRealPath()));
+			$this->setHashFromPath($file->getRealPath());
 		}
 	}
 	public function getFile() { return $this->file; }
 
 	public function getHash() { return $this->hash; }
 	public function setHash($hash) { $this->hash = $hash; }
+	public function setHashFromPath($path) {
+		if ($path) {
+			$this->setHash(md5_file($path));
+		}
+	}
 	public function getCreatedAt() { return $this->createdAt; }
 	public function setCreatedAt($createdAt) { $this->createdAt = $createdAt; }
 

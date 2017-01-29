@@ -793,7 +793,10 @@ class Book implements \JsonSerializable {
 		$this->setUpdatedAtOnFileUpload($image);
 	}
 	public function getCoverFile() { return $this->coverFile; }
-	public function setCover($cover) { $this->cover = $cover; }
+	public function setCover($cover) {
+		// TODO make it smarter
+		$this->cover = str_replace('.tif', '.jpg', $cover);
+	}
 	public function getCover() { return $this->cover; }
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
@@ -803,7 +806,10 @@ class Book implements \JsonSerializable {
 		$this->setUpdatedAtOnFileUpload($image);
 	}
 	public function getBackCoverFile() { return $this->backCoverFile; }
-	public function setBackCover($backCover) { $this->backCover = $backCover; }
+	public function setBackCover($backCover) {
+		// TODO make it smarter
+		$this->backCover = str_replace('.tif', '.jpg', $backCover);
+	}
 	public function getBackCover() { return $this->backCover; }
 
 	/** @return BookCover[] */
@@ -866,6 +872,7 @@ class Book implements \JsonSerializable {
 			$cover->setBook($this);
 			$cover->setFile($image);
 			$cover->setType($type);
+			$cover->setInternalFormat($image->guessExtension());
 			$cover->setTitle($title);
 		}
 		return $cover;
@@ -876,7 +883,11 @@ class Book implements \JsonSerializable {
 		$sortedScans = [];
 		foreach ($this->scans as $scan) {
 			$key = (int) $scan->getTitle();
-			$sortedScans[$key] = $scan;
+			if (isset($sortedScans[$key])) {
+				$sortedScans[] = $scan;
+			} else {
+				$sortedScans[$key] = $scan;
+			}
 		}
 		ksort($sortedScans);
 		$sortedScans = array_values($sortedScans);
@@ -1119,7 +1130,7 @@ class Book implements \JsonSerializable {
 		$diffs = [];
 		$excludedFields = ['updatedAt', 'nbScans'];
 		foreach ($ourFields as $field => $ourValue) {
-			if ($ourValue instanceof \Doctrine\ORM\PersistentCollection) {
+			if ($ourValue instanceof \Doctrine\ORM\PersistentCollection || is_array($ourValue)) {
 				continue;
 			}
 			if (!in_array($field, $excludedFields) && $ourValue !== $otherFields[$field]) {

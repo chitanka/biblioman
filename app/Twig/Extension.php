@@ -35,7 +35,6 @@ class Extension extends \Twig_Extension {
 	}
 
 	public function createThumbPath($image, $type, $width) {
-		$image = preg_replace('/\.tif$/', '.png', $image);
 		return "/thumb/$type/" . preg_replace('/\.(.+)$/', ".$width.$1", $image);
 	}
 

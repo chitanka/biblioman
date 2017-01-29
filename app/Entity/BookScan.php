@@ -38,6 +38,13 @@ class BookScan implements \JsonSerializable {
 	private $name;
 
 	/**
+	 * Internal storage format
+	 * @var string
+	 * @ORM\Column(type="string", length=4, nullable=true)
+	 */
+	private $internalFormat;
+
+	/**
 	 * @var File
 	 * @Vich\UploadableField(mapping="scan", fileNameProperty="name")
 	 */
@@ -78,6 +85,7 @@ class BookScan implements \JsonSerializable {
 		return [
 			'id' => $this->id,
 			'name' => $this->name,
+			'internalFormat' => $this->internalFormat,
 			'title' => $this->title,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
@@ -115,11 +123,20 @@ class BookScan implements \JsonSerializable {
 	}
 
 	public function setName($name) {
-		$this->name = $name;
+		// TODO make it smarter
+		$this->name = str_replace('.tif', '.png', $name);
 	}
 
 	public function getName() {
 		return $this->name;
+	}
+
+	public function getInternalFormat() {
+		return $this->internalFormat;
+	}
+
+	public function setInternalFormat($internalFormat) {
+		$this->internalFormat = $internalFormat;
 	}
 
 	/**
@@ -128,6 +145,7 @@ class BookScan implements \JsonSerializable {
 	public function setFile(File $file = null) {
 		$this->file = $file;
 		if ($file && $file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+			$this->setInternalFormat($file->guessExtension());
 			$this->setUpdatedAt(new \DateTime());
 		}
 	}
