@@ -834,10 +834,18 @@ class Book implements \JsonSerializable {
 
 	/** @param BookCover[] $covers */
 	public function setOtherCovers($covers) {
+		$coversToKeep = [];
 		foreach ($covers as $cover) {
 			if ($cover->isNew()) {
 				$cover->setBook($this);
 				$this->covers[] = $cover;
+			} else {
+				$coversToKeep[] = $cover->getId();
+			}
+		}
+		foreach ($this->getOtherCovers() as $otherCover) {
+			if (!$otherCover->isNew() && !in_array($otherCover->getId(), $coversToKeep)) {
+				$this->removeCover($otherCover);
 			}
 		}
 	}
