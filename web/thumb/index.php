@@ -65,7 +65,7 @@ function sendFile($file, $format) {
 
 function notFound($file) {
 	header('HTTP/1.1 404 Not Found');
-	error_log($file . ' not found');
+	#error_log($file . ' not found');
 	die();
 }
 
