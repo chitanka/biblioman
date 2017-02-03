@@ -1,6 +1,7 @@
 /app/config/parameters.yml
 /app/config/users.yml
 /data/*/*
+/data/wiki
 /phpunit.xml
 /var/*/*
 /vendor/
