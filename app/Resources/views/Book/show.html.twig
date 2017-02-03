@@ -74,8 +74,9 @@
 
 	{% if book.hasOtherCovers %}
 		<h2>Други корици</h2>
+		{% for coverRow in book.otherCovers|batch(4) %}
 		<div class="row">
-			{% for cover in book.otherCovers %}
+			{% for cover in coverRow %}
 				<figure class="col-xs-6 col-md-3">
 					<a href="{{ _.thumbCover(cover.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
 						<img src="{{ _.thumbCover(cover.name, 300) }}" width="300" style="max-height: 370px">
@@ -89,12 +90,14 @@
 				</figure>
 			{% endfor %}
 		</div>
+		{% endfor %}
 	{% endif %}
 
 	<section>
 	<h2>Сканирани страници</h2>
-	<div class="row">
-		{% for scan in book.scans %}
+	{% for scanRow in book.scans|batch(4) %}
+		<div class="row">
+			{% for scan in scanRow %}
 			<figure class="col-xs-6 col-md-3">
 				<a href="{{ _.thumbScan(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
 					<img src="{{ _.thumbScan(scan.name, 300) }}" width="300" style="max-height: 370px">
@@ -103,10 +106,11 @@
 					</figcaption>
 				</a>
 			</figure>
-		{% else %}
-			<p class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</p>
-		{% endfor %}
-	</div>
+			{% else %}
+				<p class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</p>
+			{% endfor %}
+		</div>
+	{% endfor %}
 	</section>
 
 {% endblock %}
