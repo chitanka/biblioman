@@ -7,6 +7,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    easyadmin.listener:
+        class: App\Listener\EasyAdminListener
+        tags:
+            - { name: kernel.event_subscriber }
+
     app.file_namer:
         class: App\File\Namer
 
