@@ -14,6 +14,8 @@ return [
 	'Sequence nr' => '№ в поредицата',
 	'Subsequence' => 'Подпоредица',
 	'Subsequence nr' => '№ в подпоредицата',
+	'Series' => 'Авторска серия',
+	'Series nr' => '№ в авторската серия',
 	'Translator' => 'Преводач',
 	'Translated from language' => 'Език, от който е преведено',
 	'Date of translation' => 'Година на превод',

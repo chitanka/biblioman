@@ -46,6 +46,9 @@
 			{% if field == 'subsequence' and book.subsequenceNr is not empty %}
 				№{{ book.subsequenceNr }}
 			{% endif %}
+			{% if field == 'series' and book.seriesNr is not empty %}
+				№{{ book.seriesNr }}
+			{% endif %}
 		</dd>
 	{% endif %}
 	{% endif %}

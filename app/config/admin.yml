@@ -83,6 +83,8 @@ easy_admin:
                     - { property: sequenceNr }
                     - { property: subsequence }
                     - { property: subsequenceNr }
+                    - { property: series }
+                    - { property: seriesNr }
                     - { property: translator, help: help.translator }
                     - { property: translatedFromLanguage }
                     - { property: dateOfTranslation }

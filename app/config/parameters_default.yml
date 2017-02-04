@@ -51,6 +51,7 @@ parameters:
         - subtitle2
         - sequence
         - subsequence
+        - series
         - adaptedBy
         - otherAuthors
         - contentType

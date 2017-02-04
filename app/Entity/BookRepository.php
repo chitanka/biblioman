@@ -16,6 +16,7 @@ class BookRepository extends EntityRepository {
 		'volumeTitle',
 		'sequence',
 		'subsequence',
+		'series',
 		'translator',
 		'translatedFromLanguage',
 		'dateOfTranslation',
@@ -79,6 +80,7 @@ class BookRepository extends EntityRepository {
 		'title',
 		'sequenceNr',
 		'subsequenceNr',
+		'seriesNr',
 		'publishingYear',
 		'createdAt',
 		'updatedAt',
@@ -102,7 +104,7 @@ class BookRepository extends EntityRepository {
 		'author' => ['adaptedBy', 'otherAuthors'],
 		'title' => ['altTitle'],
 		'isbn' => ['isbnClean'],
-		'sequence' => ['subsequence'],
+		'sequence' => ['subsequence', 'series'],
 		'subsequence' => ['sequence'],
 	];
 
