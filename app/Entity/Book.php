@@ -893,7 +893,6 @@ class Book implements \JsonSerializable {
 			$cover->setFile($image);
 		} else {
 			$this->newCovers[$type] = $cover = new BookCover();
-			$cover->setBook($this);
 			$cover->setFile($image);
 			$cover->setType($type);
 			$cover->setInternalFormat($image->guessExtension());
