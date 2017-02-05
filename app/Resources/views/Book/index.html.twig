@@ -6,7 +6,10 @@
 		<br>
 		<span class="extra-info">
 			<span class="fa fa-search"></span>
-			{{ query.field|humanize|trans }}: {{ query.term }}
+			{% if query.field is not empty %}
+				{{ query.field|humanize|trans }}:
+			{% endif %}
+			{{ query.term }}
 		</span>
 	{% endif %}
 {% endblock %}
