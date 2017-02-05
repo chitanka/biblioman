@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bafe55435ad5f28fa66b59b76c83ae8",
+    "content-hash": "cba0a69a61d82d4d1729f3e92283e371",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -45,6 +45,36 @@
                 "transliterator"
             ],
             "time": "2015-09-28T16:26:35+00:00"
+        },
+        {
+            "name": "chitanka/utils",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chitanka/utils.git",
+                "reference": "d0e56dd79eb1a4a2f2a0eb4464c32be87c8d2fc5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chitanka/utils/zipball/d0e56dd79eb1a4a2f2a0eb4464c32be87c8d2fc5",
+                "reference": "d0e56dd79eb1a4a2f2a0eb4464c32be87c8d2fc5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chitanka\\Utils\\": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Miscelaneous functionality used in the chitanka projects",
+            "time": "2017-02-05 19:20:55"
         },
         {
             "name": "chitanka/wiki-bundle",
@@ -3331,7 +3361,8 @@
     "stability-flags": {
         "javiereguiluz/easyadmin-bundle": 20,
         "liip/url-auto-converter-bundle": 20,
-        "chitanka/wiki-bundle": 20
+        "chitanka/wiki-bundle": 20,
+        "chitanka/utils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

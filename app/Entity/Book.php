@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use Chitanka\Utils\Typograph;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -584,15 +585,15 @@ class Book implements \JsonSerializable {
 	public function getId() { return $this->id; }
 	public function setId($id) { $this->id = $id; }
 	public function getTitle() { return $this->title; }
-	public function setTitle($title) { $this->title = $title; }
+	public function setTitle($title) { $this->title = $this->typoReplace($title); }
 	public function getAltTitle() { return $this->altTitle; }
-	public function setAltTitle($altTitle) { $this->altTitle = $altTitle; }
+	public function setAltTitle($altTitle) { $this->altTitle = $this->typoReplace($altTitle); }
 	public function getSubtitle() { return $this->subtitle; }
-	public function setSubtitle($subtitle) { $this->subtitle = $subtitle; }
+	public function setSubtitle($subtitle) { $this->subtitle = $this->typoReplace($subtitle); }
 	public function getSubtitle2() { return $this->subtitle2; }
-	public function setSubtitle2($subtitle2) { $this->subtitle2 = $subtitle2; }
+	public function setSubtitle2($subtitle2) { $this->subtitle2 = $this->typoReplace($subtitle2); }
 	public function getVolumeTitle() { return $this->volumeTitle; }
-	public function setVolumeTitle($volumeTitle) { $this->volumeTitle = $volumeTitle; }
+	public function setVolumeTitle($volumeTitle) { $this->volumeTitle = $this->typoReplace($volumeTitle); }
 	public function getAuthor() { return $this->author; }
 	public function setAuthor($author) { $this->author = $author; }
 	public function getTranslator() { return $this->translator; }
@@ -652,15 +653,15 @@ class Book implements \JsonSerializable {
 	public function getClassifications() { return $this->classifications; }
 	public function setClassifications($classifications) { $this->classifications = $classifications; }
 	public function getSequence() { return $this->sequence; }
-	public function setSequence($sequence) { $this->sequence = $sequence; }
+	public function setSequence($sequence) { $this->sequence = $this->typoReplace($sequence); }
 	public function getSequenceNr() { return $this->sequenceNr; }
 	public function setSequenceNr($sequenceNr) { $this->sequenceNr = $sequenceNr; }
 	public function getSubsequence() { return $this->subsequence; }
-	public function setSubsequence($subsequence) { $this->subsequence = $subsequence; }
+	public function setSubsequence($subsequence) { $this->subsequence = $this->typoReplace($subsequence); }
 	public function getSubsequenceNr() { return $this->subsequenceNr; }
 	public function setSubsequenceNr($subsequenceNr) { $this->subsequenceNr = $subsequenceNr; }
 	public function getSeries() { return $this->series; }
-	public function setSeries($series) { $this->series = $series; }
+	public function setSeries($series) { $this->series = $this->typoReplace($series); }
 	public function getSeriesNr() { return $this->seriesNr; }
 	public function setSeriesNr($seriesNr) { $this->seriesNr = $seriesNr; }
 	public function getPublisherCity() { return $this->publisherCity; }
@@ -668,7 +669,7 @@ class Book implements \JsonSerializable {
 	public function getPublishingYear() { return $this->publishingYear; }
 	public function setPublishingYear($publishingYear) { $this->publishingYear = $publishingYear; }
 	public function getPublisherAddress() { return $this->publisherAddress; }
-	public function setPublisherAddress($publisherAddress) { $this->publisherAddress = $publisherAddress; }
+	public function setPublisherAddress($publisherAddress) { $this->publisherAddress = $this->typoReplace($publisherAddress); }
 	public function getNationality() { return $this->nationality; }
 	public function setNationality($nationality) { $this->nationality = $nationality; }
 	public function getEdition() { return $this->edition; }
@@ -720,19 +721,19 @@ class Book implements \JsonSerializable {
 	public function getIsbnClean() { return $this->isbnClean; }
 	public function setIsbnClean($isbnClean) { $this->isbnClean = $isbnClean; }
 	public function getOtherFields() { return $this->otherFields; }
-	public function setOtherFields($otherFields) { $this->otherFields = $otherFields; }
+	public function setOtherFields($otherFields) { $this->otherFields = $this->typoReplace($otherFields); }
 	public function getNotes() { return $this->notes; }
-	public function setNotes($notes) { $this->notes = $notes; }
+	public function setNotes($notes) { $this->notes = $this->typoReplace($notes); }
 	public function getNotesAboutOriginal() { return $this->notesAboutOriginal; }
 	public function setNotesAboutOriginal($notesAboutOriginal) { $this->notesAboutOriginal = $notesAboutOriginal; }
 	public function getVerified() { return $this->verified; }
 	public function setVerified($verified) { $this->verified = $verified; }
 	public function getAnnotation() { return $this->annotation; }
-	public function setAnnotation($annotation) { $this->annotation = $annotation; }
+	public function setAnnotation($annotation) { $this->annotation = $this->typoReplace($annotation); }
 	public function getNotesAboutAuthor() { return $this->notesAboutAuthor; }
-	public function setNotesAboutAuthor($notesAboutAuthor) { $this->notesAboutAuthor = $notesAboutAuthor; }
+	public function setNotesAboutAuthor($notesAboutAuthor) { $this->notesAboutAuthor = $this->typoReplace($notesAboutAuthor); }
 	public function getMarketingSnippets() { return $this->marketingSnippets; }
-	public function setMarketingSnippets($marketingSnippets) { $this->marketingSnippets = $marketingSnippets; }
+	public function setMarketingSnippets($marketingSnippets) { $this->marketingSnippets = $this->typoReplace($marketingSnippets); }
 	public function getToc() { return $this->toc; }
 	public function setToc($toc) { $this->toc = $toc; }
 	public function getThemes() { return $this->themes; }
@@ -1272,5 +1273,9 @@ class Book implements \JsonSerializable {
 
 	private static function gluePrefixesForRegExp($prefixes) {
 		return implode('|', array_map('preg_quote', $prefixes));
+	}
+
+	private function typoReplace($string) {
+		return Typograph::replaceAll($string);
 	}
 }

@@ -39,7 +39,8 @@
 		"liip/url-auto-converter-bundle": "dev-master",
 		"stof/doctrine-extensions-bundle": "^1.2",
 		"lightgallery": "*",
-		"chitanka/wiki-bundle": "*@dev"
+		"chitanka/wiki-bundle": "*@dev",
+		"chitanka/utils": "*@dev"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",
