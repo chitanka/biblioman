@@ -171,4 +171,5 @@ return [
 	'sort-asc' => 'Възходяща подредба по %field%',
 	'sort-desc' => 'Низходяща подредба по %field%',
 	'label.form.empty_value' => '',
+	'pager.count' => '%count% резултата',
 ];

@@ -13,8 +13,13 @@
 
 {% block content %}
 
-	{% set t %}{{ block('title') }}{% endset %}{# prevent html escaping #}
-	{% include 'Book/books.html.twig' with { heading: t, books: pager.currentPageResults } %}
+	{% set heading %}
+		{{ block('title') }}
+		<span class="extra-info">
+			<span class="badge" title="{{ 'pager.count'|trans({'%count%': pager.count}) }}">{{ pager.count }}</span>
+		</span>
+	{% endset %}
+	{% include 'Book/books.html.twig' with { heading: heading, books: pager.currentPageResults } %}
 	{% include 'pager.html.twig' %}
 
 {% endblock %}
