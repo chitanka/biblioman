@@ -106,10 +106,10 @@
 					</figcaption>
 				</a>
 			</figure>
-			{% else %}
-				<p class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</p>
 			{% endfor %}
 		</div>
+	{% else %}
+		<div class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</div>
 	{% endfor %}
 	</section>
 
