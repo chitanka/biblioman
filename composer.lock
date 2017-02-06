@@ -52,12 +52,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/utils.git",
-                "reference": "d0e56dd79eb1a4a2f2a0eb4464c32be87c8d2fc5"
+                "reference": "909fe22e72d772fd9d097e1d9386d90e5c7f0a36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/utils/zipball/d0e56dd79eb1a4a2f2a0eb4464c32be87c8d2fc5",
-                "reference": "d0e56dd79eb1a4a2f2a0eb4464c32be87c8d2fc5",
+                "url": "https://api.github.com/repos/chitanka/utils/zipball/909fe22e72d772fd9d097e1d9386d90e5c7f0a36",
+                "reference": "909fe22e72d772fd9d097e1d9386d90e5c7f0a36",
                 "shasum": ""
             },
             "require": {
@@ -74,7 +74,7 @@
                 "MIT"
             ],
             "description": "Miscelaneous functionality used in the chitanka projects",
-            "time": "2017-02-05 19:20:55"
+            "time": "2017-02-06 06:49:06"
         },
         {
             "name": "chitanka/wiki-bundle",

@@ -691,7 +691,7 @@ class Book implements \JsonSerializable {
 	public function getProvisionPublisherSheets() { return $this->provisionPublisherSheets; }
 	public function setProvisionPublisherSheets($provisionPublisherSheets) { $this->provisionPublisherSheets = $provisionPublisherSheets; }
 	public function getFormat() { return $this->format; }
-	public function setFormat($format) { $this->format = $format; }
+	public function setFormat($format) { $this->format = Typograph::replaceTimesChar($format); }
 	public function getPublisherCode() { return $this->publisherCode; }
 	public function setPublisherCode($publisherCode) { $this->publisherCode = $publisherCode; }
 	public function getPublisherOrder() { return $this->publisherOrder; }
