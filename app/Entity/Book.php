@@ -643,13 +643,13 @@ class Book implements \JsonSerializable {
 	public function getLibraryDesign() { return $this->libraryDesign; }
 	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = $libraryDesign; }
 	public function getComputerProcessing() { return $this->computerProcessing; }
-	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = $computerProcessing; }
+	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = $this->typoReplace($computerProcessing); }
 	public function getPrepress() { return $this->prepress; }
-	public function setPrepress($prepress) { $this->prepress = $prepress; }
+	public function setPrepress($prepress) { $this->prepress = $this->typoReplace($prepress); }
 	public function getContentType() { return $this->contentType; }
 	public function setContentType($contentType) { $this->contentType = $contentType; }
 	public function getPublisher() { return $this->publisher; }
-	public function setPublisher($publisher) { $this->publisher = $publisher; }
+	public function setPublisher($publisher) { $this->publisher = $this->typoReplace($publisher); }
 	public function getClassifications() { return $this->classifications; }
 	public function setClassifications($classifications) { $this->classifications = $classifications; }
 	public function getSequence() { return $this->sequence; }
@@ -677,7 +677,7 @@ class Book implements \JsonSerializable {
 	public function getLitGroup() { return $this->litGroup; }
 	public function setLitGroup($litGroup) { $this->litGroup = $litGroup; }
 	public function getPrint() { return $this->print; }
-	public function setPrint($print) { $this->print = $print; }
+	public function setPrint($print) { $this->print = $this->typoReplace($print); }
 	public function getTypeSettingIn() { return $this->typeSettingIn; }
 	public function setTypeSettingIn($typeSettingIn) { $this->typeSettingIn = $typeSettingIn; }
 	public function getPrintSigned() { return $this->printSigned; }
@@ -735,7 +735,7 @@ class Book implements \JsonSerializable {
 	public function getMarketingSnippets() { return $this->marketingSnippets; }
 	public function setMarketingSnippets($marketingSnippets) { $this->marketingSnippets = $this->typoReplace($marketingSnippets); }
 	public function getToc() { return $this->toc; }
-	public function setToc($toc) { $this->toc = $toc; }
+	public function setToc($toc) { $this->toc = $this->typoReplace($toc); }
 	public function getThemes() { return $this->themes; }
 	public function setThemes($themes) { $this->themes = $themes; }
 	public function getGenre() { return $this->genre; }
