@@ -107,6 +107,11 @@ class BookRepository extends EntityRepository {
 		'sequence' => ['subsequence', 'series'],
 		'subsequence' => ['sequence'],
 	];
+	private static $linkedSortableFields = [
+		'sequence' => ['sequenceNr-asc'],
+		'subsequence' => ['subsequenceNr-asc'],
+		'series' => ['seriesNr-asc'],
+	];
 
 	public static function getSearchableFieldsDefinition() {
 		return [
@@ -115,6 +120,10 @@ class BookRepository extends EntityRepository {
 		];
 	}
 
+	/**
+	 * @param string $searchQuery
+	 * @return SearchQuery
+	 */
 	public static function getStructuredSearchQuery($searchQuery) {
 		if (strpos($searchQuery, self::FIELD_SEARCH_SEPARATOR) !== false) {
 			list($field, $term) = explode(self::FIELD_SEARCH_SEPARATOR, $searchQuery);
@@ -122,7 +131,7 @@ class BookRepository extends EntityRepository {
 			$field = '';
 			$term = $searchQuery;
 		}
-		$structure = new \stdClass();
+		$structure = new SearchQuery();
 		$structure->raw = $searchQuery;
 		$structure->field = trim($field);
 		$structure->term = trim($term);
@@ -159,6 +168,10 @@ class BookRepository extends EntityRepository {
 	public function filterByQuery($query, $sort = null) {
 		$alias = 'b';
 		$qb = $this->createQueryBuilder($alias);
+		$squery = self::getStructuredSearchQuery($query);
+		if (isset(self::$linkedSortableFields[$squery->field])) {
+			$sort = implode(',', self::$linkedSortableFields[$squery->field]);
+		}
 		if (empty($sort)) {
 			$sort = 'title';
 		}
