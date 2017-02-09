@@ -639,9 +639,9 @@ class Book implements \JsonSerializable {
 	public function getLayout() { return $this->layout; }
 	public function setLayout($layout) { $this->layout = $layout; }
 	public function getCoverLayout() { return $this->coverLayout; }
-	public function setCoverLayout($coverLayout) { $this->coverLayout = $coverLayout; }
+	public function setCoverLayout($coverLayout) { $this->coverLayout = $this->typoReplace($coverLayout); }
 	public function getLibraryDesign() { return $this->libraryDesign; }
-	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = $libraryDesign; }
+	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = $this->typoReplace($libraryDesign); }
 	public function getComputerProcessing() { return $this->computerProcessing; }
 	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = $this->typoReplace($computerProcessing); }
 	public function getPrepress() { return $this->prepress; }
