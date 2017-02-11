@@ -80,9 +80,9 @@ easy_admin:
                     - { property: subtitle }
                     - { property: subtitle2 }
                     - { property: sequence }
-                    - { property: sequenceNr }
+                    - { property: sequenceNr, type: text }
                     - { property: subsequence }
-                    - { property: subsequenceNr }
+                    - { property: subsequenceNr, type: text }
                     - { property: series }
                     - { property: seriesNr }
                     - { property: translator, help: help.translator }
@@ -132,7 +132,7 @@ easy_admin:
                     - { property: publisherOrder }
                     - { property: publisherNumber }
                     - { property: uniformProductClassification, help: help.uniformProductClassification }
-                    - { property: pageCount, help: help.pageCount }
+                    - { property: pageCount, type: text, help: help.pageCount }
                     - { property: totalPrint }
                     - { property: price }
                     - { property: binding, help: help.binding }
