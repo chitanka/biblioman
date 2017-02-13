@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -49,10 +50,17 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 	 */
 	private $preferences;
 
+	/**
+	 * @var Shelf[]|ArrayCollection
+	 * @ORM\OneToMany(targetEntity="Shelf", mappedBy="creator", cascade={"persist","remove"}, orphanRemoval=true)
+	 */
+	private $shelves;
+
 	public function __construct($username, $email, array $roles = []) {
 		$this->username = $username;
 		$this->email = $email;
 		$this->roles = $roles;
+		$this->shelves = new ArrayCollection();
 		$this->setLastLogin();
 	}
 
