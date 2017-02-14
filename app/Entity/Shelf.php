@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Entity\ShelfRepository")
  * @ORM\Table
  */
 class Shelf {
@@ -38,7 +38,7 @@ class Shelf {
 
 	/**
 	 * @var BookOnShelf[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf")
+	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf", fetch="EXTRA_LAZY")
 	 */
 	private $booksOnShelf;
 
@@ -70,6 +70,10 @@ class Shelf {
 	}
 	public function getBooksOnShelf() {
 		return $this->booksOnShelf;
+	}
+
+	public function __toString() {
+		return $this->getName();
 	}
 
 	public function getId() { return $this->id; }

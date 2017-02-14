@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+	<h1 class="page-header">Рафтове</h1>
+	<ul>
+	{% for shelf in pager.currentPageResults %}
+		<li><a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a></li>
+	{% else %}
+		<li>Нямате създадени рафтове.</li>
+	{% endfor %}
+	</ul>
+	{% include 'pager.html.twig' %}
+
+{% endblock %}

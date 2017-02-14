@@ -1,7 +1,7 @@
 {% if mode is not defined %}
 	{% set mode = app.request.get('_mode', 'listcols') %}
 {% endif %}
-<h1 class="clearfix">
+<h1 class="page-header clearfix">
 	{{ heading }}
 	{% include 'Book/modeLinks.html.twig' %}
 	{% if sortableFields is defined %}

@@ -3,9 +3,7 @@
 	<div class="row books-mosaic-large">
 		{% for book in bookRow %}
 			<div class="col-xs-6 col-md-3">
-				<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} - {{ book.author }}">
-					<img src="{{ _.thumbCover(book.cover ? book.cover : 'nocover.png', 300) }}">
-				</a>
+				{{ _.printBookThumbnailLink((book.book is defined ? book.book : book), 300) }}
 			</div>
 		{% endfor %}
 	</div>

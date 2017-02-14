@@ -1,0 +1,8 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+	{% include 'Book/books.html.twig' with { heading: shelf.name, books: pager.currentPageResults } %}
+	{% include 'pager.html.twig' %}
+
+{% endblock %}
