@@ -5,4 +5,13 @@
 			Имате <a href="{{ path('fos_message_inbox') }}">нови съобщения</a>.
 		</div>
 	{% endif %}
+	{% for flashMessage in app.session.flashbag.get('error') %}
+		<div class="error alert alert-danger">{{ flashMessage|raw }}</div>
+	{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('info') %}
+		<div class="alert alert-info">{{ flashMessage|raw }}</div>
+	{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success">{{ flashMessage|raw }}</div>
+	{% endfor %}
 </div>

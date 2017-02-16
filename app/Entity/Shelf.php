@@ -38,7 +38,7 @@ class Shelf {
 
 	/**
 	 * @var BookOnShelf[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf", fetch="EXTRA_LAZY")
+	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf", cascade={"persist","remove"}, fetch="EXTRA_LAZY")
 	 */
 	private $booksOnShelf;
 
@@ -56,10 +56,10 @@ class Shelf {
 	 */
 	private $updatedAt;
 
-	public function __construct($name = null, User $creator = null) {
-		$this->booksOnShelf = new ArrayCollection();
-		$this->setName($name);
+	public function __construct(User $creator = null, $name = null) {
 		$this->setCreator($creator);
+		$this->setName($name);
+		$this->booksOnShelf = new ArrayCollection();
 	}
 
 	public function addBookOnShelf(BookOnShelf $a) {
@@ -70,6 +70,27 @@ class Shelf {
 	}
 	public function getBooksOnShelf() {
 		return $this->booksOnShelf;
+	}
+
+	public function addBook(Book $book) {
+		$bookOnShelf = new BookOnShelf($book, $this);
+		$this->addBookOnShelf($bookOnShelf);
+	}
+
+	/**
+	 * @param Book|BookOnShelf $book
+	 */
+	public function removeBook($book) {
+		if ($book instanceof BookOnShelf) {
+			$this->removeBookOnShelf($book);
+			return;
+		}
+		foreach ($this->getBooksOnShelf() as $bookOnShelf) {
+			if ($bookOnShelf->getBook() == $book) {
+				$this->removeBookOnShelf($bookOnShelf);
+				break;
+			}
+		}
 	}
 
 	public function __toString() {

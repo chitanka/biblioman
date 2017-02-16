@@ -1,15 +1,28 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}Рафтове{% endblock %}
+
 {% block content %}
 
-	<h1 class="page-header">Рафтове</h1>
+	<h1 class="page-header">{{ block('title') }}</h1>
 	<ul>
 	{% for shelf in pager.currentPageResults %}
-		<li><a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a></li>
+		<li>
+			<a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a>
+		</li>
 	{% else %}
 		<li>Нямате създадени рафтове.</li>
 	{% endfor %}
 	</ul>
 	{% include 'pager.html.twig' %}
+
+	<div class="text-center">
+		<a class="btn btn-primary" role="button" data-toggle="collapse" href="#createShelfForm" aria-expanded="false" aria-controls="createShelfForm">
+			<span class="fa fa-plus"></span> Нов рафт
+		</a>
+	</div>
+	<div id="createShelfForm" class="collapse">
+		{{ form(createForm) }}
+	</div>
 
 {% endblock %}

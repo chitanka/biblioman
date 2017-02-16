@@ -107,6 +107,8 @@ return [
 	'Admin comment' => 'Административен коментар',
 	'Ocred text' => 'Текст след OCR',
 	'Missing scan title' => '⚠ Няма заглавие ☹',
+	'Name' => 'Име',
+	'Description' => 'Описание',
 	'Book' => [
 		'new_title' => 'Добавяне на нова книга',
 		'form_title' => 'Редактиране на книга (№%entity_id%)',
@@ -172,4 +174,6 @@ return [
 	'sort-desc' => 'Низходяща подредба по %field%',
 	'label.form.empty_value' => '',
 	'pager.count' => '%count% резултата',
+	'Save' => 'Запис',
+	'shelf.saved' => 'Рафтът „%shelf%“ беше създаден.',
 ];

@@ -1,8 +1,17 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}Рафт: {{ shelf.name }}{% endblock %}
+
 {% block content %}
 
-	{% include 'Book/books.html.twig' with { heading: shelf.name, books: pager.currentPageResults } %}
+	{% set shelfDescription %}
+		{% if shelf.description is not empty %}
+			<div class="shelf-description well">
+				{{ shelf.description|nl2br }}
+			</div>
+		{% endif %}
+	{% endset %}
+	{% include 'Book/books.html.twig' with { heading: block('title'), contentAfterHeading: shelfDescription, books: pager.currentPageResults } %}
 	{% include 'pager.html.twig' %}
 
 {% endblock %}

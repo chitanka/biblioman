@@ -14,4 +14,24 @@ class ShelfRepository extends EntityRepository {
 			->orderBy('s.name', 'ASC');
 	}
 
+	public function hasBookOnShelf(Book $book, Shelf $shelf) {
+		return $this->hasBookOnShelf($book, $shelf) != null;
+	}
+
+	/**
+	 * @param Book $book
+	 * @param Shelf $shelf
+	 * @return BookOnShelf|null
+	 */
+	public function findBookOnShelf(Book $book, Shelf $shelf) {
+		return $this->getBookOnShelfRepository()->createQueryBuilder('bs')
+			->where('bs.shelf = ?1 AND bs.book = ?2')->setParameters([1 => $shelf, 2 => $book])
+			->getQuery()->getOneOrNullResult();
+	}
+
+	/** @return EntityRepository */
+	private function getBookOnShelfRepository() {
+		return $this->_em->getRepository(BookOnShelf::class);
+	}
+
 }
