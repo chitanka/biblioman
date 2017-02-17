@@ -37,7 +37,7 @@ class ProfileController extends Controller {
 	 * @Route("/shelves/{id}", name="my_shelf")
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
-		if (!$this->userCanViewShelf($this->getUser(), $shelf)) {
+		if (!$this->userCanViewShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}
 		$pager = $this->collectionPager($request, $shelf->getBooksOnShelf());
@@ -61,7 +61,7 @@ class ProfileController extends Controller {
 	 * @Method({"POST"})
 	 */
 	public function addToShelfAction(Shelf $shelf, Book $book) {
-		if (!$this->userCanEditShelf($this->getUser(), $shelf)) {
+		if (!$this->userCanEditShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}
 		if (!$this->shelfRepo()->hasBookOnShelf($book, $shelf)) {
@@ -77,7 +77,7 @@ class ProfileController extends Controller {
 	 * @Method({"DELETE"})
 	 */
 	public function removeFromShelfAction(Shelf $shelf, Book $book) {
-		if (!$this->userCanEditShelf($this->getUser(), $shelf)) {
+		if (!$this->userCanEditShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}
 		if ($bookOnShelf = $this->shelfRepo()->findBookOnShelf($book, $shelf)) {
@@ -96,11 +96,11 @@ class ProfileController extends Controller {
 		return $this->repo(Shelf::class);
 	}
 
-	protected function userCanViewShelf(User $user, Shelf $shelf) {
-		return $shelf->getCreator() == $user;
+	protected function userCanViewShelf(Shelf $shelf) {
+		return $shelf->getCreator() == $this->getUser();
 	}
 
-	protected function userCanEditShelf(User $user, Shelf $shelf) {
-		return $shelf->getCreator() == $user;
+	protected function userCanEditShelf(Shelf $shelf) {
+		return $shelf->getCreator() == $this->getUser();
 	}
 }
