@@ -109,6 +109,7 @@ return [
 	'Missing scan title' => '⚠ Няма заглавие ☹',
 	'Name' => 'Име',
 	'Description' => 'Описание',
+	'Is public' => 'Да се вижда от всички',
 	'Book' => [
 		'new_title' => 'Добавяне на нова книга',
 		'form_title' => 'Редактиране на книга (№%entity_id%)',

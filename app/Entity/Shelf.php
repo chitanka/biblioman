@@ -37,6 +37,12 @@ class Shelf {
 	private $creator;
 
 	/**
+	 * @var bool
+	 * @ORM\Column(type="boolean")
+	 */
+	private $isPublic = false;
+
+	/**
 	 * @var BookOnShelf[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf", cascade={"persist","remove"}, fetch="EXTRA_LAZY")
 	 */
@@ -113,6 +119,8 @@ class Shelf {
 	public function setDescription($description) { $this->description = $description; }
 	public function getCreator() { return $this->creator; }
 	public function setCreator(User $creator = null) { $this->creator = $creator; }
+	public function isPublic() { return $this->isPublic; }
+	public function setIsPublic($isPublic) { $this->isPublic = $isPublic; }
 	public function getCreatedAt() { return $this->createdAt; }
 	public function getUpdatedAt() { return $this->updatedAt; }
 	public function getNbBooks() { return $this->nbBooks; }
