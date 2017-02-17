@@ -56,6 +56,13 @@ class Shelf {
 	 */
 	private $updatedAt;
 
+	/**
+	 * Number of books on this shelf
+	 * @var int
+	 * @ORM\Column(type="integer")
+	 */
+	private $nbBooks = 0;
+
 	public function __construct(User $creator = null, $name = null) {
 		$this->setCreator($creator);
 		$this->setName($name);
@@ -64,9 +71,11 @@ class Shelf {
 
 	public function addBookOnShelf(BookOnShelf $a) {
 		$this->booksOnShelf[] = $a;
+		$this->nbBooks++;
 	}
 	public function removeBookOnShelf(BookOnShelf $a) {
 		$this->booksOnShelf->removeElement($a);
+		$this->nbBooks--;
 	}
 	public function getBooksOnShelf() {
 		return $this->booksOnShelf;
@@ -106,5 +115,7 @@ class Shelf {
 	public function setCreator(User $creator = null) { $this->creator = $creator; }
 	public function getCreatedAt() { return $this->createdAt; }
 	public function getUpdatedAt() { return $this->updatedAt; }
+	public function getNbBooks() { return $this->nbBooks; }
+	public function setNbBooks($nbBooks) { $this->nbBooks = $nbBooks; }
 
 }
