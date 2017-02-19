@@ -10,12 +10,5 @@
 {% endblock %}
 
 {% block custom_javascript %}
-<script>
-	$(function() {
-		$('#shelf_icon').iconpicker({
-			placement: 'bottomLeft',
-			inputSearch: true
-		});
-	});
-</script>
+	{% include 'Profile/formJavascript.html.twig' %}
 {% endblock %}
