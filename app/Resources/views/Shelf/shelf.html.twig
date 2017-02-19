@@ -1,0 +1,24 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	<small><a href="{{ path('my_shelves') }}">Рафт</a>:</small>
+	<span class="fa {{ shelf.icon }} shelf-icon"></span> {{ shelf.name }}
+	<span class="extra-info">• от {{ shelf.creator }}</span>
+{% endblock %}
+
+{% block content %}
+
+	{% set shelfDescription %}
+		{% if shelf.description is not empty %}
+			<div class="shelf-description well">
+				{{ shelf.description|nl2br }}
+			</div>
+		{% endif %}
+	{% endset %}
+	{% set heading %}
+		{{ block('title') }}
+	{% endset %}
+	{% include 'Book/books.html.twig' with { heading: heading, contentAfterHeading: shelfDescription, books: pager.currentPageResults } %}
+	{% include 'pager.html.twig' %}
+
+{% endblock %}

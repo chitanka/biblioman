@@ -9,6 +9,16 @@ class ShelfRepository extends EntityRepository {
 	/**
 	 * @return QueryBuilder
 	 */
+	public function isPublic() {
+		return $this->createQueryBuilder('s')
+			->where('s.isPublic = ?1')->setParameter('1', true)
+			->join('s.creator', 'c')
+			->orderBy('s.name', 'ASC');
+	}
+
+	/**
+	 * @return QueryBuilder
+	 */
 	public function forUser(User $user) {
 		return $this->createQueryBuilder('s')
 			->where('s.creator = ?1')->setParameter('1', $user)
