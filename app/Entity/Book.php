@@ -428,7 +428,7 @@ class Book implements \JsonSerializable {
 	private $genre;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="BookCategory")
+	 * @ORM\ManyToOne(targetEntity="BookCategory", fetch="EAGER")
 	 */
 	private $category;
 
