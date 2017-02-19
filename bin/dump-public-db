@@ -10,7 +10,7 @@ eval $(parse_yaml $config_file)
 db=$parameters_database_name
 db_credentials="--host=$parameters_database_host --user=$parameters_database_user --password=$parameters_database_password"
 # Public tables
-tables="book book_category book_link book_revision"
+tables="book book_category book_cover book_link book_revision book_scan"
 
 mysqldump $db_credentials -d $db > $out_file
 mysqldump $db_credentials $db $tables --max_allowed_packet=1M >> $out_file
