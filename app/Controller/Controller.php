@@ -60,9 +60,16 @@ abstract class Controller extends BaseController {
 			$shelves = $this->shelfRepo()->createShelves($this->getUser(), $this->getParameter('default_shelves'));
 			$this->save($shelves);
 		}
+		$choices = [];
+		foreach ($shelves as $shelf) {
+			$choices[$shelf->getGroup() ?: ''][] = $shelf;
+		}
+		$ungroupedChoices = $choices[''];
+		unset($choices['']);
+		$choices += ['' => $ungroupedChoices];
 		$builder = $this->createFormBuilder();
 		$builder->add('shelves', ChoiceType::class, [
-			'choices' => $shelves,
+			'choices' => $choices,
 			'choice_label' => function(Shelf $shelf) { return $shelf->getName(); },
 			'choice_value' => function(Shelf $shelf) { return $shelf->getId(); },
 			'choice_attr' => function(Shelf $shelf) {

@@ -107,10 +107,13 @@ return [
 	'Admin comment' => 'Административен коментар',
 	'Ocred text' => 'Текст след OCR',
 	'Missing scan title' => '⚠ Няма заглавие ☹',
+	'Shelf' => 'Рафт',
 	'Name' => 'Име',
 	'Icon' => 'Иконка',
 	'Description' => 'Описание',
+	'Group' => 'Група',
 	'Is public' => 'Да се вижда от всички',
+	'User' => 'Потребител',
 	'Book' => [
 		'new_title' => 'Добавяне на нова книга',
 		'form_title' => 'Редактиране на книга (№%entity_id%)',

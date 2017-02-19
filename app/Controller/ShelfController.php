@@ -15,7 +15,7 @@ class ShelfController extends Controller {
 	 * @Route("/", name="shelves")
 	 */
 	public function indexAction(Request $request) {
-		$pager = $this->pager($request, $this->shelfRepo()->isPublic());
+		$pager = $this->pager($request, $this->shelfRepo()->isPublic($request->query->get('group')));
 		return $this->render('Shelf/index.html.twig', [
 			'pager' => $pager,
 		]);

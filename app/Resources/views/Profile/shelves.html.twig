@@ -6,10 +6,17 @@
 
 	<h1 class="page-header">{{ block('title') }}</h1>
 	<table class="table table-condensed table-hover">
+		<tr>
+			<th>{{ 'Shelf'|trans }}</th>
+			<th>{{ 'Group'|trans }}</th>
+			<th>{{ 'Description'|trans }}</th>
+			<th title="Брой книги в рафта">#</th>
+			<th></th>
+		</tr>
 	{% for shelf in pager.currentPageResults %}
 		<tr>
-			<td><span class="fa {{ shelf.icon }} shelf-icon"></span></td>
-			<td><a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a></td>
+			<td><span class="fa {{ shelf.icon }} shelf-icon"></span> <a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a></td>
+			<td><a href="{{ path('my_shelves', { group: shelf.group }) }}">{{ shelf.group }}</a></td>
 			<td title="{{ shelf.description }}">{{ shelf.description|maxlength(40) }}</td>
 			<td><span class="badge">{{ shelf.nbBooks }}</span></td>
 			<td><a href="{{ path('my_shelf_form', { id: shelf.id }) }}" class="btn btn-default btn-xs" title="Промяна"><span class="fa fa-edit"></span></a></td>

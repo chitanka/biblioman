@@ -9,20 +9,28 @@ class ShelfRepository extends EntityRepository {
 	/**
 	 * @return QueryBuilder
 	 */
-	public function isPublic() {
-		return $this->createQueryBuilder('s')
+	public function isPublic($group = null) {
+		$qb = $this->createQueryBuilder('s')
 			->where('s.isPublic = ?1')->setParameter('1', true)
 			->join('s.creator', 'c')
-			->orderBy('s.name', 'ASC');
+			->orderBy('s.name');
+		if ($group != null) {
+			$qb->andWhere('s.group = :group')->setParameter('group', $group);
+		}
+		return $qb;
 	}
 
 	/**
 	 * @return QueryBuilder
 	 */
-	public function forUser(User $user) {
-		return $this->createQueryBuilder('s')
+	public function forUser(User $user, $group = null) {
+		$qb = $this->createQueryBuilder('s')
 			->where('s.creator = ?1')->setParameter('1', $user)
-			->orderBy('s.name', 'ASC');
+			->orderBy('s.group')->addOrderBy('s.name');
+		if ($group != null) {
+			$qb->andWhere('s.group = :group')->setParameter('group', $group);
+		}
+		return $qb;
 	}
 
 	public function findForUser(User $user) {
@@ -35,6 +43,7 @@ class ShelfRepository extends EntityRepository {
 			$shelf = new Shelf($user, $definition['name']);
 			$shelf->setDescription($definition['description']);
 			$shelf->setIcon($definition['icon']);
+			$shelf->setGroup($definition['group']);
 			$shelves->add($shelf);
 		}
 		return $shelves;

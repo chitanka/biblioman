@@ -26,7 +26,7 @@ class ProfileController extends Controller {
 			$this->save($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
-		$pager = $this->pager($request, $this->shelfRepo()->forUser($this->getUser()));
+		$pager = $this->pager($request, $this->shelfRepo()->forUser($this->getUser(), $request->query->get('group')));
 		return $this->render('Profile/shelves.html.twig', [
 			'pager' => $pager,
 			'createForm' => $createForm->createView(),

@@ -134,22 +134,27 @@ parameters:
             name: За прочит
             icon: fa-bookmark-o
             description: Книги за прочит
+            group: Четене
         currently-reading:
             name: Четени в момента
             icon: fa-bookmark
             description: Четени в момента книги
+            group: Четене
         read:
             name: Прочетени
             icon: fa-check
             description: Прочетени книги
+            group: Четене
         favorities:
             name: Любими
             icon: fa-star
             description: Любими книги
+            group: ~
         own:
             name: Притежавани
             icon: fa-home
             description: Притежавани книги
+            group: ~
 
     footer_links:
         - { icon: code, url: https://github.com/chitanka/biblioman, text: Изходен код }

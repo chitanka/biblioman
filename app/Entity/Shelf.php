@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Entity\ShelfRepository")
- * @ORM\Table
+ * @ORM\Table(indexes={
+ *     @ORM\Index(name="group_idx", columns={"grouping"})}
+ * )
  */
 class Shelf {
 
@@ -37,6 +39,12 @@ class Shelf {
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
+
+	/**
+	 * @var string
+	 * @ORM\Column(name="grouping", type="string", length=60, nullable=true)
+	 */
+	private $group;
 
 	/**
 	 * @var User
@@ -127,6 +135,8 @@ class Shelf {
 	public function setIcon($icon) { $this->icon = $icon ?: self::DEFAULT_ICON; }
 	public function getDescription() { return $this->description; }
 	public function setDescription($description) { $this->description = $description; }
+	public function getGroup() { return $this->group; }
+	public function setGroup($group) { $this->group = $group; }
 	public function getCreator() { return $this->creator; }
 	public function setCreator(User $creator = null) { $this->creator = $creator; }
 	public function isPublic() { return $this->isPublic; }
