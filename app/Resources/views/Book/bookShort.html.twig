@@ -45,6 +45,9 @@
 				{% endif %}
 			</div>
 			<div class="book-buttons">
+				{% if addToShelfForms[book.id] is defined %}
+					{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}
+				{% endif %}
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-extra-info">
 					&bull; <span class="fa fa-user-plus"></span> {{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }} {{ _.printUserMessageLink(book.createdBy, book) }}

@@ -108,6 +108,7 @@ return [
 	'Ocred text' => 'Текст след OCR',
 	'Missing scan title' => '⚠ Няма заглавие ☹',
 	'Name' => 'Име',
+	'Icon' => 'Иконка',
 	'Description' => 'Описание',
 	'Is public' => 'Да се вижда от всички',
 	'Book' => [
@@ -176,5 +177,7 @@ return [
 	'label.form.empty_value' => '',
 	'pager.count' => '%count% резултата',
 	'Save' => 'Запис',
-	'shelf.saved' => 'Рафтът „%shelf%“ беше създаден.',
+	'shelf.created' => 'Рафтът „%shelf%“ беше създаден.',
+	'shelf.saved' => 'Рафтът „%shelf%“ беше обновен.',
+	'shelf.deleted' => 'Рафтът „%shelf%“ беше изтрит.',
 ];

@@ -3,13 +3,12 @@
 use App\Entity\Book;
 use App\Entity\BookRepository;
 use App\Entity\Shelf;
-use App\Entity\ShelfRepository;
-use App\Entity\User;
 use App\Form\ShelfType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/my")
@@ -24,7 +23,7 @@ class ProfileController extends Controller {
 		$createForm = $this->createForm(ShelfType::class, $newShelf);
 		if ($createForm->handleRequest($request)->isValid()) {
 			$this->save($newShelf);
-			$this->addSuccessFlash('shelf.saved', ['%shelf%' => $newShelf->getName()]);
+			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
 		$pager = $this->pager($request, $this->shelfRepo()->forUser($this->getUser()));
 		return $this->render('Profile/shelves.html.twig', [
@@ -49,6 +48,30 @@ class ProfileController extends Controller {
 	}
 
 	/**
+	 * @Route("/shelves/{id}/form", name="my_shelf_form")
+	 */
+	public function shelfFormAction(Shelf $shelf, Request $request) {
+		if (!$this->userCanEditShelf($shelf)) {
+			throw $this->createAccessDeniedException();
+		}
+		if ($request->isMethod('DELETE')) {
+			$this->delete($shelf);
+			$this->addSuccessFlash('shelf.deleted', ['%shelf%' => $shelf->getName()]);
+			return $this->redirectToRoute('my_shelves');
+		}
+		$form = $this->createForm(ShelfType::class, $shelf);
+		if ($form->handleRequest($request)->isValid()) {
+			$this->save($shelf);
+			$this->addSuccessFlash('shelf.saved', ['%shelf%' => $shelf->getName()]);
+			return $this->redirectToMyShelf($shelf);
+		}
+		return $this->render('Profile/shelfForm.html.twig', [
+			'form' => $form->createView(),
+			'shelf' => $shelf,
+		]);
+	}
+
+	/**
 	 * @Route("/shelves/{id}/books", name="my_shelf_books")
 	 */
 	public function shelfBooksActions(Shelf $shelf) {
@@ -68,7 +91,7 @@ class ProfileController extends Controller {
 			$shelf->addBook($book);
 			$this->save($shelf);
 		}
-		return $this->redirectToMyShelf($shelf);
+		return $this->redirectToMyShelf($shelf, Response::HTTP_CREATED);
 	}
 
 	/**
@@ -76,7 +99,7 @@ class ProfileController extends Controller {
 	 * @ParamConverter("book", options={"id": "book_id"})
 	 * @Method({"DELETE"})
 	 */
-	public function removeFromShelfAction(Shelf $shelf, Book $book) {
+	public function removeFromShelfAction(Shelf $shelf, Book $book, Request $request) {
 		if (!$this->userCanEditShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}
@@ -87,13 +110,8 @@ class ProfileController extends Controller {
 		return $this->redirectToMyShelf($shelf);
 	}
 
-	protected function redirectToMyShelf(Shelf $shelf) {
-		return $this->redirectToRoute('my_shelf', ['id' => $shelf->getId()]);
-	}
-
-	/** @return ShelfRepository */
-	protected function shelfRepo() {
-		return $this->repo(Shelf::class);
+	protected function redirectToMyShelf(Shelf $shelf, $statusCode = Response::HTTP_SEE_OTHER) {
+		return $this->redirectToRoute('my_shelf', ['id' => $shelf->getId()], $statusCode);
 	}
 
 	protected function userCanViewShelf(Shelf $shelf) {

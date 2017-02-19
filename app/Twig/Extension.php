@@ -1,5 +1,6 @@
 <?php namespace App\Twig;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Router;
 
 class Extension extends \Twig_Extension {
@@ -14,7 +15,9 @@ class Extension extends \Twig_Extension {
 		return [
 			new \Twig_SimpleFilter('autolink', [$this, 'autolink'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
+			new \Twig_SimpleFilter('maxlength', [$this, 'maxlength'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('thumb', [$this, 'createThumbPath']),
+			new \Twig_SimpleFilter('ids', [$this, 'getIdsFromCollection']),
 		];
 	}
 
@@ -34,8 +37,24 @@ class Extension extends \Twig_Extension {
 		return $content;
 	}
 
+	public function maxlength($string, $maxlength = 30, $suffix = null) {
+		$result = mb_substr($string, 0, $maxlength);
+		if (mb_strlen($string) > $maxlength) {
+			$result .= $suffix ?: '…';
+		}
+		return $result;
+	}
+
 	public function createThumbPath($image, $type, $width) {
 		return "/thumb/$type/" . preg_replace('/\.(.+)$/', ".$width.$1", $image);
+	}
+
+	public function getIdsFromCollection(ArrayCollection $collection) {
+		return $collection->map(function($entity) {
+			// a string is needed for the option value comparison in twig
+			/* @see twig_is_selected_choice() */
+			return (string) $entity->getId();
+		})->toArray();
 	}
 
 	public function getName() {

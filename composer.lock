@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cba0a69a61d82d4d1729f3e92283e371",
+    "content-hash": "366a89d73930c96c62dedac83d971f02",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -110,6 +110,131 @@
                 "wiki"
             ],
             "time": "2017-01-22 11:49:55"
+        },
+        {
+            "name": "components/bootstrap",
+            "version": "3.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/bootstrap.git",
+                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/bootstrap/zipball/bffd83f39eb2679850482410b9bdd39a8cc456e5",
+                "reference": "bffd83f39eb2679850482410b9bdd39a8cc456e5",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.9.1"
+            },
+            "suggest": {
+                "components/bootstrap-default": "Provide a theme for Bootstrap as components/bootstrap only provides the CSS as file assets"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/bootstrap.js"
+                    ],
+                    "files": [
+                        "js/*.js",
+                        "css/*.css",
+                        "css/*.map",
+                        "fonts/*",
+                        "less/mixins/*.less",
+                        "less/*.less"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2015-01-22T12:14:01+00:00"
+        },
+        {
+            "name": "components/jquery",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jquery.git",
+                "reference": "09a1658378bc1f818856086396ebeab7d0ec2276"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jquery/zipball/09a1658378bc1f818856086396ebeab7d0ec2276",
+                "reference": "09a1658378bc1f818856086396ebeab7d0ec2276",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.js"
+                    ],
+                    "files": [
+                        "jquery.min.js",
+                        "jquery.min.map"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Resig",
+                    "email": "jeresig@gmail.com"
+                }
+            ],
+            "description": "jQuery JavaScript Library",
+            "homepage": "http://jquery.com",
+            "time": "2016-09-23 06:06:29"
+        },
+        {
+            "name": "cosmicdreams/fontawesome-iconpicker",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cosmicdreams/fontawesome-iconpicker.git",
+                "reference": "c4f90fb9e18ea9f459478408b138c4d4e5577d69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cosmicdreams/fontawesome-iconpicker/zipball/c4f90fb9e18ea9f459478408b138c4d4e5577d69",
+                "reference": "c4f90fb9e18ea9f459478408b138c4d4e5577d69",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/"
         },
         {
             "name": "cypresslab/gitelephant",
@@ -1576,6 +1701,58 @@
             "time": "2016-11-26T00:15:39+00:00"
         },
         {
+            "name": "mrohnstock/bootstrap-multiselect",
+            "version": "0.9.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrohnstock/bootstrap-multiselect.git",
+                "reference": "6d19ec9669a1de732717b0b188820c3094cbd998"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrohnstock/bootstrap-multiselect/zipball/6d19ec9669a1de732717b0b188820c3094cbd998",
+                "reference": "6d19ec9669a1de732717b0b188820c3094cbd998",
+                "shasum": ""
+            },
+            "require": {
+                "components/bootstrap": ">= 2.3.2",
+                "components/jquery": ">=1.11.0",
+                "robloach/component-installer": "*"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "js/bootstrap-multiselect.js",
+                        "js/bootstrap-multiselect-collapsible-groups.js"
+                    ],
+                    "files": [
+                        "css/bootstrap-multiselect.css",
+                        "js/bootstrap-multiselect.js",
+                        "js/bootstrap-multiselect-collapsible-groups.js",
+                        "less/bootstrap-multiselect.less"
+                    ],
+                    "shim": {
+                        "deps": [
+                            "jquery"
+                        ]
+                    }
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Twitter Bootstrap plugin to make selects user friendly.",
+            "homepage": "http://davidstutz.github.io/bootstrap-multiselect/",
+            "keywords": [
+                "JS",
+                "bootstrap",
+                "css",
+                "jquery",
+                "less",
+                "multiselect"
+            ],
+            "time": "2016-02-12T07:38:09+00:00"
+        },
+        {
             "name": "ocramius/proxy-manager",
             "version": "1.0.2",
             "source": {
@@ -1943,6 +2120,54 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "robloach/component-installer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobLoach/component-installer.git",
+                "reference": "59f93ece022f1b5c3576de139964975561af980a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/59f93ece022f1b5c3576de139964975561af980a",
+                "reference": "59f93ece022f1b5c3576de139964975561af980a",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "kriswallsmith/assetic": "1.*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "composer/composer": "~1.1.2",
+                "phpunit/phpunit": "~5.4.6"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                },
+                "class": "ComponentInstaller\\ComponentInstallerPlugin"
+            },
+            "autoload": {
+                "psr-0": {
+                    "ComponentInstaller": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Loach",
+                    "homepage": "http://robloach.net"
+                }
+            ],
+            "description": "Allows installation of Components via Composer.",
+            "time": "2016-07-16 01:43:54"
         },
         {
             "name": "sensio/distribution-bundle",

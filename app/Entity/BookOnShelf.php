@@ -19,13 +19,13 @@ class BookOnShelf {
 
 	/**
 	 * @var Book
-	 * @ORM\ManyToOne(targetEntity="Book", fetch="EAGER")
+	 * @ORM\ManyToOne(targetEntity="Book", inversedBy="booksOnShelf")
 	 */
 	private $book;
 
 	/**
 	 * @var Shelf
-	 * @ORM\ManyToOne(targetEntity="Shelf", inversedBy="booksOnShelf")
+	 * @ORM\ManyToOne(targetEntity="Shelf", inversedBy="booksOnShelf", fetch="EAGER")
 	 */
 	private $shelf;
 

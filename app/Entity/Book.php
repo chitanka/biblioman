@@ -574,11 +574,23 @@ class Book implements \JsonSerializable {
 //	 */
 //	private $items;
 
+	/**
+	 * @var BookOnShelf[]|ArrayCollection
+	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="book", fetch="EXTRA_LAZY")
+	 */
+	private $booksOnShelf;
+
+	/**
+	 * @var Shelf[]|ArrayCollection
+	 */
+	private $shelves;
+
 	public function __construct() {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
 		$this->scans = new ArrayCollection();
 		$this->covers = new ArrayCollection();
+		$this->booksOnShelf = new ArrayCollection();
 		$this->updatedAt = new \DateTime();
 	}
 
@@ -784,6 +796,17 @@ class Book implements \JsonSerializable {
 		}
 		$linksByCategorySorted = array_filter(array_replace(array_fill_keys(BookLink::$categories, null), $linksByCategory));
 		return $linksByCategorySorted;
+	}
+
+	public function getBooksOnShelf() { return $this->booksOnShelf; }
+	public function setBooksOnShelf($booksOnShelf) { $this->booksOnShelf = $booksOnShelf; }
+	public function setShelves($shelves) {
+		$this->shelves = $shelves instanceof ArrayCollection ? $shelves : new ArrayCollection($shelves);
+	}
+	public function getShelves() {
+		return $this->shelves ?: $this->shelves = $this->getBooksOnShelf()->map(function(BookOnShelf $bs) {
+			return $bs->getShelf();
+		});
 	}
 
 	public function getState() {

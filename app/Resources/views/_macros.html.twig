@@ -144,6 +144,10 @@
 	</a>
 {% endmacro %}
 
+{% macro printShelfPicker(book, form) %}
+	{{ form_widget(form.shelves, { value: book.shelves|ids, id: "shelfPicker_"~book.id, attr: { class: "shelf-picker", 'data-book': book.id, 'data-live-search': 'true' } }) }}
+{% endmacro %}
+
 {% macro thumbCover(image, width) %}{{ image|thumb('covers', width) }}{% endmacro %}
 {% macro thumbScan(image, width) %}{{ image|thumb('scans', width) }}{% endmacro %}
 

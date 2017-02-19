@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Промяна на рафт: <a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a>{% endblock %}
+
+{% block content %}
+
+	<h1>{{ block('title') }}</h1>
+	{{ form(form) }}
+
+{% endblock %}
+
+{% block custom_javascript %}
+<script>
+	$(function() {
+		$('#shelf_icon').iconpicker({
+			placement: 'bottomLeft',
+			inputSearch: true
+		});
+	});
+</script>
+{% endblock %}

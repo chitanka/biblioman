@@ -146,3 +146,12 @@ h1 .extra-info {
 		height: 50vw;
 	}
 }
+.shelf-picker {
+	margin-bottom: .6em;
+}
+.shelf-icon {
+	color: #FF6A00;
+}
+.multiselect {
+	text-align: left;
+}

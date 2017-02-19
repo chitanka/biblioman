@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Shelf {
 
+	const DEFAULT_ICON = 'fa-folder-o';
+
 	/**
 	 * @var int
 	 * @ORM\Column(type="integer")
@@ -23,6 +25,12 @@ class Shelf {
 	 * @ORM\Column(type="string", length=100)
 	 */
 	private $name;
+
+	/**
+	 * @var string
+	 * @ORM\Column(type="string", length=40)
+	 */
+	private $icon = self::DEFAULT_ICON;
 
 	/**
 	 * @var string
@@ -44,7 +52,7 @@ class Shelf {
 
 	/**
 	 * @var BookOnShelf[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf", cascade={"persist","remove"}, fetch="EXTRA_LAZY")
+	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="shelf", cascade={"persist","remove"}, orphanRemoval=true, fetch="EXTRA_LAZY")
 	 */
 	private $booksOnShelf;
 
@@ -115,6 +123,8 @@ class Shelf {
 	public function getId() { return $this->id; }
 	public function getName() { return $this->name; }
 	public function setName($name) { $this->name = $name; }
+	public function getIcon() { return $this->icon; }
+	public function setIcon($icon) { $this->icon = $icon ?: self::DEFAULT_ICON; }
 	public function getDescription() { return $this->description; }
 	public function setDescription($description) { $this->description = $description; }
 	public function getCreator() { return $this->creator; }

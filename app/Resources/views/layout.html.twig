@@ -12,6 +12,8 @@
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/bootstrap.min.css') }}">
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/font-awesome.min.css') }}">
 				<link rel="stylesheet" href="{{ asset('lightgallery/css/lightgallery.min.css') }}">
+				<link rel="stylesheet" href="{{ asset('bootstrap-multiselect/css/bootstrap-multiselect.css') }}">
+				<link rel="stylesheet" href="{{ asset('fontawesome-iconpicker/css/fontawesome-iconpicker.min.css') }}">
 				<link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
 			{% endblock %}
 		{% endblock headers %}
@@ -48,14 +50,9 @@
 			<script src="{{ asset('lightgallery/js/lightgallery.min.js') }}"></script>
 			<script src="{{ asset('lightgallery-plugins/js/lg-zoom.min.js') }}"></script>
 			<script src="{{ asset('lightgallery-plugins/js/lg-fullscreen.min.js') }}"></script>
+			<script src="{{ asset('bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
+			<script src="{{ asset('fontawesome-iconpicker/js/fontawesome-iconpicker.min.js') }}"></script>
 			<script src="{{ asset('js/frontend.js') }}"></script>
-			<script>
-				$('body').lightGallery({
-					selector: '.thumb-link',
-					subHtmlSelectorRelative: true,
-					hideBarsDelay: 2000
-				});
-			</script>
 		{% endblock %}
 		{% block custom_javascript '' %}
 	</body>

@@ -17,6 +17,10 @@
 				{% for field in fields %}
 					{{ _.printField(book, field, searchableFields) }}
 				{% endfor %}
+				{% if addToShelfForms[book.id] is defined %}
+					<dt>Рафтове</dt>
+					<dd>{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}</dd>
+				{% endif %}
 				<dt>...</dt>
 				<dd class="book-buttons">
 					{{ _.printBookButtons(book) }}

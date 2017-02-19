@@ -61,6 +61,10 @@
 						</ul>
 					</dd>
 				{% endif %}
+				{% if addToShelfForms[book.id] is defined %}
+					<dt>Рафтове</dt>
+					<dd>{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}</dd>
+				{% endif %}
 				<dt>...</dt>
 				<dd>
 					{{ _.printFullContentLink(book) }}

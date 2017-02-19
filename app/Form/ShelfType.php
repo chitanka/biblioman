@@ -10,8 +10,9 @@ class ShelfType extends AbstractType {
 
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder->add('name');
+		$builder->add('icon');
 		$builder->add('description');
-		$builder->add('isPublic');
+		//$builder->add('isPublic');
 		$builder->add('save', SubmitType::class);
 	}
 

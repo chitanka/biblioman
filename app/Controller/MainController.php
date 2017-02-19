@@ -15,6 +15,7 @@ class MainController extends Controller {
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 }

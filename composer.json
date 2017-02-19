@@ -40,7 +40,9 @@
 		"stof/doctrine-extensions-bundle": "^1.2",
 		"lightgallery": "*",
 		"chitanka/wiki-bundle": "*@dev",
-		"chitanka/utils": "*@dev"
+		"chitanka/utils": "*@dev",
+		"mrohnstock/bootstrap-multiselect": "^0.9.13",
+		"cosmicdreams/fontawesome-iconpicker": "^1.2"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",

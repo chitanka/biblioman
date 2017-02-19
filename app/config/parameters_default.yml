@@ -129,6 +129,24 @@ parameters:
         - infoSources
         - linksByCategory
 
+    default_shelves:
+        to-read:
+            name: За прочит
+            icon: fa-bookmark-o
+            description: Книги за прочит
+        currently-reading:
+            name: Четени в момента
+            icon: fa-bookmark
+            description: Четени в момента книги
+        read:
+            name: Прочетени
+            icon: fa-check
+            description: Прочетени книги
+        favorities:
+            name: Любими
+            icon: fa-star
+            description: Любими книги
+
     footer_links:
         - { icon: code, url: https://github.com/chitanka/biblioman, text: Изходен код }
         - { icon: database, url: /biblioman.sql.gz, text: База от данни }

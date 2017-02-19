@@ -1,24 +1,37 @@
 <?php namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\BookRepository;
+use App\Entity\Shelf;
+use App\Entity\ShelfRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
 use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class Controller extends BaseController {
 
 	const ITEMS_PER_PAGE = 24;
 
+	/** @return EntityManager */
 	protected function em() {
 		return $this->getDoctrine()->getManager();
 	}
 
 	/** @return BookRepository */
 	protected function bookRepo() {
-		return $this->repo('App:Book');
+		return $this->repo(Book::class);
+	}
+
+	/** @return ShelfRepository */
+	protected function shelfRepo() {
+		return $this->repo(Shelf::class);
 	}
 
 	protected function repo($repoClass) {
@@ -33,13 +46,56 @@ abstract class Controller extends BaseController {
 		return $this->createPager(new DoctrineCollectionAdapter($collection), $request, $maxPerPage);
 	}
 
+	/**
+	 * @param Book[] $books
+	 * @return FormView[]
+	 */
+	protected function createAddToShelfForms($books) {
+		if (!$this->getUser()) {
+			return null;
+		}
+		$this->shelfRepo()->fetchForBooks($books);
+		$shelves = $this->shelfRepo()->findForUser($this->getUser());
+		if (empty($shelves)) {
+			$shelves = $this->shelfRepo()->createShelves($this->getUser(), $this->getParameter('default_shelves'));
+			$this->save($shelves);
+		}
+		$builder = $this->createFormBuilder();
+		$builder->add('shelves', ChoiceType::class, [
+			'choices' => $shelves,
+			'choice_label' => function(Shelf $shelf) { return $shelf->getName(); },
+			'choice_value' => function(Shelf $shelf) { return $shelf->getId(); },
+			'choice_attr' => function(Shelf $shelf) {
+				return ['data-icon' => $shelf->getIcon()];
+			},
+			'multiple' => true,
+			'choice_translation_domain' => false,
+		]);
+		$addToShelfForms = [];
+		foreach ($books as $book) {
+			$addToShelfForms[$book->getId()] = $builder->getForm()->createView();
+		}
+		return $addToShelfForms;
+	}
+
 	protected function save($entities) {
-		if (!is_array($entities)) {
+		if (!is_array($entities) && !$entities instanceof ArrayCollection) {
 			$entities = [$entities];
 		}
 		$em = $this->em();
 		foreach ($entities as $entity) {
 			$em->persist($entity);
+		}
+		$em->flush();
+	}
+
+	protected function delete($entities) {
+		if (!is_array($entities) && !$entities instanceof ArrayCollection) {
+			$entities = [$entities];
+		}
+		$em = $this->em();
+		foreach ($entities as $entity) {
+			$em->remove($entity);
 		}
 		$em->flush();
 	}

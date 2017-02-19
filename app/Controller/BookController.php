@@ -29,6 +29,7 @@ class BookController extends Controller {
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
 			'sortableFields' => BookRepository::$sortableFields,
 			'query' => $searchQuery,
+			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 
@@ -53,6 +54,7 @@ class BookController extends Controller {
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 
@@ -65,6 +67,7 @@ class BookController extends Controller {
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 
@@ -77,6 +80,7 @@ class BookController extends Controller {
 			'books' => $books,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 
@@ -107,6 +111,7 @@ class BookController extends Controller {
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'addToShelfForms' => $this->createAddToShelfForms([$book]),
 		]);
 	}
 
