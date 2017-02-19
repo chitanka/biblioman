@@ -146,6 +146,10 @@ parameters:
             name: Любими
             icon: fa-star
             description: Любими книги
+        own:
+            name: Притежавани
+            icon: fa-home
+            description: Притежавани книги
 
     footer_links:
         - { icon: code, url: https://github.com/chitanka/biblioman, text: Изходен код }
