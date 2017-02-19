@@ -1,6 +1,7 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\BookOnShelf;
 use App\Entity\BookRepository;
 use App\Entity\Shelf;
 use App\Form\ShelfType;
@@ -40,10 +41,15 @@ class ProfileController extends Controller {
 			throw $this->createAccessDeniedException();
 		}
 		$pager = $this->collectionPager($request, $shelf->getBooksOnShelf());
+		$books = array_map(function(BookOnShelf $bs) {
+			return $bs->getBook();
+		}, $pager->getCurrentPageResults());
 		return $this->render('Profile/shelf.html.twig', [
 			'shelf' => $shelf,
 			'pager' => $pager,
+			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'addToShelfForms' => $this->createAddToShelfForms($books),
 		]);
 	}
 
