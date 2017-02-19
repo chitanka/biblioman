@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	<small><a href="{{ path('my_shelves') }}">Рафт</a>:</small>
+	<small><a href="{{ path('shelves') }}">Рафт</a>:</small>
 	<span class="fa {{ shelf.icon }} shelf-icon"></span> {{ shelf.name }}
 	<span class="extra-info">• от {{ shelf.creator }}</span>
 {% endblock %}
