@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Entity\ShelfRepository")
  * @ORM\Table(indexes={
+ *     @ORM\Index(name="name_idx", columns={"name"}),
  *     @ORM\Index(name="group_idx", columns={"grouping"})}
  * )
  */
@@ -51,6 +52,14 @@ class Shelf {
 	 * @ORM\ManyToOne(targetEntity="User", inversedBy="shelves")
 	 */
 	private $creator;
+
+	/**
+	 * If the shelf is important it will be displayed more prominently than the other shelves.
+	 * Each important shelf should get its own add-to-shelf button.
+	 * @var bool
+	 * @ORM\Column(type="boolean")
+	 */
+	private $isImportant = false;
 
 	/**
 	 * @var bool
@@ -139,6 +148,8 @@ class Shelf {
 	public function setGroup($group) { $this->group = $group; }
 	public function getCreator() { return $this->creator; }
 	public function setCreator(User $creator = null) { $this->creator = $creator; }
+	public function isImportant() { return $this->isImportant; }
+	public function setIsImportant($isImportant) { $this->isImportant = $isImportant; }
 	public function isPublic() { return $this->isPublic; }
 	public function setIsPublic($isPublic) { $this->isPublic = $isPublic; }
 	public function getCreatedAt() { return $this->createdAt; }

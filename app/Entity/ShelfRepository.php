@@ -34,11 +34,11 @@ class ShelfRepository extends EntityRepository {
 	}
 
 	public function findForUser(User $user) {
-		return $this->forUser($user)->getQuery()->getResult();
+		return new EntityCollection($this->forUser($user)->getQuery()->getResult());
 	}
 
 	public function createShelves(User $user, $definitions) {
-		$shelves = new ArrayCollection();
+		$shelves = new EntityCollection();
 		foreach ($definitions as $definition) {
 			$shelf = new Shelf($user, $definition['name']);
 			$shelf->setDescription($definition['description']);

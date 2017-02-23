@@ -13,6 +13,7 @@ class ShelfType extends AbstractType {
 		$builder->add('icon');
 		$builder->add('description');
 		$builder->add('group');
+		$builder->add('isImportant');
 		$builder->add('isPublic');
 		$builder->add('save', SubmitType::class);
 	}

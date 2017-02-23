@@ -145,7 +145,20 @@
 {% endmacro %}
 
 {% macro printShelfPicker(book, form) %}
-	{{ form_widget(form.shelves, { value: book.shelves|ids, id: "shelfPicker_"~book.id, attr: { class: "shelf-picker", 'data-book': book.id, 'data-live-search': 'true' } }) }}
+	{% set selectedShelfIds = book.shelves|ids %}
+	{% if form.shelves.vars.preferred_choices %}
+		<div class="btn-group important-shelf-picker" data-toggle="buttons">
+			{% for choiceGroup in form.shelves.vars.preferred_choices %}
+				{% for choice in choiceGroup.choices %}
+					{% set checked = choice.value in selectedShelfIds %}
+					<label class="btn btn-sm {{ checked ? 'active btn-info' : 'btn-default' }} shelf-{{ choice.value }} fa {{ choice.attr['data-icon'] }}" title="{{ choice.label }}">
+						<input type="checkbox" value="{{ choice.value }}" {% if checked %}checked{% endif %}>
+					</label>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	{% endif %}
+	{{ form_widget(form.shelves, { value: selectedShelfIds, id: "shelfPicker_"~book.id, attr: { class: "shelf-picker", 'data-book': book.id, 'data-live-search': 'true' } }) }}
 {% endmacro %}
 
 {% macro thumbCover(image, width) %}{{ image|thumb('covers', width) }}{% endmacro %}

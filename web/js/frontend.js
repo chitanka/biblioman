@@ -36,6 +36,23 @@ $(function () {
 				url: '/my/shelves/'+$(option).val()+'/books/'+$(option).closest('select').data('book'),
 				type: (checked ? 'POST' : 'DELETE')
 			});
+			var $importantShelfLabel = this.$container.siblings('.important-shelf-picker').find('label.shelf-'+$(option).val());
+			if ( (checked && !$importantShelfLabel.is('.btn-info')) || (!checked && $importantShelfLabel.is('.btn-info')) ) {
+				var toggledClasses = 'btn-info btn-default active';
+				$importantShelfLabel.toggleClass(toggledClasses);
+			}
 		}
 	});
+	$('.important-shelf-picker').on('click', 'label', function () {
+		var $self = $(this);
+		var shelfId = $self.find('input').val();
+		var wasSelected = $self.is('.active');
+		var $shelfPicker = $self.parent().siblings('select.shelf-picker');
+		$self.toggleClass('btn-info btn-default');
+		if (wasSelected) {
+			$shelfPicker.multiselect('deselect', shelfId, true);
+		} else {
+			$shelfPicker.multiselect('select', shelfId, true);
+		}
+	})
 });

@@ -77,6 +77,7 @@ abstract class Controller extends BaseController {
 			},
 			'multiple' => true,
 			'choice_translation_domain' => false,
+			'preferred_choices' => function(Shelf $shelf) { return $shelf->isImportant(); },
 		]);
 		$addToShelfForms = [];
 		foreach ($books as $book) {
