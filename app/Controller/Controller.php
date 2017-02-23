@@ -56,7 +56,7 @@ abstract class Controller extends BaseController {
 		}
 		$this->shelfRepo()->fetchForBooks($books);
 		$shelves = $this->shelfRepo()->findForUser($this->getUser());
-		if (empty($shelves)) {
+		if ($shelves->isEmpty()) {
 			$shelves = $this->shelfRepo()->createShelves($this->getUser(), $this->getParameter('default_shelves'));
 			$this->save($shelves);
 		}
