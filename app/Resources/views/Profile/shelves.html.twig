@@ -10,6 +10,8 @@
 			<th>{{ 'Shelf'|trans }}</th>
 			<th>{{ 'Group'|trans }}</th>
 			<th>{{ 'Description'|trans }}</th>
+			<th title="{{ 'Is important'|trans }}"><span class="fa fa-level-up"></span></th>
+			<th title="{{ 'Is public'|trans }}"><span class="fa fa-eye"></span></th>
 			<th title="Брой книги в рафта">#</th>
 			<th></th>
 		</tr>
@@ -18,7 +20,9 @@
 			<td><span class="fa {{ shelf.icon }} shelf-icon"></span> <a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a></td>
 			<td><a href="{{ path('my_shelves', { group: shelf.group }) }}">{{ shelf.group }}</a></td>
 			<td title="{{ shelf.description }}">{{ shelf.description|maxlength(40) }}</td>
-			<td><span class="badge">{{ shelf.nbBooks }}</span></td>
+			<td>{% if shelf.important %}<span class="fa fa-level-up" title="{{ 'Is important'|trans }}"></span>{% endif %}</td>
+			<td>{% if shelf.public %}<span class="fa fa-eye" title="{{ 'Is public'|trans }}"></span>{% endif %}</td>
+			<td><span class="badge" title="Брой книги в рафта">{{ shelf.nbBooks }}</span></td>
 			<td><a href="{{ path('my_shelf_form', { id: shelf.id }) }}" class="btn btn-default btn-xs" title="Промяна"><span class="fa fa-edit"></span></a></td>
 		</tr>
 	{% else %}
