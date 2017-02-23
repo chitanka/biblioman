@@ -145,11 +145,13 @@ parameters:
             icon: fa-check
             description: Прочетени книги
             group: Четене
+            important: true
         favorities:
             name: Любими
             icon: fa-star
             description: Любими книги
             group: ~
+            important: true
         own:
             name: Притежавани
             icon: fa-home

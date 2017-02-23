@@ -44,6 +44,9 @@ class ShelfRepository extends EntityRepository {
 			$shelf->setDescription($definition['description']);
 			$shelf->setIcon($definition['icon']);
 			$shelf->setGroup($definition['group']);
+			if (!empty($definition['important'])) {
+				$shelf->setIsImportant(true);
+			}
 			$shelves->add($shelf);
 		}
 		return $shelves;
