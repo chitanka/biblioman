@@ -155,6 +155,9 @@ h1 .extra-info {
 .multiselect {
 	text-align: left;
 }
+.multiselect-container .disabled input {
+	display: none;;
+}
 .important-shelf-picker {
 	margin-bottom: 0.3em;
 }
