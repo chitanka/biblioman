@@ -7,15 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table
  */
-class BookOnShelf {
-
-	/**
-	 * @var int
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+class BookOnShelf extends Entity {
 
 	/**
 	 * @var Book
@@ -48,7 +40,6 @@ class BookOnShelf {
 		$this->setPosition(0);
 	}
 
-	public function getId() { return $this->id; }
 	public function getBook() { return $this->book; }
 	public function setBook($book) { $this->book = $book; }
 	public function getShelf() { return $this->shelf; }

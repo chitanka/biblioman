@@ -6,19 +6,12 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  */
-class User implements UserInterface, ParticipantInterface, \JsonSerializable {
+class User extends Entity implements UserInterface, ParticipantInterface, \JsonSerializable {
 
 	const ROLE_DEFAULT = 'ROLE_USER';
-
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	protected $id;
 
 	/**
 	 * @var string
@@ -66,10 +59,6 @@ class User implements UserInterface, ParticipantInterface, \JsonSerializable {
 
 	public function __toString() {
 		return $this->getUsername();
-	}
-
-	public function getId() {
-		return $this->id;
 	}
 
 	public function getUsername() {

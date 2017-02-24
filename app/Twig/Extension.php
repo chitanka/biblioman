@@ -1,5 +1,6 @@
 <?php namespace App\Twig;
 
+use App\Entity\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Router;
 
@@ -50,7 +51,7 @@ class Extension extends \Twig_Extension {
 	}
 
 	public function getIdsFromCollection(ArrayCollection $collection) {
-		return $collection->map(function($entity) {
+		return $collection->map(function(Entity $entity) {
 			// a string is needed for the option value comparison in twig
 			/* @see twig_is_selected_choice() */
 			return (string) $entity->getId();

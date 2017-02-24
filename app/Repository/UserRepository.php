@@ -1,5 +1,6 @@
-<?php namespace App\Entity;
+<?php namespace App\Repository;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;

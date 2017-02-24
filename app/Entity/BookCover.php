@@ -9,7 +9,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table
  * @Vich\Uploadable
  */
-class BookCover implements \JsonSerializable {
+class BookCover extends Entity implements \JsonSerializable {
 
 	const TYPE_FRONT = 'front';
 	const TYPE_BACK = 'back';
@@ -22,14 +22,6 @@ class BookCover implements \JsonSerializable {
 		self::TYPE_INNER,
 		self::TYPE_OTHER,
 	];
-
-	/**
-	 * @var int
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
 
 	/**
 	 * @var Book
@@ -122,7 +114,6 @@ class BookCover implements \JsonSerializable {
 		return empty($this->id);
 	}
 
-	public function getId() { return $this->id; }
 	public function getBook() { return $this->book; }
 	public function setBook($book) { $this->book = $book; }
 	public function getTitle() { return $this->title; }

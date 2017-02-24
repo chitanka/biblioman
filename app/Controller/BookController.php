@@ -2,7 +2,7 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
-use App\Entity\BookRepository;
+use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -80,7 +80,6 @@ class BookController extends Controller {
 			'books' => $books,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
-			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 

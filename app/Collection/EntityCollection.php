@@ -1,4 +1,4 @@
-<?php namespace App\Entity;
+<?php namespace App\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

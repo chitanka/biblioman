@@ -1,8 +1,8 @@
 <?php namespace App\Controller;
 
 use App\Entity\BookOnShelf;
-use App\Entity\BookRepository;
 use App\Entity\Shelf;
+use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 

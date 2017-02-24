@@ -9,15 +9,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Table
  * @Vich\Uploadable
  */
-class BookScan implements \JsonSerializable {
-
-	/**
-	 * @var int
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+class BookScan extends Entity implements \JsonSerializable {
 
 	/**
 	 * @var Book
@@ -100,10 +92,6 @@ class BookScan implements \JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return $this->toArray();
-	}
-
-	public function getId() {
-		return $this->id;
 	}
 
 	public function getBook() {

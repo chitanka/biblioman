@@ -3,17 +3,10 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Entity\BookRevisionRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\BookRevisionRepository")
  * @ORM\Table
  */
-class BookRevision {
-
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+class BookRevision extends Entity {
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="Book", inversedBy="revisions")
@@ -34,20 +27,6 @@ class BookRevision {
 	 * @ORM\Column(type="datetime")
 	 */
 	private $createdAt;
-
-	/**
-	 * @return mixed
-	 */
-	public function getId() {
-		return $this->id;
-	}
-
-	/**
-	 * @param mixed $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
 
 	/**
 	 * @return mixed

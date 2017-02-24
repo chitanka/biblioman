@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use App\Entity\BookRepository;
+use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 

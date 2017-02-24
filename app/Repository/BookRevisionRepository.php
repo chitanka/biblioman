@@ -1,4 +1,4 @@
-<?php namespace App\Entity;
+<?php namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;

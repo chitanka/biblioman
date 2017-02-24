@@ -5,23 +5,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Entity\ShelfRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ShelfRepository")
  * @ORM\Table(indexes={
  *     @ORM\Index(name="name_idx", columns={"name"}),
  *     @ORM\Index(name="group_idx", columns={"grouping"})}
  * )
  */
-class Shelf {
+class Shelf extends Entity {
 
 	const DEFAULT_ICON = 'fa-folder-o';
-
-	/**
-	 * @var int
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
 
 	/**
 	 * @var string
@@ -137,7 +129,6 @@ class Shelf {
 		return $this->getName();
 	}
 
-	public function getId() { return $this->id; }
 	public function getName() { return $this->name; }
 	public function setName($name) { $this->name = $name; }
 	public function getIcon() { return $this->icon; }

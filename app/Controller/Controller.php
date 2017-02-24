@@ -1,9 +1,9 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\BookRepository;
 use App\Entity\Shelf;
-use App\Entity\ShelfRepository;
+use App\Repository\BookRepository;
+use App\Repository\ShelfRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;

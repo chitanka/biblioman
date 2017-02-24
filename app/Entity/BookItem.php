@@ -6,14 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table
  */
-class BookItem {
-
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+class BookItem extends Entity {
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="Book", inversedBy="items")

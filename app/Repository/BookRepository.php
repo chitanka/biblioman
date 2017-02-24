@@ -1,5 +1,9 @@
-<?php namespace App\Entity;
+<?php namespace App\Repository;
 
+use App\Entity\Book;
+use App\Entity\BookCategory;
+use App\Entity\BookRevision;
+use App\Entity\SearchQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 

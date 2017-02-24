@@ -1,7 +1,7 @@
 <?php namespace App\Form\DataTransformer;
 
+use App\Repository\UserRepository;
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
@@ -12,7 +12,7 @@ use App\Entity\User;
  */
 class UserToUsernameTransformer implements DataTransformerInterface {
 	/**
-	 * @var EntityRepository
+	 * @var UserRepository
 	 */
 	protected $repository;
 
@@ -62,6 +62,6 @@ class UserToUsernameTransformer implements DataTransformerInterface {
 			throw new UnexpectedTypeException($value, 'string');
 		}
 
-		return $this->repository->findOneByUsername($value);
+		return $this->repository->findByUsername($value);
 	}
 }

@@ -8,14 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  * @ORM\Table
  */
-class BookCategory {
-
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+class BookCategory extends Entity {
 
 	/**
 	 * @var string
@@ -77,10 +70,6 @@ class BookCategory {
 	public function __toString() {
 		$indent = str_repeat('·', $this->lvl * 10) . ' ';
 		return $indent . $this->getName();
-	}
-
-	public function getId() {
-		return $this->id;
 	}
 
 	public function setName($name) {

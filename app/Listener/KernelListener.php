@@ -1,7 +1,7 @@
 <?php namespace App\Listener;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityNotFoundException;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -43,7 +43,7 @@ class KernelListener implements EventSubscriberInterface {
 		}
 		$chitankaUser = (require $this->singleLoginProvider)();
 		if ($chitankaUser['username']) {
-			$repo = $this->em->getRepository('App:User');
+			$repo = $this->em->getRepository(User::class); /* @var $repo UserRepository */
 			$user = $repo->findByUsername($chitankaUser['username']);
 			if (!$user) {
 				$user = $repo->createUser($chitankaUser['username'], $chitankaUser['email']);

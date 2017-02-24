@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table
  */
-class BookLink {
+class BookLink extends Entity {
 
 	public static $categories = [
 		'library',
@@ -18,13 +18,6 @@ class BookLink {
 		'forum',
 		'bookstore',
 	];
-
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
 
 	/**
 	 * @var Book
@@ -56,14 +49,6 @@ class BookLink {
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $author;
-
-	public function getId() {
-		return $this->id;
-	}
-
-	public function setId($id) {
-		$this->id = $id;
-	}
 
 	public function getBook() {
 		return $this->book;

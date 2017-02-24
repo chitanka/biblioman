@@ -8,11 +8,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Table
- * @ORM\Entity(repositoryClass="App\Entity\BookRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\BookRepository")
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
  */
-class Book implements \JsonSerializable {
+class Book extends Entity implements \JsonSerializable {
 
 	const STATE_INCOMPLETE = 'incomplete';
 	const STATE_VERIFIED_0 = 'verified_0';
@@ -21,13 +21,6 @@ class Book implements \JsonSerializable {
 	const STATE_VERIFIED_3 = 'verified_3';
 
 	const LOCK_EXPIRE_TIME = 3600; // 1 hour
-
-	/**
-	 * @ORM\Column(type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
 
 	/**
 	 * @var string
@@ -594,8 +587,6 @@ class Book implements \JsonSerializable {
 		$this->updatedAt = new \DateTime();
 	}
 
-	public function getId() { return $this->id; }
-	public function setId($id) { $this->id = $id; }
 	public function getTitle() { return $this->title; }
 	public function setTitle($title) { $this->title = $this->typoReplace($title); }
 	public function getAltTitle() { return $this->altTitle; }
@@ -1166,9 +1157,6 @@ class Book implements \JsonSerializable {
 		return $this->toArray();
 	}
 
-	/**
-	 * @return Book
-	 */
 	public function __clone() {
 		$this->scans = clone $this->scans;
 	}

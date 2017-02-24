@@ -1,5 +1,10 @@
-<?php namespace App\Entity;
+<?php namespace App\Repository;
 
+use App\Collection\EntityCollection;
+use App\Entity\Book;
+use App\Entity\BookOnShelf;
+use App\Entity\Shelf;
+use App\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -21,6 +26,8 @@ class ShelfRepository extends EntityRepository {
 	}
 
 	/**
+	 * @param User $user
+	 * @param string|null $group
 	 * @return QueryBuilder
 	 */
 	public function forUser(User $user, $group = null) {
@@ -54,7 +61,6 @@ class ShelfRepository extends EntityRepository {
 
 	/**
 	 * @param Book[]|ArrayCollection $books
-	 * @return Shelf[]
 	 */
 	public function fetchForBooks($books) {
 		$booksById = []; /* @var $booksById Book[] */

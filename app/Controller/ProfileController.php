@@ -2,9 +2,9 @@
 
 use App\Entity\Book;
 use App\Entity\BookOnShelf;
-use App\Entity\BookRepository;
 use App\Entity\Shelf;
 use App\Form\ShelfType;
+use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
