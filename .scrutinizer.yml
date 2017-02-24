@@ -5,6 +5,19 @@ filter:
         - var/*
         - vendor/*
 
+checks:
+    php: true
+    javascript: true
+
+coding_style:
+    php:
+        indentation:
+            general:
+                use_tabs: true
+        spaces:
+            around_operators:
+                additive: false
+
 tools:
     # Similar code detector
     php_sim: true
