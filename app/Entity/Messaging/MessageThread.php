@@ -1,4 +1,4 @@
-<?php namespace App\Entity;
+<?php namespace App\Entity\Messaging;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -23,7 +23,7 @@ class MessageThread extends BaseThread {
 
 	/**
 	 * @ORM\OneToMany(
-	 *   targetEntity="App\Entity\Message",
+	 *   targetEntity="Message",
 	 *   mappedBy="thread"
 	 * )
 	 * @var Message[]|Collection
@@ -32,7 +32,7 @@ class MessageThread extends BaseThread {
 
 	/**
 	 * @ORM\OneToMany(
-	 *   targetEntity="App\Entity\MessageThreadMetadata",
+	 *   targetEntity="MessageThreadMetadata",
 	 *   mappedBy="thread",
 	 *   cascade={"all"}
 	 * )

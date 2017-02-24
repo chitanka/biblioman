@@ -89,8 +89,8 @@ swiftmailer:
 
 fos_message:
     db_driver: orm
-    thread_class: App\Entity\MessageThread
-    message_class: App\Entity\Message
+    thread_class: App\Entity\Messaging\MessageThread
+    message_class: App\Entity\Messaging\Message
     user_transformer: app.user_transformer
     new_thread_form:
         type: app.new_message_thread_form_type

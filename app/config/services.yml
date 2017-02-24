@@ -20,10 +20,10 @@ services:
         arguments: ["@doctrine"]
 
     app.new_message_thread_form_type:
-        class: App\Form\NewThreadMessageFormType
+        class: App\Form\Messaging\NewThreadMessageFormType
 
     app.new_message_thread_form_factory:
-        class: App\Form\NewThreadMessageFormFactory
+        class: App\Form\Messaging\NewThreadMessageFormFactory
         arguments: ["@form.factory", "@app.new_message_thread_form_type", "%fos_message.new_thread_form.name%", "%fos_message.new_thread_form.model%", "@app.user_transformer"]
 
     app.twig.extension:

@@ -1,4 +1,4 @@
-<?php namespace App\Entity;
+<?php namespace App\Entity\Messaging;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\MessageBundle\Entity\MessageMetadata as BaseMessageMetadata;
@@ -16,7 +16,7 @@ class MessageMetadata extends BaseMessageMetadata {
 
 	/**
 	 * @ORM\ManyToOne(
-	 *   targetEntity="App\Entity\Message",
+	 *   targetEntity="Message",
 	 *   inversedBy="metadata"
 	 * )
 	 * @var \FOS\MessageBundle\Model\MessageInterface

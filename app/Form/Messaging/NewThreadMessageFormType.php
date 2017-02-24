@@ -1,4 +1,4 @@
-<?php namespace App\Form;
+<?php namespace App\Form\Messaging;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

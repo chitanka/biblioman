@@ -1,4 +1,4 @@
-<?php namespace App\Form;
+<?php namespace App\Form\Messaging;
 
 use App\Form\DataTransformer\UserToUsernameTransformer;
 use Symfony\Component\Form\FormFactoryInterface;

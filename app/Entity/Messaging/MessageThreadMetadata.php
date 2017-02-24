@@ -1,4 +1,4 @@
-<?php namespace App\Entity;
+<?php namespace App\Entity\Messaging;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\MessageBundle\Entity\ThreadMetadata as BaseThreadMetadata;
@@ -16,7 +16,7 @@ class MessageThreadMetadata extends BaseThreadMetadata {
 
 	/**
 	 * @ORM\ManyToOne(
-	 *   targetEntity="App\Entity\MessageThread",
+	 *   targetEntity="MessageThread",
 	 *   inversedBy="metadata"
 	 * )
 	 * @var \FOS\MessageBundle\Model\ThreadInterface
