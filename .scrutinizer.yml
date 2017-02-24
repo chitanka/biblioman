@@ -1,0 +1,45 @@
+filter:
+    excluded_paths:
+        - app/autoload.php
+        - bin/*
+        - var/*
+        - vendor/*
+
+tools:
+    # Similar code detector
+    php_sim: true
+
+    # Metrics
+    php_pdepend: true
+
+    # Some metrics + bug detection/auto-fixes
+    php_analyzer: true
+
+    php_changetracking: true
+
+    # Test coverage
+    #php_code_coverage: true
+
+    php_mess_detector: true
+
+    php_cs_fixer:
+        enabled: true
+        config:
+            fixers:
+                indentation:          false
+                linefeed:             true
+                trailing_spaces:      true
+                unused_use:           true
+                phpdoc_params:        false
+                visibility:           true
+                return:               false
+                short_tag:            true
+                braces:               false
+                include:              true
+                php_closing_tag:      true
+                extra_empty_lines:    true
+                controls_spaces:      true
+                elseif:               true
+                eof_ending:           true
+
+    sensiolabs_security_checker: true
