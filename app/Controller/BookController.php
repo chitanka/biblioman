@@ -114,6 +114,10 @@ class BookController extends Controller {
 		]);
 	}
 
+	/**
+	 * @param BookCategory $rootCategory
+	 * @return string
+	 */
 	private function generateCategoryTree($rootCategory = null) {
 		return $this->bookRepo()->getCategoryRepository()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
 	}

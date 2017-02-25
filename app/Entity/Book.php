@@ -820,8 +820,10 @@ class Book extends Entity implements \JsonSerializable {
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;
-		$this->addCover($this->createCover($image, BookCover::TYPE_FRONT));
-		$this->setUpdatedAtOnFileUpload($image);
+		if ($image !== null) {
+			$this->addCover($this->createCover($image, BookCover::TYPE_FRONT));
+			$this->setUpdatedAtOnFileUpload($image);
+		}
 	}
 	public function getCoverFile() { return $this->coverFile; }
 	public function setCover($cover) {
@@ -833,8 +835,10 @@ class Book extends Entity implements \JsonSerializable {
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
 	public function setBackCoverFile(File $image = null) {
 		$this->backCoverFile = $image;
-		$this->addCover($this->createCover($image, BookCover::TYPE_BACK));
-		$this->setUpdatedAtOnFileUpload($image);
+		if ($image !== null) {
+			$this->addCover($this->createCover($image, BookCover::TYPE_BACK));
+			$this->setUpdatedAtOnFileUpload($image);
+		}
 	}
 	public function getBackCoverFile() { return $this->backCoverFile; }
 	public function setBackCover($backCover) {

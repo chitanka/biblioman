@@ -12,6 +12,7 @@ use Doctrine\ORM\QueryBuilder;
 class ShelfRepository extends EntityRepository {
 
 	/**
+	 * @param string|null $group
 	 * @return QueryBuilder
 	 */
 	public function isPublic($group = null) {
@@ -19,7 +20,7 @@ class ShelfRepository extends EntityRepository {
 			->where('s.isPublic = ?1')->setParameter('1', true)
 			->join('s.creator', 'c')
 			->orderBy('s.name');
-		if ($group != null) {
+		if ($group !== null) {
 			$qb->andWhere('s.group = :group')->setParameter('group', $group);
 		}
 		return $qb;
@@ -34,7 +35,7 @@ class ShelfRepository extends EntityRepository {
 		$qb = $this->createQueryBuilder('s')
 			->where('s.creator = ?1')->setParameter('1', $user)
 			->orderBy('s.group')->addOrderBy('s.name');
-		if ($group != null) {
+		if ($group !== null) {
 			$qb->andWhere('s.group = :group')->setParameter('group', $group);
 		}
 		return $qb;
@@ -44,7 +45,7 @@ class ShelfRepository extends EntityRepository {
 		return new EntityCollection($this->forUser($user)->getQuery()->getResult());
 	}
 
-	public function createShelves(User $user, $definitions) {
+	public function createShelves(User $user, array $definitions) {
 		$shelves = new EntityCollection();
 		foreach ($definitions as $definition) {
 			$shelf = new Shelf($user, $definition['name']);
@@ -62,7 +63,7 @@ class ShelfRepository extends EntityRepository {
 	/**
 	 * @param Book[]|ArrayCollection $books
 	 */
-	public function fetchForBooks($books) {
+	public function loadShelfAssociationForBooks($books) {
 		$booksById = []; /* @var $booksById Book[] */
 		$shelvesByBookId = [];
 		foreach ($books as $book) {

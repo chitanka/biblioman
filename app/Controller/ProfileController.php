@@ -105,7 +105,7 @@ class ProfileController extends Controller {
 	 * @ParamConverter("book", options={"id": "book_id"})
 	 * @Method({"DELETE"})
 	 */
-	public function removeFromShelfAction(Shelf $shelf, Book $book, Request $request) {
+	public function removeFromShelfAction(Shelf $shelf, Book $book) {
 		if (!$this->userCanEditShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}

@@ -9,7 +9,7 @@ $(function () {
 		subHtmlSelectorRelative: true,
 		hideBarsDelay: 2000
 	});
-	$(document).on('submit', 'form[data-confirmation]', function (event) {
+	$(document).on('submit', 'form[data-confirmation]', function () {
 		var confirmationMessage = $(this).data('confirmation');
 		return confirm(confirmationMessage);
 	});
