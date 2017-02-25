@@ -65,8 +65,7 @@ function sendFile($file, $format) {
 
 function notFound($file) {
 	header('HTTP/1.1 404 Not Found');
-	#error_log($file . ' not found');
-	die();
+	echo "File '{$file}' does not exist.";
 }
 
 $query = ltrim(sanitize($_SERVER['QUERY_STRING']), '/');
@@ -81,9 +80,9 @@ $file = sprintf('%s/../../data/%s/%s.%s', __DIR__, dirname($query), $name, $form
 
 if ($width === null) {
 	if (file_exists($file)) {
-		sendFile($file, $format);
+		return sendFile($file, $format);
 	} else {
-		notFound($file);
+		return notFound($file);
 	}
 }
 
@@ -92,7 +91,7 @@ $thumb = realpath(__DIR__ . '/../cache') . sanitize($_SERVER['REQUEST_URI']);
 if (!file_exists($file)) {
 	$tifFile = realpath(preg_replace('/\.[^.]+$/', '.tif', $file));
 	if (!$tifFile) {
-		notFound($file);
+		return notFound($file);
 	}
 	$file = dirname($thumb) . '/orig_' . basename($file);
 	if (!file_exists($file)) {
@@ -105,4 +104,4 @@ if (!file_exists($thumb)) {
 	$thumb = genThumbnail($file, $thumb, $width, 90);
 }
 
-sendFile($thumb, $format);
+return sendFile($thumb, $format);
