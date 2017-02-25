@@ -1,4 +1,5 @@
 {% macro printField(book, field, searchableFields) %}
+	{% import _self as _ %}
 	{% if field == '_divider' %}
 		<dt role="separator"></dt>
 		<dd role="separator"><hr></dd>
@@ -8,24 +9,24 @@
 		<dt class="entity-field{{ field }}" title="{{ field|humanize|trans }}">{{ field|humanize|trans }}</dt>
 		<dd class="entity-field entity-field{{ field }}">
 			{% if attr.timestamp is defined %}
-				{{ _self.printDate(attr) }}
+				{{ _.printDate(attr) }}
 			{% elseif field == 'linksByCategory' %}
 				{% for category, links in attr %}
 					<b>{{ ('BookLinkCategory.' ~ category)|trans }}</b>
 					<ul>
 					{% for link in links %}
-						<li>{{ _self.printLink(link) }}</li>
+						<li>{{ _.printLink(link) }}</li>
 					{% endfor %}
 					</ul>
 				{% endfor %}
 			{% elseif field == 'category' %}
-				{{ _self.printCategoryLink(attr) }}
+				{{ _.printCategoryLink(attr) }}
 			{% elseif field in searchableFields.fields %}
 				{% if attr is same as(true) %}
-					{{ _self.printSearchLink('да', field, searchableFields) }}
+					{{ _.printSearchLink('да', field, searchableFields) }}
 				{% else %}
 					{% for subvalue in attr|split('; ') %}
-						{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
+						{{ _.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
 			{% elseif field == 'toc' %}
@@ -38,7 +39,7 @@
 				{{ attr|nl2br }}
 			{% endif %}
 			{% if field == 'createdBy' %}
-				{{ _self.printUserMessageLink(attr, book) }}
+				{{ _.printUserMessageLink(attr, book) }}
 			{% endif %}
 			{% if field == 'sequence' and book.sequenceNr is not empty %}
 				№{{ book.sequenceNr }}
@@ -63,8 +64,9 @@
 {%- endmacro %}
 
 {% macro printSearchLinks(term, field, searchableFields) -%}
+	{% from _self import printSearchLink %}
 	{% for subvalue in term|split('; ') %}
-		{{ _self.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
+		{{ printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 	{% endfor %}
 {%- endmacro %}
 
@@ -79,8 +81,9 @@
 {%- endmacro %}
 
 {% macro printUser(user, book) %}
+	{% from _self import printUserMessageLink %}
 	{{ user }}
-	{{ _self.printUserMessageLink(user, book) }}
+	{{ printUserMessageLink(user, book) }}
 {% endmacro %}
 
 {% macro printUserMessageLink(user, book) %}
@@ -116,31 +119,34 @@
 {% endmacro %}
 
 {% macro printBookButtons(book) %}
-	{{ _self.printShowLink(book) }}
-	{{ _self.printFullContentLink(book) }}
+	{% import _self as _ %}
+	{{ _.printShowLink(book) }}
+	{{ _.printFullContentLink(book) }}
 	{% if is_granted('ROLE_EDITOR') %}
-		{{ _self.printEditLink(book) }}
+		{{ _.printEditLink(book) }}
 	{% endif %}
 {% endmacro %}
 
 {% macro printBookEditInfo(book, searchableFields) %}
+	{% import _self as _ %}
 	{% if book.isIncomplete %}
 		<div class="text-danger">
 			<span class="fa fa-warning"></span>
 			Записът е непълен.
 			{% if book.reasonWhyIncomplete is not empty %}
-				({{ _self.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+				({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
 			{% endif %}
 		</div>
 	{% endif %}
 	{% if book.nbScans == 0 %}
-		<div class="text-danger">{{ _self.printMissingScansSearchLink(searchableFields) }}</div>
+		<div class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</div>
 	{% endif %}
 {% endmacro %}
 
 {% macro printBookThumbnailLink(book, width) %}
+	{% from _self import thumbCover %}
 	<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} – {{ book.author }}">
-		<img src="{{ _self.thumbCover(book.cover ? book.cover : 'nocover.png', width) }}">
+		<img src="{{ thumbCover(book.cover ? book.cover : 'nocover.png', width) }}">
 	</a>
 {% endmacro %}
 
