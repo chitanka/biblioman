@@ -94,7 +94,7 @@
 {% endmacro %}
 
 {% macro printTitleWithAuthor(book, glue) %}
-<i>{{ _self.maxlength(book.title, 60) }}</i>{% if book.author is not empty %}{{ glue|default(' – ') }}{{ _self.maxlength(book.author, 40) }}{% endif %}
+<i>{{ book.title|maxlength(60) }}</i>{% if book.author is not empty %}{{ glue|default(' – ') }}{{ book.author|maxlength(40) }}{% endif %}
 {% endmacro %}
 
 {% macro printShowLink(book) %}
@@ -163,10 +163,3 @@
 
 {% macro thumbCover(image, width) %}{{ image|thumb('covers', width) }}{% endmacro %}
 {% macro thumbScan(image, width) %}{{ image|thumb('scans', width) }}{% endmacro %}
-
-{% macro maxlength(string, maxlength, suffix) -%}
-	{{ string|slice(0, maxlength) }}
-	{% if string|length > maxlength %}
-		{{ suffix|default('…') }}
-	{% endif %}
-{%- endmacro %}
