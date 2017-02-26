@@ -3,7 +3,7 @@
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\BookRevision;
-use App\Entity\SearchQuery;
+use App\Entity\BookSearchQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -126,7 +126,7 @@ class BookRepository extends EntityRepository {
 
 	/**
 	 * @param string $searchQuery
-	 * @return SearchQuery
+	 * @return BookSearchQuery
 	 */
 	public static function getStructuredSearchQuery($searchQuery) {
 		if (strpos($searchQuery, self::FIELD_SEARCH_SEPARATOR) !== false) {
@@ -135,7 +135,7 @@ class BookRepository extends EntityRepository {
 			$field = '';
 			$term = $searchQuery;
 		}
-		$structure = new SearchQuery();
+		$structure = new BookSearchQuery();
 		$structure->raw = $searchQuery;
 		$structure->field = trim($field);
 		$structure->term = trim($term);
@@ -165,16 +165,18 @@ class BookRepository extends EntityRepository {
 	}
 
 	/**
-	 * @param string $query
+	 * @param string|BookSearchQuery $query
 	 * @param string $sort
 	 * @return QueryBuilder
 	 */
 	public function filterByQuery($query, $sort = null) {
 		$alias = 'b';
 		$qb = $this->createQueryBuilder($alias);
-		$squery = self::getStructuredSearchQuery($query);
-		if (isset(self::$linkedSortableFields[$squery->field])) {
-			$sort = implode(',', self::$linkedSortableFields[$squery->field]);
+		if (is_string($query)) {
+			$query = self::getStructuredSearchQuery($query);
+		}
+		if (isset(self::$linkedSortableFields[$query->field])) {
+			$sort = implode(',', self::$linkedSortableFields[$query->field]);
 		}
 		if (empty($sort)) {
 			$sort = 'title';
@@ -191,40 +193,41 @@ class BookRepository extends EntityRepository {
 				$qb->addOrderBy("$alias.$field", $order);
 			}
 		}
-		if (empty($query)) {
+		if ($query->isEmpty()) {
 			return $qb;
 		}
-		if (strpos($query, self::FIELD_SEARCH_SEPARATOR) !== false) {
-			list($searchField, $fieldQuery) = explode(self::FIELD_SEARCH_SEPARATOR, $query);
-			$fieldQuery = trim($fieldQuery);
-			$allowedFields = self::$searchableFields;
-			if (in_array($searchField, $allowedFields)) {
-				if ($searchField == 'isbn') {
-					$searchField = 'isbnClean';
-				}
-				if ($fieldQuery[0] === '"') {
-					$operator = '=';
-					$fieldQuery = trim($fieldQuery, '"');
-				} else {
-					$operator = 'LIKE';
-					$fieldQuery = '%'.Book::normalizedFieldValue($searchField, $fieldQuery).'%';
-				}
-				$qb->where("$alias.$searchField $operator ?1");
-				if (isset(self::$linkedSearchableFields[$searchField])) {
-					foreach (self::$linkedSearchableFields[$searchField] as $linkedSearchableField) {
-						$qb->orWhere("$alias.$linkedSearchableField $operator ?1");
-					}
-				}
-				$qb->setParameter('1', $fieldQuery);
-				return $qb;
-			}
+		if ($query->shelf) {
+			$qb->join("$alias.booksOnShelf", 'bs')->andWhere('bs.shelf = :shelf')->setParameter('shelf', $query->shelf);
 		}
-		if (is_numeric($query)) {
+		if ($query->category) {
+			$qb->andWhere("$alias.category = :category")->setParameter('category', $query->category);
+		}
+		if ($query->field && in_array($query->field, self::$searchableFields)) {
+			if ($query->field == 'isbn') {
+				$query->field = 'isbnClean';
+			}
+			if ($query->term[0] === '"') {
+				$operator = '=';
+				$fieldQuery = trim($query->term, '"');
+			} else {
+				$operator = 'LIKE';
+				$fieldQuery = '%'.Book::normalizedFieldValue($query->field, $query->term).'%';
+			}
+			$qb->andWhere("$alias.{$query->field} $operator ?1");
+			if (isset(self::$linkedSearchableFields[$query->field])) {
+				foreach (self::$linkedSearchableFields[$query->field] as $linkedSearchableField) {
+					$qb->orWhere("$alias.$linkedSearchableField $operator ?1");
+				}
+			}
+			$qb->setParameter('1', $fieldQuery);
+			return $qb;
+		}
+		if (is_numeric($query->term)) {
 			return $qb
 				->where("$alias.publishingYear = ?1")
-				->setParameter('1', $query);
+				->setParameter('1', $query->term);
 		}
-		if (preg_match('/^(\d+)-(\d+)$/', $query, $matches)) {
+		if (preg_match('/^(\d+)-(\d+)$/', $query->term, $matches)) {
 			return $qb
 				->where("$alias.publishingYear BETWEEN ?1 AND ?2")
 				->setParameters([1 => $matches[1], 2 => $matches[2]]);
@@ -232,7 +235,7 @@ class BookRepository extends EntityRepository {
 		foreach (self::$globallySearchableFields as $globallySearchableField) {
 			$qb->orWhere("$alias.$globallySearchableField LIKE ?1");
 		}
-		$qb->setParameter('1', "%$query%");
+		$qb->setParameter('1', "%{$query->term}%");
 		return $qb;
 	}
 
