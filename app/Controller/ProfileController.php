@@ -22,7 +22,8 @@ class ProfileController extends Controller {
 	public function shelvesAction(Request $request) {
 		$newShelf = new Shelf($this->getUser());
 		$createForm = $this->createForm(ShelfType::class, $newShelf);
-		if ($createForm->handleRequest($request)->isValid()) {
+		$createForm->handleRequest($request);
+		if ($createForm->isSubmitted() && $createForm->isValid()) {
 			$this->persistenceManager()->save($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
@@ -66,7 +67,8 @@ class ProfileController extends Controller {
 			return $this->redirectToRoute('my_shelves');
 		}
 		$form = $this->createForm(ShelfType::class, $shelf);
-		if ($form->handleRequest($request)->isValid()) {
+		$form->handleRequest($request);
+		if ($form->isSubmitted() && $form->isValid()) {
 			$this->persistenceManager()->save($shelf);
 			$this->addSuccessFlash('shelf.saved', ['%shelf%' => $shelf->getName()]);
 			return $this->redirectToMyShelf($shelf);
