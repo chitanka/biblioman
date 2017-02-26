@@ -3,7 +3,7 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BookRevisionRepository")
+ * @ORM\Entity(repositoryClass="App\Entity\Repository\BookRevisionRepository")
  * @ORM\Table
  */
 class BookRevision extends Entity {

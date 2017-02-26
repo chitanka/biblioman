@@ -5,7 +5,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ShelfRepository")
+ * @ORM\Entity(repositoryClass="App\Entity\Repository\ShelfRepository")
  * @ORM\Table(indexes={
  *     @ORM\Index(name="name_idx", columns={"name"}),
  *     @ORM\Index(name="group_idx", columns={"grouping"})}

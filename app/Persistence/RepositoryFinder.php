@@ -1,11 +1,11 @@
 <?php namespace App\Persistence;
 
 use App\Entity\Book;
+use App\Entity\BookCategory;
+use App\Entity\Repository\BookCategoryRepository;
 use App\Entity\Shelf;
-use App\Repository\BookRepository;
-use App\Repository\ShelfRepository;
-use Entity\Category;
-use Entity\Repository\CategoryRepository;
+use App\Entity\Repository\BookRepository;
+use App\Entity\Repository\ShelfRepository;
 
 class RepositoryFinder {
 
@@ -20,9 +20,9 @@ class RepositoryFinder {
 		return $this->getRepository(Book::class);
 	}
 
-	/** @return CategoryRepository */
-	public function forCategory() {
-		return $this->getRepository(Category::class);
+	/** @return BookCategoryRepository */
+	public function forBookCategory() {
+		return $this->getRepository(BookCategory::class);
 	}
 
 	/** @return ShelfRepository */

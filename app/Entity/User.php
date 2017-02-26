@@ -6,7 +6,7 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Entity\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  */
 class User extends Entity implements UserInterface, ParticipantInterface, \JsonSerializable {

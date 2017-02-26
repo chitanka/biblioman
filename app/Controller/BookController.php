@@ -2,7 +2,7 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
-use App\Repository\BookRepository;
+use App\Entity\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -49,7 +49,7 @@ class BookController extends Controller {
 		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterByCategory($category));
 		return $this->render('Book/listByCategory.html.twig', [
 			'category' => $category,
-			'categoryPath' => $this->repoFinder()->forBook()->getCategoryRepository()->getPath($category),
+			'categoryPath' => $this->repoFinder()->forBookCategory()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -119,7 +119,7 @@ class BookController extends Controller {
 	 * @return string
 	 */
 	private function generateCategoryTree($rootCategory = null) {
-		return $this->repoFinder()->forCategory()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
+		return $this->repoFinder()->forBookCategory()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
 	}
 
 	private function categoryTreeOptions() {

@@ -2,7 +2,7 @@
 
 use App\Entity\BookOnShelf;
 use App\Entity\Shelf;
-use App\Repository\BookRepository;
+use App\Entity\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 

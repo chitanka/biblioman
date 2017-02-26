@@ -1,6 +1,6 @@
 <?php namespace App\Form\DataTransformer;
 
-use App\Repository\UserRepository;
+use App\Entity\Repository\UserRepository;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;

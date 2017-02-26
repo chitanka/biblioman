@@ -1,4 +1,4 @@
-<?php namespace App\Repository;
+<?php namespace App\Entity\Repository;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityRepository;

@@ -1,4 +1,4 @@
-<?php namespace App\Repository;
+<?php namespace App\Entity\Repository;
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
@@ -256,8 +256,8 @@ class BookRepository extends EntityRepository {
 			->orWhere('b.nbScans = 0');
 	}
 
-	/** @return \Gedmo\Tree\Entity\Repository\NestedTreeRepository */
-	public function getCategoryRepository() {
+	/** @return BookCategoryRepository */
+	private function getCategoryRepository() {
 		return $this->_em->getRepository(BookCategory::class);
 	}
 
@@ -266,7 +266,7 @@ class BookRepository extends EntityRepository {
 	}
 
 	/** @return BookRevisionRepository */
-	public function getRevisionRepository() {
+	private function getRevisionRepository() {
 		return $this->_em->getRepository(BookRevision::class);
 	}
 }

@@ -19,7 +19,7 @@ abstract class Controller extends BaseController {
 
 	/** @return Manager */
 	protected function persistenceManager() {
-		return $this->get('app.persistance_manager');
+		return $this->get('app.persistence_manager');
 	}
 
 	/** @return RepositoryFinder */

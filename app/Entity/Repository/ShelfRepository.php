@@ -1,4 +1,4 @@
-<?php namespace App\Repository;
+<?php namespace App\Entity\Repository;
 
 use App\Collection\EntityCollection;
 use App\Entity\Book;
