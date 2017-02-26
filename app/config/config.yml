@@ -93,7 +93,7 @@ fos_message:
     message_class: App\Entity\Messaging\Message
     user_transformer: app.user_transformer
     new_thread_form:
-        type: app.new_message_thread_form_type
+        type: App\Form\Messaging\NewThreadMessageFormType
         factory: app.new_message_thread_form_factory
 
 liip_url_auto_converter:
