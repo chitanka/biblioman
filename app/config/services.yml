@@ -40,3 +40,7 @@ services:
         public:    false
         tags:
             - { name: twig.extension }
+
+    app.shelf_store:
+        class: App\Library\ShelfStore
+        arguments: ["@app.persistence_manager", "@app.repository_finder"]

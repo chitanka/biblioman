@@ -1,19 +1,17 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\Shelf;
+use App\Library\ShelfStore;
 use App\Persistence\Manager;
 use App\Persistence\RepositoryFinder;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 
-abstract class Controller extends BaseController {
+abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller {
 
 	const ITEMS_PER_PAGE = 24;
 
@@ -25,6 +23,11 @@ abstract class Controller extends BaseController {
 	/** @return RepositoryFinder */
 	protected function repoFinder() {
 		return $this->get('app.repository_finder');
+	}
+
+	/** @return ShelfStore */
+	protected function shelfStore() {
+		return $this->get('app.shelf_store');
 	}
 
 	protected function pager(Request $request, $query, $maxPerPage = null) {
@@ -43,37 +46,7 @@ abstract class Controller extends BaseController {
 		if (!$this->getUser()) {
 			return null;
 		}
-		$shelfRepo = $this->repoFinder()->forShelf();
-		$shelfRepo->loadShelfAssociationForBooks($books);
-		$shelves = $shelfRepo->findForUser($this->getUser());
-		if ($shelves->isEmpty()) {
-			$shelves = $shelfRepo->createShelves($this->getUser(), $this->getParameter('default_shelves'));
-			$this->persistenceManager()->save($shelves);
-		}
-		$choices = [];
-		foreach ($shelves as $shelf) {
-			$choices[$shelf->getGroup() ?: ''][] = $shelf;
-		}
-		$ungroupedChoices = $choices[''];
-		unset($choices['']);
-		$choices += ['' => $ungroupedChoices];
-		$builder = $this->createFormBuilder();
-		$builder->add('shelves', ChoiceType::class, [
-			'choices' => $choices,
-			'choice_label' => function(Shelf $shelf) { return $shelf->getName(); },
-			'choice_value' => function(Shelf $shelf) { return $shelf->getId(); },
-			'choice_attr' => function(Shelf $shelf) {
-				return ['data-icon' => $shelf->getIcon()];
-			},
-			'multiple' => true,
-			'choice_translation_domain' => false,
-			'preferred_choices' => function(Shelf $shelf) { return $shelf->isImportant(); },
-		]);
-		$addToShelfForms = [];
-		foreach ($books as $book) {
-			$addToShelfForms[$book->getId()] = $builder->getForm()->createView();
-		}
-		return $addToShelfForms;
+		return $this->shelfStore()->createAddToShelfForms($books, $this->createFormBuilder(), $this->getUser(), $this->getParameter('default_shelves'));
 	}
 
 	protected function addSuccessFlash($message, $params = []) {
