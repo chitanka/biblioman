@@ -15,6 +15,14 @@ services:
     app.file_namer:
         class: App\File\Namer
 
+    app.persistence_manager:
+        class: App\Persistence\Manager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    app.repository_finder:
+        class: App\Persistence\RepositoryFinder
+        arguments: ["@app.persistence_manager"]
+
     app.user_transformer:
         class: App\Form\DataTransformer\UserToUsernameTransformer
         arguments: ["@doctrine"]

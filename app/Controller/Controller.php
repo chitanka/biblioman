@@ -2,11 +2,9 @@
 
 use App\Entity\Book;
 use App\Entity\Shelf;
-use App\Repository\BookRepository;
-use App\Repository\ShelfRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Persistence\Manager;
+use App\Persistence\RepositoryFinder;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
 use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -19,23 +17,14 @@ abstract class Controller extends BaseController {
 
 	const ITEMS_PER_PAGE = 24;
 
-	/** @return EntityManager */
-	protected function em() {
-		return $this->getDoctrine()->getManager();
+	/** @return Manager */
+	protected function persistenceManager() {
+		return $this->get('app.persistance_manager');
 	}
 
-	/** @return BookRepository */
-	protected function bookRepo() {
-		return $this->repo(Book::class);
-	}
-
-	/** @return ShelfRepository */
-	protected function shelfRepo() {
-		return $this->repo(Shelf::class);
-	}
-
-	protected function repo($repoClass) {
-		return $this->em()->getRepository($repoClass);
+	/** @return RepositoryFinder */
+	protected function repoFinder() {
+		return $this->get('app.repository_finder');
 	}
 
 	protected function pager(Request $request, $query, $maxPerPage = null) {
@@ -54,11 +43,12 @@ abstract class Controller extends BaseController {
 		if (!$this->getUser()) {
 			return null;
 		}
-		$this->shelfRepo()->loadShelfAssociationForBooks($books);
-		$shelves = $this->shelfRepo()->findForUser($this->getUser());
+		$shelfRepo = $this->repoFinder()->forShelf();
+		$shelfRepo->loadShelfAssociationForBooks($books);
+		$shelves = $shelfRepo->findForUser($this->getUser());
 		if ($shelves->isEmpty()) {
-			$shelves = $this->shelfRepo()->createShelves($this->getUser(), $this->getParameter('default_shelves'));
-			$this->save($shelves);
+			$shelves = $shelfRepo->createShelves($this->getUser(), $this->getParameter('default_shelves'));
+			$this->persistenceManager()->save($shelves);
 		}
 		$choices = [];
 		foreach ($shelves as $shelf) {
@@ -84,28 +74,6 @@ abstract class Controller extends BaseController {
 			$addToShelfForms[$book->getId()] = $builder->getForm()->createView();
 		}
 		return $addToShelfForms;
-	}
-
-	protected function save($entities) {
-		if (!is_array($entities) && !$entities instanceof ArrayCollection) {
-			$entities = [$entities];
-		}
-		$em = $this->em();
-		foreach ($entities as $entity) {
-			$em->persist($entity);
-		}
-		$em->flush();
-	}
-
-	protected function delete($entities) {
-		if (!is_array($entities) && !$entities instanceof ArrayCollection) {
-			$entities = [$entities];
-		}
-		$em = $this->em();
-		foreach ($entities as $entity) {
-			$em->remove($entity);
-		}
-		$em->flush();
 	}
 
 	protected function addSuccessFlash($message, $params = []) {

@@ -10,7 +10,7 @@ class MainController extends Controller {
 	 * @Route("/", name="homepage")
 	 */
 	public function indexAction(Request $request) {
-		$pager = $this->pager($request, $this->bookRepo()->recent());
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->recent());
 		return $this->render('Main/index.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),

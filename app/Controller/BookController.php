@@ -16,7 +16,7 @@ class BookController extends Controller {
 	 */
 	public function indexAction(Request $request) {
 		$searchQuery = BookRepository::getStructuredSearchQuery($request->query->get('q'));
-		$query = $this->bookRepo()->filterByQuery($searchQuery->raw, $request->query->get('sort'));
+		$query = $this->repoFinder()->forBook()->filterByQuery($searchQuery->raw, $request->query->get('sort'));
 		$pager = $this->pager($request, $query);
 		$fields = $this->getParameter('book_fields_short');
 		if ($searchQuery->field && !in_array($searchQuery->field, $fields)) {
@@ -46,10 +46,10 @@ class BookController extends Controller {
 	 * @Route("/categories/{slug}", name="books_by_category")
 	 */
 	public function listByCategoryAction(Request $request, BookCategory $category) {
-		$pager = $this->pager($request, $this->bookRepo()->filterByCategory($category));
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterByCategory($category));
 		return $this->render('Book/listByCategory.html.twig', [
 			'category' => $category,
-			'categoryPath' => $this->bookRepo()->getCategoryRepository()->getPath($category),
+			'categoryPath' => $this->repoFinder()->forBook()->getCategoryRepository()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -62,7 +62,7 @@ class BookController extends Controller {
 	 * @Route("/incomplete", name="books_incomplete")
 	 */
 	public function listIncompleteAction(Request $request) {
-		$pager = $this->pager($request, $this->bookRepo()->filterIncomplete());
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete());
 		return $this->render('Book/listIncomplete.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -75,7 +75,7 @@ class BookController extends Controller {
 	 * @Route("/search-duplicates", name="books_search_duplicates")
 	 */
 	public function searchDuplicatesAction(Request $request) {
-		$books = $this->bookRepo()->findDuplicatesByTitle($request->query->get('title'), $request->query->get('id'));
+		$books = $this->repoFinder()->forBook()->findDuplicatesByTitle($request->query->get('title'), $request->query->get('id'));
 		return $this->render('Book/searchDuplicates.html.twig', [
 			'books' => $books,
 			'fields' => $this->getParameter('book_fields_short'),
@@ -87,7 +87,7 @@ class BookController extends Controller {
 	 * @Route("/revisions", name="books_revisions")
 	 */
 	public function showAllRevisionsAction(Request $request) {
-		$pager = $this->pager($request, $this->bookRepo()->revisions(), 30);
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->revisions(), 30);
 		return $this->render('Book/showAllRevisions.html.twig', [
 			'pager' => $pager,
 		]);
@@ -119,7 +119,7 @@ class BookController extends Controller {
 	 * @return string
 	 */
 	private function generateCategoryTree($rootCategory = null) {
-		return $this->bookRepo()->getCategoryRepository()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
+		return $this->repoFinder()->forCategory()->childrenHierarchy($rootCategory, false /* false: load only direct children */, $this->categoryTreeOptions());
 	}
 
 	private function categoryTreeOptions() {

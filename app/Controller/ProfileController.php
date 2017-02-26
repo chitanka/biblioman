@@ -23,10 +23,10 @@ class ProfileController extends Controller {
 		$newShelf = new Shelf($this->getUser());
 		$createForm = $this->createForm(ShelfType::class, $newShelf);
 		if ($createForm->handleRequest($request)->isValid()) {
-			$this->save($newShelf);
+			$this->persistenceManager()->save($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
-		$pager = $this->pager($request, $this->shelfRepo()->forUser($this->getUser(), $request->query->get('group')));
+		$pager = $this->pager($request, $this->repoFinder()->forShelf()->forUser($this->getUser(), $request->query->get('group')));
 		return $this->render('Profile/shelves.html.twig', [
 			'pager' => $pager,
 			'createForm' => $createForm->createView(),
@@ -61,13 +61,13 @@ class ProfileController extends Controller {
 			throw $this->createAccessDeniedException();
 		}
 		if ($request->isMethod('DELETE')) {
-			$this->delete($shelf);
+			$this->persistenceManager()->delete($shelf);
 			$this->addSuccessFlash('shelf.deleted', ['%shelf%' => $shelf->getName()]);
 			return $this->redirectToRoute('my_shelves');
 		}
 		$form = $this->createForm(ShelfType::class, $shelf);
 		if ($form->handleRequest($request)->isValid()) {
-			$this->save($shelf);
+			$this->persistenceManager()->save($shelf);
 			$this->addSuccessFlash('shelf.saved', ['%shelf%' => $shelf->getName()]);
 			return $this->redirectToMyShelf($shelf);
 		}
@@ -93,9 +93,9 @@ class ProfileController extends Controller {
 		if (!$this->userCanEditShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}
-		if (!$this->shelfRepo()->hasBookOnShelf($book, $shelf)) {
+		if (!$this->repoFinder()->forShelf()->hasBookOnShelf($book, $shelf)) {
 			$shelf->addBook($book);
-			$this->save($shelf);
+			$this->persistenceManager()->save($shelf);
 		}
 		return $this->redirectToMyShelf($shelf, Response::HTTP_CREATED);
 	}
@@ -109,9 +109,9 @@ class ProfileController extends Controller {
 		if (!$this->userCanEditShelf($shelf)) {
 			throw $this->createAccessDeniedException();
 		}
-		if ($bookOnShelf = $this->shelfRepo()->findBookOnShelf($book, $shelf)) {
+		if ($bookOnShelf = $this->repoFinder()->forShelf()->findBookOnShelf($book, $shelf)) {
 			$shelf->removeBook($bookOnShelf);
-			$this->save($shelf);
+			$this->persistenceManager()->save($shelf);
 		}
 		return $this->redirectToMyShelf($shelf);
 	}
