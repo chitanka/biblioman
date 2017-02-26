@@ -4,10 +4,23 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 
+	const ENV_PRODUCTION = 'prod';
+	const ENV_DEVELOPMENT = 'dev';
+	const ENV_TEST = 'test';
+
 	protected $rootDir = __DIR__;
 
 	public function registerBundles() {
-		$bundles = array(
+		switch ($this->environment) {
+			case self::ENV_PRODUCTION:
+				return $this->getBundlesForProduction();
+			default:
+				return $this->getBundlesForDevelopment();
+		}
+	}
+
+	protected function getBundlesForProduction() {
+		return [
 			new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 			new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
 			new \Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -24,28 +37,26 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 			new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 			new \Chitanka\WikiBundle\ChitankaWikiBundle(),
 			new App(),
-		);
+		];
+	}
 
-		if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-			$bundles[] = new \Symfony\Bundle\DebugBundle\DebugBundle();
-			$bundles[] = new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-			$bundles[] = new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-		}
-
-		return $bundles;
+	protected function getBundlesForDevelopment() {
+		return array_merge($this->getBundlesForProduction(), [
+			new \Symfony\Bundle\DebugBundle\DebugBundle(),
+			new \Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
+			new \Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
+		]);
 	}
 
 	public function registerContainerConfiguration(LoaderInterface $loader) {
-		$loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+		$loader->load($this->rootDir.'/config/config_'.$this->environment.'.yml');
 	}
 
-	/** {@inheritdoc} */
 	public function getCacheDir() {
-		return __DIR__.'/../var/cache/'.$this->environment;
+		return $this->rootDir.'/../var/cache/'.$this->environment;
 	}
 
-	/** {@inheritdoc} */
 	public function getLogDir() {
-		return __DIR__.'/../var/log';
+		return $this->rootDir.'/../var/log';
 	}
 }
