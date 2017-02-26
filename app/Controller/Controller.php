@@ -45,7 +45,7 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	}
 
 	/**
-	 * @param Book[] $books
+	 * @param array|Book[] $books
 	 * @return FormView[]
 	 */
 	protected function createAddToShelfForms($books) {
