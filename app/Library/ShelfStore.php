@@ -86,10 +86,14 @@ class ShelfStore {
 	}
 
 	public function userCanViewShelf(User $user, Shelf $shelf) {
-		return $shelf->getCreator()->equals($user);
+		return $shelf->isPublic() || $shelf->getCreator()->equals($user);
 	}
 
 	public function userCanEditShelf(User $user, Shelf $shelf) {
+		return $shelf->getCreator()->equals($user);
+	}
+
+	public function userOwnsShelf(User $user, Shelf $shelf) {
 		return $shelf->getCreator()->equals($user);
 	}
 

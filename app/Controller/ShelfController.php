@@ -25,9 +25,7 @@ class ShelfController extends Controller {
 	 * @Route("/{id}", name="shelf")
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
-		if (!$this->userCanViewShelf($shelf)) {
-			throw $this->createAccessDeniedException();
-		}
+		$this->assertUserCanViewShelf($shelf);
 		$pager = $this->collectionPager($request, $shelf->getBooksOnShelf());
 		$books = array_map(function(BookOnShelf $bs) {
 			return $bs->getBook();
@@ -41,8 +39,8 @@ class ShelfController extends Controller {
 		]);
 	}
 
-	protected function userCanViewShelf(Shelf $shelf) {
-		return $shelf->isPublic() || $shelf->getCreator()->equals($this->getUser());
+	protected function assertUserCanViewShelf(Shelf $shelf) {
+		$this->denyAccessUnless($this->shelfStore()->userCanViewShelf($this->getUser(), $shelf));
 	}
 
 }

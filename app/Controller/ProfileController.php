@@ -20,6 +20,7 @@ class ProfileController extends Controller {
 	 * @Route("/shelves", name="my_shelves")
 	 */
 	public function shelvesAction(Request $request) {
+		$this->assertUserCanHaveShelves();
 		$shelfStore = $this->shelfStore();
 		$newShelf = $shelfStore->createShelf($this->getUser());
 		$createForm = $this->createForm(ShelfType::class, $newShelf);
@@ -38,7 +39,7 @@ class ProfileController extends Controller {
 	 * @Route("/shelves/{id}", name="my_shelf")
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
-		$this->assertUserCanViewShelf($shelf);
+		$this->assertUserOwnsShelf($shelf);
 		$pager = $this->collectionPager($request, $shelf->getBooksOnShelf());
 		$books = array_map(function(BookOnShelf $bs) {
 			return $bs->getBook();
@@ -56,8 +57,8 @@ class ProfileController extends Controller {
 	 * @Route("/shelves/{id}/form", name="my_shelf_form")
 	 */
 	public function shelfFormAction(Shelf $shelf, Request $request) {
-		$this->assertUserCanEditShelf($shelf);
-		if ($request->isMethod('DELETE')) {
+		$this->assertUserOwnsShelf($shelf);
+		if ($request->isMethod(Request::METHOD_DELETE)) {
 			$this->shelfStore()->deleteShelf($shelf);
 			$this->addSuccessFlash('shelf.deleted', ['%shelf%' => $shelf->getName()]);
 			return $this->redirectToRoute('my_shelves');
@@ -87,7 +88,7 @@ class ProfileController extends Controller {
 	 * @Method({"POST"})
 	 */
 	public function addToShelfAction(Shelf $shelf, Book $book) {
-		$this->assertUserCanEditShelf($shelf);
+		$this->assertUserOwnsShelf($shelf);
 		$this->shelfStore()->putBookOnShelf($book, $shelf);
 		return $this->redirectToMyShelf($shelf, Response::HTTP_CREATED);
 	}
@@ -98,7 +99,7 @@ class ProfileController extends Controller {
 	 * @Method({"DELETE"})
 	 */
 	public function removeFromShelfAction(Shelf $shelf, Book $book) {
-		$this->assertUserCanEditShelf($shelf);
+		$this->assertUserOwnsShelf($shelf);
 		$this->shelfStore()->removeBookFromShelf($book, $shelf);
 		return $this->redirectToMyShelf($shelf);
 	}
@@ -111,12 +112,8 @@ class ProfileController extends Controller {
 		$this->denyAccessUnless($this->shelfStore()->userCanHaveShelves($this->getUser()));
 	}
 
-	protected function assertUserCanViewShelf(Shelf $shelf) {
-		$this->denyAccessUnless($this->shelfStore()->userCanViewShelf($this->getUser(), $shelf));
-	}
-
-	protected function assertUserCanEditShelf(Shelf $shelf) {
-		$this->denyAccessUnless($this->shelfStore()->userCanEditShelf($this->getUser(), $shelf));
+	protected function assertUserOwnsShelf(Shelf $shelf) {
+		$this->denyAccessUnless($this->shelfStore()->userOwnsShelf($this->getUser(), $shelf));
 	}
 
 }
