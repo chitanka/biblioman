@@ -1,14 +1,14 @@
 <?php namespace App\Persistence;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
 
 class Manager {
 
 	private $em;
 
-	public function __construct(EntityManager $em) {
-		$this->em = $em;
+	public function __construct(Registry $doctrine) {
+		$this->em = $doctrine->getManager();
 	}
 
 	public function getRepository($entityName) {

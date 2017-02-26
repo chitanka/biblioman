@@ -2,6 +2,7 @@
 
 use App\Entity\User;
 use App\Entity\Repository\UserRepository;
+use App\Persistence\RepositoryFinder;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -17,12 +18,12 @@ class KernelListener implements EventSubscriberInterface {
 		];
 	}
 
-	private $em;
+	private $repoFinder;
 	private $tokenStorage;
 	private $singleLoginProvider;
 
-	public function __construct(EntityManager $em, TokenStorage $tokenStorage, $singleLoginProvider) {
-		$this->em = $em;
+	public function __construct(RepositoryFinder $repoFinder, TokenStorage $tokenStorage, $singleLoginProvider) {
+		$this->repoFinder = $repoFinder;
 		$this->tokenStorage = $tokenStorage;
 		$this->singleLoginProvider = $singleLoginProvider;
 	}
@@ -43,7 +44,7 @@ class KernelListener implements EventSubscriberInterface {
 		}
 		$chitankaUser = (require $this->singleLoginProvider)();
 		if ($chitankaUser['username']) {
-			$repo = $this->em->getRepository(User::class); /* @var $repo UserRepository */
+			$repo = $this->repoFinder->forUser();
 			$user = $repo->findByUsername($chitankaUser['username']);
 			if (!$user) {
 				$user = $repo->createUser($chitankaUser['username'], $chitankaUser['email']);

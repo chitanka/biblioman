@@ -3,7 +3,7 @@
 services:
     kernel.listener:
         class: App\Listener\KernelListener
-        arguments: ["@doctrine.orm.entity_manager", "@security.token_storage", "%single_login_provider%"]
+        arguments: ["@app.repository_finder", "@security.token_storage", "%single_login_provider%"]
         tags:
             - { name: kernel.event_subscriber }
 
@@ -17,7 +17,7 @@ services:
 
     app.persistence_manager:
         class: App\Persistence\Manager
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine"]
 
     app.repository_finder:
         class: App\Persistence\RepositoryFinder
