@@ -62,4 +62,46 @@ class ShelfStore {
 		return $addToShelfForms;
 	}
 
+	public function putBookOnShelf(Book $book, Shelf $shelf) {
+		if ($this->repoFinder->forShelf()->hasBookOnShelf($book, $shelf)) {
+			return false;
+		}
+		$shelf->addBook($book);
+		$this->persistenceManager->save($shelf);
+		return true;
+	}
+
+	public function removeBookFromShelf(Book $book, Shelf $shelf) {
+		$bookOnShelf = $this->repoFinder->forShelf()->findBookOnShelf($book, $shelf);
+		if (!$bookOnShelf) {
+			return false;
+		}
+		$shelf->removeBook($bookOnShelf);
+		$this->persistenceManager->save($shelf);
+		return true;
+	}
+
+	public function userCanHaveShelves(User $user) {
+		return !$user->isAnonymous();
+	}
+
+	public function userCanViewShelf(User $user, Shelf $shelf) {
+		return $shelf->getCreator()->equals($user);
+	}
+
+	public function userCanEditShelf(User $user, Shelf $shelf) {
+		return $shelf->getCreator()->equals($user);
+	}
+
+	public function createShelf(User $user) {
+		return new Shelf($user);
+	}
+
+	public function saveShelf(Shelf $shelf) {
+		$this->persistenceManager->save($shelf);
+	}
+
+	public function deleteShelf(Shelf $shelf) {
+		$this->persistenceManager->delete($shelf);
+	}
 }

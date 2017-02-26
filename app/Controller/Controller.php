@@ -67,6 +67,12 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 		return $this->get('translator')->trans($message, $params);
 	}
 
+	protected function denyAccessUnless($assertion) {
+		if (!$assertion) {
+			throw $this->createAccessDeniedException();
+		}
+	}
+
 	private function createPager($adapter, Request $request, $maxPerPage) {
 		$pager = new Pagerfanta($adapter);
 		$pager->setMaxPerPage($maxPerPage ?: self::ITEMS_PER_PAGE);

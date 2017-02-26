@@ -20,11 +20,11 @@ class ProfileController extends Controller {
 	 * @Route("/shelves", name="my_shelves")
 	 */
 	public function shelvesAction(Request $request) {
-		$newShelf = new Shelf($this->getUser());
+		$shelfStore = $this->shelfStore();
+		$newShelf = $shelfStore->createShelf($this->getUser());
 		$createForm = $this->createForm(ShelfType::class, $newShelf);
-		$createForm->handleRequest($request);
-		if ($createForm->isSubmitted() && $createForm->isValid()) {
-			$this->persistenceManager()->save($newShelf);
+		if ($createForm->handleRequest($request)->isSubmitted() && $createForm->isValid()) {
+			$shelfStore->saveShelf($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
 		$pager = $this->pager($request, $this->repoFinder()->forShelf()->forUser($this->getUser(), $request->query->get('group')));
@@ -38,9 +38,7 @@ class ProfileController extends Controller {
 	 * @Route("/shelves/{id}", name="my_shelf")
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
-		if (!$this->userCanViewShelf($shelf)) {
-			throw $this->createAccessDeniedException();
-		}
+		$this->assertUserCanViewShelf($shelf);
 		$pager = $this->collectionPager($request, $shelf->getBooksOnShelf());
 		$books = array_map(function(BookOnShelf $bs) {
 			return $bs->getBook();
@@ -58,18 +56,15 @@ class ProfileController extends Controller {
 	 * @Route("/shelves/{id}/form", name="my_shelf_form")
 	 */
 	public function shelfFormAction(Shelf $shelf, Request $request) {
-		if (!$this->userCanEditShelf($shelf)) {
-			throw $this->createAccessDeniedException();
-		}
+		$this->assertUserCanEditShelf($shelf);
 		if ($request->isMethod('DELETE')) {
-			$this->persistenceManager()->delete($shelf);
+			$this->shelfStore()->deleteShelf($shelf);
 			$this->addSuccessFlash('shelf.deleted', ['%shelf%' => $shelf->getName()]);
 			return $this->redirectToRoute('my_shelves');
 		}
 		$form = $this->createForm(ShelfType::class, $shelf);
-		$form->handleRequest($request);
-		if ($form->isSubmitted() && $form->isValid()) {
-			$this->persistenceManager()->save($shelf);
+		if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
+			$this->shelfStore()->saveShelf($shelf);
 			$this->addSuccessFlash('shelf.saved', ['%shelf%' => $shelf->getName()]);
 			return $this->redirectToMyShelf($shelf);
 		}
@@ -92,13 +87,8 @@ class ProfileController extends Controller {
 	 * @Method({"POST"})
 	 */
 	public function addToShelfAction(Shelf $shelf, Book $book) {
-		if (!$this->userCanEditShelf($shelf)) {
-			throw $this->createAccessDeniedException();
-		}
-		if (!$this->repoFinder()->forShelf()->hasBookOnShelf($book, $shelf)) {
-			$shelf->addBook($book);
-			$this->persistenceManager()->save($shelf);
-		}
+		$this->assertUserCanEditShelf($shelf);
+		$this->shelfStore()->putBookOnShelf($book, $shelf);
 		return $this->redirectToMyShelf($shelf, Response::HTTP_CREATED);
 	}
 
@@ -108,13 +98,8 @@ class ProfileController extends Controller {
 	 * @Method({"DELETE"})
 	 */
 	public function removeFromShelfAction(Shelf $shelf, Book $book) {
-		if (!$this->userCanEditShelf($shelf)) {
-			throw $this->createAccessDeniedException();
-		}
-		if ($bookOnShelf = $this->repoFinder()->forShelf()->findBookOnShelf($book, $shelf)) {
-			$shelf->removeBook($bookOnShelf);
-			$this->persistenceManager()->save($shelf);
-		}
+		$this->assertUserCanEditShelf($shelf);
+		$this->shelfStore()->removeBookFromShelf($book, $shelf);
 		return $this->redirectToMyShelf($shelf);
 	}
 
@@ -122,11 +107,16 @@ class ProfileController extends Controller {
 		return $this->redirectToRoute('my_shelf', ['id' => $shelf->getId()], $statusCode);
 	}
 
-	protected function userCanViewShelf(Shelf $shelf) {
-		return $shelf->getCreator()->equals($this->getUser());
+	protected function assertUserCanHaveShelves() {
+		$this->denyAccessUnless($this->shelfStore()->userCanHaveShelves($this->getUser()));
 	}
 
-	protected function userCanEditShelf(Shelf $shelf) {
-		return $shelf->getCreator()->equals($this->getUser());
+	protected function assertUserCanViewShelf(Shelf $shelf) {
+		$this->denyAccessUnless($this->shelfStore()->userCanViewShelf($this->getUser(), $shelf));
 	}
+
+	protected function assertUserCanEditShelf(Shelf $shelf) {
+		$this->denyAccessUnless($this->shelfStore()->userCanEditShelf($this->getUser(), $shelf));
+	}
+
 }
