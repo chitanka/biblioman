@@ -1,6 +1,7 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\User;
 use App\Library\ShelfStore;
 use App\Persistence\Manager;
 use App\Persistence\RepositoryFinder;
@@ -14,6 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller {
 
 	const ITEMS_PER_PAGE = 24;
+
+	/** @return User */
+	protected function getUser() {
+		return parent::getUser() ?: User::createAnonymousUser();
+	}
 
 	/** @return Manager */
 	protected function persistenceManager() {
@@ -43,7 +49,7 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	 * @return FormView[]
 	 */
 	protected function createAddToShelfForms($books) {
-		if (!$this->getUser()) {
+		if ($this->getUser()->isAnonymous()) {
 			return null;
 		}
 		return $this->shelfStore()->createAddToShelfForms($books, $this->createFormBuilder(), $this->getUser(), $this->getParameter('default_shelves'));

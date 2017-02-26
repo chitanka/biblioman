@@ -42,7 +42,7 @@ class ShelfController extends Controller {
 	}
 
 	protected function userCanViewShelf(Shelf $shelf) {
-		return $shelf->isPublic() || $shelf->getCreator() == $this->getUser();
+		return $shelf->isPublic() || $shelf->getCreator()->equals($this->getUser());
 	}
 
 }

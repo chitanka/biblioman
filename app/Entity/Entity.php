@@ -13,4 +13,8 @@ abstract class Entity {
 	protected $id;
 
 	public function getId() { return $this->id; }
+
+	public function equals(Entity $entity) {
+		return $this->getId() === $entity->getId();
+	}
 }

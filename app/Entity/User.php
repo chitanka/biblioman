@@ -49,6 +49,10 @@ class User extends Entity implements UserInterface, ParticipantInterface, \JsonS
 	 */
 	private $shelves;
 
+	public static function createAnonymousUser() {
+		return new static(null, null);
+	}
+
 	public function __construct($username, $email, array $roles = []) {
 		$this->username = $username;
 		$this->email = $email;
@@ -59,6 +63,10 @@ class User extends Entity implements UserInterface, ParticipantInterface, \JsonS
 
 	public function __toString() {
 		return $this->getUsername();
+	}
+
+	public function isAnonymous() {
+		return $this->username === null;
 	}
 
 	public function getUsername() {

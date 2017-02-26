@@ -121,10 +121,10 @@ class ProfileController extends Controller {
 	}
 
 	protected function userCanViewShelf(Shelf $shelf) {
-		return $shelf->getCreator() == $this->getUser();
+		return $shelf->getCreator()->equals($this->getUser());
 	}
 
 	protected function userCanEditShelf(Shelf $shelf) {
-		return $shelf->getCreator() == $this->getUser();
+		return $shelf->getCreator()->equals($this->getUser());
 	}
 }
