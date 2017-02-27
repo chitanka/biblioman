@@ -25,10 +25,14 @@ class ShelfController extends Controller {
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
 		$this->assertUserCanViewShelf($shelf);
+		return $this->renderShelf($shelf, $request, 'Shelf/shelf.html.twig');
+	}
+
+	protected function renderShelf(Shelf $shelf, Request $request, $template) {
 		$searchQuery = $this->librarian()->createBookSearchQuery($request->query->get('q'), $request->query->get('sort'));
 		$result = $this->librarian()->findBooksOnShelfByQuery($shelf, $searchQuery);
 		$pager = $this->pager($request, $result);
-		return $this->render('Shelf/shelf.html.twig', [
+		return $this->render($template, [
 			'shelf' => $shelf,
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),

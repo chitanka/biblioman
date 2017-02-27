@@ -3,7 +3,6 @@
 use App\Entity\Book;
 use App\Entity\Shelf;
 use App\Form\ShelfType;
-use App\Entity\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Route("/my")
  */
-class ProfileController extends Controller {
+class MyShelfController extends ShelfController {
 
 	/**
 	 * @Route("/shelves", name="my_shelves")
@@ -39,16 +38,7 @@ class ProfileController extends Controller {
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
 		$this->assertUserOwnsShelf($shelf);
-		$searchQuery = $this->librarian()->createBookSearchQuery($request->query->get('q'), $request->query->get('sort'));
-		$result = $this->librarian()->findBooksOnShelfByQuery($shelf, $searchQuery);
-		$pager = $this->pager($request, $result);
-		return $this->render('Profile/shelf.html.twig', [
-			'shelf' => $shelf,
-			'pager' => $pager,
-			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
-			'addToShelfForms' => $this->createAddToShelfForms($this->librarian()->getBooksFromSearchResult($pager->getCurrentPageResults())),
-		]);
+		return $this->renderShelf($shelf, $request, 'Profile/shelf.html.twig');
 	}
 
 	/**
