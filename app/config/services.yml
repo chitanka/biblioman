@@ -44,3 +44,7 @@ services:
     app.shelf_store:
         class: App\Library\ShelfStore
         arguments: ["@app.persistence_manager", "@app.repository_finder"]
+
+    app.librarian:
+        class: App\Library\Librarian
+        arguments: ["@app.repository_finder"]

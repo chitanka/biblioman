@@ -1,7 +1,6 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\BookOnShelf;
 use App\Entity\Shelf;
 use App\Form\ShelfType;
 use App\Entity\Repository\BookRepository;
@@ -40,16 +39,15 @@ class ProfileController extends Controller {
 	 */
 	public function shelfAction(Shelf $shelf, Request $request) {
 		$this->assertUserOwnsShelf($shelf);
-		$pager = $this->collectionPager($request, $shelf->getBooksOnShelf());
-		$books = array_map(function(BookOnShelf $bs) {
-			return $bs->getBook();
-		}, $pager->getCurrentPageResults());
+		$searchQuery = $this->librarian()->createBookSearchQuery($request->query->get('q'), $request->query->get('sort'));
+		$result = $this->librarian()->findBooksOnShelfByQuery($shelf, $searchQuery);
+		$pager = $this->pager($request, $result);
 		return $this->render('Profile/shelf.html.twig', [
 			'shelf' => $shelf,
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
-			'addToShelfForms' => $this->createAddToShelfForms($books),
+			'addToShelfForms' => $this->createAddToShelfForms($this->librarian()->getBooksFromSearchResult($pager->getCurrentPageResults())),
 		]);
 	}
 

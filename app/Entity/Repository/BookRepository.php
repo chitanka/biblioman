@@ -3,13 +3,12 @@
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\BookRevision;
-use App\Entity\BookSearchQuery;
+use App\Library\BookField;
+use App\Library\BookSearchQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class BookRepository extends EntityRepository {
-
-	const FIELD_SEARCH_SEPARATOR = ':';
 
 	public static $searchableFields = [
 		'author',
@@ -111,36 +110,12 @@ class BookRepository extends EntityRepository {
 		'sequence' => ['subsequence', 'series'],
 		'subsequence' => ['sequence'],
 	];
-	private static $linkedSortableFields = [
-		'sequence' => ['sequenceNr-asc'],
-		'subsequence' => ['subsequenceNr-asc'],
-		'series' => ['seriesNr-asc'],
-	];
 
 	public static function getSearchableFieldsDefinition() {
 		return [
 			'fields' => self::$searchableFields,
-			'separator' => self::FIELD_SEARCH_SEPARATOR,
+			'separator' => BookSearchQuery::FIELD_SEARCH_SEPARATOR,
 		];
-	}
-
-	/**
-	 * @param string $searchQuery
-	 * @return BookSearchQuery
-	 */
-	public static function getStructuredSearchQuery($searchQuery) {
-		if (strpos($searchQuery, self::FIELD_SEARCH_SEPARATOR) !== false) {
-			list($field, $term) = explode(self::FIELD_SEARCH_SEPARATOR, $searchQuery);
-		} else {
-			$field = '';
-			$term = $searchQuery;
-		}
-		$structure = new BookSearchQuery();
-		$structure->raw = $searchQuery;
-		$structure->field = trim($field);
-		$structure->term = trim($term);
-		$structure->normalized = Book::normalizedFieldValue($field, $term);
-		return $structure;
 	}
 
 	/**
@@ -165,34 +140,17 @@ class BookRepository extends EntityRepository {
 	}
 
 	/**
-	 * @param string|BookSearchQuery $query
-	 * @param string $sort
+	 * @param BookSearchQuery $query
 	 * @return QueryBuilder
 	 */
-	public function filterByQuery($query, $sort = null) {
+	public function filterByQuery($query) {
 		$alias = 'b';
 		$qb = $this->createQueryBuilder($alias);
-		if (is_string($query)) {
-			$query = self::getStructuredSearchQuery($query);
-		}
-		if (isset(self::$linkedSortableFields[$query->field])) {
-			$sort = implode(',', self::$linkedSortableFields[$query->field]);
-		}
-		if (empty($sort)) {
-			$sort = 'title';
-		}
-		foreach (explode(',', $sort) as $orderBy) {
-			$orderBy = ltrim($orderBy);
-			if (strpos($orderBy, '-') === false) {
-				$field = $orderBy;
-				$order = 'asc';
-			} else {
-				list($field, $order) = explode('-', ltrim($orderBy));
-			}
+		array_walk($query->sort, function($order, $field) use ($qb, $alias) {
 			if (in_array($field, self::$sortableFields)) {
 				$qb->addOrderBy("$alias.$field", $order);
 			}
-		}
+		});
 		if ($query->isEmpty()) {
 			return $qb;
 		}
@@ -211,7 +169,7 @@ class BookRepository extends EntityRepository {
 				$fieldQuery = trim($query->term, '"');
 			} else {
 				$operator = 'LIKE';
-				$fieldQuery = '%'.Book::normalizedFieldValue($query->field, $query->term).'%';
+				$fieldQuery = '%'.BookField::normalizedFieldValue($query->field, $query->term).'%';
 			}
 			$qb->andWhere("$alias.{$query->field} $operator ?1");
 			if (isset(self::$linkedSearchableFields[$query->field])) {

@@ -2,6 +2,7 @@
 
 use App\Entity\Book;
 use App\Entity\User;
+use App\Library\Librarian;
 use App\Library\ShelfStore;
 use App\Persistence\Manager;
 use App\Persistence\RepositoryFinder;
@@ -36,12 +37,20 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 		return $this->get('app.shelf_store');
 	}
 
-	protected function pager(Request $request, $query, $maxPerPage = null) {
-		return $this->createPager(new DoctrineORMAdapter($query), $request, $maxPerPage);
+	/** @return Librarian */
+	protected function librarian() {
+		return $this->get('app.librarian');
 	}
 
-	protected function collectionPager(Request $request, Collection $collection, $maxPerPage = null) {
-		return $this->createPager(new DoctrineCollectionAdapter($collection), $request, $maxPerPage);
+	protected function pager(Request $request, $query, $maxPerPage = null) {
+		return $this->createPager($this->createPagerAdapter($query), $request, $maxPerPage);
+	}
+
+	private function createPagerAdapter($query) {
+		if ($query instanceof Collection) {
+			return new DoctrineCollectionAdapter($query);
+		}
+		return new DoctrineORMAdapter($query);
 	}
 
 	/**
