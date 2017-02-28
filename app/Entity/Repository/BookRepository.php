@@ -171,12 +171,13 @@ class BookRepository extends EntityRepository {
 				$operator = 'LIKE';
 				$fieldQuery = '%'.BookField::normalizedFieldValue($query->field, $query->term).'%';
 			}
-			$qb->andWhere("$alias.{$query->field} $operator ?1");
+			$predicates = ["$alias.{$query->field} $operator ?1"];
 			if (isset(self::$linkedSearchableFields[$query->field])) {
-				foreach (self::$linkedSearchableFields[$query->field] as $linkedSearchableField) {
-					$qb->orWhere("$alias.$linkedSearchableField $operator ?1");
-				}
+				$predicates = array_merge($predicates, array_map(function($field) use ($alias, $operator) {
+					return "$alias.$field $operator ?1";
+				}, self::$linkedSearchableFields[$query->field]));
 			}
+			$qb->andWhere(implode(' OR ', $predicates));
 			$qb->setParameter('1', $fieldQuery);
 			return $qb;
 		}
@@ -190,9 +191,9 @@ class BookRepository extends EntityRepository {
 				->where("$alias.publishingYear BETWEEN ?1 AND ?2")
 				->setParameters([1 => $matches[1], 2 => $matches[2]]);
 		}
-		foreach (self::$globallySearchableFields as $globallySearchableField) {
-			$qb->orWhere("$alias.$globallySearchableField LIKE ?1");
-		}
+		$qb->andWhere(implode(' OR ', array_map(function($field) use ($alias) {
+			return "$alias.$field LIKE ?1";
+		}, self::$globallySearchableFields)));
 		$qb->setParameter('1', "%{$query->term}%");
 		return $qb;
 	}
