@@ -3,7 +3,7 @@
 use App\Entity\BookCategory;
 use App\Entity\Shelf;
 
-class BookSearchQuery {
+class BookSearchCriteria {
 
 	const FIELD_SEARCH_SEPARATOR = ':';
 	const SORT_FIELD_SEPARATOR = ',';

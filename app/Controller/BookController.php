@@ -2,6 +2,7 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
+use App\Entity\Query\BookQuery;
 use App\Entity\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,8 +27,8 @@ class BookController extends Controller {
 		return $this->render('Book/index.html.twig', [
 			'pager' => $pager,
 			'fields' => $fields,
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
-			'sortableFields' => BookRepository::$sortableFields,
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
+			'sortableFields' => BookQuery::$sortableFields,
 			'query' => $searchQuery,
 			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
@@ -53,7 +54,7 @@ class BookController extends Controller {
 			'tree' => $this->generateCategoryTree($category),
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
@@ -66,7 +67,7 @@ class BookController extends Controller {
 		return $this->render('Book/listIncomplete.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
@@ -79,7 +80,7 @@ class BookController extends Controller {
 		return $this->render('Book/searchDuplicates.html.twig', [
 			'books' => $books,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 		]);
 	}
 
@@ -109,7 +110,7 @@ class BookController extends Controller {
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms([$book]),
 		]);
 	}

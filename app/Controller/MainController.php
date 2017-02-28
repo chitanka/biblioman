@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use App\Entity\Repository\BookRepository;
+use App\Entity\Query\BookQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,7 +14,7 @@ class MainController extends Controller {
 		return $this->render('Main/index.html.twig', [
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}

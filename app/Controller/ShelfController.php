@@ -1,7 +1,7 @@
 <?php namespace App\Controller;
 
+use App\Entity\Query\BookQuery;
 use App\Entity\Shelf;
-use App\Entity\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,7 +36,7 @@ class ShelfController extends Controller {
 			'shelf' => $shelf,
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookRepository::getSearchableFieldsDefinition(),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms($this->librarian()->getBooksFromSearchResult($pager->getCurrentPageResults())),
 		]);
 	}
