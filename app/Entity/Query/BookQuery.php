@@ -141,7 +141,7 @@ class BookQuery {
 		}
 		$this->useShelf($criteria->shelf);
 		$this->useCategory($criteria->category);
-		if ($criteria->field && in_array($criteria->field, self::$searchableFields)) {
+		if ($this->isFieldSearchable($criteria->field)) {
 			return $this->filterBySelectedField($criteria->field, $criteria->term);
 		}
 		if (is_numeric($criteria->term)) {
@@ -171,6 +171,10 @@ class BookQuery {
 		if ($category !== null) {
 			$this->qb->andWhere(self::ALIAS.".category = :category")->setParameter('category', $category);
 		}
+	}
+
+	private function isFieldSearchable($field) {
+		return in_array($field, self::$searchableFields);
 	}
 
 	private function filterBySelectedField($field, $term) {
