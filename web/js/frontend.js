@@ -54,5 +54,11 @@ $(function () {
 		} else {
 			$shelfPicker.multiselect('select', shelfId, true);
 		}
-	})
+	});
+	$('.book-search-form').on('click', '.js-search-actions a', function() {
+		$(this).closest('form').attr('action', this.href)
+			.find('.js-search-action-toggle').dropdown('toggle')
+			.find('.button-text').text($(this).text());
+		return false;
+	});
 });

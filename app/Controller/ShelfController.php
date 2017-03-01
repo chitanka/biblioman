@@ -38,6 +38,8 @@ class ShelfController extends Controller {
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms($this->librarian()->getBooksFromSearchResult($pager->getCurrentPageResults())),
+			'searchAction' => $this->generateUrl($request->get('_route'), ['id' => $shelf->getId()]),
+			'searchScope' => 'shelf',
 		]);
 	}
 

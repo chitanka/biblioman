@@ -50,8 +50,11 @@ body {
 	padding: 1px;
 }
 @media screen and (min-width: 992px) {
-	#q {
-		min-width: 500px;
+	.search-input {
+		min-width: 540px;
+	}
+	.navbar-form .search-input .input-group-btn {
+		width: 1%;
 	}
 	.popover {
 		min-width: 40em;

@@ -184,4 +184,10 @@ return [
 	'shelf.created' => 'Рафтът „%shelf%“ беше създаден.',
 	'shelf.saved' => 'Рафтът „%shelf%“ беше обновен.',
 	'shelf.deleted' => 'Рафтът „%shelf%“ беше изтрит.',
+	'search' => [
+		'shelf' => 'В този рафт',
+		'shelves' => 'В тези рафтове',
+		'category' => 'В тази категория',
+		'categories' => 'В тези категории',
+	],
 ];
