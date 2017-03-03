@@ -38,7 +38,9 @@ body {
 }
 .new-messages-alert {
 	background-color: orangered;
+	background-image: linear-gradient(to bottom, #ff7400 0px, orangered 100%);
 	color: white;
+	border-color: #ff6f00;
 	font-weight: bold;
 }
 .new-messages-alert a {
