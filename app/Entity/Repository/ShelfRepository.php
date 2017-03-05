@@ -20,9 +20,7 @@ class ShelfRepository extends EntityRepository {
 			->where('s.isPublic = ?1')->setParameter('1', true)
 			->join('s.creator', 'c')
 			->orderBy('s.name');
-		if ($group !== null) {
-			$qb->andWhere('s.group = :group')->setParameter('group', $group);
-		}
+		$this->addGroupFilterToQueryBuilder($qb, $group);
 		return $qb;
 	}
 
@@ -35,6 +33,11 @@ class ShelfRepository extends EntityRepository {
 		$qb = $this->createQueryBuilder('s')
 			->where('s.creator = ?1')->setParameter('1', $user)
 			->orderBy('s.group')->addOrderBy('s.name');
+		$this->addGroupFilterToQueryBuilder($qb, $group);
+		return $qb;
+	}
+
+	private function addGroupFilterToQueryBuilder(QueryBuilder $qb, $group) {
 		if ($group !== null) {
 			$qb->andWhere('s.group = :group')->setParameter('group', $group);
 		}
