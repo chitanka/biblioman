@@ -20,7 +20,7 @@ class ShelfStore {
 	}
 
 	/**
-	 * @param Book[] $books
+	 * @param \Traversable|Book[] $books
 	 * @param FormBuilder $builder
 	 * @param User $user
 	 * @param array $defaultShelvesDefinition
