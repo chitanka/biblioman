@@ -4,6 +4,7 @@ use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\Query\BookQuery;
 use App\Http\Request;
+use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -16,20 +17,15 @@ class BookController extends Controller {
 	 */
 	public function indexAction(Request $request) {
 		$searchQuery = $this->librarian()->createBookSearchCriteria($request->getSearchQuery(), $request->getBookSort());
-		$query = $this->librarian()->findBooksByCriteria($searchQuery);
-		$pager = $this->pager($request, $query);
+		$pager = $this->pager($request, $this->librarian()->findBooksByCriteria($searchQuery));
 		$fields = $this->getParameter('book_fields_short');
 		if ($searchQuery->field && !in_array($searchQuery->field, $fields)) {
 			// include the search field in the book output
 			$fields[] = $searchQuery->field;
 		}
-		return $this->render('Book/index.html.twig', [
-			'pager' => $pager,
+		return $this->renderBookListing('Book/index.html.twig', $pager, [
 			'fields' => $fields,
-			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
-			'sortableFields' => BookQuery::$sortableFields,
 			'query' => $searchQuery,
-			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 
@@ -47,14 +43,10 @@ class BookController extends Controller {
 	 */
 	public function listByCategoryAction(Request $request, BookCategory $category) {
 		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterByCategory($category));
-		return $this->render('Book/listByCategory.html.twig', [
+		return $this->renderBookListing('Book/listByCategory.html.twig', $pager, [
 			'category' => $category,
 			'categoryPath' => $this->repoFinder()->forBookCategory()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
-			'pager' => $pager,
-			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
-			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		]);
 	}
 
@@ -63,12 +55,7 @@ class BookController extends Controller {
 	 */
 	public function listIncompleteAction(Request $request) {
 		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete());
-		return $this->render('Book/listIncomplete.html.twig', [
-			'pager' => $pager,
-			'fields' => $this->getParameter('book_fields_short'),
-			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
-			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
-		]);
+		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager);
 	}
 
 	/**
@@ -112,6 +99,16 @@ class BookController extends Controller {
 			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms([$book]),
 		]);
+	}
+
+	private function renderBookListing($template, Pagerfanta $pager, $viewVariables = []) {
+		return $this->render($template, array_merge([
+			'pager' => $pager,
+			'fields' => $this->getParameter('book_fields_short'),
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
+			'sortableFields' => BookQuery::$sortableFields,
+			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
+		], $viewVariables));
 	}
 
 	/**

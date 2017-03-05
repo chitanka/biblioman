@@ -38,6 +38,10 @@ class Librarian {
 		return $this->repoFinder->forBook()->filterByCriteria($query->inCategory($category));
 	}
 
+	public function findRecentBooks() {
+		return $this->repoFinder->forBook()->recent();
+	}
+
 	/**
 	 * @param array|\Traversable $result
 	 * @return Book[]
