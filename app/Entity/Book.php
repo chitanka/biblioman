@@ -823,7 +823,7 @@ class Book extends Entity implements \JsonSerializable {
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;
 		if ($image !== null) {
-			$this->addCover($this->createCover($image, BookCover::TYPE_FRONT));
+			$this->addCover($this->createCover($image, BookCoverType::VALUE_FRONT));
 			$this->setUpdatedAtOnFileUpload($image);
 		}
 	}
@@ -838,7 +838,7 @@ class Book extends Entity implements \JsonSerializable {
 	public function setBackCoverFile(File $image = null) {
 		$this->backCoverFile = $image;
 		if ($image !== null) {
-			$this->addCover($this->createCover($image, BookCover::TYPE_BACK));
+			$this->addCover($this->createCover($image, BookCoverType::VALUE_BACK));
 			$this->setUpdatedAtOnFileUpload($image);
 		}
 	}

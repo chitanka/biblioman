@@ -10,18 +10,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class BookCover extends BookFile {
 
-	const TYPE_FRONT = 'front';
-	const TYPE_BACK = 'back';
-	const TYPE_INNER = 'inner';
-	const TYPE_OTHER = 'other';
-
-	public static $types = [
-		self::TYPE_FRONT,
-		self::TYPE_BACK,
-		self::TYPE_INNER,
-		self::TYPE_OTHER,
-	];
-
 	/** @ORM\ManyToOne(targetEntity="Book", inversedBy="covers") */
 	protected $book;
 
@@ -30,7 +18,7 @@ class BookCover extends BookFile {
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string", length=10)
+	 * @ORM\Embedded(class = "BookCoverType", columnPrefix = false)
 	 */
 	protected $type;
 
