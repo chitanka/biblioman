@@ -11,20 +11,20 @@ abstract class Command extends ContainerAwareCommand {
 		$this->setName($this->getName());
 		$this->setDescription($this->getDescription());
 		$this->setHelp($this->getHelp());
-		array_walk($this->getRequiredArguments(), function($description, $argument) {
+		$this->doWithEveryElement($this->getRequiredArguments(), function($argument, $description) {
 			$this->addArgument($argument, InputArgument::REQUIRED, $description);
 		});
-		array_walk($this->getOptionalArguments(), function($descriptionAndValue, $argument) {
+		$this->doWithEveryElement($this->getOptionalArguments(), function($argument, $descriptionAndValue) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addArgument($argument, InputArgument::OPTIONAL, $description, $defaultValue);
 		});
-		array_walk($this->getArrayArguments(), function($description, $argument) {
+		$this->doWithEveryElement($this->getArrayArguments(), function($argument, $description) {
 			$this->addArgument($argument, InputArgument::IS_ARRAY, $description);
 		});
-		array_walk($this->getBooleanOptions(), function($description, $option) {
+		$this->doWithEveryElement($this->getBooleanOptions(), function($option, $description) {
 			$this->addOption($option, null, InputOption::VALUE_NONE, $description);
 		});
-		array_walk($this->getOptionalOptions(), function($descriptionAndValue, $option) {
+		$this->doWithEveryElement($this->getOptionalOptions(), function($option, $descriptionAndValue) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addOption($option, null, InputOption::VALUE_OPTIONAL, $description, $defaultValue);
 		});
@@ -103,5 +103,15 @@ abstract class Command extends ContainerAwareCommand {
 	/** @return EntityManager */
 	protected function getEntityManager() {
 		return $this->getContainer()->get('doctrine')->getManager();
+	}
+
+	/**
+	 * @param array|\Traversable $values
+	 * @param callable $callback
+	 */
+	private function doWithEveryElement($values, $callback) {
+		foreach ($values as $key => $value) {
+			$callback($key, $value);
+		}
 	}
 }
