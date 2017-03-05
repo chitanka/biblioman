@@ -6,41 +6,46 @@ function makeSureDirExists($file) {
 	}
 }
 
-function genThumbnail($filename, $thumbname, $width = null, $quality = null) {
+function generateThumbnail($filename, $thumbname, $width = null, $quality = null) {
 	makeSureDirExists($thumbname);
 
 	$width = $width ?: 45;
-	$quality = $quality ?: 90;
 	list($width_orig, $height_orig) = getimagesize($filename);
 	if ($width == 'max' || $width == 'orig' || $width_orig < $width) {
 		copy($filename, $thumbname);
-
 		return $thumbname;
 	}
 
 	$height = $width * $height_orig / $width_orig;
-
-	$image_p = imagecreatetruecolor($width, $height);
-
 	$extension = ltrim(strrchr($filename, '.'), '.');
 	switch ($extension) {
 		case 'jpg':
 		case 'jpeg':
-			$image = imagecreatefromjpeg($filename);
-			imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-			imagejpeg($image_p, $thumbname, $quality);
-			break;
+			$quality = $quality ?: 90;
+			return generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality);
 		case 'png':
-			$image = imagecreatefrompng($filename);
-			imagealphablending($image_p, false);
-			$color = imagecolortransparent($image_p, imagecolorallocatealpha($image_p, 0, 0, 0, 127));
-			imagefill($image_p, 0, 0, $color);
-			imagesavealpha($image_p, true);
-			imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-			imagepng($image_p, $thumbname, 9);
-			break;
+			return generateThumbnailForPng($filename, $thumbname, $width, $height, $width_orig, $height_orig);
 	}
+	return $thumbname;
+}
 
+function generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality) {
+	$image_p = imagecreatetruecolor($width, $height);
+	$image = imagecreatefromjpeg($filename);
+	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+	imagejpeg($image_p, $thumbname, $quality);
+	return $thumbname;
+}
+
+function generateThumbnailForPng($filename, $thumbname, $width, $height, $width_orig, $height_orig) {
+	$image_p = imagecreatetruecolor($width, $height);
+	$image = imagecreatefrompng($filename);
+	imagealphablending($image_p, false);
+	$color = imagecolortransparent($image_p, imagecolorallocatealpha($image_p, 0, 0, 0, 127));
+	imagefill($image_p, 0, 0, $color);
+	imagesavealpha($image_p, true);
+	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+	imagepng($image_p, $thumbname, 9);
 	return $thumbname;
 }
 
@@ -60,12 +65,12 @@ function sendFile($file, $format) {
 	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 	header('Content-Type: image/'.$format);
 	header('Content-Length: '.filesize($file));
-	readfile($file);
+	return readfile($file);
 }
 
 function notFound($file) {
 	header('HTTP/1.1 404 Not Found');
-	echo "File '{$file}' does not exist.";
+	return print "File '{$file}' does not exist.";
 }
 
 $query = ltrim(sanitize($_SERVER['QUERY_STRING']), '/');
@@ -81,9 +86,8 @@ $file = sprintf('%s/../../data/%s/%s.%s', __DIR__, dirname($query), $name, $form
 if ($width === null) {
 	if (file_exists($file)) {
 		return sendFile($file, $format);
-	} else {
-		return notFound($file);
 	}
+	return notFound($file);
 }
 
 $thumb = realpath(__DIR__ . '/../cache') . sanitize($_SERVER['REQUEST_URI']);
@@ -101,7 +105,7 @@ if (!file_exists($file)) {
 }
 if (!file_exists($thumb)) {
 	ini_set('memory_limit', '256M');
-	$thumb = genThumbnail($file, $thumb, $width, 90);
+	$thumb = generateThumbnail($file, $thumb, $width, 90);
 }
 
 return sendFile($thumb, $format);
