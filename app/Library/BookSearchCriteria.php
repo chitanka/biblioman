@@ -81,6 +81,7 @@ class BookSearchCriteria {
 		return 'title';
 	}
 
+	/** @return array */
 	private function asArray($thing) {
 		return is_array($thing) ? $thing : [$thing];
 	}
