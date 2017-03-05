@@ -11,23 +11,23 @@ abstract class Command extends ContainerAwareCommand {
 		$this->setName($this->getName());
 		$this->setDescription($this->getDescription());
 		$this->setHelp($this->getHelp());
-		foreach ($this->getRequiredArguments() as $argument => $description) {
+		array_walk($this->getRequiredArguments(), function($description, $argument) {
 			$this->addArgument($argument, InputArgument::REQUIRED, $description);
-		}
-		foreach ($this->getOptionalArguments() as $argument => $descriptionAndValue) {
+		});
+		array_walk($this->getOptionalArguments(), function($descriptionAndValue, $argument) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addArgument($argument, InputArgument::OPTIONAL, $description, $defaultValue);
-		}
-		foreach ($this->getArrayArguments() as $argument => $description) {
+		});
+		array_walk($this->getArrayArguments(), function($description, $argument) {
 			$this->addArgument($argument, InputArgument::IS_ARRAY, $description);
-		}
-		foreach ($this->getBooleanOptions() as $option => $description) {
+		});
+		array_walk($this->getBooleanOptions(), function($description, $option) {
 			$this->addOption($option, null, InputOption::VALUE_NONE, $description);
-		}
-		foreach ($this->getOptionalOptions() as $option => $descriptionAndValue) {
+		});
+		array_walk($this->getOptionalOptions(), function($descriptionAndValue, $option) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addOption($option, null, InputOption::VALUE_OPTIONAL, $description, $defaultValue);
-		}
+		});
 	}
 
 	/**
