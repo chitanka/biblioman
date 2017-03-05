@@ -3,10 +3,10 @@
 use App\Entity\Book;
 use App\Entity\Shelf;
 use App\Form\ShelfType;
+use App\Http\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -26,11 +26,11 @@ class MyShelfController extends ShelfController {
 			$shelfStore->saveShelf($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
-		$pager = $this->pager($request, $shelfStore->showUserShelves($this->getUser(), $request->query->get('group')));
+		$pager = $this->pager($request, $shelfStore->showUserShelves($this->getUser(), $request->getShelfGroup()));
 		return $this->render('Profile/shelves.html.twig', [
 			'pager' => $pager,
 			'createForm' => $createForm->createView(),
-			'searchAction' => $this->generateUrl($request->get('_route')),
+			'searchAction' => $this->generateUrl($request->getCurrentRoute()),
 			'searchScope' => 'shelves',
 		]);
 	}

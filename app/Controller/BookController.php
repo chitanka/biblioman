@@ -3,9 +3,8 @@
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\Query\BookQuery;
-use App\Entity\Repository\BookRepository;
+use App\Http\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/books")
@@ -16,7 +15,7 @@ class BookController extends Controller {
 	 * @Route("/", name="books")
 	 */
 	public function indexAction(Request $request) {
-		$searchQuery = $this->librarian()->createBookSearchCriteria($request->query->get('q'), $request->query->get('sort'));
+		$searchQuery = $this->librarian()->createBookSearchCriteria($request->getSearchQuery(), $request->getBookSort());
 		$query = $this->librarian()->findBooksByCriteria($searchQuery);
 		$pager = $this->pager($request, $query);
 		$fields = $this->getParameter('book_fields_short');

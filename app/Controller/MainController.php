@@ -1,8 +1,8 @@
 <?php namespace App\Controller;
 
 use App\Entity\Query\BookQuery;
+use App\Http\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller {
 

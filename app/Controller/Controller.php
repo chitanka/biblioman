@@ -2,6 +2,7 @@
 
 use App\Entity\Book;
 use App\Entity\User;
+use App\Http\Request;
 use App\Library\Librarian;
 use App\Library\ShelfStore;
 use App\Persistence\Manager;
@@ -11,7 +12,6 @@ use Pagerfanta\Adapter\DoctrineCollectionAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\HttpFoundation\Request;
 
 abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller {
 
@@ -85,7 +85,7 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	private function createPager($adapter, Request $request, $maxPerPage) {
 		$pager = new Pagerfanta($adapter);
 		$pager->setMaxPerPage($maxPerPage ?: self::ITEMS_PER_PAGE);
-		$pager->setCurrentPage($request->query->get('page', 1));
+		$pager->setCurrentPage($request->getPagerPage());
 		return $pager;
 	}
 }

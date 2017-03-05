@@ -2,8 +2,8 @@
 
 use App\Entity\Query\BookQuery;
 use App\Entity\Shelf;
+use App\Http\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/shelves")
@@ -14,7 +14,7 @@ class ShelfController extends Controller {
 	 * @Route("/", name="shelves")
 	 */
 	public function indexAction(Request $request) {
-		$pager = $this->pager($request, $this->shelfStore()->showPublicShelves($request->query->get('group')));
+		$pager = $this->pager($request, $this->shelfStore()->showPublicShelves($request->getShelfGroup()));
 		return $this->render('Shelf/index.html.twig', [
 			'pager' => $pager,
 		]);
@@ -29,7 +29,7 @@ class ShelfController extends Controller {
 	}
 
 	protected function renderShelf(Shelf $shelf, Request $request, $template) {
-		$criteria = $this->librarian()->createBookSearchCriteria($request->query->get('q'), $request->query->get('sort'));
+		$criteria = $this->librarian()->createBookSearchCriteria($request->getSearchQuery(), $request->getBookSort());
 		$result = $this->librarian()->findBooksOnShelfByCriteria($shelf, $criteria);
 		$pager = $this->pager($request, $result);
 		return $this->render($template, [
@@ -38,7 +38,7 @@ class ShelfController extends Controller {
 			'fields' => $this->getParameter('book_fields_short'),
 			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms($this->librarian()->getBooksFromSearchResult($pager->getCurrentPageResults())),
-			'searchAction' => $this->generateUrl($request->get('_route'), ['id' => $shelf->getId()]),
+			'searchAction' => $this->generateUrl($request->getCurrentRoute(), ['id' => $shelf->getId()]),
 			'searchScope' => 'shelf',
 		]);
 	}
