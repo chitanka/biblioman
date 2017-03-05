@@ -2,25 +2,30 @@
 
 class BookField {
 
+	private static $personFields = [
+		'author',
+		'otherAuthors',
+		'adaptedBy',
+		'translator',
+		'compiler',
+		'editorialStaff',
+		'chiefEditor',
+		'editor',
+		'publisherEditor',
+		'consultant',
+		'artist',
+		'artistEditor',
+		'technicalEditor',
+		'reviewer',
+		'corrector',
+	];
+
 	public static function normalizedFieldValue($field, $value) {
 		$value = self::normalizeGenericValue($value);
+		if (self::isPersonField($field)) {
+			return self::normalizePerson($value);
+		}
 		switch ($field) {
-			case 'author':
-			case 'otherAuthors':
-			case 'adaptedBy':
-			case 'translator':
-			case 'compiler':
-			case 'editorialStaff':
-			case 'chiefEditor':
-			case 'editor':
-			case 'publisherEditor':
-			case 'consultant':
-			case 'artist':
-			case 'artistEditor':
-			case 'technicalEditor':
-			case 'reviewer':
-			case 'corrector':
-				return self::normalizePerson($value);
 			case 'publisher':
 				return self::normalizePublisher($value);
 			case 'illustrated':
@@ -30,7 +35,6 @@ class BookField {
 			case 'isbnClean':
 				return self::normalizeSearchableIsbn($value);
 		}
-		$value = trim($value);
 		return $value;
 	}
 
@@ -87,7 +91,7 @@ class BookField {
 	}
 
 	private static function normalizeGenericValue($value) {
-		return preg_replace('/ \(не е указан[ао]?|не е посочен[ао]?\)/u', '', $value);
+		return trim(preg_replace('/ \(не е указан[ао]?|не е посочен[ао]?\)/u', '', $value));
 	}
 
 	private static function normalizeIllustrated($value) {
@@ -111,4 +115,7 @@ class BookField {
 		return implode('|', array_map('preg_quote', $prefixes));
 	}
 
+	private function isPersonField($field) {
+		return in_array($field, self::$personFields);
+	}
 }
