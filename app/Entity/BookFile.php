@@ -8,7 +8,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\MappedSuperclass
  * @Vich\Uploadable
  */
-class BookFile extends Entity implements \JsonSerializable {
+class BookFile extends Entity {
 
 	/**
 	 * @var Book
@@ -78,15 +78,6 @@ class BookFile extends Entity implements \JsonSerializable {
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,
 		];
-	}
-
-	/**
-	 * Specify data which should be serialized to JSON
-	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-	 * @return array
-	 */
-	public function jsonSerialize() {
-		return $this->toArray();
 	}
 
 	public function getBook() { return $this->book; }

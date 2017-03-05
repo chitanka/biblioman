@@ -14,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\HasLifecycleCallbacks
  * @Vich\Uploadable
  */
-class Book extends Entity implements \JsonSerializable {
+class Book extends Entity {
 
 	const STATE_INCOMPLETE = 'incomplete';
 	const STATE_VERIFIED_0 = 'verified_0';
@@ -1150,15 +1150,6 @@ class Book extends Entity implements \JsonSerializable {
 			'infoSources' => $this->infoSources,
 			'scans' => $this->getScans(),
 		];
-	}
-
-	/**
-	 * Specify data which should be serialized to JSON
-	 * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-	 * @return array
-	 */
-	public function jsonSerialize() {
-		return $this->toArray();
 	}
 
 	public function __clone() {

@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Entity\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  */
-class User extends Entity implements UserInterface, ParticipantInterface, \JsonSerializable {
+class User extends Entity implements UserInterface, ParticipantInterface {
 
 	const ROLE_DEFAULT = 'ROLE_USER';
 
@@ -148,7 +148,7 @@ class User extends Entity implements UserInterface, ParticipantInterface, \JsonS
 
 	public function eraseCredentials() {}
 
-	public function jsonSerialize() {
+	public function toArray() {
 		return [
 			'id' => $this->getId(),
 			'username' => $this->getUsername(),
