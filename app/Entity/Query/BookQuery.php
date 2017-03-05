@@ -127,28 +127,32 @@ class BookQuery {
 	public function __construct(BookRepository $repository, BookSearchCriteria $criteria) {
 		$this->repository = $repository;
 		$this->qb = $this->repository->createQueryBuilder(self::ALIAS);
-		$this->setSearchCriteria($criteria);
+		$this->applySearchCriteria($criteria);
 	}
 
 	public function getQueryBuilder() {
 		return $this->qb;
 	}
 
-	private function setSearchCriteria(BookSearchCriteria $criteria) {
+	private function applySearchCriteria(BookSearchCriteria $criteria) {
 		$this->addSort($criteria->sort);
 		if ($criteria->isEmpty()) {
 			return $this->qb;
 		}
-		$this->useShelf($criteria->shelf);
-		$this->useCategory($criteria->category);
+		return $this->setFilters($criteria);
+	}
+
+	private function setFilters(BookSearchCriteria $criteria) {
+		$this->filterByShelves($criteria->shelves);
+		$this->filterByCategories($criteria->categories);
 		if ($this->isFieldSearchable($criteria->field)) {
 			return $this->filterBySelectedField($criteria->field, $criteria->term);
 		}
-		if (is_numeric($criteria->term)) {
-			return $this->filterByPublishingYear($criteria->term);
+		if ($year = Year::tryCreateFromString($criteria->term)) {
+			return $this->filterByPublishingYear($year);
 		}
-		if (preg_match('/^(\d+)-(\d+)$/', $criteria->term, $matches)) {
-			return $this->filterByPublishingYearRange($matches[1], $matches[2]);
+		if ($yearRange = YearRange::tryCreateFromString($criteria->term)) {
+			return $this->filterByPublishingYearRange($yearRange);
 		}
 		return $this->filterGlobally($criteria->term);
 	}
@@ -161,15 +165,17 @@ class BookQuery {
 		});
 	}
 
-	private function useShelf(Shelf $shelf = null) {
-		if ($shelf !== null) {
-			$this->qb->join(self::ALIAS.".booksOnShelf", 'bs')->andWhere('bs.shelf = :shelf')->setParameter('shelf', $shelf);
+	/** @param Shelf[] $shelves */
+	private function filterByShelves($shelves = null) {
+		if (!empty($shelves)) {
+			$this->qb->join(self::ALIAS.".booksOnShelf", 'bs')->andWhere('bs.shelf IN (:shelves)')->setParameter('shelves', $shelves);
 		}
 	}
 
-	private function useCategory(BookCategory $category = null) {
-		if ($category !== null) {
-			$this->qb->andWhere(self::ALIAS.".category = :category")->setParameter('category', $category);
+	/** @param BookCategory[] $categories */
+	private function filterByCategories($categories = null) {
+		if (!empty($categories)) {
+			$this->qb->andWhere(self::ALIAS.".category IN (:categories)")->setParameter('categories', $categories);
 		}
 	}
 
@@ -199,16 +205,16 @@ class BookQuery {
 		return $this->qb;
 	}
 
-	private function filterByPublishingYear($year) {
+	private function filterByPublishingYear(Year $year) {
 		return $this->qb
 			->where(self::ALIAS.".publishingYear = ?1")
-			->setParameter('1', $year);
+			->setParameter('1', $year->year);
 	}
 
-	private function filterByPublishingYearRange($firstYear, $lastYear) {
+	private function filterByPublishingYearRange(YearRange $range) {
 		return $this->qb
 			->where(self::ALIAS.".publishingYear BETWEEN ?1 AND ?2")
-			->setParameters([1 => $firstYear, 2 => $lastYear]);
+			->setParameters([1 => $range->firstYear, 2 => $range->lastYear]);
 	}
 
 	private function filterGlobally($term) {

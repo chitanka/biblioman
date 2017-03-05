@@ -108,4 +108,12 @@ class ShelfStore {
 	public function deleteShelf(Shelf $shelf) {
 		$this->persistenceManager->delete($shelf);
 	}
+
+	public function showUserShelves(User $user, $group = null) {
+		return $this->repoFinder->forShelf()->forUser($user, $group);
+	}
+
+	public function showPublicShelves($group = null) {
+		return $this->repoFinder->forShelf()->isPublic($group);
+	}
 }

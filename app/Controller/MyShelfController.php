@@ -26,10 +26,12 @@ class MyShelfController extends ShelfController {
 			$shelfStore->saveShelf($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
-		$pager = $this->pager($request, $this->repoFinder()->forShelf()->forUser($this->getUser(), $request->query->get('group')));
+		$pager = $this->pager($request, $shelfStore->showUserShelves($this->getUser(), $request->query->get('group')));
 		return $this->render('Profile/shelves.html.twig', [
 			'pager' => $pager,
 			'createForm' => $createForm->createView(),
+			'searchAction' => $this->generateUrl($request->get('_route')),
+			'searchScope' => 'shelves',
 		]);
 	}
 

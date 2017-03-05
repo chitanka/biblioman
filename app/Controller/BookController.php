@@ -16,8 +16,8 @@ class BookController extends Controller {
 	 * @Route("/", name="books")
 	 */
 	public function indexAction(Request $request) {
-		$searchQuery = $this->librarian()->createBookSearchQuery($request->query->get('q'), $request->query->get('sort'));
-		$query = $this->librarian()->findBooksByQuery($searchQuery);
+		$searchQuery = $this->librarian()->createBookSearchCriteria($request->query->get('q'), $request->query->get('sort'));
+		$query = $this->librarian()->findBooksByCriteria($searchQuery);
 		$pager = $this->pager($request, $query);
 		$fields = $this->getParameter('book_fields_short');
 		if ($searchQuery->field && !in_array($searchQuery->field, $fields)) {

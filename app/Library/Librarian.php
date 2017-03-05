@@ -19,23 +19,23 @@ class Librarian {
 	 * @param string $textQuery
 	 * @return BookSearchCriteria
 	 */
-	public function createBookSearchQuery($textQuery, $sort = null) {
+	public function createBookSearchCriteria($textQuery, $sort = null) {
 		return new BookSearchCriteria($textQuery, $sort);
 	}
 
-	public function findBooksByQuery(BookSearchCriteria $query) {
+	public function findBooksByCriteria(BookSearchCriteria $query) {
 		return $this->repoFinder->forBook()->filterByCriteria($query);
 	}
 
-	public function findBooksOnShelfByQuery(Shelf $shelf, BookSearchCriteria $query) {
+	public function findBooksOnShelfByCriteria(Shelf $shelf, BookSearchCriteria $query) {
 		if ($query->isEmpty()) {
 			return $shelf->getBooksOnShelf();
 		}
-		return $this->repoFinder->forBook()->filterByCriteria($query->shelf($shelf));
+		return $this->repoFinder->forBook()->filterByCriteria($query->inShelf($shelf));
 	}
 
-	public function findBooksInCategoryByQuery(BookCategory $category, BookSearchCriteria $query) {
-		return $this->repoFinder->forBook()->filterByCriteria($query->category($category));
+	public function findBooksInCategoryByCriteria(BookCategory $category, BookSearchCriteria $query) {
+		return $this->repoFinder->forBook()->filterByCriteria($query->inCategory($category));
 	}
 
 	/**

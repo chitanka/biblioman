@@ -21,10 +21,10 @@ class BookSearchCriteria {
 	public $raw;
 	public $sort = [];
 
-	/** @var Shelf */
-	public $shelf;
-	/** @var BookCategory */
-	public $category;
+	/** @var Shelf[] */
+	public $shelves = [];
+	/** @var BookCategory[] */
+	public $categories = [];
 
 	public function __construct($textQuery, $sort = null) {
 		$this->raw = trim($textQuery);
@@ -34,20 +34,26 @@ class BookSearchCriteria {
 			$this->term = $this->raw;
 		}
 		$this->normalized = BookField::normalizedFieldValue($this->field, $this->term);
-		$this->sort($sort);
+		$this->sortBy($sort);
 	}
 
-	public function shelf(Shelf $shelf) {
-		$this->shelf = $shelf;
+	public function inShelf($shelf) {
+		return $this->inShelves($shelf);
+	}
+	public function inShelves($shelves) {
+		$this->shelves = array_merge($this->shelves, $this->asArray($shelves));
 		return $this;
 	}
 
-	public function category(BookCategory $category) {
-		$this->category = $category;
+	public function inCategory($category) {
+		return $this->inCategories($category);
+	}
+	public function inCategories($categories) {
+		$this->categories = array_merge($this->categories, $this->asArray($categories));
 		return $this;
 	}
 
-	public function sort($sortQuery = null) {
+	public function sortBy($sortQuery = null) {
 		if (empty($sortQuery)) {
 			$sortQuery = $this->getDefaultSort();
 		}
@@ -75,4 +81,7 @@ class BookSearchCriteria {
 		return 'title';
 	}
 
+	private function asArray($thing) {
+		return is_array($thing) ? $thing : [$thing];
+	}
 }

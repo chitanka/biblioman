@@ -14,7 +14,7 @@ class ShelfController extends Controller {
 	 * @Route("/", name="shelves")
 	 */
 	public function indexAction(Request $request) {
-		$pager = $this->pager($request, $this->repoFinder()->forShelf()->isPublic($request->query->get('group')));
+		$pager = $this->pager($request, $this->shelfStore()->showPublicShelves($request->query->get('group')));
 		return $this->render('Shelf/index.html.twig', [
 			'pager' => $pager,
 		]);
@@ -29,8 +29,8 @@ class ShelfController extends Controller {
 	}
 
 	protected function renderShelf(Shelf $shelf, Request $request, $template) {
-		$searchQuery = $this->librarian()->createBookSearchQuery($request->query->get('q'), $request->query->get('sort'));
-		$result = $this->librarian()->findBooksOnShelfByQuery($shelf, $searchQuery);
+		$criteria = $this->librarian()->createBookSearchCriteria($request->query->get('q'), $request->query->get('sort'));
+		$result = $this->librarian()->findBooksOnShelfByCriteria($shelf, $criteria);
 		$pager = $this->pager($request, $result);
 		return $this->render($template, [
 			'shelf' => $shelf,
