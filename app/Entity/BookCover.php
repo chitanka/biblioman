@@ -17,13 +17,13 @@ class BookCover extends BookFile {
 	protected $file;
 
 	/**
-	 * @var string
+	 * @var BookCoverType
 	 * @ORM\Embedded(class = "BookCoverType", columnPrefix = false)
 	 */
 	protected $type;
 
 	public function __toString() {
-		return $this->getType();
+		return $this->getType()->__toString();
 	}
 
 	public function toArray() {
