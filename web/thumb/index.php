@@ -20,7 +20,6 @@ function generateThumbnail($filename, $thumbname, $width = null, $quality = null
 	switch (getExtensionFromFilename($filename)) {
 		case 'jpg':
 		case 'jpeg':
-			$quality = $quality ?: 90;
 			return generateThumbnailForJpeg($filename, $thumbname, $width, $height, $originalWidth, $originalHeight, $quality);
 		case 'png':
 			return generateThumbnailForPng($filename, $thumbname, $width, $height, $originalWidth, $originalHeight);
@@ -40,6 +39,7 @@ function generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width
 	$image_p = imagecreatetruecolor($width, $height);
 	$image = imagecreatefromjpeg($filename);
 	imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+	$quality = $quality ?: 90;
 	imagejpeg($image_p, $thumbname, $quality);
 	return $thumbname;
 }
