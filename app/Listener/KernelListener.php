@@ -1,9 +1,6 @@
 <?php namespace App\Listener;
 
-use App\Entity\User;
-use App\Entity\Repository\UserRepository;
 use App\Persistence\RepositoryFinder;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;

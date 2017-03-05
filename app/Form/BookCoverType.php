@@ -13,7 +13,7 @@ class BookCoverType extends AbstractType {
 		$builder->add('file', VichImageType::class);
 		$builder->add('type', ChoiceType::class, [
 			'choices' => array_combine(BookCover::$types, BookCover::$types),
-			'choice_label' => function($value, $key, $index) { return 'BookCover.'.$key; },
+			'choice_label' => function($value, $key) { return 'BookCover.'.$key; },
 		]);
 		$builder->add('title');
 	}

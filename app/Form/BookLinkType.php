@@ -13,7 +13,7 @@ class BookLinkType extends AbstractType {
 		$builder->add('category', ChoiceType::class, [
 			'choices' => array_combine(BookLink::$categories, BookLink::$categories),
 			'choice_translation_domain' => true,
-			'choice_label' => function($value, $key, $index) {
+			'choice_label' => function($value, $key) {
 				return 'BookLinkCategory.'.$key;
 			},
 		]);

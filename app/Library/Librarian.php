@@ -5,7 +5,6 @@ use App\Entity\BookCategory;
 use App\Entity\BookOnShelf;
 use App\Entity\Shelf;
 use App\Persistence\RepositoryFinder;
-use Doctrine\Common\Collections\Collection;
 
 class Librarian {
 
