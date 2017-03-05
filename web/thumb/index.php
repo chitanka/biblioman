@@ -10,23 +10,30 @@ function generateThumbnail($filename, $thumbname, $width = null, $quality = null
 	makeSureDirExists($thumbname);
 
 	$width = $width ?: 45;
-	list($width_orig, $height_orig) = getimagesize($filename);
-	if ($width == 'max' || $width == 'orig' || $width_orig < $width) {
+	list($originalWidth, $originalHeight) = getimagesize($filename);
+	if (shouldReturnOriginalFile($width, $originalWidth)) {
 		copy($filename, $thumbname);
 		return $thumbname;
 	}
 
-	$height = $width * $height_orig / $width_orig;
-	$extension = ltrim(strrchr($filename, '.'), '.');
-	switch ($extension) {
+	$height = $width * $originalHeight / $originalWidth;
+	switch (getExtensionFromFilename($filename)) {
 		case 'jpg':
 		case 'jpeg':
 			$quality = $quality ?: 90;
-			return generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality);
+			return generateThumbnailForJpeg($filename, $thumbname, $width, $height, $originalWidth, $originalHeight, $quality);
 		case 'png':
-			return generateThumbnailForPng($filename, $thumbname, $width, $height, $width_orig, $height_orig);
+			return generateThumbnailForPng($filename, $thumbname, $width, $height, $originalWidth, $originalHeight);
 	}
 	return $thumbname;
+}
+
+function shouldReturnOriginalFile($thumbnailWidth, $originalWidth) {
+	return in_array($thumbnailWidth, ['max', 'orig']) || $thumbnailWidth > $originalWidth;
+}
+
+function getExtensionFromFilename($filename) {
+	return ltrim(strrchr($filename, '.'), '.');
 }
 
 function generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality) {
