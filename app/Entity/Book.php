@@ -2,6 +2,7 @@
 
 use App\Library\BookField;
 use Chitanka\Utils\Typograph;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -513,12 +514,14 @@ class Book extends Entity implements \JsonSerializable {
 
 	/**
 	 * @var \DateTime
+	 * @Gedmo\Timestampable(on="create")
 	 * @ORM\Column(type="datetime")
 	 */
 	private $createdAt;
 
 	/**
 	 * @var \DateTime
+	 * @Gedmo\Timestampable(on="update")
 	 * @ORM\Column(type="datetime")
 	 */
 	private $updatedAt;
@@ -755,9 +758,7 @@ class Book extends Entity implements \JsonSerializable {
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 	public function getCreatedAt() { return $this->createdAt; }
-	public function setCreatedAt($createdAt) { $this->createdAt = $createdAt; }
 	public function getUpdatedAt() { return $this->updatedAt; }
-	public function setUpdatedAt($updatedAt) { $this->updatedAt = $updatedAt; }
 	public function getRevisions() { return $this->revisions; }
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
 	public function isIncomplete() { return $this->isIncomplete; }
@@ -981,7 +982,7 @@ class Book extends Entity implements \JsonSerializable {
 
 	protected function setUpdatedAtOnFileUpload($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-			$this->setUpdatedAt(new \DateTime());
+			$this->updatedAt = new \DateTime();
 		}
 	}
 
@@ -1009,7 +1010,6 @@ class Book extends Entity implements \JsonSerializable {
 
 	/** @ORM\PrePersist */
 	public function onPreInsert() {
-		$this->setCreatedAt(new \DateTime);
 		$this->updateNbCovers();
 		$this->updateNbScans();
 	}
@@ -1017,7 +1017,6 @@ class Book extends Entity implements \JsonSerializable {
 	/** @ORM\PreUpdate */
 	public function onPreUpdate() {
 		if ($this->updatedTrackingEnabled) {
-			$this->setUpdatedAt(new \DateTime);
 			$this->updateNbCovers();
 			$this->updateNbScans();
 		}
