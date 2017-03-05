@@ -61,7 +61,7 @@ class ShelfRepository extends EntityRepository {
 	}
 
 	/**
-	 * @param \Traversable|Book[] $books
+	 * @param array|\Traversable|Book[] $books
 	 */
 	public function loadShelfAssociationForBooks($books) {
 		$booksById = []; /* @var $booksById Book[] */
