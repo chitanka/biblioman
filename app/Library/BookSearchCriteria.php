@@ -21,9 +21,9 @@ class BookSearchCriteria {
 	public $raw;
 	public $sort = [];
 
-	/** @var Shelf[] */
+	/** @var array|Shelf[] */
 	public $shelves = [];
-	/** @var BookCategory[] */
+	/** @var array|BookCategory[] */
 	public $categories = [];
 
 	public function __construct($textQuery, $sort = null) {
