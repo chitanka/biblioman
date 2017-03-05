@@ -823,8 +823,7 @@ class Book extends Entity {
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;
 		if ($image !== null) {
-			$this->addCover($this->createCover($image, BookCoverType::VALUE_FRONT));
-			$this->setUpdatedAtOnFileUpload($image);
+			$this->createAndAddCover($image, BookCoverType::VALUE_FRONT);
 		}
 	}
 	public function getCoverFile() { return $this->coverFile; }
@@ -838,8 +837,7 @@ class Book extends Entity {
 	public function setBackCoverFile(File $image = null) {
 		$this->backCoverFile = $image;
 		if ($image !== null) {
-			$this->addCover($this->createCover($image, BookCoverType::VALUE_BACK));
-			$this->setUpdatedAtOnFileUpload($image);
+			$this->createAndAddCover($image, BookCoverType::VALUE_BACK);
 		}
 	}
 	public function getBackCoverFile() { return $this->backCoverFile; }
@@ -848,6 +846,11 @@ class Book extends Entity {
 		$this->backCover = str_replace('.tif', '.jpg', $backCover);
 	}
 	public function getBackCover() { return $this->backCover; }
+
+	private function createAndAddCover(File $image, $type) {
+		$this->addCover($this->createCover($image, $type));
+		$this->setUpdatedAtOnFileUpload($image);
+	}
 
 	/** @return BookCover[] */
 	public function getCovers() { return $this->covers; }
