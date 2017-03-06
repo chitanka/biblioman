@@ -11,4 +11,18 @@ class EntityCollection extends ArrayCollection {
 		}
 		return $idArray;
 	}
+
+	public function forEach(\Closure $c) {
+		self::forEachIn($this, $c);
+	}
+
+	/**
+	 * @param \Traversable $collection
+	 * @param \Closure $c
+	 */
+	public static function forEachIn($collection, \Closure $c) {
+		foreach ($collection as $entity) {
+			$c($entity);
+		}
+	}
 }

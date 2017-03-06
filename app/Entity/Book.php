@@ -1,5 +1,8 @@
 <?php namespace App\Entity;
 
+use App\Collection\BookCoverCollection;
+use App\Collection\BookScanCollection;
+use App\Collection\EntityCollection;
 use App\Library\BookField;
 use Chitanka\Utils\Typograph;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -462,7 +465,7 @@ class Book extends Entity {
 	private $backCoverFile;
 
 	/**
-	 * @var BookCover[]|ArrayCollection
+	 * @var BookCover[]|BookCoverCollection
 	 * @ORM\OneToMany(targetEntity="BookCover", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
@@ -476,12 +479,12 @@ class Book extends Entity {
 
 	/**
 	 * Temporary storage for new covers, uploaded through the special fields
-	 * @var array
+	 * @var BookCoverCollection|array
 	 */
 	private $newCovers = [];
 
 	/**
-	 * @var BookScan[]|ArrayCollection
+	 * @var BookScan[]|BookScanCollection
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
@@ -586,8 +589,9 @@ class Book extends Entity {
 	public function __construct() {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
-		$this->scans = new ArrayCollection();
-		$this->covers = new ArrayCollection();
+		$this->scans = new BookScanCollection();
+		$this->covers = new BookCoverCollection();
+		$this->newCovers = new BookCoverCollection();
 		$this->booksOnShelf = new ArrayCollection();
 		$this->updatedAt = new \DateTime();
 	}
@@ -912,34 +916,23 @@ class Book extends Entity {
 	}
 
 	protected function createCover(File $image, $type, $title = null) {
-		if (isset($this->newCovers[$type])) {
+		if ($this->newCovers->containsKey($type)) {
 			$cover = $this->newCovers[$type];
 			$cover->setName($image->getBasename());
 			$cover->setFile($image);
 		} else {
 			$this->newCovers[$type] = $cover = new BookCover();
 			$cover->setFile($image);
-			$cover->setType($type);
+			$cover->setType(new BookCoverType($type));
 			$cover->setInternalFormat($image->guessExtension());
 			$cover->setTitle($title);
 		}
 		return $cover;
 	}
 
-	/** @return BookScan[] */
+	/** @return BookScan[]|BookScanCollection */
 	public function getScans() {
-		$sortedScans = [];
-		foreach ($this->scans as $scan) {
-			$key = (int) $scan->getTitle();
-			if (isset($sortedScans[$key])) {
-				$sortedScans[] = $scan;
-			} else {
-				$sortedScans[$key] = $scan;
-			}
-		}
-		ksort($sortedScans);
-		$sortedScans = array_values($sortedScans);
-		return $sortedScans;
+		return BookScanCollection::sortCollectionByTitle($this->scans);
 	}
 
 	/** @param BookScan[] $scans */
@@ -969,19 +962,14 @@ class Book extends Entity {
 	}
 
 	public function setCreatorByNewScans($user) {
-		foreach ($this->getScans() as $scan) {
-			if (empty($scan->getId())) {
-				$scan->setCreatedBy($user);
+		$setCreatedBy = function (BookFile $file) use ($user) {
+			if ($file->isNew()) {
+				$file->setCreatedBy($user);
 			}
-		}
-		foreach ($this->getCovers() as $cover) {
-			if (empty($cover->getId())) {
-				$cover->setCreatedBy($user);
-			}
-		}
-		foreach ($this->newCovers as $newCover) {
-			$newCover->setCreatedBy($user);
-		}
+		};
+		EntityCollection::forEachIn($this->scans, $setCreatedBy);
+		EntityCollection::forEachIn($this->covers, $setCreatedBy);
+		EntityCollection::forEachIn($this->newCovers, $setCreatedBy);
 	}
 
 	protected function setUpdatedAtOnFileUpload($image) {
