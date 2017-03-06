@@ -23,6 +23,7 @@ class Book extends Entity {
 	const STATE_VERIFIED_3 = 'verified_3';
 
 	const LOCK_EXPIRE_TIME = 3600; // 1 hour
+	const ALLOWED_EDIT_TIME_WO_REVISION = 3600; // 1 hour
 
 	/**
 	 * @var string
@@ -1047,16 +1048,17 @@ class Book extends Entity {
 
 	public function createRevisionIfNecessary(Book $oldBook, $user) {
 		$diffs = $oldBook->getDifferences($this);
-		if (empty($diffs)) {
-			return null;
-		}
-		if ($user == $this->getCreatedBy() && ((time() - $this->getUpdatedAt()->getTimestamp()) < 3600) && !$this->hasRevisions()) {
+		if (empty($diffs) || !$this->shouldCreateRevision($user)) {
 			return null;
 		}
 		$revision = $this->createRevision();
 		$revision->setDiffs($diffs);
 		$revision->setCreatedBy($user);
 		return $revision;
+	}
+
+	private function shouldCreateRevision($user) {
+		return $user != $this->getCreatedBy() || $this->hasRevisions() || ((time() - $this->getUpdatedAt()->getTimestamp()) > self::ALLOWED_EDIT_TIME_WO_REVISION);
 	}
 
 	public function __toString() {
