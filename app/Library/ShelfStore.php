@@ -30,22 +30,9 @@ class ShelfStore {
 		if ($user === null) {
 			return null;
 		}
-		$shelfRepo = $this->repoFinder->forShelf();
-		$shelfRepo->loadShelfAssociationForBooks($books);
-		$shelves = $shelfRepo->findForUser($user);
-		if ($shelves->isEmpty()) {
-			$shelves = $shelfRepo->createShelves($user, $defaultShelvesDefinition);
-			$this->persistenceManager->save($shelves);
-		}
-		$choices = [];
-		foreach ($shelves as $shelf) {
-			$choices[$shelf->getGroup() ?: ''][] = $shelf;
-		}
-		$ungroupedChoices = $choices[''];
-		unset($choices['']);
-		$choices += ['' => $ungroupedChoices];
+		$shelves = $this->findShelvesForUser($user, $defaultShelvesDefinition);
 		$builder->add('shelves', ChoiceType::class, [
-			'choices' => $choices,
+			'choices' => $shelves->toChoices(),
 			'choice_label' => function(Shelf $shelf) { return $shelf->getName(); },
 			'choice_value' => function(Shelf $shelf) { return $shelf->getId(); },
 			'choice_attr' => function(Shelf $shelf) {
@@ -55,11 +42,27 @@ class ShelfStore {
 			'choice_translation_domain' => false,
 			'preferred_choices' => function(Shelf $shelf) { return $shelf->isImportant(); },
 		]);
+		$this->repoFinder->forShelf()->loadShelfAssociationForBooks($books);
 		$addToShelfForms = [];
 		foreach ($books as $book) {
 			$addToShelfForms[$book->getId()] = $builder->getForm()->createView();
 		}
 		return $addToShelfForms;
+	}
+
+	/**
+	 * Find user shelves. Create default shelves if there aren’t any.
+	 * @param User $user
+	 * @return \App\Collection\ShelfCollection
+	 */
+	private function findShelvesForUser(User $user, array $defaultShelvesDefinition) {
+		$shelfRepo = $this->repoFinder->forShelf();
+		$shelves = $shelfRepo->findForUser($user);
+		if ($shelves->isEmpty()) {
+			$shelves = $shelfRepo->createShelves($user, $defaultShelvesDefinition);
+			$this->persistenceManager->save($shelves);
+		}
+		return $shelves;
 	}
 
 	public function putBookOnShelf(Book $book, Shelf $shelf) {

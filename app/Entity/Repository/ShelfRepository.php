@@ -1,6 +1,6 @@
 <?php namespace App\Entity\Repository;
 
-use App\Collection\EntityCollection;
+use App\Collection\ShelfCollection;
 use App\Entity\Book;
 use App\Entity\BookOnShelf;
 use App\Entity\Shelf;
@@ -45,11 +45,11 @@ class ShelfRepository extends EntityRepository {
 	}
 
 	public function findForUser(User $user) {
-		return new EntityCollection($this->forUser($user)->getQuery()->getResult());
+		return new ShelfCollection($this->forUser($user)->getQuery()->getResult());
 	}
 
 	public function createShelves(User $user, array $definitions) {
-		$shelves = new EntityCollection();
+		$shelves = new ShelfCollection();
 		foreach ($definitions as $definition) {
 			$shelf = new Shelf($user, $definition['name']);
 			$shelf->setDescription($definition['description']);
