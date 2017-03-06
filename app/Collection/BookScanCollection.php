@@ -1,6 +1,6 @@
 <?php namespace App\Collection;
 
-use Doctrine\Common\Collections\Collection;
+use App\Entity\BookScan;
 
 class BookScanCollection extends BookFileCollection {
 
@@ -8,7 +8,11 @@ class BookScanCollection extends BookFileCollection {
 		return self::sortCollectionByTitle($this);
 	}
 
-	public static function sortCollectionByTitle(Collection $collection) {
+	/**
+	 * @param BookScan[]|BookScanCollection $collection
+	 * @return static
+	 */
+	public static function sortCollectionByTitle($collection) {
 		$sortedScans = [];
 		foreach ($collection as $scan) {
 			$key = (int) $scan->getTitle();
