@@ -12,49 +12,47 @@ class ThumbnailServer {
 	public function generateThumbnail($filename, $thumbname, $width = null, $quality = null) {
 		$this->makeSureDirExists($thumbname);
 
-		$width = $width ?: 45;
-		list($originalWidth, $originalHeight) = getimagesize($filename);
-		if ($this->shouldReturnOriginalFile($width, $originalWidth)) {
+		$dimensions = new ThumbnailDimensions($filename, $width);
+		if ($this->shouldReturnOriginalFile($dimensions)) {
 			copy($filename, $thumbname);
 			return $thumbname;
 		}
 
-		$height = $width * $originalHeight / $originalWidth;
 		switch ($this->getExtensionFromFilename($filename)) {
 			case 'jpg':
 			case 'jpeg':
-				return $this->generateThumbnailForJpeg($filename, $thumbname, $width, $height, $originalWidth, $originalHeight, $quality);
+				return $this->generateThumbnailForJpeg($filename, $thumbname, $dimensions, $quality);
 			case 'png':
-				return $this->generateThumbnailForPng($filename, $thumbname, $width, $height, $originalWidth, $originalHeight);
+				return $this->generateThumbnailForPng($filename, $thumbname, $dimensions);
 		}
 		return $thumbname;
 	}
 
-	private function shouldReturnOriginalFile($thumbnailWidth, $originalWidth) {
-		return in_array($thumbnailWidth, ['max', 'orig']) || $thumbnailWidth > $originalWidth;
+	private function shouldReturnOriginalFile(ThumbnailDimensions $dimensions) {
+		return in_array($dimensions->width, ['max', 'orig']) || $dimensions->width > $dimensions->originalWidth;
 	}
 
 	private function getExtensionFromFilename($filename) {
 		return ltrim(strrchr($filename, '.'), '.');
 	}
 
-	private function generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality) {
-		$image_p = imagecreatetruecolor($width, $height);
+	private function generateThumbnailForJpeg($filename, $thumbname, ThumbnailDimensions $dimensions, $quality) {
+		$image_p = imagecreatetruecolor($dimensions->width, $dimensions->height);
 		$image = imagecreatefromjpeg($filename);
-		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $dimensions->width, $dimensions->height, $dimensions->originalWidth, $dimensions->originalHeight);
 		$quality = $quality ?: 90;
 		imagejpeg($image_p, $thumbname, $quality);
 		return $thumbname;
 	}
 
-	private function generateThumbnailForPng($filename, $thumbname, $width, $height, $width_orig, $height_orig) {
-		$image_p = imagecreatetruecolor($width, $height);
+	private function generateThumbnailForPng($filename, $thumbname, ThumbnailDimensions $dimensions) {
+		$image_p = imagecreatetruecolor($dimensions->width, $dimensions->height);
 		$image = imagecreatefrompng($filename);
 		imagealphablending($image_p, false);
 		$color = imagecolortransparent($image_p, imagecolorallocatealpha($image_p, 0, 0, 0, 127));
 		imagefill($image_p, 0, 0, $color);
 		imagesavealpha($image_p, true);
-		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $dimensions->width, $dimensions->height, $dimensions->originalWidth, $dimensions->originalHeight);
 		imagepng($image_p, $thumbname, 9);
 		return $thumbname;
 	}
@@ -81,5 +79,25 @@ class ThumbnailServer {
 	public function notFound($file) {
 		header('HTTP/1.1 404 Not Found');
 		return print "File '{$file}' does not exist.";
+	}
+}
+
+class ThumbnailDimensions {
+
+	const DEFAULT_WIDTH = 45;
+
+	public $width;
+	public $height;
+	public $originalWidth;
+	public $originalHeight;
+
+	/**
+	 * @param string $filename
+	 * @param int $thumbnailWidth
+	 */
+	public function __construct($filename, $thumbnailWidth) {
+		$this->width = $thumbnailWidth ?: self::DEFAULT_WIDTH;
+		list($this->originalWidth, $this->originalHeight) = getimagesize($filename);
+		$this->height = $this->width * $this->originalHeight / $this->originalWidth;
 	}
 }
