@@ -1,15 +1,15 @@
-<?php
+<?php namespace App;
 
 class ThumbnailServer {
 
-	function makeSureDirExists($file) {
+	public function makeSureDirExists($file) {
 		$dir = dirname($file);
 		if ( ! file_exists($dir)) {
 			mkdir($dir, 0755, true);
 		}
 	}
 
-	function generateThumbnail($filename, $thumbname, $width = null, $quality = null) {
+	public function generateThumbnail($filename, $thumbname, $width = null, $quality = null) {
 		$this->makeSureDirExists($thumbname);
 
 		$width = $width ?: 45;
@@ -30,15 +30,15 @@ class ThumbnailServer {
 		return $thumbname;
 	}
 
-	function shouldReturnOriginalFile($thumbnailWidth, $originalWidth) {
+	private function shouldReturnOriginalFile($thumbnailWidth, $originalWidth) {
 		return in_array($thumbnailWidth, ['max', 'orig']) || $thumbnailWidth > $originalWidth;
 	}
 
-	function getExtensionFromFilename($filename) {
+	private function getExtensionFromFilename($filename) {
 		return ltrim(strrchr($filename, '.'), '.');
 	}
 
-	function generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality) {
+	private function generateThumbnailForJpeg($filename, $thumbname, $width, $height, $width_orig, $height_orig, $quality) {
 		$image_p = imagecreatetruecolor($width, $height);
 		$image = imagecreatefromjpeg($filename);
 		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
@@ -47,7 +47,7 @@ class ThumbnailServer {
 		return $thumbname;
 	}
 
-	function generateThumbnailForPng($filename, $thumbname, $width, $height, $width_orig, $height_orig) {
+	private function generateThumbnailForPng($filename, $thumbname, $width, $height, $width_orig, $height_orig) {
 		$image_p = imagecreatetruecolor($width, $height);
 		$image = imagecreatefrompng($filename);
 		imagealphablending($image_p, false);
@@ -59,13 +59,13 @@ class ThumbnailServer {
 		return $thumbname;
 	}
 
-	function sanitize($s) {
+	public function sanitize($s) {
 		$s = preg_replace('#[^a-z\d./]#', '', $s);
 		$s = strtr($s, ['..' => '.']);
 		return $s;
 	}
 
-	function sendFile($file, $format) {
+	public function sendFile($file, $format) {
 		$format = strtr($format, [
 			'jpg' => 'jpeg',
 			'tif' => 'tiff',
@@ -78,7 +78,7 @@ class ThumbnailServer {
 		return readfile($file);
 	}
 
-	function notFound($file) {
+	public function notFound($file) {
 		header('HTTP/1.1 404 Not Found');
 		return print "File '{$file}' does not exist.";
 	}

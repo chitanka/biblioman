@@ -1,6 +1,6 @@
 <?php
 require __DIR__.'/server.php';
-$generator = new ThumbnailServer();
+$generator = new App\ThumbnailServer();
 $query = ltrim($generator->sanitize($_SERVER['QUERY_STRING']), '/');
 
 if (substr_count($query, '.') == 2) {
