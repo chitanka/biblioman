@@ -49,16 +49,10 @@ class BookCategory extends Entity {
 
 	/**
 	 * @Gedmo\TreeParent
-	 * @ORM\ManyToOne(targetEntity="BookCategory", inversedBy="children")
+	 * @ORM\ManyToOne(targetEntity="BookCategory")
 	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
 	 */
 	private $parent;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="BookCategory", mappedBy="parent")
-	 * @ORM\OrderBy({"lft" = "ASC"})
-	 */
-	private $children;
 
 	/**
 	 * Number of books in this category
