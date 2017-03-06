@@ -108,6 +108,9 @@ class BookCategory extends Entity {
 			'slug' => $this->slug,
 			'parent' => $this->getParent(),
 			'nrOfBooks' => $this->nrOfBooks,
+			'treeLevel' => $this->lvl,
+			'treeLeft' => $this->lft,
+			'treeRight' => $this->rgt,
 		];
 	}
 }
