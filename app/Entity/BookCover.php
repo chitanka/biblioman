@@ -38,6 +38,6 @@ class BookCover extends BookFile {
 	}
 
 	public function getType() { return $this->type; }
-	public function setType($type) { $this->type = $type; }
+	public function setType($type) { $this->type = new BookCoverType($type); }
 
 }
