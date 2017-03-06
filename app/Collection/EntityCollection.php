@@ -17,7 +17,7 @@ class EntityCollection extends ArrayCollection {
 	}
 
 	/**
-	 * @param \Traversable $collection
+	 * @param \Traversable|ArrayCollection|array $collection
 	 * @param \Closure $c
 	 */
 	public static function forEachIn($collection, \Closure $c) {
