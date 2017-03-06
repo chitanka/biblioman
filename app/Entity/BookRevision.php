@@ -84,4 +84,12 @@ class BookRevision extends Entity {
 		$this->createdAt = $createdAt;
 	}
 
+	public function toArray() {
+		return [
+			'book' => $this->getBook(),
+			'diffs' => $this->diffs,
+			'createdBy' => $this->createdBy,
+			'createdAt' => $this->createdAt,
+		];
+	}
 }

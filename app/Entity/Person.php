@@ -23,4 +23,11 @@ class Person extends Entity {
 	public function __toString() {
 		return $this->name;
 	}
+
+	public function toArray() {
+		return [
+			'name' => $this->name,
+			'slug' => $this->slug,
+		];
+	}
 }

@@ -108,4 +108,12 @@ class BookCategory extends Entity {
 		return $this->nrOfBooks;
 	}
 
+	public function toArray() {
+		return [
+			'name' => $this->name,
+			'slug' => $this->slug,
+			'parent' => $this->getParent(),
+			'nrOfBooks' => $this->nrOfBooks,
+		];
+	}
 }

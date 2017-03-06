@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 class BookItem extends Entity {
 
 	/**
+	 * @var Book
 	 * @ORM\ManyToOne(targetEntity="Book", inversedBy="items")
 	 */
 	private $book;
@@ -46,11 +47,6 @@ class BookItem extends Entity {
 	/**
 	 * @ORM\Column(type="string", length=100)
 	 */
-	private $targetId;
-
-	/**
-	 * @ORM\Column(type="string", length=100)
-	 */
 	private $pageNum;
 
 	/**
@@ -58,4 +54,19 @@ class BookItem extends Entity {
 	 */
 	private $notes;
 
+	public function getBook() { return $this->book; }
+
+	public function toArray() {
+		return [
+			'book' => $this->getBook(),
+			'position' => $this->position,
+			'level' => $this->level,
+			'workType' => $this->workType,
+			'title' => $this->title,
+			'titleOrig' => $this->titleOrig,
+			'authorsOrig' => $this->authorsOrig,
+			'pageNum' => $this->pageNum,
+			'notes' => $this->notes,
+		];
+	}
 }

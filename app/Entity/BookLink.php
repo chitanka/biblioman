@@ -90,4 +90,13 @@ class BookLink extends Entity {
 		$this->author = $author;
 	}
 
+	public function toArray() {
+		return [
+			'book' => $this->getBook(),
+			'url' => $this->url,
+			'category' => $this->category,
+			'title' => $this->title,
+			'author' => $this->author,
+		];
+	}
 }

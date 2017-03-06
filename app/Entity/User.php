@@ -150,7 +150,6 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 
 	public function toArray() {
 		return [
-			'id' => $this->getId(),
 			'username' => $this->getUsername(),
 		];
 	}

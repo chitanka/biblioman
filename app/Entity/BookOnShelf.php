@@ -47,4 +47,13 @@ class BookOnShelf extends Entity {
 	public function getPosition() { return $this->position; }
 	public function setPosition($position) { $this->position = $position; }
 	public function getCreatedAt() { return $this->createdAt; }
+
+	public function toArray() {
+		return [
+			'book' => $this->getBook(),
+			'shelf' => $this->getShelf(),
+			'position' => $this->position,
+			'createdAt' => $this->createdAt,
+		];
+	}
 }

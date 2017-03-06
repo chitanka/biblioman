@@ -1065,7 +1065,6 @@ class Book extends Entity {
 
 	public function toArray() {
 		return [
-			'id' => $this->id,
 			'title' => $this->title,
 			'altTitle' => $this->altTitle,
 			'subtitle' => $this->subtitle,

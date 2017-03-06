@@ -69,7 +69,6 @@ class BookFile extends Entity {
 
 	public function toArray() {
 		return [
-			'id' => $this->id,
 			'title' => $this->title,
 			'name' => $this->name,
 			'internalFormat' => $this->internalFormat,

@@ -8,4 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Sequence extends Entity {
 
+	public function toArray() {
+		return [];
+	}
 }

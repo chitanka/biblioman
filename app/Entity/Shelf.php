@@ -148,4 +148,19 @@ class Shelf extends Entity {
 	public function getNbBooks() { return $this->nbBooks; }
 	public function setNbBooks($nbBooks) { $this->nbBooks = $nbBooks; }
 
+	public function toArray() {
+		return [
+			'name' => $this->name,
+			'icon' => $this->icon,
+			'description' => $this->description,
+			'group' => $this->group,
+			'creator' => $this->getCreator(),
+			'isImportant' => $this->isImportant,
+			'isPublic' => $this->isPublic,
+			'createdAt' => $this->createdAt,
+			'updatedAt' => $this->updatedAt,
+			'nbBooks' => $this->nbBooks,
+		];
+	}
+
 }

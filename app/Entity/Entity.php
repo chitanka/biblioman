@@ -20,11 +20,8 @@ abstract class Entity implements \JsonSerializable {
 		return $this->getId() === $entity->getId();
 	}
 
-	public function toArray() {
-		return [
-			'id' => $this->id,
-		];
-	}
+	/** @return array */
+	abstract public function toArray();
 
 	/**
 	 * Specify data which should be serialized to JSON
@@ -32,7 +29,9 @@ abstract class Entity implements \JsonSerializable {
 	 * @return array
 	 */
 	public function jsonSerialize() {
-		return $this->toArray();
+		return array_merge([
+			'id' => $this->id,
+		], $this->toArray());
 	}
 
 }
