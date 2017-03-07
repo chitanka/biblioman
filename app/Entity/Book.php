@@ -1,6 +1,7 @@
 <?php namespace App\Entity;
 
 use App\Collection\BookCoverCollection;
+use App\Collection\BookFileCollection;
 use App\Collection\BookScanCollection;
 use App\Collection\EntityCollection;
 use App\Library\BookField;
@@ -866,33 +867,29 @@ class Book extends Entity {
 		return count($this->getOtherCovers()) > 0;
 	}
 
+	/**
+	 * @return BookCoverCollection|BookCover[]
+	 */
 	public function getOtherCovers() {
-		$otherCovers = [];
 		$specialCoverNames = [$this->getCover(), $this->getBackCover()];
-		foreach ($this->getCovers() as $cover) {
-			if (!in_array($cover->getName(), $specialCoverNames)) {
-				$otherCovers[] = $cover;
-			}
-		}
-		return $otherCovers;
+		return BookCoverCollection::fromCollection($this->getCovers())->filter(function(BookCover $cover) use ($specialCoverNames) {
+			return !in_array($cover->getName(), $specialCoverNames);
+		});
 	}
 
-	/** @param BookCover[] $covers */
+	/** @param BookCoverCollection|BookCover[] $covers */
 	public function setOtherCovers($covers) {
-		$coversToKeep = [];
-		foreach ($covers as $cover) {
-			if ($cover->isNew()) {
-				$cover->setBook($this);
-				$this->covers[] = $cover;
-			} else {
-				$coversToKeep[] = $cover->getId();
-			}
-		}
-		foreach ($this->getOtherCovers() as $otherCover) {
-			if (!$otherCover->isNew() && !in_array($otherCover->getId(), $coversToKeep)) {
+		$covers = BookCoverCollection::fromCollection($covers);
+		$covers->onlyNew()->forEach(function(BookCover $cover) {
+			$cover->setBook($this);
+			$this->covers[] = $cover;
+		});
+		$oldCoversToKeep = $covers->notNew();
+		$this->getOtherCovers()->forEach(function(BookCover $otherCover) use ($oldCoversToKeep) {
+			if (!$otherCover->isNew() && !$oldCoversToKeep->contains($otherCover)) {
 				$this->removeCover($otherCover);
 			}
-		}
+		});
 	}
 
 	public function addCover(BookCover $cover) {
@@ -916,7 +913,7 @@ class Book extends Entity {
 	}
 
 	protected function createCover(File $image, $type, $title = null) {
-		if ($this->newCovers->containsKey($type)) {
+		if (isset($this->newCovers[$type])) {
 			$cover = $this->newCovers[$type];
 			$cover->setName($image->getBasename());
 			$cover->setFile($image);
@@ -932,7 +929,7 @@ class Book extends Entity {
 
 	/** @return BookScan[]|BookScanCollection */
 	public function getScans() {
-		return BookScanCollection::sortCollectionByTitle($this->scans);
+		return BookScanCollection::fromCollection($this->scans)->sortByTitle();
 	}
 
 	/** @param BookScan[] $scans */

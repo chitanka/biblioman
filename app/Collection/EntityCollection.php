@@ -1,6 +1,7 @@
 <?php namespace App\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class EntityCollection extends ArrayCollection {
 
@@ -24,5 +25,25 @@ class EntityCollection extends ArrayCollection {
 		foreach ($collection as $entity) {
 			$c($entity);
 		}
+	}
+
+	public static function fromCollection($collection) {
+		if ($collection instanceof static) {
+			return $collection;
+		}
+		if ($collection instanceof Collection) {
+			return new static($collection->getValues());
+		}
+		if (is_array($collection)) {
+			return new static($collection);
+		}
+		if ($collection instanceof \Traversable) {
+			$newCollection = new static();
+			foreach ($collection as $item) {
+				$newCollection[] = $item;
+			}
+			return $newCollection;
+		}
+		throw new \InvalidArgumentException(sprintf("Cannot create a collection from an argument of type “%s”.", gettype($collection)));
 	}
 }

@@ -9,4 +9,10 @@ class BookFileCollection extends EntityCollection {
 			return $bookFile->isNew();
 		});
 	}
+
+	public function notNew() {
+		return $this->filter(function (BookFile $bookFile) {
+			return !$bookFile->isNew();
+		});
+	}
 }

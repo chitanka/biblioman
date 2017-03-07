@@ -5,16 +5,8 @@ use App\Entity\BookScan;
 class BookScanCollection extends BookFileCollection {
 
 	public function sortByTitle() {
-		return self::sortCollectionByTitle($this);
-	}
-
-	/**
-	 * @param BookScan[]|BookScanCollection $collection
-	 * @return static
-	 */
-	public static function sortCollectionByTitle($collection) {
 		$sortedScans = [];
-		foreach ($collection as $scan) {
+		foreach ($this->objects() as $scan) {
 			$key = (int) $scan->getTitle();
 			if (isset($sortedScans[$key])) {
 				$sortedScans[] = $scan;
@@ -26,4 +18,7 @@ class BookScanCollection extends BookFileCollection {
 		$sortedScans = array_values($sortedScans);
 		return new static($sortedScans);
 	}
+
+	/** @return BookScan[]|static */
+	private function objects() { return $this; }
 }
