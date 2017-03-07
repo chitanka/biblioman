@@ -20,6 +20,43 @@ class BookField {
 		'corrector',
 	];
 
+	private static $personPrefixes = [
+		'д-р',
+		'проф.',
+		'проф. д-р',
+		'акад.',
+		'инж.',
+	];
+
+	private static $publisherPrefixes = [
+		'Издателска къща',
+		'ИК',
+		'Издателство',
+		'Издателска компания',
+		'Издателска група',
+		'Книгоиздателска къща',
+		'КК',
+		'Държавно издателство',
+		'ДИ',
+		'ДФ',
+	];
+
+	private static $publisherStringsToRemove = [
+		'"',
+		'„',
+		'“',
+		'«',
+		'»',
+		' ООД',
+		' ЕООД',
+		' АД',
+		'Издателство на ЦК на ДКМС',
+		'издателство на ЦК на ДКМС',
+		'Университетско издателство',
+		'Ltd',
+		' —',
+	];
+
 	public static function normalizedFieldValue($field, $value) {
 		$value = self::normalizeGenericValue($value);
 		if (self::isPersonField($field)) {
@@ -40,48 +77,15 @@ class BookField {
 
 	private static function normalizePerson($name) {
 		$nameNormalized = $name;
-		$prefixes = [
-			'д-р',
-			'проф.',
-			'проф. д-р',
-			'акад.',
-			'инж.',
-		];
-		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') /u', '', $nameNormalized);
+		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp(self::$personPrefixes).') /u', '', $nameNormalized);
 		$nameNormalized = preg_replace('/ \(.+\)$/', '', $nameNormalized);
 		return $nameNormalized;
 	}
 
 	private static function normalizePublisher($name) {
-		$nameNormalized = trim($name);
-		$prefixes = [
-			'Издателска къща',
-			'ИК',
-			'Издателство',
-			'Издателска компания',
-			'Издателска група',
-			'Книгоиздателска къща',
-			'КК',
-			'Държавно издателство',
-			'ДИ',
-			'ДФ',
-		];
-		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp($prefixes).') ["„«]?/u', '', $nameNormalized);
-		$nameNormalized = strtr($nameNormalized, [
-			'"' => '',
-			'„' => '',
-			'“' => '',
-			'«' => '',
-			'»' => '',
-			' ООД' => '',
-			' ЕООД' => '',
-			' АД' => '',
-			'Издателство на ЦК на ДКМС' => '',
-			'издателство на ЦК на ДКМС' => '',
-			'Университетско издателство' => '',
-			'Ltd' => '',
-			' —' => '',
-		]);
+		$nameNormalized = $name;
+		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp(self::$publisherPrefixes).') ["„«]?/u', '', $nameNormalized);
+		$nameNormalized = str_replace(self::$publisherStringsToRemove, '', $nameNormalized);
 		$nameNormalized = trim($nameNormalized, ' ,-');
 		if (empty($nameNormalized)) {
 			// we do not want to be perfect
