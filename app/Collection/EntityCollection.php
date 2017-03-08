@@ -17,6 +17,10 @@ class EntityCollection extends ArrayCollection {
 		self::forEachIn($this, $c);
 	}
 
+	public function filter(\Closure $c) {
+		return new static(array_values(array_filter($this->getValues(), $c)));
+	}
+
 	/**
 	 * @param \Traversable|ArrayCollection|array $collection
 	 * @param \Closure $c
