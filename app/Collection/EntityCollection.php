@@ -42,12 +42,16 @@ class EntityCollection extends ArrayCollection {
 			return new static($collection);
 		}
 		if ($collection instanceof \Traversable) {
-			$newCollection = new static();
-			foreach ($collection as $item) {
-				$newCollection[] = $item;
-			}
-			return $newCollection;
+			return self::fromTraversable($collection);
 		}
 		throw new \InvalidArgumentException(sprintf("Cannot create a collection from an argument of type “%s”.", gettype($collection)));
+	}
+
+	private static function fromTraversable(\Traversable $collection) {
+		$newCollection = new static();
+		foreach ($collection as $item) {
+			$newCollection[] = $item;
+		}
+		return $newCollection;
 	}
 }
