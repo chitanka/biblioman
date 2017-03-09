@@ -15,15 +15,23 @@ class Editor {
 	public function computeArrayDifferences($fields1, $fields2) {
 		$diffs = [];
 		foreach ($fields1 as $field => $value) {
-			if ($value instanceof Collection || is_array($value)) {
-				if ($diff = $this->computeArrayDifferences($value, $fields2[$field])) {
-					$diffs[$field] = $diff;
-				}
-			}
-			if ($value != $fields2[$field]) {
-				$diffs[$field] = [(string) $value, (string) $fields2[$field]];
-			}
+			$diffs[$field] = $this->computeFieldDifferences($value, $fields2[$field]);
 		}
+		$diffs = array_filter($diffs);
 		return $diffs;
+	}
+
+	private function computeFieldDifferences($field1, $field2) {
+		if ($this->isCollection($field1)) {
+			return array_filter($this->computeArrayDifferences($field1, $field2));
+		}
+		if ($field2 != $field2) {
+			return [(string) $field1, (string) $field2];
+		}
+		return null;
+	}
+
+	private function isCollection($var) {
+		return $var instanceof Collection || is_array($var);
 	}
 }
