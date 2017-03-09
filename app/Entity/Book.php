@@ -3,6 +3,7 @@
 use App\Collection\BookCoverCollection;
 use App\Collection\BookScanCollection;
 use App\Collection\EntityCollection;
+use App\Editing\Editor;
 use App\Library\BookField;
 use Chitanka\Utils\Typograph;
 use Doctrine\Common\Collections\Collection;
@@ -1032,7 +1033,7 @@ class Book extends Entity {
 	}
 
 	public function createRevisionIfNecessary(Book $oldBook, $user) {
-		$diffs = $oldBook->getDifferences($this);
+		$diffs = (new Editor())->computeBookDifferences($oldBook, $this);
 		if (empty($diffs) || !$this->shouldCreateRevision($user)) {
 			return null;
 		}
@@ -1144,28 +1145,6 @@ class Book extends Entity {
 
 	public function __clone() {
 		$this->scans = clone $this->scans;
-	}
-
-	public function getDifferences(Book $book) {
-		$excludedFields = ['updatedAt', 'nbScans'];
-		$ourFields = array_diff_key($this->toArray(), array_flip($excludedFields));
-		$otherFields = $book->toArray();
-		$computeDifferences = function($ourFields, $otherFields) use (&$computeDifferences) {
-			$diffs = [];
-			foreach ($ourFields as $field => $ourValue) {
-				if ($ourValue instanceof Collection || is_array($ourValue)) {
-					if ($diff = $computeDifferences($ourValue, $otherFields[$field])) {
-						$diffs[$field] = $diff;
-					}
-				}
-				if ($ourValue != $otherFields[$field]) {
-					$diffs[$field] = [(string) $ourValue, (string) $otherFields[$field]];
-				}
-			}
-			return $diffs;
-		};
-		$diffs = $computeDifferences($ourFields, $otherFields);
-		return $diffs;
 	}
 
 	private function typoReplace($string) {
