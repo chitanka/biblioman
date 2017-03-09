@@ -1,11 +1,11 @@
 <?php namespace App\Entity;
 
 use App\Collection\BookCoverCollection;
-use App\Collection\BookFileCollection;
 use App\Collection\BookScanCollection;
 use App\Collection\EntityCollection;
 use App\Library\BookField;
 use Chitanka\Utils\Typograph;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -1138,6 +1138,7 @@ class Book extends Entity {
 			'updatedAt' => $this->getUpdatedAt(),
 			'infoSources' => $this->infoSources,
 			'scans' => $this->getScans(),
+			'otherCovers' => $this->getOtherCovers(),
 		];
 	}
 
@@ -1146,18 +1147,24 @@ class Book extends Entity {
 	}
 
 	public function getDifferences(Book $book) {
-		$ourFields = $this->toArray();
-		$otherFields = $book->toArray();
-		$diffs = [];
 		$excludedFields = ['updatedAt', 'nbScans'];
-		foreach ($ourFields as $field => $ourValue) {
-			if ($ourValue instanceof \Doctrine\ORM\PersistentCollection || is_array($ourValue)) {
-				continue;
+		$ourFields = array_diff_key($this->toArray(), array_flip($excludedFields));
+		$otherFields = $book->toArray();
+		$computeDifferences = function($ourFields, $otherFields) use (&$computeDifferences) {
+			$diffs = [];
+			foreach ($ourFields as $field => $ourValue) {
+				if ($ourValue instanceof Collection || is_array($ourValue)) {
+					if ($diff = $computeDifferences($ourValue, $otherFields[$field])) {
+						$diffs[$field] = $diff;
+					}
+				}
+				if ($ourValue != $otherFields[$field]) {
+					$diffs[$field] = [(string) $ourValue, (string) $otherFields[$field]];
+				}
 			}
-			if (!in_array($field, $excludedFields) && $ourValue !== $otherFields[$field]) {
-				$diffs[$field] = [(string) $ourValue, (string) $otherFields[$field]];
-			}
-		}
+			return $diffs;
+		};
+		$diffs = $computeDifferences($ourFields, $otherFields);
 		return $diffs;
 	}
 
