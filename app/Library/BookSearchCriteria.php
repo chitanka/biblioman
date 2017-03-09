@@ -81,7 +81,10 @@ class BookSearchCriteria {
 		return 'title';
 	}
 
-	/** @return array */
+	/**
+	 * @param mixed $thing
+	 * @return array
+	 */
 	private function asArray($thing) {
 		return is_array($thing) ? $thing : [$thing];
 	}

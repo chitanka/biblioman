@@ -16,6 +16,7 @@ class Librarian {
 
 	/**
 	 * @param string $textQuery
+	 * @param string $sort
 	 * @return BookSearchCriteria
 	 */
 	public function createBookSearchCriteria($textQuery, $sort = null) {

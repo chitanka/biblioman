@@ -6,7 +6,6 @@ use App\Collection\EntityCollection;
 use App\Editing\Editor;
 use App\Library\BookField;
 use Chitanka\Utils\Typograph;
-use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

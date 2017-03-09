@@ -53,6 +53,7 @@ class ShelfStore {
 	/**
 	 * Find user shelves. Create default shelves if there aren’t any.
 	 * @param User $user
+	 * @param array $defaultShelvesDefinition
 	 * @return \App\Collection\ShelfCollection
 	 */
 	private function findShelvesForUser(User $user, array $defaultShelvesDefinition) {

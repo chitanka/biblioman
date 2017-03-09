@@ -11,6 +11,10 @@ class NewThreadMessageFormFactory extends \FOS\MessageBundle\FormFactory\NewThre
 	private $usernameTransformer;
 
 	/**
+	 * @param FormFactoryInterface $formFactory
+	 * @param string $formType
+	 * @param string $formName
+	 * @param string $messageClass
 	 * @param UserToUsernameTransformer $usernameTransformer
 	 */
 	public function __construct(FormFactoryInterface $formFactory, $formType, $formName, $messageClass, UserToUsernameTransformer $usernameTransformer) {
