@@ -7,8 +7,8 @@
 		<span class="author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</span><br>
 	{% endif %}
 	<span class="title">{{ book.title }}</span>
-	{% if book.volumeTitle is not empty %}
-		<span class="book-volumeTitle">• {{ book.volumeTitle }}</span>
+	{% if book.titling.volumeTitle is not empty %}
+		<span class="book-volumeTitle">• {{ book.titling.volumeTitle }}</span>
 	{% endif %}
 {% endblock %}
 
@@ -39,11 +39,11 @@
 			{% endif %}
 		</div>
 		<div class="col-md-8">
-			{% if book.isIncomplete %}
+			{% if book.meta.isIncomplete %}
 				<p class="text-danger">
 					Записът е непълен.
-					{% if book.reasonWhyIncomplete is not empty %}
-						({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+					{% if book.meta.reasonWhyIncomplete is not empty %}
+						({{ _.printSearchLink(book.meta.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
 					{% endif %}
 				</p>
 			{% endif %}

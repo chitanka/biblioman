@@ -30,407 +30,63 @@ class Book extends Entity {
 	const ALLOWED_EDIT_TIME_WO_REVISION = 3600; // 1 hour
 
 	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=255)
+	 * @var BookTitling
+	 * @ORM\Embedded(class = "BookTitling", columnPrefix = false)
 	 */
-	private $title;
+	private $titling;
 
 	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @var BookAuthorship
+	 * @ORM\Embedded(class = "BookAuthorship", columnPrefix = false)
 	 */
-	private $altTitle;
+	private $authorship;
 
 	/**
-	 * @ORM\Column(type="string", length=500, nullable=true)
+	 * @var BookStaff
+	 * @ORM\Embedded(class = "BookStaff", columnPrefix = false)
 	 */
-	private $subtitle;
+	private $staff;
 
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @var BookPublishing
+	 * @ORM\Embedded(class = "BookPublishing", columnPrefix = false)
 	 */
-	private $subtitle2;
+	private $publishing;
 
 	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
+	 * @var BookGrouping
+	 * @ORM\Embedded(class = "BookGrouping", columnPrefix = false)
 	 */
-	private $volumeTitle;
+	private $grouping;
 
 	/**
-	 * @ORM\Column(type="string", length=500, nullable=true)
+	 * @var BookBody
+	 * @ORM\Embedded(class = "BookBody", columnPrefix = false)
 	 */
-	private $author;
+	private $body;
 
 	/**
-	 * @ORM\Column(type="string", length=500, nullable=true)
-	 */
-	private $translator;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $translatedFromLanguage;
-
-	/**
-	 * @ORM\Column(type="string", length=20, nullable=true)
-	 */
-	private $dateOfTranslation;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $adaptedBy;
-
-	/**
-	 * @ORM\Column(type="string", length=700, nullable=true)
-	 */
-	private $otherAuthors;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $compiler;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $chiefEditor;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $managingEditor;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $editor;
-
-	/**
-	 * @ORM\Column(type="string", length=500, nullable=true)
-	 */
-	private $editorialStaff;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $publisherEditor;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $artistEditor;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $technicalEditor;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $consultant;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $scienceEditor;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $copyreader;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $reviewer;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $artist;
-
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $illustrator;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $corrector;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $layout;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $coverLayout;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $libraryDesign;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $computerProcessing;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $prepress;
-
-	/**
-	 * single collection anthology almanac
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $contentType;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $publisher;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $classifications;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $sequence;
-
-	/**
-	 * @var int
-	 * @ORM\Column(type="smallint", nullable=true)
-	 */
-	private $sequenceNr;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $subsequence;
-
-	/**
-	 * @var int
-	 * @ORM\Column(type="smallint", nullable=true)
-	 */
-	private $subsequenceNr;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $series;
-
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=20, nullable=true)
-	 */
-	private $seriesNr;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $publisherCity;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $publishingYear;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
-	 */
-	private $publisherAddress;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $nationality;
-
-	/**
-	 * Поредност на изданието
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $edition;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $litGroup;
-
-	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @var BookPrint
+	 * @ORM\Embedded(class = "BookPrint", columnPrefix = false)
 	 */
 	private $print;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @var BookContent
+	 * @ORM\Embedded(class = "BookContent", columnPrefix = false)
 	 */
-	private $typeSettingIn;
+	private $content;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @var BookClassification
+	 * @ORM\Embedded(class = "BookClassification", columnPrefix = false)
 	 */
-	private $printSigned;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $printOut;
-
-	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
-	 */
-	private $printerSheets;
-
-	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
-	 */
-	private $publisherSheets;
-
-	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
-	 */
-	private $provisionPublisherSheets;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $format;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $publisherCode;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $publisherOrder;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $publisherNumber;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $trackingCode;
-
-	/**
-	 * @ORM\Column(type="string", length=30, nullable=true)
-	 */
-	private $uniformProductClassification;
-
-	/**
-	 * @ORM\Column(type="string", length=30, nullable=true)
-	 */
-	private $universalDecimalClassification;
-
-	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $totalPrint;
-
-	/**
-	 * @ORM\Column(type="integer", nullable=true)
-	 */
-	private $pageCount;
-
-	/**
-	 * @ORM\Column(type="string", length=20, nullable=true)
-	 */
-	private $price;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $binding;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $language = 'български';
-
-	/**
-	 * @ORM\Column(type="boolean", nullable=true)
-	 */
-	private $illustrated;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $isbn;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $isbnClean;
+	private $classification;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $otherFields;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $notes;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $notesAboutOriginal;
-
-	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
-	 */
-	private $verified;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $annotation;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $notesAboutAuthor;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $marketingSnippets;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $toc;
-
-	/**
-	 * @ORM\Column(type="string", length=200, nullable=true)
-	 */
-	private $themes;
-
-	/**
-	 * @ORM\Column(type="string", length=200, nullable=true)
-	 */
-	private $genre;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="BookCategory", fetch="EAGER")
-	 */
-	private $category;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
@@ -498,19 +154,10 @@ class Book extends Entity {
 	private $nbScans;
 
 	/**
-	 * @ORM\Column(type="text", nullable=true)
+	 * @var BookLink[]|ArrayCollection
+	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 */
-	private $infoSources;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $adminComment;
-
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $ocredText;
+	private $links;
 
 	/**
 	 * @ORM\Column(type="string", length=50)
@@ -541,24 +188,6 @@ class Book extends Entity {
 	private $revisions;
 
 	/**
-	 * @var BookLink[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
-	 */
-	private $links;
-
-	/**
-	 * @var boolean
-	 * @ORM\Column(type="boolean")
-	 */
-	private $isIncomplete = true;
-
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=500, nullable=true)
-	 */
-	private $reasonWhyIncomplete;
-
-	/**
 	 * @var \DateTime
 	 * @ORM\Column(type="datetime", nullable=true)
 	 */
@@ -587,6 +216,12 @@ class Book extends Entity {
 	 */
 	private $shelves;
 
+	/**
+	 * @var BookMeta
+	 * @ORM\Embedded(class = "BookMeta", columnPrefix = false)
+	 */
+	private $meta;
+
 	public function __construct() {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
@@ -597,180 +232,36 @@ class Book extends Entity {
 		$this->updatedAt = new \DateTime();
 	}
 
-	public function getTitle() { return $this->title; }
-	public function setTitle($title) { $this->title = $this->typoReplace($title); }
-	public function getAltTitle() { return $this->altTitle; }
-	public function setAltTitle($altTitle) { $this->altTitle = $this->typoReplace($altTitle); }
-	public function getSubtitle() { return $this->subtitle; }
-	public function setSubtitle($subtitle) { $this->subtitle = $this->typoReplace($subtitle); }
-	public function getSubtitle2() { return $this->subtitle2; }
-	public function setSubtitle2($subtitle2) { $this->subtitle2 = $this->typoReplace($subtitle2); }
-	public function getVolumeTitle() { return $this->volumeTitle; }
-	public function setVolumeTitle($volumeTitle) { $this->volumeTitle = $this->typoReplace($volumeTitle); }
-	public function getAuthor() { return $this->author; }
-	public function setAuthor($author) { $this->author = $author; }
-	public function getTranslator() { return $this->translator; }
-	public function setTranslator($translator) { $this->translator = $translator; }
-	public function getTranslatedFromLanguage() { return $this->translatedFromLanguage; }
-	public function setTranslatedFromLanguage($translatedFromLanguage) { $this->translatedFromLanguage = $translatedFromLanguage; }
-	public function getDateOfTranslation() { return $this->dateOfTranslation; }
-	public function setDateOfTranslation($dateOfTranslation) { $this->dateOfTranslation = $dateOfTranslation; }
-	public function getAdaptedBy() { return $this->adaptedBy; }
-	public function setAdaptedBy($adaptedBy) { $this->adaptedBy = $adaptedBy; }
-	public function getOtherAuthors() { return $this->otherAuthors; }
-	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = $otherAuthors; }
-	public function getCompiler() { return $this->compiler; }
-	public function setCompiler($compiler) { $this->compiler = $compiler; }
-	public function getChiefEditor() { return $this->chiefEditor; }
-	public function setChiefEditor($chiefEditor) { $this->chiefEditor = $chiefEditor; }
-	public function getManagingEditor() { return $this->managingEditor; }
-	public function setManagingEditor($managingEditor) { $this->managingEditor = $managingEditor; }
-	public function getEditor() { return $this->editor; }
-	public function setEditor($editor) { $this->editor = $editor; }
-	public function getEditorialStaff() { return $this->editorialStaff; }
-	public function setEditorialStaff($editorialStaff) { $this->editorialStaff = $editorialStaff; }
-	public function getPublisherEditor() { return $this->publisherEditor; }
-	public function setPublisherEditor($publisherEditor) { $this->publisherEditor = $publisherEditor; }
-	public function getArtistEditor() { return $this->artistEditor; }
-	public function setArtistEditor($artistEditor) { $this->artistEditor = $artistEditor; }
-	public function getTechnicalEditor() { return $this->technicalEditor; }
-	public function setTechnicalEditor($technicalEditor) { $this->technicalEditor = $technicalEditor; }
-	public function getConsultant() { return $this->consultant; }
-	public function setConsultant($consultant) { $this->consultant = $consultant; }
-	public function getScienceEditor() { return $this->scienceEditor; }
-	public function setScienceEditor($scienceEditor) { $this->scienceEditor = $scienceEditor; }
-	public function getCopyreader() { return $this->copyreader; }
-	public function setCopyreader($copyreader) { $this->copyreader = $copyreader; }
-	public function getReviewer() { return $this->reviewer; }
-	public function setReviewer($reviewer) { $this->reviewer = $reviewer; }
-	public function getArtist() { return $this->artist; }
-	public function setArtist($artist) { $this->artist = $artist; }
-	public function getIllustrator() { return $this->illustrator; }
-	public function setIllustrator($illustrator) { $this->illustrator = $illustrator; }
-	public function getCorrector() { return $this->corrector; }
-	public function setCorrector($corrector) { $this->corrector = $corrector; }
-	public function getLayout() { return $this->layout; }
-	public function setLayout($layout) { $this->layout = $layout; }
-	public function getCoverLayout() { return $this->coverLayout; }
-	public function setCoverLayout($coverLayout) { $this->coverLayout = $this->typoReplace($coverLayout); }
-	public function getLibraryDesign() { return $this->libraryDesign; }
-	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = $this->typoReplace($libraryDesign); }
-	public function getComputerProcessing() { return $this->computerProcessing; }
-	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = $this->typoReplace($computerProcessing); }
-	public function getPrepress() { return $this->prepress; }
-	public function setPrepress($prepress) { $this->prepress = $this->typoReplace($prepress); }
-	public function getContentType() { return $this->contentType; }
-	public function setContentType($contentType) { $this->contentType = $contentType; }
-	public function getPublisher() { return $this->publisher; }
-	public function setPublisher($publisher) { $this->publisher = $this->typoReplace($publisher); }
-	public function getClassifications() { return $this->classifications; }
-	public function setClassifications($classifications) { $this->classifications = $classifications; }
-	public function getSequence() { return $this->sequence; }
-	public function setSequence($sequence) { $this->sequence = $this->typoReplace($sequence); }
-	public function getSequenceNr() { return $this->sequenceNr; }
-	public function setSequenceNr($sequenceNr) { $this->sequenceNr = $sequenceNr; }
-	public function getSubsequence() { return $this->subsequence; }
-	public function setSubsequence($subsequence) { $this->subsequence = $this->typoReplace($subsequence); }
-	public function getSubsequenceNr() { return $this->subsequenceNr; }
-	public function setSubsequenceNr($subsequenceNr) { $this->subsequenceNr = $subsequenceNr; }
-	public function getSeries() { return $this->series; }
-	public function setSeries($series) { $this->series = $this->typoReplace($series); }
-	public function getSeriesNr() { return $this->seriesNr; }
-	public function setSeriesNr($seriesNr) { $this->seriesNr = $seriesNr; }
-	public function getPublisherCity() { return $this->publisherCity; }
-	public function setPublisherCity($publisherCity) { $this->publisherCity = $publisherCity; }
-	public function getPublishingYear() { return $this->publishingYear; }
-	public function setPublishingYear($publishingYear) { $this->publishingYear = $publishingYear; }
-	public function getPublisherAddress() { return $this->publisherAddress; }
-	public function setPublisherAddress($publisherAddress) { $this->publisherAddress = $this->typoReplace($publisherAddress); }
-	public function getNationality() { return $this->nationality; }
-	public function setNationality($nationality) { $this->nationality = $nationality; }
-	public function getEdition() { return $this->edition; }
-	public function setEdition($edition) { $this->edition = $edition; }
-	public function getLitGroup() { return $this->litGroup; }
-	public function setLitGroup($litGroup) { $this->litGroup = $litGroup; }
+	public function getTitle() { return $this->titling->getTitle(); }
+	public function getTitling() { return $this->titling; }
+	public function setTitling($titling) { $this->titling = $titling; }
+	public function getAuthor() { return $this->authorship->getAuthor(); }
+	public function getAuthorship() { return $this->authorship; }
+	public function setAuthorship($authorship) { $this->authorship = $authorship; }
+	public function getStaff() { return $this->staff; }
+	public function setStaff($staff) { $this->staff = $staff; }
+	public function getGrouping() { return $this->grouping; }
+	public function setGrouping($grouping) { $this->grouping = $grouping; }
+	public function getPublishing() { return $this->publishing; }
+	public function setPublishing($publishing) { $this->publishing = $publishing; }
+	public function getBody() { return $this->body; }
+	public function setBody($body) { $this->body = $body; }
 	public function getPrint() { return $this->print; }
-	public function setPrint($print) { $this->print = $this->typoReplace($print); }
-	public function getTypeSettingIn() { return $this->typeSettingIn; }
-	public function setTypeSettingIn($typeSettingIn) { $this->typeSettingIn = $typeSettingIn; }
-	public function getPrintSigned() { return $this->printSigned; }
-	public function setPrintSigned($printSigned) { $this->printSigned = $printSigned; }
-	public function getPrintOut() { return $this->printOut; }
-	public function setPrintOut($printOut) { $this->printOut = $printOut; }
-	public function getPrinterSheets() { return $this->printerSheets; }
-	public function setPrinterSheets($printerSheets) { $this->printerSheets = $printerSheets; }
-	public function getPublisherSheets() { return $this->publisherSheets; }
-	public function setPublisherSheets($publisherSheets) { $this->publisherSheets = $publisherSheets; }
-	public function getProvisionPublisherSheets() { return $this->provisionPublisherSheets; }
-	public function setProvisionPublisherSheets($provisionPublisherSheets) { $this->provisionPublisherSheets = $provisionPublisherSheets; }
-	public function getFormat() { return $this->format; }
-	public function setFormat($format) { $this->format = Typograph::replaceTimesChar($format); }
-	public function getPublisherCode() { return $this->publisherCode; }
-	public function setPublisherCode($publisherCode) { $this->publisherCode = $publisherCode; }
-	public function getPublisherOrder() { return $this->publisherOrder; }
-	public function setPublisherOrder($publisherOrder) { $this->publisherOrder = $publisherOrder; }
-	public function getPublisherNumber() { return $this->publisherNumber; }
-	public function setPublisherNumber($publisherNumber) { $this->publisherNumber = $publisherNumber; }
-	public function getTrackingCode() { return $this->trackingCode; }
-	public function setTrackingCode($trackingCode) { $this->trackingCode = $trackingCode; }
-	public function getUniformProductClassification() { return $this->uniformProductClassification; }
-	public function setUniformProductClassification($uniformProductClassification) { $this->uniformProductClassification = $uniformProductClassification; }
-	public function getUniversalDecimalClassification() { return $this->universalDecimalClassification; }
-	public function setUniversalDecimalClassification($universalDecimalClassification) { $this->universalDecimalClassification = $universalDecimalClassification; }
-	public function getTotalPrint() { return $this->totalPrint; }
-	public function setTotalPrint($totalPrint) { $this->totalPrint = $totalPrint; }
-	public function getPageCount() { return $this->pageCount; }
-	public function setPageCount($pageCount) { $this->pageCount = $pageCount; }
-	public function getPrice() { return $this->price; }
-	public function setPrice($price) { $this->price = $price; }
-	public function getBinding() { return $this->binding; }
-	public function setBinding($binding) { $this->binding = $binding; }
-	public function getLanguage() { return $this->language; }
-	public function setLanguage($language) { $this->language = $language; }
-	public function getIllustrated() { return $this->illustrated; }
-	public function setIllustrated($illustrated) { $this->illustrated = $illustrated; }
-	public function getIsbn() { return $this->isbn; }
-	public function setIsbn($isbn) { $this->isbn = BookField::normalizeIsbn($isbn); $this->setIsbnClean(BookField::normalizeSearchableIsbn($this->isbn)); }
-	public function getIsbnClean() { return $this->isbnClean; }
-	public function setIsbnClean($isbnClean) { $this->isbnClean = $isbnClean; }
+	public function setPrint($print) { $this->print = $print; }
 	public function getOtherFields() { return $this->otherFields; }
-	public function setOtherFields($otherFields) { $this->otherFields = $this->typoReplace($otherFields); }
-	public function getNotes() { return $this->notes; }
-	public function setNotes($notes) { $this->notes = $this->typoReplace($notes); }
-	public function getNotesAboutOriginal() { return $this->notesAboutOriginal; }
-	public function setNotesAboutOriginal($notesAboutOriginal) { $this->notesAboutOriginal = $notesAboutOriginal; }
-	public function getVerified() { return $this->verified; }
-	public function setVerified($verified) { $this->verified = $verified; }
-	public function getAnnotation() { return $this->annotation; }
-	public function setAnnotation($annotation) { $this->annotation = $this->typoReplace($annotation); }
-	public function getNotesAboutAuthor() { return $this->notesAboutAuthor; }
-	public function setNotesAboutAuthor($notesAboutAuthor) { $this->notesAboutAuthor = $this->typoReplace($notesAboutAuthor); }
-	public function getMarketingSnippets() { return $this->marketingSnippets; }
-	public function setMarketingSnippets($marketingSnippets) { $this->marketingSnippets = $this->typoReplace($marketingSnippets); }
-	public function getToc() { return $this->toc; }
-	public function setToc($toc) { $this->toc = $this->typoReplace($toc); }
-	public function getThemes() { return $this->themes; }
-	public function setThemes($themes) { $this->themes = $themes; }
-	public function getGenre() { return $this->genre; }
-	public function setGenre($genre) { $this->genre = $genre; }
-	public function getCategory() { return $this->category; }
-	public function setCategory($category) { $this->category = $category; }
-	public function getInfoSources() { return $this->infoSources; }
-	public function setInfoSources($infoSources) { $this->infoSources = $infoSources; }
-	public function getAdminComment() { return $this->adminComment; }
-	public function setAdminComment($adminComment) { $this->adminComment = $adminComment; }
-	public function getOcredText() { return $this->ocredText; }
-	public function setOcredText($ocredText) { $this->ocredText = $ocredText; }
+	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
+	public function getContent() { return $this->content; }
+	public function setContent($content) { $this->content = $content; }
+	public function getClassification() { return $this->classification; }
+	public function setClassification($classification) { $this->classification = $classification; }
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 	public function getCreatedAt() { return $this->createdAt; }
 	public function getUpdatedAt() { return $this->updatedAt; }
 	public function getRevisions() { return $this->revisions; }
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
-	public function isIncomplete() { return $this->isIncomplete; }
-	public function setIsIncomplete($isIncomplete) { $this->isIncomplete = $isIncomplete; }
-	public function getReasonWhyIncomplete() { return $this->reasonWhyIncomplete; }
-	public function setReasonWhyIncomplete($reasonWhyIncomplete) { $this->reasonWhyIncomplete = $reasonWhyIncomplete; }
+	public function getMeta() { return $this->meta; }
+	public function setMeta($meta) { $this->meta = $meta; }
 
 	public function getLinks() { return $this->links; }
 	/** @param BookLink[] $links */
@@ -809,7 +300,7 @@ class Book extends Entity {
 	}
 
 	public function getState() {
-		if ($this->isIncomplete()) {
+		if ($this->meta->isIncomplete()) {
 			return self::STATE_INCOMPLETE;
 		}
 		return self::STATE_VERIFIED_0;
@@ -921,7 +412,7 @@ class Book extends Entity {
 			$this->newCovers[$type] = $cover = new BookCover();
 			$cover->setFile($image);
 			$cover->setType(new BookCoverType($type));
-			$cover->setInternalFormat($image->guessExtension());
+			$cover->setMetaFormat($image->guessExtension());
 			$cover->setTitle($title);
 		}
 		return $cover;
@@ -1050,95 +541,36 @@ class Book extends Entity {
 		return $this->getTitle();
 	}
 
+	public function __get($property) {
+		if (array_key_exists($property, BookField::PROPERTY_MAP)) {
+			return $this->{BookField::PROPERTY_MAP[$property]}->{'get'.ucfirst($property)}();
+		}
+		return $this->{'get'.ucfirst($property)}();
+	}
+
 	public function toArray() {
 		return [
-			'title' => $this->title,
-			'altTitle' => $this->altTitle,
-			'subtitle' => $this->subtitle,
-			'subtitle2' => $this->subtitle2,
-			'volumeTitle' => $this->volumeTitle,
-			'author' => $this->author,
-			'translator' => $this->translator,
-			'translatedFromLanguage' => $this->translatedFromLanguage,
-			'dateOfTranslation' => $this->dateOfTranslation,
-			'adaptedBy' => $this->adaptedBy,
-			'otherAuthors' => $this->otherAuthors,
-			'compiler' => $this->compiler,
-			'chiefEditor' => $this->chiefEditor,
-			'managingEditor' => $this->managingEditor,
-			'editor' => $this->editor,
-			'editorialStaff' => $this->editorialStaff,
-			'publisherEditor' => $this->publisherEditor,
-			'artistEditor' => $this->artistEditor,
-			'technicalEditor' => $this->technicalEditor,
-			'consultant' => $this->consultant,
-			'reviewer' => $this->reviewer,
-			'scienceEditor' => $this->scienceEditor,
-			'copyreader' => $this->copyreader,
-			'artist' => $this->artist,
-			'illustrator' => $this->illustrator,
-			'corrector' => $this->corrector,
-			'layout' => $this->layout,
-			'coverLayout' => $this->coverLayout,
-			'libraryDesign' => $this->libraryDesign,
-			'computerProcessing' => $this->computerProcessing,
-			'prepress' => $this->prepress,
-			'contentType' => $this->contentType,
-			'publisher' => $this->publisher,
-			'classifications' => $this->classifications,
-			'sequence' => $this->sequence,
-			'sequenceNr' => $this->sequenceNr,
-			'subsequence' => $this->subsequence,
-			'subsequenceNr' => $this->subsequenceNr,
-			'series' => $this->series,
-			'seriesNr' => $this->seriesNr,
-			'publisherCity' => $this->publisherCity,
-			'publishingYear' => $this->publishingYear,
-			'publisherAddress' => $this->publisherAddress,
-			'nationality' => $this->nationality,
-			'edition' => $this->edition,
-			'litGroup' => $this->litGroup,
-			'print' => $this->print,
-			'typeSettingIn' => $this->typeSettingIn,
-			'printSigned' => $this->printSigned,
-			'printOut' => $this->printOut,
-			'printerSheets' => $this->printerSheets,
-			'publisherSheets' => $this->publisherSheets,
-			'provisionPublisherSheets' => $this->provisionPublisherSheets,
-			'format' => $this->format,
-			'publisherCode' => $this->publisherCode,
-			'publisherOrder' => $this->publisherOrder,
-			'publisherNumber' => $this->publisherNumber,
-			'trackingCode' => $this->trackingCode,
-			'uniformProductClassification' => $this->uniformProductClassification,
-			'universalDecimalClassification' => $this->universalDecimalClassification,
-			'totalPrint' => $this->totalPrint,
-			'pageCount' => $this->pageCount,
-			'price' => $this->price,
-			'binding' => $this->binding,
-			'language' => $this->language,
-			'illustrated' => $this->illustrated,
+			'title' => $this->getTitle(),
+			'author' => $this->getAuthor(),
+			'titling' => $this->titling->toArray(),
+			'authorship' => $this->authorship->toArray(),
+			'staff' => $this->staff->toArray(),
+			'grouping' => $this->grouping->toArray(),
+			'publishing' => $this->publishing->toArray(),
+			'body' => $this->body->toArray(),
+			'print' => $this->print->toArray(),
+			'classification' => $this->classification->toArray(),
+			'content' => $this->content->toArray(),
+			'meta' => $this->meta->toArray(),
 			'otherFields' => $this->otherFields,
-			'isbn' => $this->isbn,
-			'notes' => $this->notes,
-			'notesAboutOriginal' => $this->notesAboutOriginal,
-			'nbScans' => $this->nbScans,
-			'verified' => $this->verified,
-			'annotation' => $this->annotation,
-			'notesAboutAuthor' => $this->getNotesAboutAuthor(),
-			'marketingSnippets' => $this->marketingSnippets,
-			'toc' => $this->toc,
-			'themes' => $this->themes,
-			'genre' => $this->genre,
-			'category' => $this->category,
 			'cover' => $this->cover,
 			'backCover' => $this->backCover,
+			'otherCovers' => $this->getOtherCovers()->toArray(),
+			'scans' => $this->getScans()->toArray(),
+			'nbScans' => $this->nbScans,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->getCreatedAt(),
 			'updatedAt' => $this->getUpdatedAt(),
-			'infoSources' => $this->infoSources,
-			'scans' => $this->getScans(),
-			'otherCovers' => $this->getOtherCovers(),
 		];
 	}
 
@@ -1146,7 +578,4 @@ class Book extends Entity {
 		$this->scans = clone $this->scans;
 	}
 
-	private function typoReplace($string) {
-		return Typograph::replaceAll($string);
-	}
 }

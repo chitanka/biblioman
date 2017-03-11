@@ -160,7 +160,7 @@ class BookQuery {
 	private function addSort(array $sort) {
 		array_walk($sort, function($order, $field) {
 			if (in_array($field, self::$sortableFields)) {
-				$this->qb->addOrderBy(self::ALIAS.".$field", $order);
+				$this->qb->addOrderBy($this->fieldForQuery($field), $order);
 			}
 		});
 	}
@@ -168,14 +168,14 @@ class BookQuery {
 	/** @param Shelf[] $shelves */
 	private function filterByShelves($shelves = null) {
 		if (!empty($shelves)) {
-			$this->qb->join(self::ALIAS.".booksOnShelf", 'bs')->andWhere('bs.shelf IN (:shelves)')->setParameter('shelves', $shelves);
+			$this->qb->join($this->fieldForQuery('booksOnShelf'), 'bs')->andWhere('bs.shelf IN (:shelves)')->setParameter('shelves', $shelves);
 		}
 	}
 
 	/** @param BookCategory[] $categories */
 	private function filterByCategories($categories = null) {
 		if (!empty($categories)) {
-			$this->qb->andWhere(self::ALIAS.".category IN (:categories)")->setParameter('categories', $categories);
+			$this->qb->andWhere($this->fieldForQuery('category')." IN (:categories)")->setParameter('categories', $categories);
 		}
 	}
 
@@ -194,10 +194,10 @@ class BookQuery {
 			$operator = 'LIKE';
 			$fieldQuery = '%'.BookField::normalizedFieldValue($field, $term).'%';
 		}
-		$predicates = [self::ALIAS.".{$field} $operator ?1"];
+		$predicates = [$this->fieldForQuery($field)." $operator ?1"];
 		if (isset(self::$linkedSearchableFields[$field])) {
 			$predicates = array_merge($predicates, array_map(function ($field) use ($operator) {
-				return self::ALIAS . ".$field $operator ?1";
+				return $this->fieldForQuery($field)." $operator ?1";
 			}, self::$linkedSearchableFields[$field]));
 		}
 		$this->qb->andWhere(implode(' OR ', $predicates));
@@ -207,21 +207,28 @@ class BookQuery {
 
 	private function filterByPublishingYear(Year $year) {
 		return $this->qb
-			->where(self::ALIAS.".publishingYear = ?1")
+			->where($this->fieldForQuery('publishingYear')." = ?1")
 			->setParameter('1', $year->year);
 	}
 
 	private function filterByPublishingYearRange(YearRange $range) {
 		return $this->qb
-			->where(self::ALIAS.".publishingYear BETWEEN ?1 AND ?2")
+			->where($this->fieldForQuery('publishingYear')." BETWEEN ?1 AND ?2")
 			->setParameters([1 => $range->firstYear, 2 => $range->lastYear]);
 	}
 
 	private function filterGlobally($term) {
 		$this->qb->andWhere(implode(' OR ', array_map(function($field) {
-			return self::ALIAS.".$field LIKE ?1";
+			return $this->fieldForQuery($field)." LIKE ?1";
 		}, self::$globallySearchableFields)));
 		$this->qb->setParameter('1', "%{$term}%");
 		return $this->qb;
+	}
+
+	private function fieldForQuery($field) {
+		if (array_key_exists($field, BookField::PROPERTY_MAP)) {
+			return self::ALIAS.'.'.BookField::PROPERTY_MAP[$field].'.'.$field;
+		}
+		return self::ALIAS.'.'.$field;
 	}
 }

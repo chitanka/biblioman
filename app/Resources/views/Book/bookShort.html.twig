@@ -2,7 +2,7 @@
 <div class="well book-short book-{{ book.state }}" itemscope itemtype="http://schema.org/Book">
 	<div class="row">
 		<div class="col-md-4">
-			<div class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right" style="width: 160px; max-width: 100%">
+			<div class="thumbnail popover-trigger" data-content="{{ book.content.annotation|nl2br }}" data-placement="right" style="width: 160px; max-width: 100%">
 				{% if book.cover %}
 					<a href="{{ _.thumbCover(book.cover, 1000) }}" class="thumb-link">
 						<img src="{{ _.thumbCover(book.cover, 150) }}" width="150">
@@ -15,32 +15,32 @@
 		<div class="col-md-8">
 			<div class="book-title-and-author">
 				<div class="book-title">
-					<a href="{{ path('books_show', { id: book.id }) }}">{{ book.title }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.volumeTitle }}</span>{% endif %}</a>
+					<a href="{{ path('books_show', { id: book.id }) }}">{{ book.title }}{% if book.titling.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.titling.volumeTitle }}</span>{% endif %}</a>
 				</div>
-				{% if book.subtitle is not empty %}
-					<div class="book-subtitle">{{ _.printSearchLink(book.subtitle, 'subtitle', searchableFields) }}</div>
+				{% if book.titling.subtitle is not empty %}
+					<div class="book-subtitle">{{ _.printSearchLink(book.titling.subtitle, 'subtitle', searchableFields) }}</div>
 				{% endif %}
 				{% if book.author is not empty %}
 					<div class="book-author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</div>
 				{% endif %}
 			</div>
 			<div class="book-snippet-extra-info">
-				{% if book.sequence is not empty %}
+				{% if book.grouping.sequence is not empty %}
 					<div class="book-sequence">
 						<span class="fa fa-list-alt fa-fw"></span>
-						{{ _.printSearchLink(book.sequence, 'sequence', searchableFields) }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№{{ book.sequenceNr }}</span>{% endif %}
+						{{ _.printSearchLink(book.grouping.sequence, 'sequence', searchableFields) }}{% if book.grouping.sequenceNr is not empty %}, <span class="book-sequenceNr">№{{ book.grouping.sequenceNr }}</span>{% endif %}
 					</div>
 				{% endif %}
-				{% if book.publisher is not empty %}
+				{% if book.publishing.publisher is not empty %}
 					<div class="book-publisher">
 						<span class="fa fa-sun-o fa-fw"></span>
-						{{ _.printSearchLink(book.publisher, 'publisher', searchableFields) }}{% if book.publishingYear is not empty %}, <span class="book-publishingYear">{{ _.printSearchLink(book.publishingYear, 'publishingYear', searchableFields) }}</span>{% endif %}
+						{{ _.printSearchLink(book.publishing.publisher, 'publisher', searchableFields) }}{% if book.publishing.publishingYear is not empty %}, <span class="book-publishingYear">{{ _.printSearchLink(book.publishing.publishingYear, 'publishingYear', searchableFields) }}</span>{% endif %}
 					</div>
 				{% endif %}
-				{% if book.category is not empty %}
+				{% if book.classification.category is not empty %}
 					<div class="book-category">
 						<span class="fa fa-folder-o fa-fw"></span>
-						{{ _.printCategoryLink(book.category) }}
+						{{ _.printCategoryLink(book.classification.category) }}
 					</div>
 				{% endif %}
 			</div>
