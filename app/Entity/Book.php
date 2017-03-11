@@ -412,7 +412,7 @@ class Book extends Entity {
 			$this->newCovers[$type] = $cover = new BookCover();
 			$cover->setFile($image);
 			$cover->setType(new BookCoverType($type));
-			$cover->setMetaFormat($image->guessExtension());
+			$cover->setInternalFormat($image->guessExtension());
 			$cover->setTitle($title);
 		}
 		return $cover;
