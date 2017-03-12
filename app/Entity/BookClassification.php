@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Embeddable
  */
-class BookClassification {
+class BookClassification implements \JsonSerializable {
 
 	/**
 	 * @var string

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Embeddable
  */
-class BookContent {
+class BookContent implements \JsonSerializable {
 
 	/**
 	 * single collection anthology almanac

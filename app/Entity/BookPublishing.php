@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Embeddable
  */
-class BookPublishing {
+class BookPublishing implements \JsonSerializable {
 
 	/**
 	 * Поредност на изданието

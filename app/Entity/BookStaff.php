@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Embeddable
  */
-class BookStaff {
+class BookStaff implements \JsonSerializable {
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
