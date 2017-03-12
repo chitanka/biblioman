@@ -212,6 +212,11 @@ trait BookFiles {
 		$this->setNbScans(count($this->scans));
 	}
 
+	protected function updateNbFiles() {
+		$this->updateNbCovers();
+		$this->updateNbScans();
+	}
+
 	public function setCreatorByNewScans($user) {
 		$setCreatedBy = function (BookFile $file) use ($user) {
 			if ($file->isNew()) {

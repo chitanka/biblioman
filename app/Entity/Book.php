@@ -162,15 +162,13 @@ class Book extends Entity {
 
 	/** @ORM\PrePersist */
 	public function onPreInsert() {
-		$this->updateNbCovers();
-		$this->updateNbScans();
+		$this->updateNbFiles();
 	}
 
 	/** @ORM\PreUpdate */
 	public function onPreUpdate() {
 		if ($this->updatedTrackingEnabled) {
-			$this->updateNbCovers();
-			$this->updateNbScans();
+			$this->updateNbFiles();
 		}
 	}
 
