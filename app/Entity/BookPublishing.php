@@ -3,10 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookPublishing implements \JsonSerializable {
+trait BookPublishing {
 
 	/**
 	 * Поредност на изданието
@@ -87,7 +84,4 @@ class BookPublishing implements \JsonSerializable {
 		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }

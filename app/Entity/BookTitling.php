@@ -3,10 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookTitling implements \JsonSerializable {
+trait BookTitling {
 
 	/**
 	 * @var string
@@ -56,7 +53,4 @@ class BookTitling implements \JsonSerializable {
 		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }

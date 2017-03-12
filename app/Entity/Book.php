@@ -4,7 +4,6 @@ use App\Collection\BookCoverCollection;
 use App\Collection\BookScanCollection;
 use App\Collection\EntityCollection;
 use App\Editing\Editor;
-use App\Library\BookField;
 use Chitanka\Utils\Typograph;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -29,65 +28,16 @@ class Book extends Entity {
 	const LOCK_EXPIRE_TIME = 3600; // 1 hour
 	const ALLOWED_EDIT_TIME_WO_REVISION = 3600; // 1 hour
 
-	/**
-	 * @var BookTitling
-	 * @ORM\Embedded(class = "BookTitling", columnPrefix = false)
-	 */
-	private $titling;
-
-	/**
-	 * @var BookAuthorship
-	 * @ORM\Embedded(class = "BookAuthorship", columnPrefix = false)
-	 */
-	private $authorship;
-
-	/**
-	 * @var BookStaff
-	 * @ORM\Embedded(class = "BookStaff", columnPrefix = false)
-	 */
-	private $staff;
-
-	/**
-	 * @var BookPublishing
-	 * @ORM\Embedded(class = "BookPublishing", columnPrefix = false)
-	 */
-	private $publishing;
-
-	/**
-	 * @var BookGrouping
-	 * @ORM\Embedded(class = "BookGrouping", columnPrefix = false)
-	 */
-	private $grouping;
-
-	/**
-	 * @var BookBody
-	 * @ORM\Embedded(class = "BookBody", columnPrefix = false)
-	 */
-	private $body;
-
-	/**
-	 * @var BookPrint
-	 * @ORM\Embedded(class = "BookPrint", columnPrefix = false)
-	 */
-	private $print;
-
-	/**
-	 * @var BookContent
-	 * @ORM\Embedded(class = "BookContent", columnPrefix = false)
-	 */
-	private $content;
-
-	/**
-	 * @var BookClassification
-	 * @ORM\Embedded(class = "BookClassification", columnPrefix = false)
-	 */
-	private $classification;
-
-	/**
-	 * @var BookCategory
-	 * @ORM\ManyToOne(targetEntity="BookCategory", fetch="EAGER")
-	 */
-	private $category;
+	use BookAuthorship { toArray as private authorshipToArray; }
+	use BookBody { toArray as private bodyToArray; }
+	use BookClassification { toArray as private classificationToArray; }
+	use BookContent { toArray as private contentToArray; }
+	use BookGrouping { toArray as private groupingToArray; }
+	use BookMeta { toArray as private metaToArray; }
+	use BookPrint { toArray as private printToArray; }
+	use BookPublishing { toArray as private publishingToArray; }
+	use BookStaff { toArray as private staffToArray; }
+	use BookTitling { toArray as private titlingToArray; }
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -222,12 +172,6 @@ class Book extends Entity {
 	 */
 	private $shelves;
 
-	/**
-	 * @var BookMeta
-	 * @ORM\Embedded(class = "BookMeta", columnPrefix = false)
-	 */
-	private $meta;
-
 	public function __construct() {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
@@ -238,38 +182,14 @@ class Book extends Entity {
 		$this->updatedAt = new \DateTime();
 	}
 
-	public function getTitle() { return $this->titling->getTitle(); }
-	public function getTitling() { return $this->titling; }
-	public function setTitling($titling) { $this->titling = $titling; }
-	public function getAuthor() { return $this->authorship->getAuthor(); }
-	public function getAuthorship() { return $this->authorship; }
-	public function setAuthorship($authorship) { $this->authorship = $authorship; }
-	public function getStaff() { return $this->staff; }
-	public function setStaff($staff) { $this->staff = $staff; }
-	public function getGrouping() { return $this->grouping; }
-	public function setGrouping($grouping) { $this->grouping = $grouping; }
-	public function getPublishing() { return $this->publishing; }
-	public function setPublishing($publishing) { $this->publishing = $publishing; }
-	public function getBody() { return $this->body; }
-	public function setBody($body) { $this->body = $body; }
-	public function getPrint() { return $this->print; }
-	public function setPrint($print) { $this->print = $print; }
 	public function getOtherFields() { return $this->otherFields; }
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
-	public function getContent() { return $this->content; }
-	public function setContent($content) { $this->content = $content; }
-	public function getClassification() { return $this->classification; }
-	public function setClassification($classification) { $this->classification = $classification; }
-	public function getCategory() { return $this->category; }
-	public function setCategory($category) { $this->category = $category; }
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 	public function getCreatedAt() { return $this->createdAt; }
 	public function getUpdatedAt() { return $this->updatedAt; }
 	public function getRevisions() { return $this->revisions; }
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
-	public function getMeta() { return $this->meta; }
-	public function setMeta($meta) { $this->meta = $meta; }
 
 	public function getLinks() { return $this->links; }
 	/** @param BookLink[] $links */
@@ -308,7 +228,7 @@ class Book extends Entity {
 	}
 
 	public function getState() {
-		if ($this->meta->isIncomplete()) {
+		if ($this->isIncomplete()) {
 			return self::STATE_INCOMPLETE;
 		}
 		return self::STATE_VERIFIED_0;
@@ -549,28 +469,17 @@ class Book extends Entity {
 		return $this->getTitle();
 	}
 
-	public function __get($property) {
-		if (array_key_exists($property, BookField::PROPERTY_MAP)) {
-			return $this->{BookField::PROPERTY_MAP[$property]}->{'get'.ucfirst($property)}();
-		}
-		return $this->{'get'.ucfirst($property)}();
-	}
-
 	public function toArray() {
-		return [
-			'title' => $this->getTitle(),
-			'author' => $this->getAuthor(),
-			'titling' => $this->titling->toArray(),
-			'authorship' => $this->authorship->toArray(),
-			'staff' => $this->staff->toArray(),
-			'grouping' => $this->grouping->toArray(),
-			'publishing' => $this->publishing->toArray(),
-			'body' => $this->body->toArray(),
-			'print' => $this->print->toArray(),
-			'classification' => $this->classification->toArray(),
-			'category' => $this->category,
-			'content' => $this->content->toArray(),
-			'meta' => $this->meta->toArray(),
+		return $this->authorshipToArray() +
+			$this->bodyToArray() +
+			$this->classificationToArray() +
+			$this->contentToArray() +
+			$this->groupingToArray() +
+			$this->metaToArray() +
+			$this->printToArray() +
+			$this->publishingToArray() +
+			$this->staffToArray() +
+			$this->titlingToArray() + [
 			'otherFields' => $this->otherFields,
 			'cover' => $this->cover,
 			'backCover' => $this->backCover,

@@ -2,10 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookAuthorship implements \JsonSerializable {
+trait BookAuthorship {
 
 	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)
@@ -69,7 +66,4 @@ class BookAuthorship implements \JsonSerializable {
 		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }

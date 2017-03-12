@@ -3,10 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookGrouping implements \JsonSerializable {
+trait BookGrouping {
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
@@ -65,7 +62,4 @@ class BookGrouping implements \JsonSerializable {
 		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }

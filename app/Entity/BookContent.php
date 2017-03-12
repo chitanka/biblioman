@@ -3,10 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookContent implements \JsonSerializable {
+trait BookContent {
 
 	/**
 	 * single collection anthology almanac
@@ -87,7 +84,4 @@ class BookContent implements \JsonSerializable {
 		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }

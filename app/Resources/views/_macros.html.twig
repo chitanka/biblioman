@@ -4,17 +4,13 @@
 		<dt role="separator"></dt>
 		<dd role="separator"><hr></dd>
 	{% else %}
-		{% set attr = book %}
-		{% for fieldPart in field|split('.') %}
-			{% set attr = attribute(attr, fieldPart) %}
-		{% endfor %}
-		{% set realField = field|split('.')|last %}
+		{% set attr = attribute(book, field) %}
 		{% if attr is not empty %}
-		<dt class="entity-field{{ realField }}" title="{{ realField|humanize|trans }}">{{ realField|humanize|trans }}</dt>
-		<dd class="entity-field entity-field{{ realField }}">
+		<dt class="entity-field{{ field }}" title="{{ field|humanize|trans }}">{{ field|humanize|trans }}</dt>
+		<dd class="entity-field entity-field{{ field }}">
 			{% if attr.timestamp is defined %}
 				{{ _.printDate(attr) }}
-			{% elseif realField == 'linksByCategory' %}
+			{% elseif field == 'linksByCategory' %}
 				{% for category, links in attr %}
 					<b>{{ ('BookLinkCategory.' ~ category)|trans }}</b>
 					<ul>
@@ -23,36 +19,36 @@
 					{% endfor %}
 					</ul>
 				{% endfor %}
-			{% elseif realField == 'category' %}
+			{% elseif field == 'category' %}
 				{{ _.printCategoryLink(attr) }}
-			{% elseif realField in searchableFields.fields %}
+			{% elseif field in searchableFields.fields %}
 				{% if attr is same as(true) %}
-					{{ _.printSearchLink('да', realField, searchableFields) }}
+					{{ _.printSearchLink('да', field, searchableFields) }}
 				{% else %}
 					{% for subvalue in attr|split('; ') %}
-						{{ _.printSearchLink(subvalue, realField, searchableFields) }}{% if not loop.last %},{% endif %}
+						{{ _.printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}
 					{% endfor %}
 				{% endif %}
-			{% elseif realField == 'toc' %}
+			{% elseif field == 'toc' %}
 				{{ attr | format_whitespaces }}
-			{% elseif realField == 'infoSources' %}
+			{% elseif field == 'infoSources' %}
 				{{ attr | converturls | format_whitespaces }}
-			{% elseif realField == 'notes' %}
+			{% elseif field == 'notes' %}
 				{{ attr | converturls | autolink | format_whitespaces }}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
-			{% if realField == 'createdBy' %}
+			{% if field == 'createdBy' %}
 				{{ _.printUserMessageLink(attr, book) }}
 			{% endif %}
-			{% if realField == 'sequence' and book.grouping.sequenceNr is not empty %}
-				№{{ book.grouping.sequenceNr }}
+			{% if field == 'sequence' and book.sequenceNr is not empty %}
+				№{{ book.sequenceNr }}
 			{% endif %}
-			{% if realField == 'subsequence' and book.grouping.subsequenceNr is not empty %}
-				№{{ book.grouping.subsequenceNr }}
+			{% if field == 'subsequence' and book.subsequenceNr is not empty %}
+				№{{ book.subsequenceNr }}
 			{% endif %}
-			{% if realField == 'series' and book.grouping.seriesNr is not empty %}
-				№{{ book.grouping.seriesNr }}
+			{% if field == 'series' and book.seriesNr is not empty %}
+				№{{ book.seriesNr }}
 			{% endif %}
 		</dd>
 		{% endif %}
@@ -133,12 +129,12 @@
 
 {% macro printBookEditInfo(book, searchableFields) %}
 	{% import _self as _ %}
-	{% if book.meta.isIncomplete %}
+	{% if book.isIncomplete %}
 		<div class="text-danger">
 			<span class="fa fa-warning"></span>
 			Записът е непълен.
-			{% if book.meta.reasonWhyIncomplete is not empty %}
-				({{ _.printSearchLink(book.meta.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+			{% if book.reasonWhyIncomplete is not empty %}
+				({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
 			{% endif %}
 		</div>
 	{% endif %}
@@ -149,7 +145,7 @@
 
 {% macro printBookThumbnailLink(book, width) %}
 	{% from _self import thumbCover %}
-	<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.content.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} – {{ book.author }}">
+	<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} – {{ book.author }}">
 		<img src="{{ thumbCover(book.cover ? book.cover : 'nocover.png', width) }}">
 	</a>
 {% endmacro %}

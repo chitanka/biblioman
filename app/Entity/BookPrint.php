@@ -3,10 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookPrint implements \JsonSerializable {
+trait BookPrint {
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
@@ -78,7 +75,4 @@ class BookPrint implements \JsonSerializable {
 		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }

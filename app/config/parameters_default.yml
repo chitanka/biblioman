@@ -19,114 +19,114 @@ parameters:
     single_login_provider: ~
 
     book_fields_short:
-        - authorship.author
-        - titling.title
-        - titling.volumeTitle
-        - titling.subtitle
-        - grouping.sequence
-        - publishing.edition
+        - author
+        - title
+        - volumeTitle
+        - subtitle
+        - sequence
+        - edition
         - category
-        - classification.genre
-        - authorship.translator
-        - authorship.compiler
-        - staff.editor
-        - staff.chiefEditor
-        - staff.publisherEditor
-        - staff.artist
-        - staff.illustrator
-        - staff.artistEditor
-        - staff.technicalEditor
-        - publishing.publisher
-        - publishing.publishingYear
-        - body.binding
-        - body.pageCount
-        - classification.isbn
+        - genre
+        - translator
+        - compiler
+        - editor
+        - chiefEditor
+        - publisherEditor
+        - artist
+        - illustrator
+        - artistEditor
+        - technicalEditor
+        - publisher
+        - publishingYear
+        - binding
+        - pageCount
+        - isbn
         - createdBy
     book_fields_long:
-        - authorship.author
-        - titling.title
-        - titling.altTitle
-        - titling.volumeTitle
-        - titling.subtitle
-        - titling.subtitle2
-        - grouping.sequence
-        - grouping.subsequence
-        - grouping.series
-        - authorship.adaptedBy
-        - authorship.otherAuthors
-        - content.contentType
-        - content.nationality
-        - content.language
-        - publishing.edition
+        - author
+        - title
+        - altTitle
+        - volumeTitle
+        - subtitle
+        - subtitle2
+        - sequence
+        - subsequence
+        - series
+        - adaptedBy
+        - otherAuthors
+        - contentType
+        - nationality
+        - language
+        - edition
         - category
-        - classification.genre
-        - classification.themes
+        - genre
+        - themes
         - _divider
-        - authorship.translator
-        - authorship.translatedFromLanguage
-        - authorship.dateOfTranslation
-        - authorship.compiler
-        - staff.editor
-        - staff.chiefEditor
-        - staff.managingEditor
-        - staff.publisherEditor
-        - staff.editorialStaff
-        - staff.consultant
-        - staff.artist
-        - staff.illustrator
-        - staff.artistEditor
-        - staff.technicalEditor
-        - staff.reviewer
-        - staff.scienceEditor
-        - staff.copyreader
-        - staff.corrector
-        - staff.layout
-        - staff.coverLayout
-        - staff.libraryDesign
-        - staff.computerProcessing
-        - staff.prepress
+        - translator
+        - translatedFromLanguage
+        - dateOfTranslation
+        - compiler
+        - editor
+        - chiefEditor
+        - managingEditor
+        - publisherEditor
+        - editorialStaff
+        - consultant
+        - artist
+        - illustrator
+        - artistEditor
+        - technicalEditor
+        - reviewer
+        - scienceEditor
+        - copyreader
+        - corrector
+        - layout
+        - coverLayout
+        - libraryDesign
+        - computerProcessing
+        - prepress
         - _divider
-        - publishing.publisher
-        - publishing.publisherCity
-        - publishing.publishingYear
-        - publishing.publisherAddress
-        - print.printingHouse
+        - publisher
+        - publisherCity
+        - publishingYear
+        - publisherAddress
+        - printingHouse
         - otherFields
         - _divider
-        - classification.litGroup
-        - print.typeSettingIn
-        - print.printSigned
-        - print.printOut
-        - print.printerSheets
-        - print.publisherSheets
-        - print.provisionPublisherSheets
-        - body.format
-        - publishing.publisherCode
-        - classification.trackingCode
-        - publishing.publisherOrder
-        - publishing.publisherNumber
-        - body.pageCount
-        - print.totalPrint
-        - body.binding
-        - publishing.price
-        - content.illustrated
+        - litGroup
+        - typeSettingIn
+        - printSigned
+        - printOut
+        - printerSheets
+        - publisherSheets
+        - provisionPublisherSheets
+        - format
+        - publisherCode
+        - trackingCode
+        - publisherOrder
+        - publisherNumber
+        - pageCount
+        - totalPrint
+        - binding
+        - price
+        - illustrated
         - _divider
-        - classification.isbn
-        - classification.uniformProductClassification
-        - classification.universalDecimalClassification
+        - isbn
+        - uniformProductClassification
+        - universalDecimalClassification
         - _divider
-        - content.annotation
-        - content.notesAboutAuthor
-        - content.marketingSnippets
-        - content.toc
-        - content.notesAboutOriginal
+        - annotation
+        - notesAboutAuthor
+        - marketingSnippets
+        - toc
+        - notes
+        - notesAboutOriginal
         - _divider
         - createdBy
         - createdAt
         - updatedAt
         - _divider
-        - meta.notes
-        - meta.infoSources
+        - infoSources
         - linksByCategory
 
     default_shelves:

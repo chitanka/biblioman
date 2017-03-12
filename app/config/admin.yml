@@ -72,19 +72,87 @@ easy_admin:
             form:
                 title: Book.form_title
                 fields:
-                    - { property: titling, type: App\Form\BookTitlingType }
-                    - { property: authorship, type: App\Form\BookAuthorshipType }
-                    - { property: grouping, type: App\Form\BookGroupingType }
-                    - { property: staff, type: App\Form\BookStaffType }
-                    - { property: publishing, type: App\Form\BookPublishingType }
-                    - { property: body, type: App\Form\BookBodyType, label: Book body }
-                    - { property: print, type: App\Form\BookPrintType }
-                    - { property: content, type: App\Form\BookContentType }
+                    - { type: group, label: Data from paper, icon: book }
+                    - { property: author, help: help.author }
+                    - { property: title }
+                    - { property: altTitle, help: help.altTitle }
+                    - { property: volumeTitle, help: help.volumeTitle }
+                    - { property: subtitle }
+                    - { property: subtitle2 }
+                    - { property: sequence }
+                    - { property: sequenceNr, type: text }
+                    - { property: subsequence }
+                    - { property: subsequenceNr, type: text }
+                    - { property: series }
+                    - { property: seriesNr }
+                    - { property: translator, help: help.translator }
+                    - { property: translatedFromLanguage }
+                    - { property: dateOfTranslation }
+                    - { property: adaptedBy }
+                    - { property: otherAuthors, help: help.otherAuthors }
+                    - { property: compiler }
+                    - { property: editorialStaff, help: help.editorialStaff }
+                    - { property: chiefEditor }
+                    - { property: managingEditor }
+                    - { property: editor }
+                    - { property: publisherEditor }
+                    - { property: consultant }
+                    - { property: artist, help: help.artist }
+                    - { property: illustrator }
+                    - { property: artistEditor, help: help.artistEditor }
+                    - { property: technicalEditor }
+                    - { property: reviewer }
+                    - { property: scienceEditor }
+                    - { property: copyreader }
+                    - { property: corrector }
+                    - { property: layout }
+                    - { property: coverLayout, help: help.coverLayout }
+                    - { property: libraryDesign }
+                    - { property: computerProcessing, help: help.computerProcessing }
+                    - { property: prepress }
+                    - { property: publisher }
+                    - { property: publisherCity }
+                    - { property: publishingYear }
+                    - { property: publisherAddress }
+                    - { property: printingHouse }
+                    - { property: contentType, help: help.contentType }
+                    - { property: nationality }
+                    - { property: language }
+                    - { property: edition, help: help.edition }
+                    - { property: litGroup }
+                    - { property: typeSettingIn }
+                    - { property: printSigned }
+                    - { property: printOut }
+                    - { property: printerSheets, help: help.printerSheets }
+                    - { property: publisherSheets }
+                    - { property: provisionPublisherSheets, help: help.provisionPublisherSheets }
+                    - { property: format, help: help.format }
+                    - { property: publisherCode }
+                    - { property: trackingCode, help: help.trackingCode }
+                    - { property: publisherOrder }
+                    - { property: publisherNumber }
+                    - { property: uniformProductClassification, help: help.uniformProductClassification }
+                    - { property: pageCount, type: text, help: help.pageCount }
+                    - { property: totalPrint }
+                    - { property: price }
+                    - { property: binding, help: help.binding }
+                    - { property: illustrated, type: checkbox }
+                    - { property: isbn, help: help.isbn }
+                    - { property: annotation }
+                    - { property: notesAboutAuthor, help: help.notesAboutAuthor }
+                    - { property: marketingSnippets, help: help.marketingSnippets }
+                    - { property: toc }
+                    - { property: notesAboutOriginal }
                     - { property: otherFields, help: help.otherFields }
 
+                    - { type: group, label: Notes, icon: sticky-note-o }
+                    - { property: notes }
+
                     - { type: group, label: Categorization, icon: tag }
-                    - { property: classification, type: App\Form\BookClassificationType }
                     - { property: category }
+                    - { property: genre, help: help.genre }
+                    - { property: themes, help: help.themes }
+                    - { property: universalDecimalClassification, help: help.universalDecimalClassification }
 
                     - { type: group, label: Links, icon: link }
                     # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
@@ -102,7 +170,11 @@ easy_admin:
                     - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, help: help.scans, css_class: 'files' }
 
                     - { type: group, label: Metadata, icon: file-text-o }
-                    - { property: meta, type: App\Form\BookMetaType }
+                    - { property: infoSources, help: help.infoSources }
+                    - { property: adminComment, help: help.adminComment }
+                    - { property: ocredText, help: help.ocredText }
+                    - isIncomplete
+                    - reasonWhyIncomplete
 
         User:
             class: App\Entity\User

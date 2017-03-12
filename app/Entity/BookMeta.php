@@ -3,12 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Embeddable
- */
-class BookMeta implements \JsonSerializable {
-
-	public static $inAdminMode = false;
+trait BookMeta {
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -70,10 +65,7 @@ class BookMeta implements \JsonSerializable {
 			'isIncomplete' => $this->isIncomplete,
 			'reasonWhyIncomplete' => $this->reasonWhyIncomplete,
 			'verified' => $this->verified,
-		] + (self::$inAdminMode ? ['adminComment' => $this->adminComment] : []);
+		];
 	}
 
-	public function jsonSerialize() {
-		return $this->toArray();
-	}
 }
