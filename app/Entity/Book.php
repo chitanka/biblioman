@@ -23,7 +23,6 @@ class Book extends Entity {
 	const STATE_VERIFIED_2 = 'verified_2';
 	const STATE_VERIFIED_3 = 'verified_3';
 
-	const LOCK_EXPIRE_TIME = 3600; // 1 hour
 	const ALLOWED_EDIT_TIME_WO_REVISION = 3600; // 1 hour
 
 	use BookAuthorship { toArray as private authorshipToArray; }
@@ -37,6 +36,7 @@ class Book extends Entity {
 	use BookPublishing { toArray as private publishingToArray; }
 	use BookStaff { toArray as private staffToArray; }
 	use BookTitling { toArray as private titlingToArray; }
+	use CanBeLocked;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -76,18 +76,6 @@ class Book extends Entity {
 	 * @ORM\OrderBy({"createdAt" = "ASC"})
 	 */
 	private $revisions;
-
-	/**
-	 * @var \DateTime
-	 * @ORM\Column(type="datetime", nullable=true)
-	 */
-	private $lockedAt;
-
-	/**
-	 * @var string
-	 * @ORM\Column(type="string", length=50, nullable=true)
-	 */
-	private $lockedBy;
 
 //	/**
 //	 * @ORM\OneToMany(targetEntity="BookItem", mappedBy="book")
@@ -170,28 +158,6 @@ class Book extends Entity {
 
 	public function disableUpdatedTracking() {
 		$this->updatedTrackingEnabled = false;
-	}
-
-	public function setLock($user) {
-		$this->lockedBy = $user;
-		$this->lockedAt = new \DateTime();
-	}
-
-	public function clearLock() {
-		$this->lockedBy = null;
-		$this->lockedAt = null;
-	}
-
-	public function isLockedForUser($user) {
-		return $this->lockedBy !== null && $this->lockedBy !== $user && !$this->isLockExpired();
-	}
-
-	public function isLockExpired() {
-		return $this->lockedAt === null || (time() - $this->lockedAt->getTimeStamp() > self::LOCK_EXPIRE_TIME);
-	}
-
-	public function getLockedBy() {
-		return $this->lockedBy;
 	}
 
 	/** @ORM\PrePersist */
