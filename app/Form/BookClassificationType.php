@@ -10,7 +10,6 @@ class BookClassificationType extends AbstractType {
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder->add('themes');
 		$builder->add('genre');
-		$builder->add('category');
 		$builder->add('trackingCode');
 		$builder->add('litGroup');
 		$builder->add('uniformProductClassification');

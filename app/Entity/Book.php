@@ -84,6 +84,12 @@ class Book extends Entity {
 	private $classification;
 
 	/**
+	 * @var BookCategory
+	 * @ORM\ManyToOne(targetEntity="BookCategory", fetch="EAGER")
+	 */
+	private $category;
+
+	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $otherFields;
@@ -254,6 +260,8 @@ class Book extends Entity {
 	public function setContent($content) { $this->content = $content; }
 	public function getClassification() { return $this->classification; }
 	public function setClassification($classification) { $this->classification = $classification; }
+	public function getCategory() { return $this->category; }
+	public function setCategory($category) { $this->category = $category; }
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 	public function getCreatedAt() { return $this->createdAt; }
@@ -560,6 +568,7 @@ class Book extends Entity {
 			'body' => $this->body->toArray(),
 			'print' => $this->print->toArray(),
 			'classification' => $this->classification->toArray(),
+			'category' => $this->category,
 			'content' => $this->content->toArray(),
 			'meta' => $this->meta->toArray(),
 			'otherFields' => $this->otherFields,

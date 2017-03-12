@@ -44,7 +44,7 @@ class BookRepository extends EntityRepository {
 	 * @return QueryBuilder
 	 */
 	public function filterByCategory(BookCategory $category) {
-		$qb = $this->createQueryBuilder('b')->where('b.grouping.category IN (:categories)');
+		$qb = $this->createQueryBuilder('b')->where('b.category IN (:categories)');
 		$categories = array_merge([$category], $this->getCategoryRepository()->children($category));
 		$qb->setParameter('categories', $categories);
 		return $qb;

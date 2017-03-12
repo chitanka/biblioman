@@ -84,6 +84,7 @@ easy_admin:
 
                     - { type: group, label: Categorization, icon: tag }
                     - { property: classification, type: App\Form\BookClassificationType }
+                    - { property: category }
 
                     - { type: group, label: Links, icon: link }
                     # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.

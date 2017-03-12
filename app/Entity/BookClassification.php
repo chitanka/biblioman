@@ -21,12 +21,6 @@ class BookClassification implements \JsonSerializable {
 	private $genre;
 
 	/**
-	 * @var BookCategory
-	 * @ORM\ManyToOne(targetEntity="BookCategory", fetch="EAGER")
-	 */
-	private $category;
-
-	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
@@ -66,8 +60,6 @@ class BookClassification implements \JsonSerializable {
 	public function setThemes($themes) { $this->themes = $themes; }
 	public function getGenre() { return $this->genre; }
 	public function setGenre($genre) { $this->genre = $genre; }
-	public function getCategory() { return $this->category; }
-	public function setCategory($category) { $this->category = $category; }
 	public function getTrackingCode() { return $this->trackingCode; }
 	public function setTrackingCode($trackingCode) { $this->trackingCode = $trackingCode; }
 	public function getLitGroup() { return $this->litGroup; }
@@ -85,7 +77,6 @@ class BookClassification implements \JsonSerializable {
 		return [
 			'themes' => $this->themes,
 			'genre' => $this->genre,
-			'category' => $this->category,
 			'trackingCode' => $this->trackingCode,
 			'litGroup' => $this->litGroup,
 			'uniformProductClassification' => $this->uniformProductClassification,

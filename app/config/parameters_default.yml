@@ -25,7 +25,7 @@ parameters:
         - titling.subtitle
         - grouping.sequence
         - publishing.edition
-        - classification.category
+        - category
         - classification.genre
         - authorship.translator
         - authorship.compiler
@@ -58,7 +58,7 @@ parameters:
         - content.nationality
         - content.language
         - publishing.edition
-        - classification.category
+        - category
         - classification.genre
         - classification.themes
         - _divider
