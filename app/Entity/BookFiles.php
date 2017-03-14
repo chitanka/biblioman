@@ -230,7 +230,7 @@ trait BookFiles {
 
 	protected function setUpdatedAtOnFileUpload($image) {
 		if ($image && $image instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-			$this->updatedAt = new \DateTime();
+			$this->markAsChanged();
 		}
 	}
 
@@ -244,4 +244,5 @@ trait BookFiles {
 		];
 	}
 
+	abstract protected function markAsChanged();
 }

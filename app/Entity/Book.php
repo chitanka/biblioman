@@ -234,4 +234,7 @@ class Book extends Entity {
 		$this->scans = clone $this->scans;
 	}
 
+	protected function markAsChanged() {
+		$this->updatedAt = new \DateTime();
+	}
 }
