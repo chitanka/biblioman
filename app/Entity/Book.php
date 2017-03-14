@@ -4,7 +4,6 @@ use App\Collection\BookCoverCollection;
 use App\Collection\BookScanCollection;
 use App\Editing\Editor;
 use Chitanka\Utils\Typograph;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -37,6 +36,7 @@ class Book extends Entity {
 	use BookStaff { toArray as private staffToArray; }
 	use BookTitling { toArray as private titlingToArray; }
 	use CanBeLocked;
+	use HasTimestamp;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -53,20 +53,6 @@ class Book extends Entity {
 	 * @ORM\Column(type="string", length=50)
 	 */
 	private $createdBy;
-
-	/**
-	 * @var \DateTime
-	 * @Gedmo\Timestampable(on="create")
-	 * @ORM\Column(type="datetime")
-	 */
-	private $createdAt;
-
-	/**
-	 * @var \DateTime
-	 * @Gedmo\Timestampable(on="update")
-	 * @ORM\Column(type="datetime")
-	 */
-	private $updatedAt;
 
 	private $updatedTrackingEnabled = true;
 
@@ -108,8 +94,6 @@ class Book extends Entity {
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
-	public function getCreatedAt() { return $this->createdAt; }
-	public function getUpdatedAt() { return $this->updatedAt; }
 	public function getRevisions() { return $this->revisions; }
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
 
@@ -204,7 +188,7 @@ class Book extends Entity {
 	}
 
 	private function shouldCreateRevision($user) {
-		return $user != $this->getCreatedBy() || $this->hasRevisions() || ((time() - $this->getUpdatedAt()->getTimestamp()) > self::ALLOWED_EDIT_TIME_WO_REVISION);
+		return $user != $this->getCreatedBy() || $this->hasRevisions() || $this->isOlderThanSeconds(self::ALLOWED_EDIT_TIME_WO_REVISION);
 	}
 
 	public function __toString() {
@@ -225,8 +209,8 @@ class Book extends Entity {
 			$this->titlingToArray() + [
 			'otherFields' => $this->otherFields,
 			'createdBy' => $this->createdBy,
-			'createdAt' => $this->getCreatedAt(),
-			'updatedAt' => $this->getUpdatedAt(),
+			'createdAt' => $this->createdAt,
+			'updatedAt' => $this->updatedAt,
 		];
 	}
 
