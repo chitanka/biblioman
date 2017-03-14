@@ -31,6 +31,10 @@ class EntityCollection extends ArrayCollection {
 		}
 	}
 
+	/**
+	 * @param static|Collection|array|\Traversable $collection
+	 * @return static
+	 */
 	public static function fromCollection($collection) {
 		if ($collection instanceof static) {
 			return $collection;
