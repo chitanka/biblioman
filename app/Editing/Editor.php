@@ -25,7 +25,7 @@ class Editor {
 		if ($this->isCollection($field1)) {
 			return array_filter($this->computeArrayDifferences($field1, $field2));
 		}
-		if ($field2 != $field2) {
+		if ($field1 != $field2) {
 			return [(string) $field1, (string) $field2];
 		}
 		return null;
