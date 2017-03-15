@@ -151,6 +151,13 @@ class Book extends Entity {
 		return $this->getTitle();
 	}
 
+	public function __call($name, $args) {
+		if (property_exists($this, $name)) {
+			return $this->$name;
+		}
+		trigger_error('Call to undefined method '.static::class.'::'.$name.'()', E_USER_ERROR);
+	}
+
 	public function toArray() {
 		return $this->titlingToArray() +
 			$this->authorshipToArray() +
