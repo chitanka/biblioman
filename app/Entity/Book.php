@@ -2,7 +2,6 @@
 
 use App\Collection\BookCoverCollection;
 use App\Collection\BookScanCollection;
-use App\Editing\Editor;
 use Chitanka\Utils\Typograph;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,13 +55,6 @@ class Book extends Entity {
 
 	private $updatedTrackingEnabled = true;
 
-	/**
-	 * @var BookRevision[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookRevision", mappedBy="book")
-	 * @ORM\OrderBy({"createdAt" = "ASC"})
-	 */
-	private $revisions;
-
 //	/**
 //	 * @ORM\OneToMany(targetEntity="BookItem", mappedBy="book")
 //	 * @ORM\OrderBy({"position" = "ASC"})
@@ -94,8 +86,6 @@ class Book extends Entity {
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
-	public function getRevisions() { return $this->revisions; }
-	public function setRevisions($revisions) { $this->revisions = $revisions; }
 
 	public function getLinks() { return $this->links; }
 	/** @param BookLink[] $links */
@@ -156,47 +146,13 @@ class Book extends Entity {
 		}
 	}
 
-	public function hasRevisions() {
-		return count($this->getRevisions()) > 0;
-	}
-
-	public function getRevisionEditors() {
-		$editors = [];
-		foreach ($this->getRevisions() as $revision) {
-			$editors[] = $revision->getCreatedBy();
-		}
-		return array_unique($editors);
-	}
-
-	/** @return BookRevision */
-	public function createRevision() {
-		$revision = new BookRevision();
-		$revision->setBook($this);
-		$revision->setCreatedAt(new \DateTime());
-		return $revision;
-	}
-
-	public function createRevisionIfNecessary(Book $oldBook, $user) {
-		$diffs = (new Editor())->computeBookDifferences($oldBook, $this);
-		if (empty($diffs) || !$this->shouldCreateRevision($user)) {
-			return null;
-		}
-		$revision = $this->createRevision();
-		$revision->setDiffs($diffs);
-		$revision->setCreatedBy($user);
-		return $revision;
-	}
-
-	private function shouldCreateRevision($user) {
-		return $user != $this->getCreatedBy() || $this->hasRevisions() || $this->isOlderThanSeconds(self::ALLOWED_EDIT_TIME_WO_REVISION);
-	}
-
 	public function __toString() {
 		return $this->getTitle();
 	}
 
 	public function toArray() {
-		return $this->authorshipToArray() +
+		return $this->titlingToArray() +
+			$this->authorshipToArray() +
 			$this->bodyToArray() +
 			$this->classificationToArray() +
 			$this->contentToArray() +
@@ -205,8 +161,7 @@ class Book extends Entity {
 			$this->metaToArray() +
 			$this->printToArray() +
 			$this->publishingToArray() +
-			$this->staffToArray() +
-			$this->titlingToArray() + [
+			$this->staffToArray() + [
 			'otherFields' => $this->otherFields,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
