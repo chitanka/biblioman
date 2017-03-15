@@ -39,19 +39,12 @@ trait BookAuthorship {
 	 */
 	private $compiler;
 
-	public function getAuthor() { return $this->author; }
 	public function setAuthor($author) { $this->author = $author; }
-	public function getTranslator() { return $this->translator; }
 	public function setTranslator($translator) { $this->translator = $translator; }
-	public function getTranslatedFromLanguage() { return $this->translatedFromLanguage; }
 	public function setTranslatedFromLanguage($translatedFromLanguage) { $this->translatedFromLanguage = $translatedFromLanguage; }
-	public function getDateOfTranslation() { return $this->dateOfTranslation; }
 	public function setDateOfTranslation($dateOfTranslation) { $this->dateOfTranslation = $dateOfTranslation; }
-	public function getAdaptedBy() { return $this->adaptedBy; }
 	public function setAdaptedBy($adaptedBy) { $this->adaptedBy = $adaptedBy; }
-	public function getOtherAuthors() { return $this->otherAuthors; }
 	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = $otherAuthors; }
-	public function getCompiler() { return $this->compiler; }
 	public function setCompiler($compiler) { $this->compiler = $compiler; }
 
 	public function toArray() {

@@ -59,23 +59,14 @@ trait BookClassification {
 	 */
 	private $isbnClean;
 
-	public function getThemes() { return $this->themes; }
 	public function setThemes($themes) { $this->themes = $themes; }
-	public function getGenre() { return $this->genre; }
 	public function setGenre($genre) { $this->genre = $genre; }
-	public function getCategory() { return $this->category; }
 	public function setCategory($category) { $this->category = $category; }
-	public function getTrackingCode() { return $this->trackingCode; }
 	public function setTrackingCode($trackingCode) { $this->trackingCode = $trackingCode; }
-	public function getLitGroup() { return $this->litGroup; }
 	public function setLitGroup($litGroup) { $this->litGroup = $litGroup; }
-	public function getUniformProductClassification() { return $this->uniformProductClassification; }
 	public function setUniformProductClassification($uniformProductClassification) { $this->uniformProductClassification = $uniformProductClassification; }
-	public function getUniversalDecimalClassification() { return $this->universalDecimalClassification; }
 	public function setUniversalDecimalClassification($universalDecimalClassification) { $this->universalDecimalClassification = $universalDecimalClassification; }
-	public function getIsbn() { return $this->isbn; }
 	public function setIsbn($isbn) { $this->isbn = BookField::normalizeIsbn($isbn); $this->setIsbnClean(BookField::normalizeSearchableIsbn($this->isbn)); }
-	public function getIsbnClean() { return $this->isbnClean; }
 	public function setIsbnClean($isbnClean) { $this->isbnClean = $isbnClean; }
 
 	public function toArray() {

@@ -101,43 +101,24 @@ trait BookStaff {
 	 */
 	private $prepress;
 
-	public function getChiefEditor() { return $this->chiefEditor; }
 	public function setChiefEditor($chiefEditor) { $this->chiefEditor = $chiefEditor; }
-	public function getManagingEditor() { return $this->managingEditor; }
 	public function setManagingEditor($managingEditor) { $this->managingEditor = $managingEditor; }
-	public function getEditor() { return $this->editor; }
 	public function setEditor($editor) { $this->editor = $editor; }
-	public function getEditorialStaff() { return $this->editorialStaff; }
 	public function setEditorialStaff($editorialStaff) { $this->editorialStaff = $editorialStaff; }
-	public function getPublisherEditor() { return $this->publisherEditor; }
 	public function setPublisherEditor($publisherEditor) { $this->publisherEditor = $publisherEditor; }
-	public function getArtistEditor() { return $this->artistEditor; }
 	public function setArtistEditor($artistEditor) { $this->artistEditor = $artistEditor; }
-	public function getTechnicalEditor() { return $this->technicalEditor; }
 	public function setTechnicalEditor($technicalEditor) { $this->technicalEditor = $technicalEditor; }
-	public function getConsultant() { return $this->consultant; }
 	public function setConsultant($consultant) { $this->consultant = $consultant; }
-	public function getScienceEditor() { return $this->scienceEditor; }
 	public function setScienceEditor($scienceEditor) { $this->scienceEditor = $scienceEditor; }
-	public function getCopyreader() { return $this->copyreader; }
 	public function setCopyreader($copyreader) { $this->copyreader = $copyreader; }
-	public function getReviewer() { return $this->reviewer; }
 	public function setReviewer($reviewer) { $this->reviewer = $reviewer; }
-	public function getArtist() { return $this->artist; }
 	public function setArtist($artist) { $this->artist = $artist; }
-	public function getIllustrator() { return $this->illustrator; }
 	public function setIllustrator($illustrator) { $this->illustrator = $illustrator; }
-	public function getCorrector() { return $this->corrector; }
 	public function setCorrector($corrector) { $this->corrector = $corrector; }
-	public function getLayout() { return $this->layout; }
 	public function setLayout($layout) { $this->layout = $layout; }
-	public function getCoverLayout() { return $this->coverLayout; }
 	public function setCoverLayout($coverLayout) { $this->coverLayout = Typograph::replaceAll($coverLayout); }
-	public function getLibraryDesign() { return $this->libraryDesign; }
 	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = Typograph::replaceAll($libraryDesign); }
-	public function getComputerProcessing() { return $this->computerProcessing; }
 	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = Typograph::replaceAll($computerProcessing); }
-	public function getPrepress() { return $this->prepress; }
 	public function setPrepress($prepress) { $this->prepress = Typograph::replaceAll($prepress); }
 
 	public function toArray() {

@@ -51,23 +51,14 @@ trait BookPublishing {
 	 */
 	private $price;
 
-	public function getEdition() { return $this->edition; }
 	public function setEdition($edition) { $this->edition = $edition; }
-	public function getPublisher() { return $this->publisher; }
 	public function setPublisher($publisher) { $this->publisher = Typograph::replaceAll($publisher); }
-	public function getPublisherCity() { return $this->publisherCity; }
 	public function setPublisherCity($publisherCity) { $this->publisherCity = $publisherCity; }
-	public function getPublishingYear() { return $this->publishingYear; }
 	public function setPublishingYear($publishingYear) { $this->publishingYear = $publishingYear; }
-	public function getPublisherAddress() { return $this->publisherAddress; }
 	public function setPublisherAddress($publisherAddress) { $this->publisherAddress = Typograph::replaceAll($publisherAddress); }
-	public function getPublisherCode() { return $this->publisherCode; }
 	public function setPublisherCode($publisherCode) { $this->publisherCode = $publisherCode; }
-	public function getPublisherOrder() { return $this->publisherOrder; }
 	public function setPublisherOrder($publisherOrder) { $this->publisherOrder = $publisherOrder; }
-	public function getPublisherNumber() { return $this->publisherNumber; }
 	public function setPublisherNumber($publisherNumber) { $this->publisherNumber = $publisherNumber; }
-	public function getPrice() { return $this->price; }
 	public function setPrice($price) { $this->price = $price; }
 
 	public function toArray() {

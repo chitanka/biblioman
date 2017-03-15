@@ -32,15 +32,10 @@ trait BookTitling {
 	 */
 	private $volumeTitle;
 
-	public function getTitle() { return $this->title; }
 	public function setTitle($title) { $this->title = Typograph::replaceAll($title); }
-	public function getAltTitle() { return $this->altTitle; }
 	public function setAltTitle($altTitle) { $this->altTitle = Typograph::replaceAll($altTitle); }
-	public function getSubtitle() { return $this->subtitle; }
 	public function setSubtitle($subtitle) { $this->subtitle = Typograph::replaceAll($subtitle); }
-	public function getSubtitle2() { return $this->subtitle2; }
 	public function setSubtitle2($subtitle2) { $this->subtitle2 = Typograph::replaceAll($subtitle2); }
-	public function getVolumeTitle() { return $this->volumeTitle; }
 	public function setVolumeTitle($volumeTitle) { $this->volumeTitle = Typograph::replaceAll($volumeTitle); }
 
 	public function toArray() {

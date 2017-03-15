@@ -148,12 +148,16 @@ class Book extends Entity {
 	}
 
 	public function __toString() {
-		return $this->getTitle();
+		return $this->title;
 	}
 
 	public function __call($name, $args) {
 		if (property_exists($this, $name)) {
 			return $this->$name;
+		}
+		$normalizedName = lcfirst(preg_replace('/^get/', '', $name));
+		if (property_exists($this, $normalizedName)) {
+			return $this->$normalizedName;
 		}
 		trigger_error('Call to undefined method '.static::class.'::'.$name.'()', E_USER_ERROR);
 	}

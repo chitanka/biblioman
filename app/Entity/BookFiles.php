@@ -75,9 +75,7 @@ trait BookFiles {
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
 	public function setFullContentFile(File $file = null) { $this->fullContentFile = $file; $this->setUpdatedAtOnFileUpload($file); }
-	public function getFullContentFile() { return $this->fullContentFile; }
 	public function setFullContent($fullContent) { $this->fullContent = $fullContent; }
-	public function getFullContent() { return $this->fullContent; }
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
 	public function setCoverFile(File $image = null) {
@@ -86,12 +84,10 @@ trait BookFiles {
 			$this->createAndAddCover($image, BookCoverType::VALUE_FRONT);
 		}
 	}
-	public function getCoverFile() { return $this->coverFile; }
 	public function setCover($cover) {
 		// TODO make it smarter
 		$this->cover = str_replace('.tif', '.jpg', $cover);
 	}
-	public function getCover() { return $this->cover; }
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
 	public function setBackCoverFile(File $image = null) {
@@ -100,12 +96,10 @@ trait BookFiles {
 			$this->createAndAddCover($image, BookCoverType::VALUE_BACK);
 		}
 	}
-	public function getBackCoverFile() { return $this->backCoverFile; }
 	public function setBackCover($backCover) {
 		// TODO make it smarter
 		$this->backCover = str_replace('.tif', '.jpg', $backCover);
 	}
-	public function getBackCover() { return $this->backCover; }
 
 	private function createAndAddCover(File $image, $type) {
 		$this->addCover($this->createCover($image, $type));
@@ -125,7 +119,7 @@ trait BookFiles {
 	 * @return BookCoverCollection|BookCover[]
 	 */
 	public function getOtherCovers() {
-		$specialCoverNames = [$this->getCover(), $this->getBackCover()];
+		$specialCoverNames = [$this->cover, $this->backCover];
 		return BookCoverCollection::fromCollection($this->getCovers())->filter(function(BookCover $cover) use ($specialCoverNames) {
 			return !in_array($cover->getName(), $specialCoverNames);
 		});
@@ -159,7 +153,6 @@ trait BookFiles {
 		$this->updateNbCovers();
 	}
 
-	public function getNbCovers() { return $this->nbCovers; }
 	public function setNbCovers($nbCovers) { $this->nbCovers = $nbCovers; }
 
 	protected function updateNbCovers() {
@@ -205,7 +198,6 @@ trait BookFiles {
 		$this->updateNbScans();
 	}
 
-	public function getNbScans() { return $this->nbScans; }
 	public function setNbScans($nbScans) { $this->nbScans = $nbScans; }
 
 	protected function updateNbScans() {

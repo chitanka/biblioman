@@ -20,11 +20,8 @@ trait BookBody {
 	 */
 	private $binding;
 
-	public function getFormat() { return $this->format; }
 	public function setFormat($format) { $this->format = Typograph::replaceTimesChar($format); }
-	public function getPageCount() { return $this->pageCount; }
 	public function setPageCount($pageCount) { $this->pageCount = $pageCount; }
-	public function getBinding() { return $this->binding; }
 	public function setBinding($binding) { $this->binding = $binding; }
 
 	public function toArray() {

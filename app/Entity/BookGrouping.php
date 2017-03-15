@@ -38,17 +38,11 @@ trait BookGrouping {
 	 */
 	private $seriesNr;
 
-	public function getSequence() { return $this->sequence; }
 	public function setSequence($sequence) { $this->sequence = Typograph::replaceAll($sequence); }
-	public function getSequenceNr() { return $this->sequenceNr; }
 	public function setSequenceNr($sequenceNr) { $this->sequenceNr = $sequenceNr; }
-	public function getSubsequence() { return $this->subsequence; }
 	public function setSubsequence($subsequence) { $this->subsequence = Typograph::replaceAll($subsequence); }
-	public function getSubsequenceNr() { return $this->subsequenceNr; }
 	public function setSubsequenceNr($subsequenceNr) { $this->subsequenceNr = $subsequenceNr; }
-	public function getSeries() { return $this->series; }
 	public function setSeries($series) { $this->series = Typograph::replaceAll($series); }
-	public function getSeriesNr() { return $this->seriesNr; }
 	public function setSeriesNr($seriesNr) { $this->seriesNr = $seriesNr; }
 
 	public function toArray() {

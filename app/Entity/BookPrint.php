@@ -45,21 +45,13 @@ trait BookPrint {
 	 */
 	private $totalPrint;
 
-	public function getPrintingHouse() { return $this->printingHouse; }
 	public function setPrintingHouse($printingHouse) { $this->printingHouse = Typograph::replaceAll($printingHouse); }
-	public function getTypeSettingIn() { return $this->typeSettingIn; }
 	public function setTypeSettingIn($typeSettingIn) { $this->typeSettingIn = $typeSettingIn; }
-	public function getPrintSigned() { return $this->printSigned; }
 	public function setPrintSigned($printSigned) { $this->printSigned = $printSigned; }
-	public function getPrintOut() { return $this->printOut; }
 	public function setPrintOut($printOut) { $this->printOut = $printOut; }
-	public function getPrinterSheets() { return $this->printerSheets; }
 	public function setPrinterSheets($printerSheets) { $this->printerSheets = $printerSheets; }
-	public function getPublisherSheets() { return $this->publisherSheets; }
 	public function setPublisherSheets($publisherSheets) { $this->publisherSheets = $publisherSheets; }
-	public function getProvisionPublisherSheets() { return $this->provisionPublisherSheets; }
 	public function setProvisionPublisherSheets($provisionPublisherSheets) { $this->provisionPublisherSheets = $provisionPublisherSheets; }
-	public function getTotalPrint() { return $this->totalPrint; }
 	public function setTotalPrint($totalPrint) { $this->totalPrint = $totalPrint; }
 
 	public function toArray() {

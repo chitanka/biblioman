@@ -42,19 +42,13 @@ trait BookMeta {
 	 */
 	private $verified;
 
-	public function getNotes() { return $this->notes; }
 	public function setNotes($notes) { $this->notes = Typograph::replaceAll($notes); }
-	public function getInfoSources() { return $this->infoSources; }
 	public function setInfoSources($infoSources) { $this->infoSources = $infoSources; }
-	public function getAdminComment() { return $this->adminComment; }
 	public function setAdminComment($adminComment) { $this->adminComment = $adminComment; }
-	public function getOcredText() { return $this->ocredText; }
 	public function setOcredText($ocredText) { $this->ocredText = $ocredText; }
 	public function isIncomplete() { return $this->isIncomplete; }
 	public function setIsIncomplete($isIncomplete) { $this->isIncomplete = $isIncomplete; }
-	public function getReasonWhyIncomplete() { return $this->reasonWhyIncomplete; }
 	public function setReasonWhyIncomplete($reasonWhyIncomplete) { $this->reasonWhyIncomplete = $reasonWhyIncomplete; }
-	public function getVerified() { return $this->verified; }
 	public function setVerified($verified) { $this->verified = $verified; }
 
 	public function toArray() {

@@ -13,11 +13,10 @@ trait BookRevisions {
 	 */
 	private $revisions;
 
-	public function getRevisions() { return $this->revisions; }
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
 
 	public function hasRevisions() {
-		return count($this->getRevisions()) > 0;
+		return count($this->revisions) > 0;
 	}
 
 	public function getRevisionEditors() {
