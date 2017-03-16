@@ -3,7 +3,7 @@
 	<div class="row books-mosaic">
 		{% for book in bookRow %}
 			<div class="col-xs-4 col-md-2">
-				{{ _.printBookThumbnailLink((book.book is defined ? book.book : book), 150) }}
+				{{ _.printBookThumbnailLink((book.book is not empty ? book.book : book), 150) }}
 			</div>
 		{% endfor %}
 	</div>

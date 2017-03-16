@@ -127,7 +127,7 @@ class Book extends Entity {
 		if (property_exists($this, $normalizedName)) {
 			return $this->$normalizedName;
 		}
-		trigger_error('Call to undefined method '.static::class.'::'.$name.'()', E_USER_ERROR);
+		return null;
 	}
 
 	public function toArray() {
