@@ -120,7 +120,7 @@ trait BookFiles {
 	 */
 	public function getOtherCovers() {
 		$specialCoverNames = [$this->cover, $this->backCover];
-		return BookCoverCollection::fromCollection($this->getCovers())->filter(function(BookCover $cover) use ($specialCoverNames) {
+		return BookCoverCollection::fromCollection($this->covers)->filter(function(BookCover $cover) use ($specialCoverNames) {
 			return !in_array($cover->getName(), $specialCoverNames);
 		});
 	}
@@ -153,10 +153,8 @@ trait BookFiles {
 		$this->updateNbCovers();
 	}
 
-	public function setNbCovers($nbCovers) { $this->nbCovers = $nbCovers; }
-
 	protected function updateNbCovers() {
-		$this->setNbCovers(count($this->covers));
+		$this->nbCovers = count($this->covers);
 	}
 
 	protected function createCover(File $image, $type, $title = null) {
@@ -198,10 +196,8 @@ trait BookFiles {
 		$this->updateNbScans();
 	}
 
-	public function setNbScans($nbScans) { $this->nbScans = $nbScans; }
-
 	protected function updateNbScans() {
-		$this->setNbScans(count($this->scans));
+		$this->nbScans = count($this->scans);
 	}
 
 	protected function updateNbFiles() {
