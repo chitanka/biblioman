@@ -8,6 +8,11 @@ trait BookMeta {
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
+	private $otherFields;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
 	private $notes;
 
 	/**
@@ -42,6 +47,7 @@ trait BookMeta {
 	 */
 	private $verified;
 
+	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 	public function setNotes($notes) { $this->notes = Typograph::replaceAll($notes); }
 	public function setInfoSources($infoSources) { $this->infoSources = $infoSources; }
 	public function setAdminComment($adminComment) { $this->adminComment = $adminComment; }
@@ -53,6 +59,7 @@ trait BookMeta {
 
 	public function toArray() {
 		return [
+			'otherFields' => $this->otherFields,
 			'notes' => $this->notes,
 			'infoSources' => $this->infoSources,
 			'ocredText' => $this->ocredText,

@@ -2,7 +2,6 @@
 
 use App\Collection\BookCoverCollection;
 use App\Collection\BookScanCollection;
-use Chitanka\Utils\Typograph;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -38,11 +37,6 @@ class Book extends Entity {
 	use CanBeLocked;
 	use HasTimestamp { HasTimestamp::toArray as private timestampToArray; }
 
-	/**
-	 * @ORM\Column(type="text", nullable=true)
-	 */
-	private $otherFields;
-
 	private $updatedTrackingEnabled = true;
 
 //	/**
@@ -60,8 +54,6 @@ class Book extends Entity {
 		$this->booksOnShelf = new ArrayCollection();
 		$this->updatedAt = new \DateTime();
 	}
-
-	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 
 	public function getState() {
 		if ($this->isIncomplete()) {
@@ -114,9 +106,7 @@ class Book extends Entity {
 			$this->publishingToArray() +
 			$this->staffToArray() +
 			$this->revisionsToArray() +
-			$this->timestampToArray() + [
-			'otherFields' => $this->otherFields,
-		];
+			$this->timestampToArray();
 	}
 
 	public function __clone() {
