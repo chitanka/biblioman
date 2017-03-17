@@ -34,6 +34,7 @@ class Book extends Entity {
 	use BookTitling { BookTitling::toArray as private titlingToArray; }
 	use BookLinks;
 	use BookRevisions;
+	use BookShelves;
 	use CanBeLocked;
 	use HasTimestamp;
 
@@ -55,17 +56,6 @@ class Book extends Entity {
 //	 */
 //	private $items;
 
-	/**
-	 * @var BookOnShelf[]|ArrayCollection
-	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="book", fetch="EXTRA_LAZY")
-	 */
-	private $booksOnShelf;
-
-	/**
-	 * @var Shelf[]|ArrayCollection
-	 */
-	private $shelves;
-
 	public function __construct() {
 		$this->revisions = new ArrayCollection();
 		$this->links = new ArrayCollection();
@@ -80,17 +70,6 @@ class Book extends Entity {
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 	public function getCreatedBy() { return $this->createdBy; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
-
-	public function getBooksOnShelf() { return $this->booksOnShelf; }
-	public function setBooksOnShelf($booksOnShelf) { $this->booksOnShelf = $booksOnShelf; }
-	public function setShelves($shelves) {
-		$this->shelves = $shelves instanceof ArrayCollection ? $shelves : new ArrayCollection($shelves);
-	}
-	public function getShelves() {
-		return $this->shelves ?: $this->shelves = $this->getBooksOnShelf()->map(function(BookOnShelf $bs) {
-			return $bs->getShelf();
-		});
-	}
 
 	public function getState() {
 		if ($this->isIncomplete()) {
