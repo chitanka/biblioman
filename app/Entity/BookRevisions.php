@@ -13,7 +13,13 @@ trait BookRevisions {
 	 */
 	private $revisions;
 
+	/**
+	 * @ORM\Column(type="string", length=50)
+	 */
+	private $createdBy;
+
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
+	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 
 	public function hasRevisions() {
 		return count($this->revisions) > 0;
@@ -47,13 +53,18 @@ trait BookRevisions {
 	}
 
 	private function shouldCreateRevision($user) {
-		return $user != $this->getCreatedBy() || $this->hasRevisions() || $this->isOlderThanSeconds($this->getAllowedEditTimeWithoutRevision());
+		return $user != $this->createdBy || $this->hasRevisions() || $this->isOlderThanSeconds($this->getAllowedEditTimeWithoutRevision());
 	}
 
 	protected function getAllowedEditTimeWithoutRevision() {
 		return 3600; // 1 hour
 	}
 
-	abstract public function getCreatedBy();
 	abstract protected function isOlderThanSeconds($seconds);
+
+	protected function toArray() {
+		return [
+			'createdBy' => $this->createdBy,
+		];
+	}
 }

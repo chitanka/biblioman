@@ -22,4 +22,15 @@ trait HasTimestamp {
 	protected function isOlderThanSeconds($seconds) {
 		return (time() - $this->updatedAt->getTimestamp()) > $seconds;
 	}
+
+	protected function markAsChanged() {
+		$this->updatedAt = new \DateTime();
+	}
+
+	protected function toArray() {
+		return [
+			'createdAt' => $this->createdAt,
+			'updatedAt' => $this->updatedAt,
+		];
+	}
 }

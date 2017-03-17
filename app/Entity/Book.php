@@ -33,20 +33,15 @@ class Book extends Entity {
 	use BookStaff { BookStaff::toArray as private staffToArray; }
 	use BookTitling { BookTitling::toArray as private titlingToArray; }
 	use BookLinks;
-	use BookRevisions;
+	use BookRevisions { BookRevisions::toArray as private revisionsToArray; }
 	use BookShelves;
 	use CanBeLocked;
-	use HasTimestamp;
+	use HasTimestamp { HasTimestamp::toArray as private timestampToArray; }
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $otherFields;
-
-	/**
-	 * @ORM\Column(type="string", length=50)
-	 */
-	private $createdBy;
 
 	private $updatedTrackingEnabled = true;
 
@@ -66,10 +61,7 @@ class Book extends Entity {
 		$this->updatedAt = new \DateTime();
 	}
 
-	public function getOtherFields() { return $this->otherFields; }
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
-	public function getCreatedBy() { return $this->createdBy; }
-	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 
 	public function getState() {
 		if ($this->isIncomplete()) {
@@ -120,19 +112,14 @@ class Book extends Entity {
 			$this->metaToArray() +
 			$this->printToArray() +
 			$this->publishingToArray() +
-			$this->staffToArray() + [
+			$this->staffToArray() +
+			$this->revisionsToArray() +
+			$this->timestampToArray() + [
 			'otherFields' => $this->otherFields,
-			'createdBy' => $this->createdBy,
-			'createdAt' => $this->createdAt,
-			'updatedAt' => $this->updatedAt,
 		];
 	}
 
 	public function __clone() {
 		$this->scans = clone $this->scans;
-	}
-
-	protected function markAsChanged() {
-		$this->updatedAt = new \DateTime();
 	}
 }
