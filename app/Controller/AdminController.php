@@ -25,7 +25,7 @@ class AdminController extends EasyAdminController {
 
 	protected function prePersistBookEntity(Book $book) {
 		$book->setCreatorByNewFiles($this->getUsername());
-		return $book->setCreatedBy($this->getUsername());
+		$book->setCreatedBy($this->getUsername());
 	}
 
 	protected function preUpdateBookEntity(Book $book) {
