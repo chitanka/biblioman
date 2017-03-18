@@ -6,8 +6,8 @@
 		<p><i class="sitename">{{ sitename }}</i> е проект за създаване на пълно описание на всички книги, издадени на български език.</p>
 	</div>
 	<div class="alert alert-info">
-		<p>Търсят се помощници, които да участват с въвеждане на информация или със сканиране на корици.</p>
 		<p>Разгледайте <a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}">помощната информация</a> и се включете с описване на личната си библиотека. <i class="sitename">{{ sitename }}</i> има нужда от вас.</p>
+		<p><span class="label label-warning">Важно:</span> Когато копирате информация отдругаде, винаги го посочвайте в полето „Източници“!</p>
 	</div>
 	{% if is_granted('ROLE_EDITOR') %}
 		<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> Добавяне на нова книга</a></p>
