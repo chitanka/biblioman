@@ -49,14 +49,14 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 	}
 
 	public function registerContainerConfiguration(LoaderInterface $loader) {
-		$loader->load($this->rootDir.'/config/config_'.$this->environment.'.yml');
+		$loader->load("$this->rootDir/config/config_$this->environment.yml");
 	}
 
 	public function getCacheDir() {
-		return $this->rootDir.'/../var/cache/'.$this->environment;
+		return "$this->rootDir/../var/cache/$this->environment";
 	}
 
 	public function getLogDir() {
-		return $this->rootDir.'/../var/log';
+		return "$this->rootDir/../var/log";
 	}
 }
