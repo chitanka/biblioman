@@ -17,7 +17,10 @@ class ThumbnailServer {
 			copy($filename, $thumbname);
 			return $thumbname;
 		}
+		return $this->reallyGenerateThumbnail($filename, $thumbname, $dimensions, $quality);
+	}
 
+	private function reallyGenerateThumbnail($filename, $thumbname, ThumbnailDimensions $dimensions, $quality) {
 		switch ($this->getExtensionFromFilename($filename)) {
 			case 'jpg':
 			case 'jpeg':
