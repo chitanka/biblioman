@@ -20,17 +20,7 @@ class Book extends Entity {
 	const STATE_VERIFIED_2 = 'verified_2';
 	const STATE_VERIFIED_3 = 'verified_3';
 
-	use BookAuthorship { BookAuthorship::toArray as private authorshipToArray; }
-	use BookBody { BookBody::toArray as private bodyToArray; }
-	use BookClassification { BookClassification::toArray as private classificationToArray; }
-	use BookContent { BookContent::toArray as private contentToArray; }
-	use BookFiles { BookFiles::toArray as private filesToArray; }
-	use BookGrouping { BookGrouping::toArray as private groupingToArray; }
-	use BookMeta { BookMeta::toArray as private metaToArray; }
-	use BookPrint { BookPrint::toArray as private printToArray; }
-	use BookPublishing { BookPublishing::toArray as private publishingToArray; }
-	use BookStaff { BookStaff::toArray as private staffToArray; }
-	use BookTitling { BookTitling::toArray as private titlingToArray; }
+	use BookComponents { BookComponents::toArray as private componentsToArray; }
 	use BookLinks;
 	use BookRevisions { BookRevisions::toArray as private revisionsToArray; }
 	use BookShelves;
@@ -46,11 +36,11 @@ class Book extends Entity {
 //	private $items;
 
 	public function __construct() {
-		$this->revisions = new ArrayCollection();
-		$this->links = new ArrayCollection();
-		$this->scans = new BookScanCollection();
 		$this->covers = new BookCoverCollection();
 		$this->newCovers = new BookCoverCollection();
+		$this->scans = new BookScanCollection();
+		$this->links = new ArrayCollection();
+		$this->revisions = new ArrayCollection();
 		$this->booksOnShelf = new ArrayCollection();
 		$this->updatedAt = new \DateTime();
 	}
@@ -94,17 +84,7 @@ class Book extends Entity {
 	}
 
 	public function toArray() {
-		return $this->titlingToArray() +
-			$this->authorshipToArray() +
-			$this->bodyToArray() +
-			$this->classificationToArray() +
-			$this->contentToArray() +
-			$this->filesToArray() +
-			$this->groupingToArray() +
-			$this->metaToArray() +
-			$this->printToArray() +
-			$this->publishingToArray() +
-			$this->staffToArray() +
+		return $this->componentsToArray() +
 			$this->revisionsToArray() +
 			$this->timestampToArray();
 	}
