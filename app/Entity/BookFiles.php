@@ -205,7 +205,7 @@ trait BookFiles {
 		$this->updateNbScans();
 	}
 
-	public function setCreatorByNewScans($user) {
+	public function setCreatorByNewFiles($user) {
 		$setCreatedBy = function (BookFile $file) use ($user) {
 			if ($file->isNew()) {
 				$file->setCreatedBy($user);

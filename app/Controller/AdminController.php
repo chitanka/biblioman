@@ -24,7 +24,7 @@ class AdminController extends EasyAdminController {
 	}
 
 	protected function prePersistBookEntity(Book $book) {
-		$book->setCreatorByNewScans($this->getUsername());
+		$book->setCreatorByNewFiles($this->getUsername());
 		return $book->setCreatedBy($this->getUsername());
 	}
 
@@ -33,7 +33,7 @@ class AdminController extends EasyAdminController {
 		if ($revision) {
 			$this->em->persist($revision);
 		}
-		$book->setCreatorByNewScans($this->getUsername());
+		$book->setCreatorByNewFiles($this->getUsername());
 		$book->clearLock();
 	}
 
