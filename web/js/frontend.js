@@ -1,3 +1,35 @@
+var ShelfPicker = function () {
+	var my = this;
+
+	my.clickOnImportantShelf = function($label) {
+		var shelfId = $label.find('input').val();
+		var wasSelected = $label.is('.active');
+		var $shelfPicker = $label.parent().siblings('select.shelf-picker');
+		$label.toggleClass('btn-info btn-default');
+		if (wasSelected) {
+			$shelfPicker.multiselect('deselect', shelfId, true);
+		} else {
+			$shelfPicker.multiselect('select', shelfId, true);
+		}
+	};
+	my.clickOnOption = function ($container, $option, checked) {
+		var shelfId = $option.val();
+		var bookId = $option.closest('select').data('book');
+		$.ajax({
+			url: '/my/shelves/'+shelfId+'/books/'+bookId,
+			type: (checked ? 'POST' : 'DELETE')
+		});
+		updateImportantShelfButtonOnOptionClick($container, shelfId, checked);
+	};
+	function updateImportantShelfButtonOnOptionClick($container, shelfId, checked) {
+		var $importantShelfLabel = $container.siblings('.important-shelf-picker').find('label.shelf-'+shelfId);
+		if ( (checked && !$importantShelfLabel.is('.btn-info')) || (!checked && $importantShelfLabel.is('.btn-info')) ) {
+			var toggledClasses = 'btn-info btn-default active';
+			$importantShelfLabel.toggleClass(toggledClasses);
+		}
+	}
+};
+
 $(function () {
 	$('.popover-trigger').popover({
 		html: true,
@@ -13,6 +45,7 @@ $(function () {
 		var confirmationMessage = $(this).data('confirmation');
 		return confirm(confirmationMessage);
 	});
+	var shelfPicker = new ShelfPicker();
 	$('.shelf-picker').multiselect({
 		nonSelectedText: 'Рафт...',
 		nSelectedText: 'рафта избрани',
@@ -32,28 +65,11 @@ $(function () {
 			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="fa fa-remove"></i></button></span>'
 		},
 		onChange: function(option, checked) {
-			$.ajax({
-				url: '/my/shelves/'+$(option).val()+'/books/'+$(option).closest('select').data('book'),
-				type: (checked ? 'POST' : 'DELETE')
-			});
-			var $importantShelfLabel = this.$container.siblings('.important-shelf-picker').find('label.shelf-'+$(option).val());
-			if ( (checked && !$importantShelfLabel.is('.btn-info')) || (!checked && $importantShelfLabel.is('.btn-info')) ) {
-				var toggledClasses = 'btn-info btn-default active';
-				$importantShelfLabel.toggleClass(toggledClasses);
-			}
+			shelfPicker.clickOnOption(this.$container, $(option), checked);
 		}
 	});
 	$('.important-shelf-picker').on('click', 'label', function () {
-		var $self = $(this);
-		var shelfId = $self.find('input').val();
-		var wasSelected = $self.is('.active');
-		var $shelfPicker = $self.parent().siblings('select.shelf-picker');
-		$self.toggleClass('btn-info btn-default');
-		if (wasSelected) {
-			$shelfPicker.multiselect('deselect', shelfId, true);
-		} else {
-			$shelfPicker.multiselect('select', shelfId, true);
-		}
+		shelfPicker.clickOnImportantShelf($(this));
 	});
 	$('.book-search-form').on('click', '.js-search-actions a', function() {
 		$(this).closest('form').attr('action', this.href)
