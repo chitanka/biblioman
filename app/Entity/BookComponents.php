@@ -2,19 +2,19 @@
 
 trait BookComponents {
 
-	use BookAuthorship { BookAuthorship::toArray as private authorshipToArray; }
-	use BookBody { BookBody::toArray as private bodyToArray; }
-	use BookClassification { BookClassification::toArray as private classificationToArray; }
-	use BookContent { BookContent::toArray as private contentToArray; }
-	use BookFiles { BookFiles::toArray as private filesToArray; }
-	use BookGrouping { BookGrouping::toArray as private groupingToArray; }
-	use BookMeta { BookMeta::toArray as private metaToArray; }
-	use BookPrint { BookPrint::toArray as private printToArray; }
-	use BookPublishing { BookPublishing::toArray as private publishingToArray; }
-	use BookStaff { BookStaff::toArray as private staffToArray; }
-	use BookTitling { BookTitling::toArray as private titlingToArray; }
+	use BookAuthorship;
+	use BookBody;
+	use BookClassification;
+	use BookContent;
+	use BookFiles;
+	use BookGrouping;
+	use BookMeta;
+	use BookPrint;
+	use BookPublishing;
+	use BookStaff;
+	use BookTitling;
 
-	public function toArray() {
+	protected function componentsToArray() {
 		return $this->titlingToArray() +
 			$this->authorshipToArray() +
 			$this->bodyToArray() +

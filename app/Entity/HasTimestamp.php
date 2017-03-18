@@ -27,7 +27,7 @@ trait HasTimestamp {
 		$this->updatedAt = new \DateTime();
 	}
 
-	protected function toArray() {
+	protected function timestampToArray() {
 		return [
 			'createdAt' => $this->createdAt,
 			'updatedAt' => $this->updatedAt,

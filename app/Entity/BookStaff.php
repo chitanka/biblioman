@@ -121,7 +121,7 @@ trait BookStaff {
 	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = Typograph::replaceAll($computerProcessing); }
 	public function setPrepress($prepress) { $this->prepress = Typograph::replaceAll($prepress); }
 
-	public function toArray() {
+	protected function staffToArray() {
 		return [
 			'chiefEditor' => $this->chiefEditor,
 			'managingEditor' => $this->managingEditor,

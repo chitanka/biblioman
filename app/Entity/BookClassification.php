@@ -69,7 +69,7 @@ trait BookClassification {
 	public function setIsbn($isbn) { $this->isbn = BookField::normalizeIsbn($isbn); $this->setIsbnClean(BookField::normalizeSearchableIsbn($this->isbn)); }
 	public function setIsbnClean($isbnClean) { $this->isbnClean = $isbnClean; }
 
-	public function toArray() {
+	protected function classificationToArray() {
 		return [
 			'themes' => $this->themes,
 			'genre' => $this->genre,

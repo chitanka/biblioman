@@ -61,7 +61,7 @@ trait BookPublishing {
 	public function setPublisherNumber($publisherNumber) { $this->publisherNumber = $publisherNumber; }
 	public function setPrice($price) { $this->price = $price; }
 
-	public function toArray() {
+	protected function publishingToArray() {
 		return [
 			'edition' => $this->edition,
 			'publisher' => $this->publisher,

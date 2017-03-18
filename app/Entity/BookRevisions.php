@@ -62,7 +62,7 @@ trait BookRevisions {
 
 	abstract protected function isOlderThanSeconds($seconds);
 
-	protected function toArray() {
+	protected function revisionsToArray() {
 		return [
 			'createdBy' => $this->createdBy,
 		];

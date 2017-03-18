@@ -47,7 +47,7 @@ trait BookAuthorship {
 	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = $otherAuthors; }
 	public function setCompiler($compiler) { $this->compiler = $compiler; }
 
-	public function toArray() {
+	protected function authorshipToArray() {
 		return [
 			'author' => $this->author,
 			'translator' => $this->translator,

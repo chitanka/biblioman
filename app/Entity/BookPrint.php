@@ -54,7 +54,7 @@ trait BookPrint {
 	public function setProvisionPublisherSheets($provisionPublisherSheets) { $this->provisionPublisherSheets = $provisionPublisherSheets; }
 	public function setTotalPrint($totalPrint) { $this->totalPrint = $totalPrint; }
 
-	public function toArray() {
+	protected function printToArray() {
 		return [
 			'printingHouse' => $this->printingHouse,
 			'typeSettingIn' => $this->typeSettingIn,

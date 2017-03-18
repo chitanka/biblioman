@@ -57,7 +57,7 @@ trait BookMeta {
 	public function setReasonWhyIncomplete($reasonWhyIncomplete) { $this->reasonWhyIncomplete = $reasonWhyIncomplete; }
 	public function setVerified($verified) { $this->verified = $verified; }
 
-	public function toArray() {
+	protected function metaToArray() {
 		return [
 			'otherFields' => $this->otherFields,
 			'notes' => $this->notes,

@@ -24,7 +24,7 @@ trait BookBody {
 	public function setPageCount($pageCount) { $this->pageCount = $pageCount; }
 	public function setBinding($binding) { $this->binding = $binding; }
 
-	public function toArray() {
+	protected function bodyToArray() {
 		return [
 			'format' => $this->format,
 			'pageCount' => $this->pageCount,

@@ -20,12 +20,12 @@ class Book extends Entity {
 	const STATE_VERIFIED_2 = 'verified_2';
 	const STATE_VERIFIED_3 = 'verified_3';
 
-	use BookComponents { BookComponents::toArray as private componentsToArray; }
+	use BookComponents;
 	use BookLinks;
-	use BookRevisions { BookRevisions::toArray as private revisionsToArray; }
+	use BookRevisions;
 	use BookShelves;
 	use CanBeLocked;
-	use HasTimestamp { HasTimestamp::toArray as private timestampToArray; }
+	use HasTimestamp;
 
 	private $updatedTrackingEnabled = true;
 

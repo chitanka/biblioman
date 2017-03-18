@@ -61,7 +61,7 @@ trait BookContent {
 	public function setToc($toc) { $this->toc = Typograph::replaceAll($toc); }
 	public function setIllustrated($illustrated) { $this->illustrated = $illustrated; }
 
-	public function toArray() {
+	protected function contentToArray() {
 		return [
 			'contentType' => $this->contentType,
 			'nationality' => $this->nationality,

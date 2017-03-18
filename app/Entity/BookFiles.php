@@ -45,7 +45,7 @@ trait BookFiles {
 		EntityCollection::forEachIn($this->newCovers, $setCreatedBy);
 	}
 
-	public function toArray() {
+	protected function filesToArray() {
 		return [
 			'cover' => $this->cover,
 			'backCover' => $this->backCover,
