@@ -31,28 +31,7 @@ function registerFormConfirmations() {
 
 function registerShelfPickers() {
 	var shelfPicker = new ShelfPicker();
-	$('.shelf-picker').multiselect({
-		nonSelectedText: 'Рафт...',
-		nSelectedText: 'рафта избрани',
-		allSelectedText: 'Всички рафтове са избрани',
-		enableFiltering: true,
-		enableCaseInsensitiveFiltering: true,
-		filterPlaceholder: 'Търсене',
-		buttonContainer: '<div class="btn-group shelf-picker"/>',
-		buttonWidth: '100%',
-		optionLabel: function(option) {
-			return '<span class="fa fa-fw '+$(option).data('icon')+' shelf-icon"></span> ' + $(option).html();
-		},
-		enableHTML: true,
-		templates: {
-			button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="fa fa-folder-o"></span> <span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
-			filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="fa fa-remove"></i></button></span>'
-		},
-		onChange: function(option, checked) {
-			shelfPicker.clickOnOption(this.$container, $(option), checked);
-		}
-	});
+	$('.shelf-picker').multiselect(shelfPicker.multiselectOptions);
 	$('.important-shelf-picker').on('click', 'label', function () {
 		shelfPicker.clickOnImportantShelf($(this));
 	});
@@ -92,9 +71,34 @@ var ShelfPicker = function () {
 	};
 	function updateImportantShelfButtonOnOptionClick($container, shelfId, checked) {
 		var $importantShelfLabel = $container.siblings('.important-shelf-picker').find('label.shelf-'+shelfId);
-		if ( (checked && !$importantShelfLabel.is('.btn-info')) || (!checked && $importantShelfLabel.is('.btn-info')) ) {
+		if (shouldToggleImportantShelfButton($importantShelfLabel, checked)) {
 			var toggledClasses = 'btn-info btn-default active';
 			$importantShelfLabel.toggleClass(toggledClasses);
 		}
 	}
+	function shouldToggleImportantShelfButton($importantShelfLabel, checked) {
+		return (checked && !$importantShelfLabel.is('.btn-info')) || (!checked && $importantShelfLabel.is('.btn-info'));
+	}
+	my.multiselectOptions = {
+		nonSelectedText: 'Рафт...',
+		nSelectedText: 'рафта избрани',
+		allSelectedText: 'Всички рафтове са избрани',
+		enableFiltering: true,
+		enableCaseInsensitiveFiltering: true,
+		filterPlaceholder: 'Търсене',
+		buttonContainer: '<div class="btn-group shelf-picker"/>',
+		buttonWidth: '100%',
+		optionLabel: function(option) {
+			return '<span class="fa fa-fw '+$(option).data('icon')+' shelf-icon"></span> ' + $(option).html();
+		},
+		enableHTML: true,
+		templates: {
+			button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="fa fa-folder-o"></span> <span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
+			filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="fa fa-remove"></i></button></span>'
+		},
+		onChange: function(option, checked) {
+			my.clickOnOption(this.$container, $(option), checked);
+		}
+	};
 };
