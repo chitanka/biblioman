@@ -1,5 +1,7 @@
 <?php namespace App\Library;
 
+use App\Php\RegExp;
+
 class BookField {
 
 	const PROPERTY_MAP = [
@@ -161,14 +163,14 @@ class BookField {
 
 	private static function normalizePerson($name) {
 		$nameNormalized = $name;
-		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp(self::$personPrefixes).') /u', '', $nameNormalized);
+		$nameNormalized = preg_replace('/^('.RegExp::gluePrefixesForRegExp(self::$personPrefixes).') /u', '', $nameNormalized);
 		$nameNormalized = preg_replace('/ \(.+\)$/', '', $nameNormalized);
 		return $nameNormalized;
 	}
 
 	private static function normalizePublisher($name) {
 		$nameNormalized = $name;
-		$nameNormalized = preg_replace('/^('.self::gluePrefixesForRegExp(self::$publisherPrefixes).') ["„«]?/u', '', $nameNormalized);
+		$nameNormalized = preg_replace('/^('.RegExp::gluePrefixesForRegExp(self::$publisherPrefixes).') ["„«]?/u', '', $nameNormalized);
 		$nameNormalized = str_replace(self::$publisherStringsToRemove, '', $nameNormalized);
 		$nameNormalized = trim($nameNormalized, ' ,-');
 		if (empty($nameNormalized)) {
@@ -197,10 +199,6 @@ class BookField {
 
 	public static function normalizeSearchableIsbn($isbn) {
 		return preg_replace('/[^\dX,]/', '', self::normalizeIsbn($isbn));
-	}
-
-	private static function gluePrefixesForRegExp($prefixes) {
-		return implode('|', array_map('preg_quote', $prefixes));
 	}
 
 	private function isPersonField($field) {
