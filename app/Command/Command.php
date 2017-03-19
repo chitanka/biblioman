@@ -5,6 +5,9 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * @method \Symfony\Bundle\FrameworkBundle\Console\Application getApplication()
+ */
 abstract class Command extends ContainerAwareCommand {
 
 	protected function configure() {
@@ -78,18 +81,6 @@ abstract class Command extends ContainerAwareCommand {
 	 */
 	protected function getOptionalOptions() {
 		return [];
-	}
-
-	/**
-	 * Override only to replace return value in the docblock
-	 * @return \Symfony\Bundle\FrameworkBundle\Console\Application
-	 */
-	public function getApplication() {
-		return parent::getApplication();
-	}
-
-	protected function getKernel() {
-		return $this->getApplication()->getKernel();
 	}
 
 	protected function executeUpdates($updates, \Doctrine\DBAL\Connection $connection) {
