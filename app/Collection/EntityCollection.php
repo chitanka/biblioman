@@ -23,7 +23,7 @@ class EntityCollection extends ArrayCollection {
 	}
 
 	/**
-	 * @param static|Collection|array|\Traversable $collection
+	 * @param static|Collection $collection
 	 * @return static
 	 */
 	public static function fromCollection($collection) {
