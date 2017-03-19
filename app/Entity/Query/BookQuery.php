@@ -50,7 +50,7 @@ class BookQuery {
 		'publisher',
 		'publisherCity',
 		'publishingYear',
-		'print',
+		'printingHouse',
 		'contentType',
 		'nationality',
 		'language',
