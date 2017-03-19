@@ -2,7 +2,6 @@
 
 use App\Entity\BookCategory;
 use App\Entity\BookField\BookField;
-use App\Entity\BookField\Map;
 use App\Entity\Repository\BookRepository;
 use App\Entity\Shelf;
 use App\Library\BookSearchCriteria;
