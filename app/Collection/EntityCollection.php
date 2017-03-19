@@ -33,9 +33,6 @@ class EntityCollection extends ArrayCollection {
 		if ($collection instanceof Collection) {
 			return new static($collection->getValues());
 		}
-		if (is_array($collection)) {
-			return new static($collection);
-		}
 		if ($collection instanceof \Traversable) {
 			return self::fromTraversable($collection);
 		}
