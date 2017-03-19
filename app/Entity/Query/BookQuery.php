@@ -1,9 +1,10 @@
 <?php namespace App\Entity\Query;
 
 use App\Entity\BookCategory;
+use App\Entity\BookField\BookField;
+use App\Entity\BookField\Map;
 use App\Entity\Repository\BookRepository;
 use App\Entity\Shelf;
-use App\Library\BookField;
 use App\Library\BookSearchCriteria;
 use Doctrine\ORM\QueryBuilder;
 
@@ -226,8 +227,8 @@ class BookQuery {
 	}
 
 	private function fieldForQuery($field) {
-		if (array_key_exists($field, BookField::PROPERTY_MAP)) {
-			return self::ALIAS.'.'.BookField::PROPERTY_MAP[$field].'.'.$field;
+		if (isset(Map::$fieldComponents[$field])) {
+			return self::ALIAS.'.'.Map::$fieldComponents[$field].'.'.$field;
 		}
 		return self::ALIAS.'.'.$field;
 	}

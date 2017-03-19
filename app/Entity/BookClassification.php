@@ -1,6 +1,7 @@
 <?php namespace App\Entity;
 
-use App\Library\BookField;
+use App\Entity\BookField\Isbn;
+use App\Entity\BookField\IsbnClean;
 use Doctrine\ORM\Mapping as ORM;
 
 trait BookClassification {
@@ -66,8 +67,10 @@ trait BookClassification {
 	public function setLitGroup($litGroup) { $this->litGroup = $litGroup; }
 	public function setUniformProductClassification($uniformProductClassification) { $this->uniformProductClassification = $uniformProductClassification; }
 	public function setUniversalDecimalClassification($universalDecimalClassification) { $this->universalDecimalClassification = $universalDecimalClassification; }
-	public function setIsbn($isbn) { $this->isbn = BookField::normalizeIsbn($isbn); $this->setIsbnClean(BookField::normalizeSearchableIsbn($this->isbn)); }
-	public function setIsbnClean($isbnClean) { $this->isbnClean = $isbnClean; }
+	public function setIsbn($isbn) {
+		$this->isbn = Isbn::normalizeInput($isbn);
+		$this->isbnClean = IsbnClean::normalizeInput($isbn);
+	}
 
 	protected function classificationToArray() {
 		return [

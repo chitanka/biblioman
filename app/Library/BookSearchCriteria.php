@@ -1,6 +1,7 @@
 <?php namespace App\Library;
 
 use App\Entity\BookCategory;
+use App\Entity\BookField\BookField;
 use App\Entity\Shelf;
 
 class BookSearchCriteria {
