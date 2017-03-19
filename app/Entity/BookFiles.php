@@ -1,6 +1,6 @@
 <?php namespace App\Entity;
 
-use App\Collection\EntityCollection;
+use App\Php\Looper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -40,9 +40,9 @@ trait BookFiles {
 				$file->setCreatedBy($user);
 			}
 		};
-		EntityCollection::forEachIn($this->scans, $setCreatedBy);
-		EntityCollection::forEachIn($this->covers, $setCreatedBy);
-		EntityCollection::forEachIn($this->newCovers, $setCreatedBy);
+		Looper::forEachValue($this->scans, $setCreatedBy);
+		Looper::forEachValue($this->covers, $setCreatedBy);
+		Looper::forEachValue($this->newCovers, $setCreatedBy);
 	}
 
 	protected function filesToArray() {

@@ -1,5 +1,6 @@
 <?php namespace App\Collection;
 
+use App\Php\Looper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -14,21 +15,11 @@ class EntityCollection extends ArrayCollection {
 	}
 
 	public function forEach(\Closure $c) {
-		self::forEachIn($this, $c);
+		Looper::forEachValue($this, $c);
 	}
 
 	public function filter(\Closure $c) {
 		return new static(array_values(array_filter($this->getValues(), $c)));
-	}
-
-	/**
-	 * @param \Traversable|ArrayCollection|array $collection
-	 * @param \Closure $c
-	 */
-	public static function forEachIn($collection, \Closure $c) {
-		foreach ($collection as $entity) {
-			$c($entity);
-		}
 	}
 
 	/**

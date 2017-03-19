@@ -15,20 +15,20 @@ abstract class Command extends ContainerAwareCommand {
 		$this->setName($this->getName());
 		$this->setDescription($this->getDescription());
 		$this->setHelp($this->getHelp());
-		Looper::doWithEveryKeyValue($this->getRequiredArguments(), function($argument, $description) {
+		Looper::forEachKeyValue($this->getRequiredArguments(), function($argument, $description) {
 			$this->addArgument($argument, InputArgument::REQUIRED, $description);
 		});
-		Looper::doWithEveryKeyValue($this->getOptionalArguments(), function($argument, $descriptionAndValue) {
+		Looper::forEachKeyValue($this->getOptionalArguments(), function($argument, $descriptionAndValue) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addArgument($argument, InputArgument::OPTIONAL, $description, $defaultValue);
 		});
-		Looper::doWithEveryKeyValue($this->getArrayArguments(), function($argument, $description) {
+		Looper::forEachKeyValue($this->getArrayArguments(), function($argument, $description) {
 			$this->addArgument($argument, InputArgument::IS_ARRAY, $description);
 		});
-		Looper::doWithEveryKeyValue($this->getBooleanOptions(), function($option, $description) {
+		Looper::forEachKeyValue($this->getBooleanOptions(), function($option, $description) {
 			$this->addOption($option, null, InputOption::VALUE_NONE, $description);
 		});
-		Looper::doWithEveryKeyValue($this->getOptionalOptions(), function($option, $descriptionAndValue) {
+		Looper::forEachKeyValue($this->getOptionalOptions(), function($option, $descriptionAndValue) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addOption($option, null, InputOption::VALUE_OPTIONAL, $description, $defaultValue);
 		});
