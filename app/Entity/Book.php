@@ -72,15 +72,19 @@ class Book extends Entity {
 		return $this->title;
 	}
 
-	public function __call($name, $args) {
-		if (property_exists($this, $name)) {
-			return $this->$name;
-		}
+	public function __get($name) {
 		$normalizedName = lcfirst(preg_replace('/^get/', '', $name));
 		if (property_exists($this, $normalizedName)) {
 			return $this->$normalizedName;
 		}
 		return null;
+	}
+
+	public function __call($name, $args) {
+		if (property_exists($this, $name)) {
+			return $this->$name;
+		}
+		return $this->__get($name);
 	}
 
 	public function toArray() {
