@@ -1,5 +1,6 @@
 <?php namespace App\Command;
 
+use App\Php\Looper;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,20 +15,20 @@ abstract class Command extends ContainerAwareCommand {
 		$this->setName($this->getName());
 		$this->setDescription($this->getDescription());
 		$this->setHelp($this->getHelp());
-		$this->doWithEveryElement($this->getRequiredArguments(), function($argument, $description) {
+		Looper::doWithEveryKeyValue($this->getRequiredArguments(), function($argument, $description) {
 			$this->addArgument($argument, InputArgument::REQUIRED, $description);
 		});
-		$this->doWithEveryElement($this->getOptionalArguments(), function($argument, $descriptionAndValue) {
+		Looper::doWithEveryKeyValue($this->getOptionalArguments(), function($argument, $descriptionAndValue) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addArgument($argument, InputArgument::OPTIONAL, $description, $defaultValue);
 		});
-		$this->doWithEveryElement($this->getArrayArguments(), function($argument, $description) {
+		Looper::doWithEveryKeyValue($this->getArrayArguments(), function($argument, $description) {
 			$this->addArgument($argument, InputArgument::IS_ARRAY, $description);
 		});
-		$this->doWithEveryElement($this->getBooleanOptions(), function($option, $description) {
+		Looper::doWithEveryKeyValue($this->getBooleanOptions(), function($option, $description) {
 			$this->addOption($option, null, InputOption::VALUE_NONE, $description);
 		});
-		$this->doWithEveryElement($this->getOptionalOptions(), function($option, $descriptionAndValue) {
+		Looper::doWithEveryKeyValue($this->getOptionalOptions(), function($option, $descriptionAndValue) {
 			list($description, $defaultValue) = $descriptionAndValue;
 			$this->addOption($option, null, InputOption::VALUE_OPTIONAL, $description, $defaultValue);
 		});
@@ -96,13 +97,4 @@ abstract class Command extends ContainerAwareCommand {
 		return $this->getContainer()->get('doctrine')->getManager();
 	}
 
-	/**
-	 * @param array|\Traversable $values
-	 * @param callable $callback
-	 */
-	private function doWithEveryElement($values, $callback) {
-		foreach ($values as $key => $value) {
-			$callback($key, $value);
-		}
-	}
 }
