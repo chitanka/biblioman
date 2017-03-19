@@ -227,9 +227,6 @@ class BookQuery {
 	}
 
 	private function fieldForQuery($field) {
-		if (isset(Map::$fieldComponents[$field])) {
-			return self::ALIAS.'.'.Map::$fieldComponents[$field].'.'.$field;
-		}
 		return self::ALIAS.'.'.$field;
 	}
 }

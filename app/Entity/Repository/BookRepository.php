@@ -26,7 +26,7 @@ class BookRepository extends EntityRepository {
 	public function findDuplicatesByTitle($title, $selfId) {
 		return $this->createQueryBuilder('b')
 			->where('b.id != ?1')->setParameter('1', $selfId)
-			->andWhere('b.titling.title = ?2')->setParameter('2', $title)
+			->andWhere('b.title = ?2')->setParameter('2', $title)
 			->getQuery()
 			->getResult();
 	}
