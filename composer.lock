@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "366a89d73930c96c62dedac83d971f02",
+    "content-hash": "e084d925bf3c9f04b68efdf58155a0c8",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -45,6 +45,36 @@
                 "transliterator"
             ],
             "time": "2015-09-28T16:26:35+00:00"
+        },
+        {
+            "name": "chitanka/thumbnail-server",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chitanka/thumbnail-server.git",
+                "reference": "336899d1da6088f11db4350740cf5d9dff7796a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/336899d1da6088f11db4350740cf5d9dff7796a5",
+                "reference": "336899d1da6088f11db4350740cf5d9dff7796a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chitanka\\ThumbnailServer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A very simple thumbnail generator and server",
+            "time": "2017-03-19 20:31:21"
         },
         {
             "name": "chitanka/utils",
@@ -3587,7 +3617,8 @@
         "javiereguiluz/easyadmin-bundle": 20,
         "liip/url-auto-converter-bundle": 20,
         "chitanka/wiki-bundle": 20,
-        "chitanka/utils": 20
+        "chitanka/utils": 20,
+        "chitanka/thumbnail-server": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
