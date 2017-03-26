@@ -3,7 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookPublishing {
+trait WithBookPublishing {
 
 	/**
 	 * Поредност на изданието

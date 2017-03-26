@@ -3,7 +3,7 @@
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookShelves {
+trait WithBookShelves {
 
 	/**
 	 * @var BookOnShelf[]|ArrayCollection

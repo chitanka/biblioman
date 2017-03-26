@@ -54,7 +54,7 @@ class ShelfStore {
 	 * Find user shelves. Create default shelves if there aren’t any.
 	 * @param User $user
 	 * @param array $defaultShelvesDefinition
-	 * @return \App\Collection\ShelfCollection
+	 * @return \App\Collection\Shelves
 	 */
 	private function findShelvesForUser(User $user, array $defaultShelvesDefinition) {
 		$shelfRepo = $this->repoFinder->forShelf();

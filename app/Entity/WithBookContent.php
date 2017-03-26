@@ -3,7 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookContent {
+trait WithBookContent {
 
 	/**
 	 * single collection anthology almanac

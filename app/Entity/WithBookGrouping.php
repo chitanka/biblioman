@@ -3,7 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookGrouping {
+trait WithBookGrouping {
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)

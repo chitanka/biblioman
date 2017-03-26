@@ -1,18 +1,18 @@
 <?php namespace App\Entity;
 
-trait BookComponents {
+trait WithBookComponents {
 
-	use BookAuthorship;
-	use BookBody;
-	use BookClassification;
-	use BookContent;
-	use BookFiles;
-	use BookGrouping;
-	use BookMeta;
-	use BookPrint;
-	use BookPublishing;
-	use BookStaff;
-	use BookTitling;
+	use WithBookAuthorship;
+	use WithBookBody;
+	use WithBookClassification;
+	use WithBookContent;
+	use WithBookFiles;
+	use WithBookGrouping;
+	use WithBookMeta;
+	use WithBookPrint;
+	use WithBookPublishing;
+	use WithBookStaff;
+	use WithBookTitling;
 
 	protected function componentsToArray() {
 		return $this->titlingToArray() +

@@ -2,7 +2,7 @@
 
 use App\Entity\BookScan;
 
-class BookScanCollection extends BookFileCollection {
+class BookScans extends BookFiles {
 
 	public function sortByTitle() {
 		$sortedScans = [];

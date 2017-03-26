@@ -1,10 +1,10 @@
 <?php namespace App\Entity;
 
-use App\Collection\BookCoverCollection;
+use App\Collection\BookCovers;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
-trait BookCovers {
+trait WithBookCovers {
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
@@ -29,7 +29,7 @@ trait BookCovers {
 	private $backCoverFile;
 
 	/**
-	 * @var BookCover[]|BookCoverCollection
+	 * @var BookCover[]|BookCovers
 	 * @ORM\OneToMany(targetEntity="BookCover", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
@@ -43,7 +43,7 @@ trait BookCovers {
 
 	/**
 	 * Temporary storage for new covers, uploaded through the special fields
-	 * @var BookCoverCollection|array
+	 * @var BookCovers|array
 	 */
 	private $newCovers = [];
 
@@ -86,18 +86,18 @@ trait BookCovers {
 	}
 
 	/**
-	 * @return BookCoverCollection|BookCover[]
+	 * @return BookCovers|BookCover[]
 	 */
 	public function getOtherCovers() {
 		$specialCoverNames = [$this->cover, $this->backCover];
-		return BookCoverCollection::fromCollection($this->covers)->filter(function(BookCover $cover) use ($specialCoverNames) {
+		return BookCovers::fromCollection($this->covers)->filter(function(BookCover $cover) use ($specialCoverNames) {
 			return !in_array($cover->getName(), $specialCoverNames);
 		});
 	}
 
-	/** @param BookCoverCollection|BookCover[] $covers */
+	/** @param BookCovers|BookCover[] $covers */
 	public function setOtherCovers($covers) {
-		$covers = BookCoverCollection::fromCollection($covers);
+		$covers = BookCovers::fromCollection($covers);
 		$covers->onlyNew()->forEach(function(BookCover $cover) {
 			$cover->setBook($this);
 			$this->covers[] = $cover;

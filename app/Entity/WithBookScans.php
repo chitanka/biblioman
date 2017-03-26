@@ -1,12 +1,12 @@
 <?php namespace App\Entity;
 
-use App\Collection\BookScanCollection;
+use App\Collection\BookScans;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookScans {
+trait WithBookScans {
 
 	/**
-	 * @var BookScan[]|BookScanCollection
+	 * @var BookScan[]|BookScans
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
@@ -18,9 +18,9 @@ trait BookScans {
 	 */
 	private $nbScans;
 
-	/** @return BookScan[]|BookScanCollection */
+	/** @return BookScan[]|BookScans */
 	public function getScans() {
-		return BookScanCollection::fromCollection($this->scans)->sortByTitle();
+		return BookScans::fromCollection($this->scans)->sortByTitle();
 	}
 
 	/** @param BookScan[] $scans */

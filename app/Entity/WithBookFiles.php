@@ -4,10 +4,10 @@ use App\Php\Looper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 
-trait BookFiles {
+trait WithBookFiles {
 
-	use BookCovers;
-	use BookScans;
+	use WithBookCovers;
+	use WithBookScans;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)

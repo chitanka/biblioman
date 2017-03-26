@@ -4,7 +4,7 @@ use App\Entity\BookField\Isbn;
 use App\Entity\BookField\IsbnClean;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookClassification {
+trait WithBookClassification {
 
 	/**
 	 * @var string

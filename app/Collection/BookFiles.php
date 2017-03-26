@@ -2,7 +2,7 @@
 
 use App\Entity\BookFile;
 
-class BookFileCollection extends EntityCollection {
+class BookFiles extends Entities {
 
 	public function onlyNew() {
 		return $this->filter(function (BookFile $bookFile) {

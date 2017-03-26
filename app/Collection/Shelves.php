@@ -1,6 +1,6 @@
 <?php namespace App\Collection;
 
-class ShelfCollection extends EntityCollection {
+class Shelves extends Entities {
 
 	public function toChoices() {
 		$choices = [];

@@ -3,7 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookStaff {
+trait WithBookStaff {
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)

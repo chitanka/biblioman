@@ -3,7 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookTitling {
+trait WithBookTitling {
 
 	/**
 	 * @var string

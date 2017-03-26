@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookAuthorship {
+trait WithBookAuthorship {
 
 	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)

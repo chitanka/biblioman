@@ -4,7 +4,7 @@ use App\Php\Looper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class EntityCollection extends ArrayCollection {
+class Entities extends ArrayCollection {
 
 	public function toIdArray() {
 		$idArray = [];

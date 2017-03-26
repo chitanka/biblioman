@@ -1,7 +1,7 @@
 <?php namespace App\Entity;
 
-use App\Collection\BookCoverCollection;
-use App\Collection\BookScanCollection;
+use App\Collection\BookCovers;
+use App\Collection\BookScans;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -20,10 +20,10 @@ class Book extends Entity {
 	const STATE_VERIFIED_2 = 'verified_2';
 	const STATE_VERIFIED_3 = 'verified_3';
 
-	use BookComponents;
-	use BookLinks;
-	use BookRevisions;
-	use BookShelves;
+	use WithBookComponents;
+	use WithBookLinks;
+	use WithBookRevisions;
+	use WithBookShelves;
 	use CanBeLocked;
 	use HasTimestamp;
 
@@ -36,9 +36,9 @@ class Book extends Entity {
 //	private $items;
 
 	public function __construct() {
-		$this->covers = new BookCoverCollection();
-		$this->newCovers = new BookCoverCollection();
-		$this->scans = new BookScanCollection();
+		$this->covers = new BookCovers();
+		$this->newCovers = new BookCovers();
+		$this->scans = new BookScans();
 		$this->links = new ArrayCollection();
 		$this->revisions = new ArrayCollection();
 		$this->booksOnShelf = new ArrayCollection();

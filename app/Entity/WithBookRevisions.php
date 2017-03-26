@@ -4,7 +4,7 @@ use App\Editing\Editor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookRevisions {
+trait WithBookRevisions {
 
 	/**
 	 * @var BookRevision[]|ArrayCollection

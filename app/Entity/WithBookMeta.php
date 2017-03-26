@@ -3,7 +3,7 @@
 use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
-trait BookMeta {
+trait WithBookMeta {
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
