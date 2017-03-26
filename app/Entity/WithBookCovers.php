@@ -86,6 +86,7 @@ trait WithBookCovers {
 	}
 
 	/**
+	 * Return all covers except the front and the back one
 	 * @return BookCovers|BookCover[]
 	 */
 	public function getOtherCovers() {
