@@ -13,5 +13,5 @@ db_credentials="--host=$parameters_database_host --user=$parameters_database_use
 tables="book book_category book_cover book_link book_revision book_scan"
 
 mysqldump $db_credentials -d $db > $out_file
-mysqldump $db_credentials $db $tables --max_allowed_packet=1M >> $out_file
+mysqldump $db_credentials $db $tables >> $out_file
 gzip -f $out_file
