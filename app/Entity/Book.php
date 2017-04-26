@@ -89,6 +89,7 @@ class Book extends Entity {
 
 	public function toArray() {
 		return $this->componentsToArray() +
+			$this->linksToArray() +
 			$this->revisionsToArray() +
 			$this->timestampToArray();
 	}

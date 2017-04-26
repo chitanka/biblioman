@@ -110,7 +110,13 @@
 
 {% macro printFullContentLink(book) %}
 	{% if book.fullContent is not empty %}
-		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success btn-sm" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+	{% endif %}
+{% endmacro %}
+
+{% macro printChitankaLink(book) %}
+	{% if book.chitankaId is not empty %}
+		<a href="//chitanka.info/book/{{ book.chitankaId }}" title="Книгата в Моята библиотека" class="btn btn-info btn-sm book-chitanka" target="_blank"><span class="fa fa-file-text-o"></span></a>
 	{% endif %}
 {% endmacro %}
 
@@ -122,6 +128,7 @@
 	{% import _self as _ %}
 	{{ _.printShowLink(book) }}
 	{{ _.printFullContentLink(book) }}
+	{{ _.printChitankaLink(book) }}
 	{% if is_granted('ROLE_EDITOR') %}
 		{{ _.printEditLink(book) }}
 	{% endif %}

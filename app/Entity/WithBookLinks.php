@@ -6,10 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 trait WithBookLinks {
 
 	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $chitankaId;
+
+	/**
 	 * @var BookLink[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 */
 	private $links;
+
+	public function setChitankaId($chitankaId) { $this->chitankaId = $chitankaId; }
 
 	/** @param BookLink[] $links */
 	public function setLinks($links) { $this->links = $links; }
@@ -33,6 +40,12 @@ trait WithBookLinks {
 		}
 		$linksByCategorySorted = array_filter(array_replace(array_fill_keys(BookLink::$categories, null), $linksByCategory));
 		return $linksByCategorySorted;
+	}
+
+	protected function linksToArray() {
+		return [
+			'chitankaId' => $this->chitankaId,
+		];
 	}
 
 }

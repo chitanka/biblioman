@@ -157,6 +157,7 @@ easy_admin:
                     - { type: group, label: Links, icon: link }
                     # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
                     # See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
+                    - { property: chitankaId, type: text }
                     - { property: links, type: collection, type_options: { entry_type: App\Form\BookLinkType, by_reference: false }, help: help.links }
 
                     - { type: group, label: Covers, icon: image }
