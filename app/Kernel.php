@@ -11,11 +11,11 @@ class Kernel extends \Symfony\Component\HttpKernel\Kernel {
 	protected $rootDir = __DIR__;
 
 	public function registerBundles() {
-		$bundles = require "$this->rootDir/config/bundles.php";
+		$bundles = require __DIR__."/config/bundles.php";
 		if ($this->environment == self::ENV_PRODUCTION) {
 			return $bundles;
 		}
-		return array_merge($bundles, require "$this->rootDir/config/bundles_dev.php");
+		return array_merge($bundles, require __DIR__."/config/bundles_dev.php");
 	}
 
 	public function registerContainerConfiguration(LoaderInterface $loader) {
