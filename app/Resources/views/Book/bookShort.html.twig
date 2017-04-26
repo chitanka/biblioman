@@ -34,7 +34,7 @@
 				{% if book.publisher is not empty %}
 					<div class="book-publisher">
 						<span class="fa fa-sun-o fa-fw"></span>
-						{{ _.printSearchLink(book.publisher, 'publisher', searchableFields) }}{% if book.publishingYear is not empty %}, <span class="book-publishingYear">{{ _.printSearchLink(book.publishingYear, 'publishingYear', searchableFields) }}</span>{% endif %}
+						{{ _.printSearchLinks(book.publisher, 'publisher', searchableFields) }}{% if book.publishingYear is not empty %}, <span class="book-publishingYear">{{ _.printSearchLink(book.publishingYear, 'publishingYear', searchableFields) }}</span>{% endif %}
 					</div>
 				{% endif %}
 				{% if book.category is not empty %}
