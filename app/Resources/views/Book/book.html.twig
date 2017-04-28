@@ -4,8 +4,8 @@
 		<div class="col-md-3">
 			<div class="thumbnail popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right" style="width: 210px; max-width: 100%">
 				{% if book.cover %}
-					<a href="{{ _.thumbCover(book.cover, 1000) }}" class="thumb-link">
-						<img src="{{ _.thumbCover(book.cover, 200) }}" width="200">
+					<a href="{{ _.thumbFrontCover(book.cover, 1000, book.title) }}" class="thumb-link">
+						<img src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" width="200">
 					</a>
 				{% else %}
 					<img src="{{ _.thumbCover('nocover.png', 200) }}" width="200">

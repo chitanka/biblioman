@@ -1,6 +1,7 @@
 <?php namespace App\Twig;
 
 use App\Entity\Entity;
+use App\File\Normalizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Router;
 
@@ -46,8 +47,20 @@ class Extension extends \Twig_Extension {
 		return $result;
 	}
 
-	public function createThumbPath($image, $type, $width) {
-		return "/thumb/$type/" . preg_replace('/\.(.+)$/', ".$width.$1", $image);
+	public function createThumbPath($image, $type, $width, $humanReadableName = null) {
+		return '/'. implode('/', array_filter([
+			'thumb',
+			$type,
+			preg_replace('/\.(.+)$/', ".$width.$1", $image),
+			$this->normalizeHumanReadableNameForThumb($humanReadableName, $image, $width),
+		]));
+	}
+
+	private function normalizeHumanReadableNameForThumb($name, $thumbFile, $width) {
+		if ($name === null) {
+			return null;
+		}
+		return mb_substr(Normalizer::removeSpecialCharacters($name), 0, 60) . "-{$width}px" .'.'. pathinfo($thumbFile, PATHINFO_EXTENSION);
 	}
 
 	public function getIdsFromCollection(ArrayCollection $collection) {

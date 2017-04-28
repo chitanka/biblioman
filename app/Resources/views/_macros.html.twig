@@ -151,9 +151,9 @@
 {% endmacro %}
 
 {% macro printBookThumbnailLink(book, width) %}
-	{% from _self import thumbCover %}
+	{% from _self import thumbFrontCover %}
 	<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} – {{ book.author }}">
-		<img src="{{ thumbCover(book.cover ? book.cover : 'nocover.png', width) }}">
+		<img src="{{ thumbFrontCover(book.cover ? book.cover : 'nocover.png', width, book.title) }}">
 	</a>
 {% endmacro %}
 
@@ -174,5 +174,7 @@
 	{{ form_widget(form.shelves, { value: selectedShelfIds, id: "shelfPicker_"~book.id, attr: { class: "shelf-picker", 'data-book': book.id, 'data-live-search': 'true' } }) }}
 {% endmacro %}
 
-{% macro thumbCover(image, width) %}{{ image|thumb('covers', width) }}{% endmacro %}
+{% macro thumbCover(image, width, humanReadableName) %}{{ image|thumb('covers', width, humanReadableName) }}{% endmacro %}
+{% macro thumbFrontCover(image, width, humanReadableName) %}{{ image|thumb('covers', width, humanReadableName ~ '-front') }}{% endmacro %}
+{% macro thumbBackCover(image, width, humanReadableName) %}{{ image|thumb('covers', width, humanReadableName ~ '-back') }}{% endmacro %}
 {% macro thumbScan(image, width) %}{{ image|thumb('scans', width) }}{% endmacro %}
