@@ -56,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/thumbnail-server.git",
-                "reference": "8e4039c4e4abe4a659faffff48531a8d273f253b"
+                "reference": "547f7d6143eca1f8ed3a18b39265a2b71b9e2bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/8e4039c4e4abe4a659faffff48531a8d273f253b",
-                "reference": "8e4039c4e4abe4a659faffff48531a8d273f253b",
+                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/547f7d6143eca1f8ed3a18b39265a2b71b9e2bdd",
+                "reference": "547f7d6143eca1f8ed3a18b39265a2b71b9e2bdd",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,7 @@
                 "MIT"
             ],
             "description": "A very simple thumbnail generator and server",
-            "time": "2017-03-20 18:04:11"
+            "time": "2017-04-28 06:34:06"
         },
         {
             "name": "chitanka/utils",
@@ -3670,7 +3670,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2017-03-15T01:02:10+00:00"
+            "time": "2017-03-15 01:02:10"
         },
         {
             "name": "symfony/phpunit-bridge",
@@ -3732,7 +3732,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-03-13T11:11:00+00:00"
+            "time": "2017-03-13 11:11:00"
         }
     ],
     "aliases": [],
