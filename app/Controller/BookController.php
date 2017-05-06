@@ -3,6 +3,7 @@
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\Query\BookQuery;
+use App\File\Thumbnail;
 use App\Http\Request;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -90,9 +91,12 @@ class BookController extends Controller {
 	}
 
 	/**
-	 * @Route("/{id}", name="books_show")
+	 * @Route("/{id}.{_format}", defaults={"_format" = "html"}, name="books_show")
 	 */
-	public function showAction(Book $book) {
+	public function showAction(Book $book, $_format) {
+		if ($_format == 'cover') {
+			return $this->redirect(Thumbnail::createPath($book->getCover(), 'covers', 300));
+		}
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
