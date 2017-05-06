@@ -93,9 +93,9 @@ class BookController extends Controller {
 	/**
 	 * @Route("/{id}.{_format}", defaults={"_format" = "html"}, name="books_show")
 	 */
-	public function showAction(Book $book, $_format) {
+	public function showAction(Request $request, Book $book, $_format) {
 		if ($_format == 'cover') {
-			return $this->redirect(Thumbnail::createPath($book->getCover(), 'covers', 300));
+			return $this->redirect(Thumbnail::createPath($book->cover, 'covers', $request->get('size', 300)));
 		}
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
