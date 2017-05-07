@@ -47,6 +47,13 @@ trait WithBookCovers {
 	 */
 	private $newCovers = [];
 
+	public function getCover() {
+		return $this->cover ?: 'nocover.png';
+	}
+	public function getBackCover() {
+		return $this->backCover ?: 'nobackcover.png';
+	}
+
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image */
 	public function setCoverFile(File $image = null) {
 		$this->coverFile = $image;

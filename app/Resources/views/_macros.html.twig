@@ -153,7 +153,7 @@
 {% macro printBookThumbnailLink(book, width) %}
 	{% from _self import thumbFrontCover %}
 	<a href="{{ path('books_show', { id: book.id }) }}" class="thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} – {{ book.author }}">
-		<img src="{{ thumbFrontCover(book.cover ? book.cover : 'nocover.png', width, book.title) }}">
+		<img src="{{ thumbFrontCover(book.cover, width, book.title) }}">
 	</a>
 {% endmacro %}
 

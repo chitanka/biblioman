@@ -95,7 +95,7 @@ class BookController extends Controller {
 	 */
 	public function showAction(Request $request, Book $book, $_format) {
 		if ($_format == 'cover') {
-			return $this->redirect(Thumbnail::createPath($book->cover ?: 'nocover.png', 'covers', $request->get('size', 300)));
+			return $this->redirect(Thumbnail::createPath($book->getCover(), 'covers', $request->get('size', 300)));
 		}
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
