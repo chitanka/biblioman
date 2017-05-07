@@ -72,7 +72,7 @@ class BookSearchCriteria {
 	}
 
 	public function isEmpty() {
-		return empty($this->term);
+		return $this->term === null || $this->term === '';
 	}
 
 	private function getDefaultSort() {
