@@ -65,7 +65,7 @@
 
 {% macro printSearchLinks(term, field, searchableFields) %}
 	{% from _self import printSearchLink %}
-	{% for subvalue in term|split('; ') %}{{ printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %},{% endif %}{% endfor %}
+	{% for subvalue in term|split('; ') %}{{ printSearchLink(subvalue, field, searchableFields) }}{% if not loop.last %}, {% endif %}{% endfor %}
 {% endmacro %}
 
 {% macro printSortLink(route, routeParams, field, direction, currentSort) %}
