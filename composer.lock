@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e084d925bf3c9f04b68efdf58155a0c8",
+    "content-hash": "0ad87585623cb77ab2743e6c234df251",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -319,6 +319,17 @@
                 "git"
             ],
             "time": "2016-01-26T22:31:30+00:00"
+        },
+        {
+            "name": "djvu-html5",
+            "version": "0.2.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
+                "reference": "master",
+                "shasum": null
+            },
+            "type": "library"
         },
         {
             "name": "doctrine/annotations",

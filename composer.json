@@ -17,6 +17,17 @@
 				"reference": "master"
 			}
 		}
+	}, {
+		"type": "package",
+		"package": {
+			"name": "djvu-html5",
+			"version": "0.2.2",
+			"dist": {
+				"url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
+				"type": "zip",
+				"reference": "master"
+			}
+		}
 	}],
 	"require": {
 		"php": ">=5.5.9",
@@ -43,7 +54,8 @@
 		"chitanka/utils": "*@dev",
 		"chitanka/thumbnail-server": "dev-master",
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",
-		"cosmicdreams/fontawesome-iconpicker": "^1.2"
+		"cosmicdreams/fontawesome-iconpicker": "^1.2",
+		"djvu-html5": "^0.2.2"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",
