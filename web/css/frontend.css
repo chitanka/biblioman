@@ -130,6 +130,9 @@ h1 .extra-info {
 	text-align: center;
 	background-color: #f0f0f0;
 }
+.thumbnail img {
+	max-width: 100%;
+}
 
 .dl-horizontal dt.entity-fieldnotesAboutOriginal {
 	white-space: normal;
