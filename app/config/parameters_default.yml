@@ -128,6 +128,32 @@ parameters:
         - _divider
         - infoSources
         - linksByCategory
+    book_fields_export:
+        - id
+        - author
+        - title
+        - volumeTitle
+        - subtitle
+        - sequence
+        - edition
+        - category
+        - genre
+        - translator
+        - compiler
+        - editor
+        - chiefEditor
+        - publisherEditor
+        - artist
+        - illustrator
+        - artistEditor
+        - technicalEditor
+        - publisher
+        - publishingYear
+        - binding
+        - pageCount
+        - isbn
+        - createdBy
+        - createdAt
 
     default_shelves:
         to-read:

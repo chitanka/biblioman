@@ -21,17 +21,20 @@ class ShelfController extends Controller {
 	}
 
 	/**
-	 * @Route("/{id}", name="shelf")
+	 * @Route("/{id}.{_format}", name="shelf", defaults={"_format": "html"})
 	 */
-	public function shelfAction(Shelf $shelf, Request $request) {
+	public function shelfAction(Shelf $shelf, Request $request, $_format) {
 		$this->assertUserCanViewShelf($shelf);
-		return $this->renderShelf($shelf, $request, 'Shelf/shelf.html.twig');
+		return $this->renderShelf($shelf, $request, 'Shelf/shelf.html.twig', $_format);
 	}
 
-	protected function renderShelf(Shelf $shelf, Request $request, $template) {
+	protected function renderShelf(Shelf $shelf, Request $request, $template, $format) {
 		$criteria = $this->librarian()->createBookSearchCriteria($request->getSearchQuery(), $request->getBookSort());
 		$result = $this->librarian()->findBooksOnShelfByCriteria($shelf, $criteria);
 		$pager = $this->pager($request, $result);
+		if ($format === self::FORMAT_CSV) {
+			return $this->renderBookExport($pager);
+		}
 		return $this->render($template, [
 			'shelf' => $shelf,
 			'pager' => $pager,

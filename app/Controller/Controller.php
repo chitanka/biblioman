@@ -2,7 +2,9 @@
 
 use App\Entity\Book;
 use App\Entity\User;
+use App\Http\CsvResponse;
 use App\Http\Request;
+use App\Library\BookExport;
 use App\Library\Librarian;
 use App\Library\ShelfStore;
 use App\Persistence\Manager;
@@ -16,6 +18,8 @@ use Symfony\Component\Form\FormView;
 abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller {
 
 	const ITEMS_PER_PAGE = 24;
+
+	const FORMAT_CSV = 'csv';
 
 	/** @return User */
 	protected function getUser() {
@@ -80,6 +84,14 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 		if (!$assertion) {
 			throw $this->createAccessDeniedException();
 		}
+	}
+
+	protected function renderBookExport(Pagerfanta $pager, $fieldsToExport = null) {
+		if ($fieldsToExport === null) {
+			$fieldsToExport = $this->getParameter('book_fields_export');
+		}
+		$data = BookExport::fromPager($pager)->toArray($fieldsToExport);
+		return new CsvResponse($this->get('serializer')->encode($data, 'csv'));
 	}
 
 	private function createPager($adapter, Request $request, $maxPerPage) {

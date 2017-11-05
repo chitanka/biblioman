@@ -14,9 +14,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class BookController extends Controller {
 
 	/**
-	 * @Route("/", name="books")
+	 * @Route(".{_format}", name="books", defaults={"_format": "html"})
 	 */
-	public function indexAction(Request $request) {
+	public function indexAction(Request $request, $_format) {
 		$searchQuery = $this->librarian()->createBookSearchCriteria($request->getSearchQuery(), $request->getBookSort());
 		$pager = $this->pager($request, $this->librarian()->findBooksByCriteria($searchQuery));
 		$fields = $this->getParameter('book_fields_short');
@@ -27,7 +27,7 @@ class BookController extends Controller {
 		return $this->renderBookListing('Book/index.html.twig', $pager, [
 			'fields' => $fields,
 			'query' => $searchQuery,
-		]);
+		], $_format);
 	}
 
 	/**
@@ -40,23 +40,23 @@ class BookController extends Controller {
 	}
 
 	/**
-	 * @Route("/categories/{slug}", name="books_by_category")
+	 * @Route("/categories/{slug}.{_format}", name="books_by_category", defaults={"_format": "html"})
 	 */
-	public function listByCategoryAction(Request $request, BookCategory $category) {
+	public function listByCategoryAction(Request $request, BookCategory $category, $_format) {
 		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterByCategory($category));
 		return $this->renderBookListing('Book/listByCategory.html.twig', $pager, [
 			'category' => $category,
 			'categoryPath' => $this->repoFinder()->forBookCategory()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
-		]);
+		], $_format);
 	}
 
 	/**
-	 * @Route("/incomplete", name="books_incomplete")
+	 * @Route("/incomplete.{_format}", name="books_incomplete", defaults={"_format": "html"})
 	 */
-	public function listIncompleteAction(Request $request) {
+	public function listIncompleteAction(Request $request, $_format) {
 		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete());
-		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager);
+		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager, [], $_format);
 	}
 
 	/**
@@ -105,7 +105,10 @@ class BookController extends Controller {
 		]);
 	}
 
-	private function renderBookListing($template, Pagerfanta $pager, $viewVariables = []) {
+	private function renderBookListing($template, Pagerfanta $pager, $viewVariables = [], $format) {
+		if ($format === self::FORMAT_CSV) {
+			return $this->renderBookExport($pager);
+		}
 		return $this->render($template, array_merge([
 			'pager' => $pager,
 			'fields' => $this->getParameter('book_fields_short'),

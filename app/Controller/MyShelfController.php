@@ -36,11 +36,11 @@ class MyShelfController extends ShelfController {
 	}
 
 	/**
-	 * @Route("/shelves/{id}", name="my_shelf")
+	 * @Route("/shelves/{id}.{_format}", name="my_shelf", defaults={"_format": "html"})
 	 */
-	public function shelfAction(Shelf $shelf, Request $request) {
+	public function shelfAction(Shelf $shelf, Request $request, $_format) {
 		$this->assertUserOwnsShelf($shelf);
-		return $this->renderShelf($shelf, $request, 'Profile/shelf.html.twig');
+		return $this->renderShelf($shelf, $request, 'Profile/shelf.html.twig', $_format);
 	}
 
 	/**
