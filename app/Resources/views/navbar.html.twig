@@ -37,8 +37,8 @@
 							<li role="separator" class="divider"></li>
 							{% if is_granted('ROLE_EDITOR') %}
 								<li><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}"><span class="fa fa-plus fa-fw"></span> Нова книга</a></li>
-								<li role="separator" class="divider"></li>
 							{% endif %}
+							<li><a href="{{ path('books', {q: 'createdBy: '~app.user.username}) }}"><span class="fa fa-address-book fa-fw"></span> Създадени от мен</a></li>
 							<li><a href="{{ path('books_incomplete') }}"><span class="fa fa-battery-half fa-fw"></span> Непълни записи</a></li>
 							<li><a href="{{ path('books_revisions') }}"><span class="fa fa-eraser fa-fw"></span> Промени</a></li>
 							<li role="separator" class="divider"></li>
