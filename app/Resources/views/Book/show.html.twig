@@ -59,7 +59,9 @@
 				{% endif %}
 				<dt>...</dt>
 				<dd>
-					{{ _.printFullContentLink(book) }}
+					{% if is_granted('ROLE_EDITOR') %}
+						{{ _.printFullContentLink(book) }}
+					{% endif %}
 					{{ _.printChitankaLink(book) }}
 					{% if is_granted('ROLE_EDITOR') %}
 						{{ _.printEditLink(book) }}
