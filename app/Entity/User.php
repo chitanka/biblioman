@@ -113,6 +113,10 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 		$this->roles = $roles;
 	}
 
+	public function is($role) {
+		return in_array($role, $this->getRoles());
+	}
+
 	/**
 	 * @return array
 	 */

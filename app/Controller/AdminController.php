@@ -2,12 +2,12 @@
 
 use App\Entity\Book;
 use App\Entity\User;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use JavierEguiluz\Bundle\EasyAdminBundle\Controller\AdminController as EasyAdminController;
 
-class AdminController extends EasyAdminController {
+class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController {
 
 	/** @var Book */
 	private $bookPreEdit;
@@ -17,10 +17,13 @@ class AdminController extends EasyAdminController {
 	 */
 	public function indexAction(Request $request) {
 		$response = parent::indexAction($request);
-		if (isset($this->entity['role'])) {
-			$this->denyAccessUnlessGranted($this->entity['role']);
-		}
 		return $response;
+	}
+
+	protected function initialize(Request $request) {
+		parent::initialize($request);
+		$this->checkUserRole();
+		$this->checkUserAuthorization($request->query->get('action'), $request->attributes->get('easyadmin')['item']);
 	}
 
 	protected function prePersistBookEntity(Book $book) {
@@ -74,5 +77,28 @@ class AdminController extends EasyAdminController {
 
 	protected function getUsername() {
 		return $this->getUser()->getUsername();
+	}
+
+	protected function checkUserRole() {
+		if (isset($this->entity['role'])) {
+			$this->denyAccessUnlessGranted($this->entity['role']);
+		}
+	}
+
+	protected function checkUserAuthorization($action, $object) {
+		if (!isset($this->entity[$action]['auth'])) {
+			return;
+		}
+		$language = new ExpressionLanguage();
+		foreach ($this->entity[$action]['auth'] as $key => $expression) {
+			$params = [
+				'user' => $this->getUser(),
+				'object' => $object,
+			];
+			$isAllowed = $language->evaluate($expression, $params);
+			if (!$isAllowed) {
+				throw $this->createAccessDeniedException("auth.$key");
+			}
+		}
 	}
 }

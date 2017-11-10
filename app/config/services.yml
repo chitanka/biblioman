@@ -3,7 +3,7 @@
 services:
     kernel.listener:
         class: App\Listener\KernelListener
-        arguments: ["@app.repository_finder", "@security.token_storage", "%single_login_provider%"]
+        arguments: ["@app.repository_finder", "@security.token_storage", "%single_login_provider%", "@twig"]
         tags:
             - { name: kernel.event_subscriber }
 

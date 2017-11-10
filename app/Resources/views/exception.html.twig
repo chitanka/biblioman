@@ -1,0 +1,10 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+<p class="alert alert-danger">
+	<span class="fa fa-ban"></span>
+	{{ exception.message|trans }}
+</p>
+
+{% endblock %}

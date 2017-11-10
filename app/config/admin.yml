@@ -69,6 +69,9 @@ easy_admin:
             new:
                 title: Book.new_title
                 action_label: Нова книга
+            edit:
+                auth:
+                    role_editor_plus: object.isIncomplete or user.is('ROLE_EDITOR_PLUS')
             form:
                 title: Book.form_title
                 fields:
@@ -193,4 +196,5 @@ easy_admin:
                             choices:
                                 ROLE_USER: ROLE_USER
                                 ROLE_EDITOR: ROLE_EDITOR
+                                ROLE_EDITOR_PLUS: ROLE_EDITOR_PLUS
                                 ROLE_ADMIN: ROLE_ADMIN
