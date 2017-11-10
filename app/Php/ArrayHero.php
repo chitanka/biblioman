@@ -9,15 +9,21 @@ class ArrayHero {
 	 */
 	public static function scalarizeArray($data) {
 		foreach ($data as $key => $value) {
-			if ($value instanceof \DateTime) {
-				$data[$key] = $value->format('c');
-			} else if (is_object($value) && method_exists($value, '__toString')) {
-				$data[$key] = $value->__toString();
-			} else if (is_array($value)) {
-				$data[$key] = self::scalarizeArray($value);
-			}
+			$data[$key] = self::formatValueAsScalar($value);
 		}
 		return $data;
 	}
 
+	private static function formatValueAsScalar($value) {
+		if ($value instanceof \DateTime) {
+			return $value->format('c');
+		}
+		if (is_object($value) && method_exists($value, '__toString')) {
+			return $value->__toString();
+		}
+		if (is_array($value)) {
+			return implode(' | ', self::scalarizeArray($value));
+		}
+		return $value;
+	}
 }

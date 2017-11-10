@@ -28,14 +28,23 @@ class BookExport {
 		$data = [];
 		$keysForIntersect = $fieldsToExport ? array_flip($fieldsToExport) : null;
 		foreach ($this->books as $book) {
-			$values = $book->toArray();
-			// check if this is some book wrapper, e.g. BookOnShelf
-			if (isset($values['book']) && $values['book'] instanceof Book) {
-				$values = $values['book']->toArray();
-			}
+			$values = $this->bookToArray($book);
 			$bookData = $keysForIntersect ? array_intersect_key($values, $keysForIntersect) : $values;
 			$data[] = ArrayHero::scalarizeArray($bookData);
 		}
 		return $data;
+	}
+
+	/**
+	 * @param Book $book
+	 * @return array
+	 */
+	private function bookToArray($book) {
+		$values = $book->toArray();
+		// check if this is some book wrapper, e.g. BookOnShelf
+		if (isset($values['book']) && $values['book'] instanceof Book) {
+			$values = $values['book']->toArray();
+		}
+		return $values;
 	}
 }
