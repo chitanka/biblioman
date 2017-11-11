@@ -71,7 +71,7 @@ easy_admin:
                 action_label: Нова книга
             edit:
                 auth:
-                    role_editor_plus: object.isIncomplete or user.is('ROLE_EDITOR_PLUS')
+                    role_editor_plus: object.isIncomplete or object.isCreatedBy(user) or user.is('ROLE_EDITOR_PLUS')
             form:
                 title: Book.form_title
                 fields:

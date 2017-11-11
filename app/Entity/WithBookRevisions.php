@@ -21,6 +21,10 @@ trait WithBookRevisions {
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
 	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
 
+	public function isCreatedBy(User $user) {
+		return $this->createdBy == $user->getUsername();
+	}
+
 	public function hasRevisions() {
 		return count($this->revisions) > 0;
 	}
