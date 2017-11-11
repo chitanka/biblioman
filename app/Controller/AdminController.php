@@ -1,7 +1,6 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\User;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,11 +67,6 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 			$builder->setDisabled(true);
 		}
 		return $builder;
-	}
-
-	/** @return User */
-	protected function getUser() {
-		return $this->get('security.token_storage')->getToken()->getUser();
 	}
 
 	protected function getUsername() {
