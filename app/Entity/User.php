@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User extends Entity implements UserInterface, ParticipantInterface {
 
+	const ROLE_PREFIX = 'ROLE_';
+
 	const ROLE_DEFAULT = 'ROLE_USER';
 
 	/**

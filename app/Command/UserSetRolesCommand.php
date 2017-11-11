@@ -80,8 +80,8 @@ EOT;
 
 	protected function normalizeRole($roleInput) {
 		$role = strtoupper(ltrim($roleInput, '/+'));
-		if (strpos($role, 'ROLE_') === false) {
-			$role = 'ROLE_'.$role;
+		if (strpos($role, User::ROLE_PREFIX) === false) {
+			$role = User::ROLE_PREFIX.$role;
 		}
 		return $role;
 	}
