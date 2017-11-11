@@ -1,6 +1,9 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 services:
+    _defaults:
+        public: true
+
     kernel.listener:
         class: App\Listener\KernelListener
         arguments: ["@app.repository_finder", "@security.token_storage", "%single_login_provider%", "@twig"]
