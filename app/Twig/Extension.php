@@ -60,7 +60,4 @@ class Extension extends \Twig_Extension {
 		})->toArray();
 	}
 
-	public function getName() {
-		return 'app_extension';
-	}
 }

@@ -1,7 +1,7 @@
 <?php namespace App\Listener;
 
 use App\Entity\Book;
-use JavierEguiluz\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 

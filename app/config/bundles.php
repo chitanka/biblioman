@@ -8,7 +8,7 @@ return [
 	new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
 	new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 	new \Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-	new \JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+	new \EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
 	new \Vich\UploaderBundle\VichUploaderBundle(),
 	new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
 	new \FOS\MessageBundle\FOSMessageBundle(),
