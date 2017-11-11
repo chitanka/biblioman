@@ -744,12 +744,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "728e6ced2ede52be35d4c709fb7fe146b49cf850"
+                "reference": "8b462d952fbd386637a85d642d242a16891e0d32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/728e6ced2ede52be35d4c709fb7fe146b49cf850",
-                "reference": "728e6ced2ede52be35d4c709fb7fe146b49cf850",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/8b462d952fbd386637a85d642d242a16891e0d32",
+                "reference": "8b462d952fbd386637a85d642d242a16891e0d32",
                 "shasum": ""
             },
             "require": {
@@ -779,7 +779,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7.x-dev"
+                    "dev-master": "1.8.x-dev"
                 }
             },
             "autoload": {
@@ -817,7 +817,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2017-11-04T19:59:19+00:00"
+            "time": "2017-11-05T23:21:03+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1331,12 +1331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "49359222044865c8a1da9b80d4b729f147728bb0"
+                "reference": "7a728c855b4f410412a3d70d0afeeb5c84bbc915"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/49359222044865c8a1da9b80d4b729f147728bb0",
-                "reference": "49359222044865c8a1da9b80d4b729f147728bb0",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/7a728c855b4f410412a3d70d0afeeb5c84bbc915",
+                "reference": "7a728c855b4f410412a3d70d0afeeb5c84bbc915",
                 "shasum": ""
             },
             "require": {
@@ -1401,7 +1401,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2017-10-12T12:01:06+00:00"
+            "time": "2017-11-09T07:58:51+00:00"
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
@@ -1987,12 +1987,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/whiteoctober/Pagerfanta.git",
-                "reference": "234fe139c4c7d285229d13191dd603b86d5e219e"
+                "reference": "b0b35832c6ca26a2c4af34fafa943266cda63f15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/Pagerfanta/zipball/234fe139c4c7d285229d13191dd603b86d5e219e",
-                "reference": "234fe139c4c7d285229d13191dd603b86d5e219e",
+                "url": "https://api.github.com/repos/whiteoctober/Pagerfanta/zipball/b0b35832c6ca26a2c4af34fafa943266cda63f15",
+                "reference": "b0b35832c6ca26a2c4af34fafa943266cda63f15",
                 "shasum": ""
             },
             "require": {
@@ -2048,7 +2048,7 @@
                 "paginator",
                 "paging"
             ],
-            "time": "2017-10-18T13:39:19+00:00"
+            "time": "2017-11-06T16:32:57+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2842,12 +2842,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "c087092223419d07cbf10069ba0fdc4070d2f16c"
+                "reference": "2b41b8b6d2c6edb1a5494f02f8e4129be2a44784"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/c087092223419d07cbf10069ba0fdc4070d2f16c",
-                "reference": "c087092223419d07cbf10069ba0fdc4070d2f16c",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/2b41b8b6d2c6edb1a5494f02f8e4129be2a44784",
+                "reference": "2b41b8b6d2c6edb1a5494f02f8e4129be2a44784",
                 "shasum": ""
             },
             "require": {
@@ -2859,8 +2859,8 @@
                 "symfony/monolog-bridge": "~2.7|~3.0|~4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8",
                 "symfony/console": "~2.3|~3.0|~4.0",
+                "symfony/phpunit-bridge": "^3.3|^4.0",
                 "symfony/yaml": "~2.3|~3.0|~4.0"
             },
             "type": "symfony-bundle",
@@ -2897,7 +2897,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2017-10-06T10:42:13+00:00"
+            "time": "2017-11-06T16:02:17+00:00"
         },
         {
             "name": "symfony/polyfill-apcu",
@@ -3245,12 +3245,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "beff86586d542d20ff716ca466a32fd7763fc885"
+                "reference": "d6dc07653b872b3091c70140751d5f3f4905082a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/beff86586d542d20ff716ca466a32fd7763fc885",
-                "reference": "beff86586d542d20ff716ca466a32fd7763fc885",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/d6dc07653b872b3091c70140751d5f3f4905082a",
+                "reference": "d6dc07653b872b3091c70140751d5f3f4905082a",
                 "shasum": ""
             },
             "require": {
@@ -3315,7 +3315,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-05T15:20:19+00:00"
+            "time": "2017-11-07T14:16:22+00:00"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -3378,16 +3378,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.4.0-BETA2",
+            "version": "v3.4.0-BETA3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "837878f16949f2b18ca35ae784606fccb2e19c0c"
+                "reference": "1ae23efa1eaf48dea8c0f382fc9c339e08fa113f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/837878f16949f2b18ca35ae784606fccb2e19c0c",
-                "reference": "837878f16949f2b18ca35ae784606fccb2e19c0c",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/1ae23efa1eaf48dea8c0f382fc9c339e08fa113f",
+                "reference": "1ae23efa1eaf48dea8c0f382fc9c339e08fa113f",
                 "shasum": ""
             },
             "require": {
@@ -3529,7 +3529,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-10-30T22:31:30+00:00"
+            "time": "2017-11-05T22:52:09+00:00"
         },
         {
             "name": "twig/extensions",
@@ -3593,12 +3593,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e7944a1f67499a230463f463d7cecc3336b87ea1"
+                "reference": "2610f2e1288f00e8a59f37b19d3b91e75e78865a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e7944a1f67499a230463f463d7cecc3336b87ea1",
-                "reference": "e7944a1f67499a230463f463d7cecc3336b87ea1",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/2610f2e1288f00e8a59f37b19d3b91e75e78865a",
+                "reference": "2610f2e1288f00e8a59f37b19d3b91e75e78865a",
                 "shasum": ""
             },
             "require": {
@@ -3650,7 +3650,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-09-27T18:07:18+00:00"
+            "time": "2017-11-07T21:50:11+00:00"
         },
         {
             "name": "vich/uploader-bundle",
@@ -3739,18 +3739,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle.git",
-                "reference": "3256efce01e4045fd74ced5868bdbd68c6dd9800"
+                "reference": "5fd47a56de6f935809d6e186ec03067c6efeb912"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberPagerfantaBundle/zipball/3256efce01e4045fd74ced5868bdbd68c6dd9800",
-                "reference": "3256efce01e4045fd74ced5868bdbd68c6dd9800",
+                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberPagerfantaBundle/zipball/5fd47a56de6f935809d6e186ec03067c6efeb912",
+                "reference": "5fd47a56de6f935809d6e186ec03067c6efeb912",
                 "shasum": ""
             },
             "require": {
                 "pagerfanta/pagerfanta": "1.0.*",
                 "symfony/framework-bundle": "~2.3|~3.0|~4.0",
-                "symfony/property-access": "~2.3|~3.0",
+                "symfony/property-access": "~2.3|~3.0|~4.0",
                 "symfony/twig-bundle": "~2.3|~3.0|~4.0"
             },
             "require-dev": {
@@ -3783,7 +3783,7 @@
                 "page",
                 "paging"
             ],
-            "time": "2017-11-02T16:43:39+00:00"
+            "time": "2017-11-06T09:42:34+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -3953,12 +3953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "ed729292517d217736b9b77707cafcc06b455095"
+                "reference": "081113c088d79ed8cf755675d2f55646c9e169fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/ed729292517d217736b9b77707cafcc06b455095",
-                "reference": "ed729292517d217736b9b77707cafcc06b455095",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/081113c088d79ed8cf755675d2f55646c9e169fc",
+                "reference": "081113c088d79ed8cf755675d2f55646c9e169fc",
                 "shasum": ""
             },
             "require": {
@@ -4007,7 +4007,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-11-03T10:03:57+00:00"
+            "time": "2017-11-07T14:20:24+00:00"
         }
     ],
     "aliases": [],
