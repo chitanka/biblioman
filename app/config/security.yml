@@ -18,6 +18,7 @@ security:
             security: false
         default:
             anonymous: ~
+            logout_on_user_change: true
 
     access_control:
         - { path: ^/admin/, roles: [ROLE_ADMIN, ROLE_EDITOR] }
