@@ -42,8 +42,9 @@ class KernelListener implements EventSubscriberInterface {
 	}
 
 	public function onKernelException(GetResponseForExceptionEvent $event) {
-		$exception = $event->getException(); /* @var $exception HttpException */
-		$response = new Response($this->twig->render('exception.html.twig', ['exception' => $exception]), $exception->getStatusCode());
+		$exception = $event->getException();
+		$statusCode = $exception instanceof HttpException ? $exception->getStatusCode() : ($exception->getCode() ?: Response::HTTP_INTERNAL_SERVER_ERROR);
+		$response = new Response($this->twig->render('exception.html.twig', ['exception' => $exception]), $statusCode);
 		$event->setResponse($response);
 	}
 
