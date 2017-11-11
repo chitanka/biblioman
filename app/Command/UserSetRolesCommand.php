@@ -53,7 +53,7 @@ EOT;
 
 		$em->persist($user);
 		$em->flush();
-		$output->writeln("The user {$user} now has following roles:\n    - ".implode("\n    - ", $finalRoles));
+		$output->writeln("The user <info>{$user}</info> has now following roles:\n    - ".implode("\n    - ", $finalRoles));
 	}
 
 	protected function setRoles(User $user, $roleDefinition) {
