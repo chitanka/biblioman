@@ -90,6 +90,12 @@
 {% endif %}
 {% endmacro %}
 
+{% macro printUserRolesInline(user) %}
+	{% for role in user.roles %}
+		- {{ ('roles.'~role)|trans }}
+	{% endfor %}
+{% endmacro %}
+
 {% macro printDate(date) %}
 	<time datetime="{{ date|date('c') }}">{{ date|date('d.m.Y H:i') }}</time>
 {% endmacro %}

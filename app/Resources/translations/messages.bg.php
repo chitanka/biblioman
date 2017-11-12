@@ -201,6 +201,13 @@ return [
 		'category' => 'В тази категория',
 		'categories' => 'В тези категории',
 	],
+	'roles' => [
+		'ROLE_USER' => 'потребител',
+		'ROLE_EDITOR' => 'редактор',
+		'ROLE_EDITOR_PLUS' => 'старши редактор',
+		'ROLE_WIKI_EDITOR' => 'уики редактор',
+		'ROLE_ADMIN' => 'администратор',
+	],
 	'auth' => [
 		'role_editor_plus' => 'Само старши редактори могат да променят този запис.',
 	],
