@@ -261,12 +261,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "3ef3f4dbde6bb639c09797f20b57368a3b7851c0"
+                "reference": "36344aeffdc37711335563e6108cda86566432a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/3ef3f4dbde6bb639c09797f20b57368a3b7851c0",
-                "reference": "3ef3f4dbde6bb639c09797f20b57368a3b7851c0",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/36344aeffdc37711335563e6108cda86566432a6",
+                "reference": "36344aeffdc37711335563e6108cda86566432a6",
                 "shasum": ""
             },
             "require": {
@@ -312,7 +312,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2017-09-15T07:32:55+00:00"
+            "time": "2017-11-13T15:51:25+00:00"
         },
         {
             "name": "cosmicdreams/fontawesome-iconpicker",
@@ -1088,12 +1088,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "e1b851f2e93a4afd82fb7e7f32c6f114d0ea7b71"
+                "reference": "049470c787467e2c7f5a267b8b86c5a5d28498fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/e1b851f2e93a4afd82fb7e7f32c6f114d0ea7b71",
-                "reference": "e1b851f2e93a4afd82fb7e7f32c6f114d0ea7b71",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/049470c787467e2c7f5a267b8b86c5a5d28498fc",
+                "reference": "049470c787467e2c7f5a267b8b86c5a5d28498fc",
                 "shasum": ""
             },
             "require": {
@@ -1156,7 +1156,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2017-10-23T18:26:03+00:00"
+            "time": "2017-11-12T11:25:46+00:00"
         },
         {
             "name": "fig/link-util",
@@ -1331,12 +1331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "7a728c855b4f410412a3d70d0afeeb5c84bbc915"
+                "reference": "bf710f87241c6691912fea5e6c96458764246cb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/7a728c855b4f410412a3d70d0afeeb5c84bbc915",
-                "reference": "7a728c855b4f410412a3d70d0afeeb5c84bbc915",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/bf710f87241c6691912fea5e6c96458764246cb2",
+                "reference": "bf710f87241c6691912fea5e6c96458764246cb2",
                 "shasum": ""
             },
             "require": {
@@ -1401,7 +1401,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2017-11-09T07:58:51+00:00"
+            "time": "2017-11-16T14:52:41+00:00"
         },
         {
             "name": "javiereguiluz/easyadmin-bundle",
@@ -3378,16 +3378,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.4.0-BETA3",
+            "version": "v3.4.0-BETA4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "1ae23efa1eaf48dea8c0f382fc9c339e08fa113f"
+                "reference": "23ab29f4c77a2e08ad9cdbe3757f3ff58b835d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/1ae23efa1eaf48dea8c0f382fc9c339e08fa113f",
-                "reference": "1ae23efa1eaf48dea8c0f382fc9c339e08fa113f",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/23ab29f4c77a2e08ad9cdbe3757f3ff58b835d2d",
+                "reference": "23ab29f4c77a2e08ad9cdbe3757f3ff58b835d2d",
                 "shasum": ""
             },
             "require": {
@@ -3529,7 +3529,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-11-05T22:52:09+00:00"
+            "time": "2017-11-12T17:27:06+00:00"
         },
         {
             "name": "twig/extensions",
@@ -3593,12 +3593,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "2610f2e1288f00e8a59f37b19d3b91e75e78865a"
+                "reference": "5322c9b4ca5fbff5917ecbf0544b46fb2fa66086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/2610f2e1288f00e8a59f37b19d3b91e75e78865a",
-                "reference": "2610f2e1288f00e8a59f37b19d3b91e75e78865a",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/5322c9b4ca5fbff5917ecbf0544b46fb2fa66086",
+                "reference": "5322c9b4ca5fbff5917ecbf0544b46fb2fa66086",
                 "shasum": ""
             },
             "require": {
@@ -3650,7 +3650,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-11-07T21:50:11+00:00"
+            "time": "2017-11-12T18:47:15+00:00"
         },
         {
             "name": "vich/uploader-bundle",
@@ -3953,12 +3953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "081113c088d79ed8cf755675d2f55646c9e169fc"
+                "reference": "7990eb9233a3634c18fa64f16faf9be34fbb916e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/081113c088d79ed8cf755675d2f55646c9e169fc",
-                "reference": "081113c088d79ed8cf755675d2f55646c9e169fc",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/7990eb9233a3634c18fa64f16faf9be34fbb916e",
+                "reference": "7990eb9233a3634c18fa64f16faf9be34fbb916e",
                 "shasum": ""
             },
             "require": {
@@ -4007,7 +4007,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2017-11-07T14:20:24+00:00"
+            "time": "2017-11-12T19:29:19+00:00"
         }
     ],
     "aliases": [],
