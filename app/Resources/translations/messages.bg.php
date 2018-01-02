@@ -145,6 +145,7 @@ return [
 		'personal' => 'Лични сайтове',
 		'forum' => 'Форуми',
 		'bookstore' => 'Книжарници',
+		'other' => 'Разни',
 	],
 	'BookCover' => [
 		'front' => 'предна',

@@ -17,6 +17,7 @@ class BookLink extends Entity {
 		'personal',
 		'forum',
 		'bookstore',
+		'other',
 	];
 
 	/**
