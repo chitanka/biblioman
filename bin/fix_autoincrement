@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+. `dirname $0`/parse_yaml.sh
+
+config_file=$1
+
+eval $(parse_yaml $config_file)
+
+db=$parameters_database_name
+db_credentials="--host=$parameters_database_host --user=$parameters_database_user --password=$parameters_database_password $db"
+
+sql_auto_increment="SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE table_schema = '$db' AND table_name = 'book'"
+sql_max_id="SELECT max(id) FROM book"
+
+auto_increment=$(mysql $db_credentials -N -e "$sql_auto_increment")
+max_id=$(mysql $db_credentials -N -e "$sql_max_id")
+
+if (( $auto_increment > $max_id+1 )); then
+	fixed_auto_increment=$(($max_id+1))
+	sql_fix_autoincrement="ALTER TABLE book auto_increment = $fixed_auto_increment"
+	echo "fix auto_increment = $fixed_auto_increment"
+	mysql $db_credentials -e "$sql_fix_autoincrement"
+fi
