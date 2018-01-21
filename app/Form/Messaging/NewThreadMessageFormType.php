@@ -20,6 +20,7 @@ class NewThreadMessageFormType extends \FOS\MessageBundle\FormType\NewThreadMess
 		$builder->add('body', \Symfony\Component\Form\Extension\Core\Type\TextareaType::class, array(
 			'label' => 'body',
 			'translation_domain' => 'FOSMessageBundle',
+			'attr' => ['class' => 'message-body'],
 		));
 	}
 

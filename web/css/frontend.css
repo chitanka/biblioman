@@ -169,3 +169,7 @@ h1 .extra-info {
 .important-shelf-picker {
 	margin-bottom: 0.3em;
 }
+
+textarea.message-body {
+	height: 15em;
+}
