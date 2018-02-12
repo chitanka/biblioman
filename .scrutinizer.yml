@@ -1,9 +1,18 @@
+build:
+    nodes:
+        analysis:
+            project_setup:
+                override: true
+            tests:
+                override: [php-scrutinizer-run]
+
 filter:
     excluded_paths:
         - app/autoload.php
         - bin/*
         - var/*
-        - vendor/*
+    dependency_paths:
+        - vendor/
 
 checks:
     php: true
