@@ -1,6 +1,7 @@
 <?php namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Entity;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -94,5 +95,38 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 				throw $this->createAccessDeniedException("auth.$key");
 			}
 		}
+	}
+
+	protected function redirectToReferrer() {
+		if ($this->actionIsNew()) {
+			return $this->redirect($this->generateEditUrl());
+		}
+		return parent::redirectToReferrer();
+	}
+
+	protected function actionIsNew() {
+		return $this->request->query->get('action') === 'new';
+	}
+
+	/**
+	 * @param Request $request
+	 * @return Entity
+	 */
+	protected function getEntity(Request $request = null) {
+		if ($request === null) {
+			$request = $this->request;
+		}
+		return $request->attributes->get('easyadmin')['item'];
+	}
+
+	protected function generateEditUrl(Entity $entity = null) {
+		if ($entity === null) {
+			$entity = $this->getEntity();
+		}
+		return $this->generateUrl('easyadmin', [
+			'action' => 'edit',
+			'entity' => $this->entity['name'],
+			'id' => $entity->getId(),
+		]);
 	}
 }
