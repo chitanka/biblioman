@@ -69,10 +69,14 @@ easy_admin:
             new:
                 title: Book.new_title
                 action_label: Нова книга
+                fields:
+                    - { property: author, help: help.author }
+                    - { property: title }
+                    - { property: volumeTitle, help: help.volumeTitle }
+                    - { property: subtitle }
             edit:
                 auth:
                     role_editor_plus: object.isIncomplete or object.createdBy == user.getUsername() or user.is('ROLE_EDITOR_PLUS')
-            form:
                 title: Book.form_title
                 fields:
                     - { type: group, label: Data from paper, icon: book }
