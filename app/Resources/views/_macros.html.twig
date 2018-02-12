@@ -114,7 +114,10 @@
 
 {% macro printFullContentLink(book) %}
 	{% if book.fullContent is not empty %}
-		<a href="/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+		<a href="/fullcontent/{{ book.fullContent }}" title="Сваляне на пълното съдържание на книгата" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-file-pdf-o"></span></a>
+		{% if '.djvu' in book.fullContent %}
+			<a href="/djvu-html5/Djvu_html5.html?file=/fullcontent/{{ book.fullContent }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-file-text-o"></span></a>
+		{% endif %}
 	{% endif %}
 {% endmacro %}
 
