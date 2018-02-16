@@ -24,6 +24,10 @@ trait CanBeLocked {
 		$this->lockedAt = null;
 	}
 
+	public function extendLock() {
+		$this->lockedAt = new \DateTime("+{$this->getLockExpireTime()} seconds");
+	}
+
 	public function isLockedForUser($user) {
 		return $this->lockedBy !== null && $this->lockedBy !== $user && !$this->isLockExpired();
 	}
@@ -37,6 +41,6 @@ trait CanBeLocked {
 	}
 
 	protected function getLockExpireTime() {
-		return 3600; // 1 hour
+		return 300; // 5 minutes
 	}
 }

@@ -4,6 +4,7 @@ use App\Entity\Book;
 use App\Entity\Entity;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -18,6 +19,20 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 	public function indexAction(Request $request) {
 		$response = parent::indexAction($request);
 		return $response;
+	}
+
+	/**
+	 * @Route("/admin/book-lock")
+	 */
+	public function extendBookLock(Request $request) {
+		$this->initialize($request);
+		$book = $this->getEntity($request); /* @var $book Book */
+		if ($book) {
+			$book->extendLock();
+			$this->em->flush($book);
+			return new JsonResponse(true);
+		}
+		return new JsonResponse(false);
 	}
 
 	protected function initialize(Request $request) {

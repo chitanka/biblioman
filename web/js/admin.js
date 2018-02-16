@@ -28,3 +28,13 @@ $('#book_title').on('change', function() {
 $('textarea').css({'height': '3em', 'min-height': '3em'}).on('focus', function() {
 	$(this).css('height', '15em');
 });
+
+$bookForm = $('#edit-book-form');
+if ($bookForm.length) {
+	setInterval(function() {
+		$.post('/admin/book-lock?' + $.param({
+			entity: $bookForm.data('entity'),
+			id: $bookForm.data('entity-id')
+		}));
+	}, 120000);
+}
