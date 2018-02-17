@@ -33,7 +33,7 @@ easy_admin:
                 - css/admin.css
             js:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
-                - js/admin.js
+                - js/admin.js?1
     entities:
         Book:
             class: App\Entity\Book
@@ -74,6 +74,8 @@ easy_admin:
                     - { property: title }
                     - { property: volumeTitle, help: help.volumeTitle }
                     - { property: subtitle }
+                    - { property: publisher }
+                    - { property: publishingYear }
             edit:
                 auth:
                     role_editor_plus: object.isIncomplete or object.createdBy == user.getUsername() or user.is('ROLE_EDITOR_PLUS')
