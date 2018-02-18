@@ -29,10 +29,10 @@ $('textarea').css({'height': '3em', 'min-height': '3em'}).on('focus', function()
 	$(this).css('height', '15em');
 });
 
-$bookForm = $('#edit-book-form');
+var $bookForm = $('#edit-book-form');
 if ($bookForm.length) {
 	setInterval(function() {
-		$.post('/admin/book-lock?' + $.param({
+		$.post('/admin/books/extend-lock?' + $.param({
 			entity: $bookForm.data('entity'),
 			id: $bookForm.data('entity-id')
 		}));

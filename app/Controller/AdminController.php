@@ -22,7 +22,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 	}
 
 	/**
-	 * @Route("/admin/book-lock")
+	 * @Route("/admin/books/extend-lock")
 	 */
 	public function extendBookLock(Request $request) {
 		$this->initialize($request);

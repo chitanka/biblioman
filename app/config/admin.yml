@@ -33,7 +33,7 @@ easy_admin:
                 - css/admin.css
             js:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
-                - js/admin.js?1
+                - js/admin.js?2
     entities:
         Book:
             class: App\Entity\Book
