@@ -1,0 +1,12 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Потребителите на Библиоман{% endblock %}
+
+{% block content %}
+
+	<h1 class="page-header">{{ block('title') }}</h1>
+	<ul>
+		<li><a href="{{ path('users_by_role') }}">Роли на потребителите</a></li>
+	</ul>
+
+{% endblock %}

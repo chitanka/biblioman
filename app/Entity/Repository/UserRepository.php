@@ -42,4 +42,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
 		$this->_em->flush($user);
 		return $user;
 	}
+
+	public function findUsersWithExtraRoles() {
+		$qb = $this->createQueryBuilder('u')
+			->where('u.roles != ?1')->setParameter('1', serialize([]))
+			->orderBy('u.username');
+		return $qb->getQuery()->getResult();
+	}
 }
