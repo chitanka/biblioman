@@ -51,7 +51,7 @@
 						<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
 					{% endif %}
 					{{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }}
-					{{ _.printUserMessageLink(book.createdByUser, book) }}
+					{{ _.printUserMessageLink(book.createdByUser.name, book) }}
 				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}
 			</div>
