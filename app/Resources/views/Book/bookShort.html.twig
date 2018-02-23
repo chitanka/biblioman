@@ -46,7 +46,12 @@
 				{% endif %}
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-extra-info">
-					&bull; <span class="fa fa-user-plus"></span> {{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }} {{ _.printUserMessageLink(book.createdBy, book) }}
+					&bull;
+					{% if book.createdByUser.is('ROLE_EDITOR_PLUS') %}
+						<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
+					{% endif %}
+					{{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }}
+					{{ _.printUserMessageLink(book.createdByUser, book) }}
 				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}
 			</div>

@@ -86,6 +86,10 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 		return $this->username;
 	}
 
+	public function getName() {
+		return $this->username;
+	}
+
 	public function setUsername($username) {
 		$this->username = $username;
 	}

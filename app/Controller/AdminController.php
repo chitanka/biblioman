@@ -43,7 +43,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 
 	protected function prePersistBookEntity(Book $book) {
 		$book->setCreatorByNewFiles($this->getUsername());
-		$book->setCreatedBy($this->getUsername());
+		$book->setCreatedByUser($this->getUser());
 	}
 
 	protected function preUpdateBookEntity(Book $book) {

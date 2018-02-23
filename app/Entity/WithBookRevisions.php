@@ -18,8 +18,17 @@ trait WithBookRevisions {
 	 */
 	private $createdBy;
 
+	/**
+	 * @var User
+	 * @ORM\ManyToOne(targetEntity="User")
+	 */
+	private $createdByUser;
+
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
-	public function setCreatedBy($createdBy) { $this->createdBy = $createdBy; }
+	public function setCreatedByUser(User $user) {
+		$this->createdByUser = $user;
+		$this->createdBy = $user->getUsername();
+	}
 
 	public function hasRevisions() {
 		return count($this->revisions) > 0;

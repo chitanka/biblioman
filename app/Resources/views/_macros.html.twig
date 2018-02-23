@@ -85,9 +85,7 @@
 {% endmacro %}
 
 {% macro printUserMessageLink(user, book) %}
-{% if is_granted('ROLE_USER') %}
 	<a href="{{ path('fos_message_thread_new', { username: user }|merge( book is not empty ? { subject: 'Относно №'~book.id } : {} )) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
-{% endif %}
 {% endmacro %}
 
 {% macro printUserRolesInline(user) %}
