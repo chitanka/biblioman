@@ -20,6 +20,13 @@ trait WithBookFiles {
 	 */
 	private $fullContentFile;
 
+	/**
+	 * If set, the content file will be available for the public at the given date.
+	 * @var \DateTime
+	 * @ORM\Column(type="date", nullable=true)
+	 */
+	private $availableAt;
+
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
 	public function setFullContentFile(File $file = null) {
 		$this->fullContentFile = $file;
@@ -28,6 +35,17 @@ trait WithBookFiles {
 		}
 	}
 	public function setFullContent($fullContent) { $this->fullContent = $fullContent; }
+
+	public function setAvailableAt(\DateTime $availableAt = null) {
+		$this->availableAt = $availableAt;
+	}
+
+	public function isAvailable() {
+		if ($this->availableAt === null) {
+			return true;
+		}
+		return $this->availableAt < new \DateTime();
+	}
 
 	protected function updateNbFiles() {
 		$this->updateNbCovers();
