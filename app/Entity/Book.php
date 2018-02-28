@@ -20,12 +20,12 @@ class Book extends Entity {
 	const STATE_VERIFIED_2 = 'verified_2';
 	const STATE_VERIFIED_3 = 'verified_3';
 
+	use CanBeLocked;
+	use HasEditHistory;
+	use HasTimestamp;
 	use WithBookComponents;
 	use WithBookLinks;
-	use WithBookRevisions;
 	use WithBookShelves;
-	use CanBeLocked;
-	use HasTimestamp;
 
 	private $updatedTrackingEnabled = true;
 

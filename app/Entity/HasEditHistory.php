@@ -4,7 +4,7 @@ use App\Editing\Editor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-trait WithBookRevisions {
+trait HasEditHistory {
 
 	/**
 	 * @var BookRevision[]|ArrayCollection
@@ -28,6 +28,10 @@ trait WithBookRevisions {
 	public function setCreatedByUser(User $user) {
 		$this->createdByUser = $user;
 		$this->createdBy = $user->getUsername();
+	}
+
+	public function isCreatedByTheUser(User $user) {
+		return $this->createdByUser->equals($user);
 	}
 
 	public function hasRevisions() {
