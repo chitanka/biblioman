@@ -18,8 +18,8 @@ class ArrayHero {
 		if ($value instanceof \DateTime) {
 			return $value->format('c');
 		}
-		if (is_object($value) && method_exists($value, '__toString')) {
-			return $value->__toString();
+		if (is_object($value)) {
+			return (string) $value;
 		}
 		if (is_array($value)) {
 			return implode(' | ', self::scalarizeArray($value));
