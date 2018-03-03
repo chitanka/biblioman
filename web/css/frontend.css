@@ -36,6 +36,11 @@ body {
 	margin-bottom: 13px;
 	margin-top: 13px;
 }
+.alert a {
+	font-weight: bold;
+	border-bottom: solid 1px #44A4FF;
+}
+
 .new-messages-alert {
 	background-color: orangered;
 	background-image: linear-gradient(to bottom, #ff7400 0px, orangered 100%);
