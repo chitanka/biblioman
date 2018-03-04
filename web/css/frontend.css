@@ -50,6 +50,7 @@ body {
 }
 .new-messages-alert a {
 	color: white;
+	border-color: white;
 }
 .highlight {
 	background: #FF9;
