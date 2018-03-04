@@ -66,6 +66,14 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 		return new static(null, null);
 	}
 
+	public static function normalizeRoleName($roleInput) {
+		$role = strtoupper($roleInput);
+		if (strpos($role, self::ROLE_PREFIX) === false) {
+			$role = self::ROLE_PREFIX.$role;
+		}
+		return $role;
+	}
+
 	public function __construct($username, $email, array $roles = []) {
 		$this->username = $username;
 		$this->email = $email;
@@ -141,7 +149,7 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 	}
 
 	public function is($role) {
-		return in_array($role, $this->getRoles());
+		return in_array(self::normalizeRoleName($role), $this->getRoles());
 	}
 
 	/**

@@ -16,12 +16,13 @@ class UserController extends Controller {
 	}
 
 	/**
-	 * @Route("/by-role", name="users_by_role")
+	 * @Route("/by-role/{role}", name="users_by_role", defaults={"role": ""})
 	 */
-	public function byRole() {
-		$users = $this->repoFinder()->forUser()->findUsersWithExtraRoles();
+	public function byRole($role) {
+		$roles = $role ? [User::normalizeRoleName($role)] : User::ROLES;
+		$users = $this->repoFinder()->forUser()->findUsersWithRole($role);
 		return $this->render('User/byRole.html.twig', [
-			'roles' => User::ROLES,
+			'roles' => $roles,
 			'users' => $users,
 		]);
 	}

@@ -43,6 +43,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
 		return $user;
 	}
 
+	public function findUsersWithRole(?string $role) {
+		if (empty($role)) {
+			return $this->findUsersWithExtraRoles();
+		}
+		$qb = $this->createQueryBuilder('u')
+			->where('u.roles LIKE ?1')->setParameter('1', '%'.User::normalizeRoleName($role).'%')
+			->orderBy('u.username');
+		return $qb->getQuery()->getResult();
+	}
+
 	public function findUsersWithExtraRoles() {
 		$qb = $this->createQueryBuilder('u')
 			->where('u.roles != ?1')->setParameter('1', serialize([]))
