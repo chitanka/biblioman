@@ -133,9 +133,7 @@
 	{% import _self as _ %}
 	{{ _.printShowLink(book) }}
 	{{ _.printChitankaLink(book) }}
-	{% if is_granted('ROLE_EDITOR') %}
-		{{ _.printFullContentLink(book) }}
-	{% endif %}
+	{{ _.printFullContentLink(book) }}
 	{% if is_granted('ROLE_EDITOR') %}
 		{{ _.printEditLink(book) }}
 	{% endif %}
