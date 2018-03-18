@@ -4,7 +4,7 @@ use App\Entity\Entity;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\Polyfill\FileExtensionTrait;
 
-class Namer implements \Vich\UploaderBundle\Naming\NamerInterface {
+class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\UploaderBundle\Naming\DirectoryNamerInterface {
 
 	use FileExtensionTrait;
 
@@ -28,5 +28,17 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface {
 			'jpeg' => 'jpg',
 		]);
 		return $extension;
+	}
+
+	/**
+	 * Creates a directory name for the file being uploaded.
+	 *
+	 * @param Entity $object The object the upload is attached to.
+	 * @param PropertyMapping $mapping The mapping to use to manipulate the given object.
+	 *
+	 * @return string The directory name.
+	 */
+	public function directoryName($object, PropertyMapping $mapping) {
+		return Thumbnail::createSubPath($object->getId());
 	}
 }

@@ -1,6 +1,11 @@
 $.featherlight.defaults.autostart = false;
 $('img').each(function() {
-	var src = $(this).attr('src');
+	// TODO remove this building logic - it should come from the backend
+	var src = $(this).attr('src').replace(/(.+\/)(\d+)(-[^\/]+)/, function(match, dir, id, basename) {
+		var subDirCount = 4;
+		var subDir = id.padStart(subDirCount, '0').substr(-subDirCount).split('').join('/');
+		return dir+subDir+'/'+id+basename;
+	});
 	var smallImage = src.replace(/\.([^.]+)$/, '.150.$1');
 	var bigImage = src.replace(/\.([^.]+)$/, '.1000.$1');
 	$(this).attr('src', smallImage);
