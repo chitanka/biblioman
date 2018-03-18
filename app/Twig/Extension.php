@@ -20,6 +20,7 @@ class Extension extends \Twig_Extension {
 			new \Twig_SimpleFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('maxlength', [$this, 'maxlength'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('thumb', [$this, 'createThumbPath']),
+			new \Twig_SimpleFilter('contentpath', [$this, 'createContentPath']),
 			new \Twig_SimpleFilter('ids', [$this, 'getIdsFromCollection']),
 		];
 	}
@@ -50,6 +51,10 @@ class Extension extends \Twig_Extension {
 
 	public function createThumbPath($image, $type, $width, $humanReadableName = null) {
 		return Thumbnail::createPath($image, $type, $width, $humanReadableName);
+	}
+
+	public function createContentPath($file) {
+		return implode('/', ['fullcontent', Thumbnail::createSubPathFromFileName($file), $file]);
 	}
 
 	public function getIdsFromCollection(ArrayCollection $collection) {
