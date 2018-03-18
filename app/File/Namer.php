@@ -18,7 +18,8 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\Uploade
 	 */
 	public function name($object, PropertyMapping $mapping) {
 		$extension = $this->fixExtension($mapping->getFile($object));
-		return $object->getId() .'-'. uniqid() .'.'. $extension;
+		$bookId = method_exists($object, 'getBook') ? $object->getBook()->getId() : $object->getId();
+		return $bookId .'-'. uniqid() .'.'. $extension;
 	}
 
 	private function fixExtension(\Symfony\Component\HttpFoundation\File\UploadedFile $file) {
