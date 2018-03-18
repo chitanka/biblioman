@@ -55,7 +55,7 @@
 		"lightgallery": "*",
 		"chitanka/wiki-bundle": "*@dev",
 		"chitanka/utils": "*@dev",
-		"chitanka/thumbnail-server": "dev-master",
+		"chitanka/thumbnail-server": "^1.0",
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",
 		"cosmicdreams/fontawesome-iconpicker": "^1.2",
 		"djvu-html5": "^0.2.2"

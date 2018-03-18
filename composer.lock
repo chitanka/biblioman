@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae157713d4185f67f86c5cf0fe46b3eb",
+    "content-hash": "074841e17bb48f59e15fab26ec158447",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -52,16 +52,16 @@
         },
         {
             "name": "chitanka/thumbnail-server",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/thumbnail-server.git",
-                "reference": "547f7d6143eca1f8ed3a18b39265a2b71b9e2bdd"
+                "reference": "448d894f877a40474414f5b756d41229c45eaf1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/547f7d6143eca1f8ed3a18b39265a2b71b9e2bdd",
-                "reference": "547f7d6143eca1f8ed3a18b39265a2b71b9e2bdd",
+                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/448d894f877a40474414f5b756d41229c45eaf1c",
+                "reference": "448d894f877a40474414f5b756d41229c45eaf1c",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,7 @@
                 "MIT"
             ],
             "description": "A very simple thumbnail generator and server",
-            "time": "2017-04-28T06:34:06+00:00"
+            "time": "2018-03-18T16:13:59+00:00"
         },
         {
             "name": "chitanka/utils",
@@ -1490,6 +1490,7 @@
                 "backend",
                 "generator"
             ],
+            "abandoned": "easycorp/easyadmin-bundle",
             "time": "2018-02-10T11:44:58+00:00"
         },
         {
@@ -4014,8 +4015,7 @@
     "stability-flags": {
         "liip/url-auto-converter-bundle": 20,
         "chitanka/wiki-bundle": 20,
-        "chitanka/utils": 20,
-        "chitanka/thumbnail-server": 20
+        "chitanka/utils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
