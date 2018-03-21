@@ -13,6 +13,9 @@ class Thumbnail {
 	}
 
 	public static function createSubPath($objectId) {
+		if (!is_numeric($objectId)) {
+			return '';
+		}
 		$subDirCount = 4;
 		return implode('/', array_slice(str_split(str_pad($objectId, $subDirCount, '0', STR_PAD_LEFT)), -$subDirCount));
 	}

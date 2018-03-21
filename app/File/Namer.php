@@ -1,5 +1,7 @@
 <?php namespace App\File;
 
+use App\Entity\Book;
+use App\Entity\BookFile;
 use App\Entity\Entity;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\Polyfill\FileExtensionTrait;
@@ -18,8 +20,7 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\Uploade
 	 */
 	public function name($object, PropertyMapping $mapping) {
 		$extension = $this->fixExtension($mapping->getFile($object));
-		$bookId = method_exists($object, 'getBook') ? $object->getBook()->getId() : $object->getId();
-		return $bookId .'-'. uniqid() .'.'. $extension;
+		return $this->getBookIdFromEntity($object) .'-'. uniqid() .'.'. $extension;
 	}
 
 	private function fixExtension(\Symfony\Component\HttpFoundation\File\UploadedFile $file) {
@@ -41,5 +42,19 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\Uploade
 	 */
 	public function directoryName($object, PropertyMapping $mapping) {
 		return Thumbnail::createSubPath($object->getId());
+	}
+
+	/**
+	 * @param Entity $entity
+	 * @return int
+	 */
+	private function getBookIdFromEntity($entity) {
+		if ($entity instanceof Book) {
+			return $entity->getId();
+		}
+		if ($entity instanceof BookFile) {
+			return $entity->getBook()->getId();
+		}
+		return null;
 	}
 }
