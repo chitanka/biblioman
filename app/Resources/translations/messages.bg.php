@@ -10,6 +10,7 @@ return [
 	'Authorship' => 'Авторови данни',
 	'Staff' => 'Екип',
 	'Grouping' => 'Групиране',
+	'Basic data' => 'Основни данни',
 	'Publishing' => 'Издателски данни',
 	'Content' => 'Текстово съдържание',
 	'Meta' => 'Метаданни',
@@ -68,6 +69,7 @@ return [
 	'Printer sheets' => 'Печатни коли',
 	'Publisher sheets' => 'Издателски коли',
 	'Provision publisher sheets' => 'УИК',
+	'Media' => 'Носител',
 	'Format' => 'Формат',
 	'Publisher code' => 'Код / Тематичен номер',
 	'Tracking code' => 'Номер',
@@ -154,6 +156,10 @@ return [
 		'inner' => 'вътрешна',
 		'other' => 'друга',
 	],
+	'media' => [
+		'paper' => 'хартия',
+		'digital' => 'електрон',
+	],
 	'help' => [
 		'author' => 'Ако са няколко, се отделят с точка и запетая',
 		'adaptedBy' => 'Когато оригиналното произведение е преразказано или адаптирано',
@@ -204,6 +210,7 @@ return [
 		'category' => 'В тази категория',
 		'categories' => 'В тези категории',
 	],
+
 	'roles' => [
 		'ROLE_USER' => 'потребител',
 		'ROLE_EDITOR' => 'редактор',

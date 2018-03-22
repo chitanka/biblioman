@@ -94,26 +94,28 @@
 		{% endfor %}
 	{% endif %}
 
-	<section>
-	<h2>Сканирани страници</h2>
-	{% for scanRow in book.scans|batch(4) %}
-		<div class="row">
-			{% for scan in scanRow %}
-				<div class="col-xs-6 col-md-3">
-				<a href="{{ _.thumbScan(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
-					<figure>
-						<img src="{{ _.thumbScan(scan.name, 300) }}" style="max-height: 370px">
-						<figcaption class="caption">
-							{{ scan.title is not empty ? scan : ('Missing scan title'|trans) }}
-						</figcaption>
-					</figure>
-				</a>
+	{% if book.canHaveScans %}
+		<section>
+			<h2>Сканирани страници</h2>
+			{% for scanRow in book.scans|batch(4) %}
+				<div class="row">
+					{% for scan in scanRow %}
+						<div class="col-xs-6 col-md-3">
+							<a href="{{ _.thumbScan(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
+								<figure>
+									<img src="{{ _.thumbScan(scan.name, 300) }}" style="max-height: 370px">
+									<figcaption class="caption">
+										{{ scan.title is not empty ? scan : ('Missing scan title'|trans) }}
+									</figcaption>
+								</figure>
+							</a>
+						</div>
+					{% endfor %}
 				</div>
+			{% else %}
+				<div class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</div>
 			{% endfor %}
-		</div>
-	{% else %}
-		<div class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</div>
-	{% endfor %}
-	</section>
+		</section>
+	{% endif %}
 
 {% endblock %}

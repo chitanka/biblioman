@@ -38,6 +38,7 @@ parameters:
         - technicalEditor
         - publisher
         - publishingYear
+        - media
         - binding
         - pageCount
         - isbn
@@ -93,6 +94,7 @@ parameters:
         - printingHouse
         - otherFields
         - _divider
+        - media
         - litGroup
         - typeSettingIn
         - printSigned
@@ -149,6 +151,7 @@ parameters:
         - technicalEditor
         - publisher
         - publishingYear
+        - media
         - binding
         - pageCount
         - isbn

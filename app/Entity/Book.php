@@ -95,6 +95,10 @@ class Book extends Entity {
 			$this->timestampToArray();
 	}
 
+	public function isMissingScans() {
+		return $this->canHaveScans() && $this->nbScans == 0;
+	}
+
 	public function __clone() {
 		$this->scans = clone $this->scans;
 	}

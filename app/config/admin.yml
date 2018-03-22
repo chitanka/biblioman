@@ -69,6 +69,10 @@ easy_admin:
                     - { property: author, label: Автор }
                     - { property: publisher, label: Издател }
                     - { property: publishingYear, label: Година }
+            form:
+                fields:
+                    - { type: group, label: Basic data, icon: gear }
+                    - { property: media, type: choice, type_options: { expanded: true, choices: {media.paper: paper, media.digital: digital} }, icon: book }
             new:
                 title: Book.new_title
                 action_label: Нова книга

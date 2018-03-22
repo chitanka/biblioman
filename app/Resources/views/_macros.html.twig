@@ -35,6 +35,8 @@
 				{{ attr | converturls | format_whitespaces }}
 			{% elseif field == 'notes' %}
 				{{ attr | converturls | autolink | format_whitespaces }}
+			{% elseif field in ['media'] %}
+				{{ (field~'.'~attr) | trans }}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
@@ -150,7 +152,7 @@
 			{% endif %}
 		</div>
 	{% endif %}
-	{% if book.nbScans == 0 %}
+	{% if book.isMissingScans %}
 		<div class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</div>
 	{% endif %}
 {% endmacro %}
