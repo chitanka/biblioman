@@ -2,18 +2,24 @@
 
 {% block content %}
 
-	<div class="jumbotron">
-		<p><i class="sitename">{{ sitename }}</i> е проект за създаване на пълно описание на всички книги, издадени на български език.</p>
-	</div>
-	<div class="alert alert-info">
-		<p>Разгледайте <a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}">помощната информация</a> и се включете с описване на личната си библиотека. <i class="sitename">{{ sitename }}</i> има нужда от вас.</p>
-		<p><span class="label label-warning">Важно:</span> Когато копирате информация отдругаде, винаги го посочвайте в полето „Източници“!</p>
-	</div>
+	{% if not is_granted('ROLE_USER') %}
+		<div class="jumbotron">
+			<p><i class="sitename">{{ sitename }}</i> е проект за създаване на пълно описание на всички книги, издадени на български език.</p>
+		</div>
+		<div class="alert alert-info">
+			<p>Разгледайте <a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}">помощната информация</a> и се включете с описване на личната си библиотека. <i class="sitename">{{ sitename }}</i> има нужда от вас.</p>
+		</div>
+	{% endif %}
+
 	{% if is_granted('ROLE_EDITOR') %}
+		<div class="alert alert-info">
+			<p><span class="label label-warning">Важно:</span> Когато въвеждате информация, която не се намира в хартиеното издание, винаги го посочвайте в полето <a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}">„Източници“</a>!</p>
+		</div>
 		<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> {{ 'Book.new_title'|trans }}</a></p>
 	{% elseif is_granted('ROLE_USER') %}
 		<p class="text-center">Пишете на някой от <a href="{{ path('users_by_role', {'role': 'admin'}) }}">администраторите</a>, ако желаете да получите права на редактор.</p>
 	{% endif %}
+
 	{% include 'Book/books.html.twig' with { heading: 'Последни книги', route: 'homepage', books: pager.currentPageResults } %}
 	{% include 'pager.html.twig' %}
 
