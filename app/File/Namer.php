@@ -41,7 +41,7 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\Uploade
 	 * @return string The directory name.
 	 */
 	public function directoryName($object, PropertyMapping $mapping) {
-		return Thumbnail::createSubPath($object->getId());
+		return Thumbnail::createSubPath($this->getBookIdFromEntity($object));
 	}
 
 	/**
