@@ -40,12 +40,12 @@
 					</div>
 				{% endif %}
 			</div>
-			<div class="book-buttons">
+			<div class="book-snippet-extra-info book-buttons">
 				{% if addToShelfForms[book.id] is defined %}
 					{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}
 				{% endif %}
 				{{ _.printBookButtons(book) }}
-				<span class="book-snippet-extra-info">
+				<span class="book-snippet-created-by">
 					&bull;
 					{% if book.createdByUser.is('ROLE_EDITOR_PLUS') %}
 						<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>

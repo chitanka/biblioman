@@ -106,6 +106,9 @@ div:target {
 .book-snippet-extra-info {
 	font-size: 90%;
 }
+.book-snippet-created-by {
+	white-space: nowrap;
+}
 .book-title {
 	font-weight: bold;
 }

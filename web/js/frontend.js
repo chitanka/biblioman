@@ -31,7 +31,14 @@ function registerFormConfirmations() {
 
 function registerShelfPickers() {
 	var shelfPicker = new ShelfPicker();
-	$('.shelf-picker').multiselect(shelfPicker.multiselectOptions);
+	$('.shelf-picker').each(function() {
+		var $self = $(this);
+		$('<a class="btn btn-default btn-sm fa fa-ellipsis-h" title="Показване на всички рафтове"></a>').on('click', function(){
+			$self.show().multiselect(shelfPicker.multiselectOptions);
+			$(this).remove();
+		}).appendTo($self.prev());
+		$self.hide();
+	});
 	$('.important-shelf-picker').on('click', 'label', function () {
 		shelfPicker.clickOnImportantShelf($(this));
 	});
