@@ -10,25 +10,25 @@
 		</div>
 		<div class="col-md-8">
 			<div class="book-title-and-author">
-				<div class="book-title">
+				<div class="entity-field entity-field-title book-title">
 					<a href="{{ path('books_show', { id: book.id }) }}">{{ book.title }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.volumeTitle }}</span>{% endif %}</a>
 				</div>
 				{% if book.subtitle is not empty %}
-					<div class="book-subtitle">{{ _.printSearchLink(book.subtitle, 'subtitle', searchableFields) }}</div>
+					<div class="entity-field entity-field-subtitle book-subtitle">{{ _.printSearchLink(book.subtitle, 'subtitle', searchableFields) }}</div>
 				{% endif %}
 				{% if book.author is not empty %}
-					<div class="book-author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</div>
+					<div class="entity-field entity-field-author book-author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</div>
 				{% endif %}
 			</div>
 			<div class="book-snippet-extra-info">
 				{% if book.sequence is not empty %}
-					<div class="book-sequence">
+					<div class="entity-field entity-field-sequence book-sequence">
 						<span class="fa fa-list-alt fa-fw"></span>
 						{{ _.printSearchLink(book.sequence, 'sequence', searchableFields) }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№{{ book.sequenceNr }}</span>{% endif %}
 					</div>
 				{% endif %}
 				{% if book.publisher is not empty %}
-					<div class="book-publisher">
+					<div class="entity-field entity-field-publisher book-publisher">
 						<span class="fa fa-sun-o fa-fw"></span>
 						{{ _.printSearchLinks(book.publisher, 'publisher', searchableFields) }}{% if book.publishingYear is not empty %}, <span class="book-publishingYear">{{ _.printSearchLink(book.publishingYear, 'publishingYear', searchableFields) }}</span>{% endif %}
 					</div>
@@ -41,12 +41,10 @@
 				{% endif %}
 			</div>
 			<div class="book-snippet-extra-info book-buttons">
-				{% if addToShelfForms[book.id] is defined %}
-					{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}
-				{% endif %}
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-created-by">
 					&bull;
+
 					{% if book.createdByUser.is('ROLE_EDITOR_PLUS') %}
 						<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
 					{% endif %}
@@ -55,6 +53,11 @@
 				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}
 			</div>
+			{% if addToShelfForms[book.id] is defined %}
+				<div class="book-buttons book-shelf-picker">
+					{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}
+				</div>
+			{% endif %}
 		</div>
 	</div>
 </div>

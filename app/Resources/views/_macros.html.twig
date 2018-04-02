@@ -6,8 +6,8 @@
 	{% else %}
 		{% set attr = attribute(book, field) %}
 		{% if attr is not empty %}
-		<dt class="entity-field{{ field }}" title="{{ field|humanize|trans }}">{{ field|humanize|trans }}</dt>
-		<dd class="entity-field entity-field{{ field }}">
+		<dt class="entity-field-{{ field }}" title="{{ field|humanize|trans }}">{{ field|humanize|trans }}</dt>
+		<dd class="entity-field entity-field-{{ field }}">
 			{% if attr.timestamp is defined %}
 				{{ _.printDate(attr) }}
 			{% elseif field == 'linksByCategory' %}

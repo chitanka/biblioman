@@ -27,12 +27,14 @@
 
 {% endblock %}
 
-{% block custom_javascript %}
+{% block custom_javascript -%}
 	<script>
 		{% if query.term is not empty %}
 		$(function() {
-			$(".entity-field{{ query.field }}").highlight("{{ query.normalized }}");
+			var query = {{ query|json_encode(constant('JSON_UNESCAPED_UNICODE'))|raw }};
+			console.log($(query.field ? '.entity-field-'+query.field : '.entity-field'));
+			$(query.field ? '.entity-field-'+query.field : '.entity-field').highlight(query.normalized);
 		});
 		{% endif %}
 	</script>
-{% endblock %}
+{%- endblock %}
