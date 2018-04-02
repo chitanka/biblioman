@@ -146,7 +146,7 @@ class BookQuery {
 		$this->filterByShelves($criteria->shelves);
 		$this->filterByCategories($criteria->categories);
 		if ($this->isFieldSearchable($criteria->field)) {
-			return $this->filterBySelectedField($criteria->field, $criteria->term);
+			return $this->filterBySelectedField($criteria->field, $criteria->terms ?: $criteria->term);
 		}
 		if ($year = Year::tryCreateFromString($criteria->term)) {
 			return $this->filterByPublishingYear($year);
@@ -187,22 +187,34 @@ class BookQuery {
 		if ($field == 'isbn') {
 			$field = 'isbnClean';
 		}
-		if ($term[0] === '"') {
-			$operator = '=';
-			$fieldQuery = trim($term, '"');
-		} else {
-			$operator = 'LIKE';
-			$fieldQuery = '%'.BookField::normalizedFieldValue($field, $term).'%';
-		}
-		$predicates = [$this->fieldForQuery($field)." $operator ?1"];
-		if (isset(self::$linkedSearchableFields[$field])) {
-			$predicates = array_merge($predicates, array_map(function ($field) use ($operator) {
-				return $this->fieldForQuery($field)." $operator ?1";
-			}, self::$linkedSearchableFields[$field]));
-		}
+		list($predicates, $fieldQueries) = $this->createSearchPredicates($field, $term);
 		$this->qb->andWhere(implode(' OR ', $predicates));
-		$this->qb->setParameter('1', $fieldQuery);
+		foreach ($fieldQueries as $idx => $fieldQuery) {
+			$this->qb->setParameter($idx, $fieldQuery);
+		}
 		return $this->qb;
+	}
+
+	private function createSearchPredicates($field, $term) {
+		$terms = is_array($term) ? $term : [$term];
+		$predicates = [];
+		$fieldQueries = [];
+		foreach ($terms as $idx => $term) {
+			if ($term[0] === '"') {
+				$operator = '=';
+				$fieldQueries[$idx] = trim($term, '"');
+			} else {
+				$operator = 'LIKE';
+				$fieldQueries[$idx] = '%'.BookField::normalizedFieldValue($field, $term).'%';
+			}
+			$predicates[] = $this->fieldForQuery($field)." $operator ?$idx";
+			if (isset(self::$linkedSearchableFields[$field])) {
+				$predicates = array_merge($predicates, array_map(function ($field) use ($operator, $idx) {
+					return $this->fieldForQuery($field)." $operator ?$idx";
+				}, self::$linkedSearchableFields[$field]));
+			}
+		}
+		return [$predicates, $fieldQueries];
 	}
 
 	private function filterByPublishingYear(Year $year) {

@@ -2,7 +2,9 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
+use App\Entity\Person;
 use App\Entity\Repository\BookCategoryRepository;
+use App\Entity\Repository\PersonRepository;
 use App\Entity\Repository\UserRepository;
 use App\Entity\Shelf;
 use App\Entity\Repository\BookRepository;
@@ -25,6 +27,11 @@ class RepositoryFinder {
 	/** @return BookCategoryRepository */
 	public function forBookCategory() {
 		return $this->getRepository(BookCategory::class);
+	}
+
+	/** @return PersonRepository */
+	public function forPerson() {
+		return $this->getRepository(Person::class);
 	}
 
 	/** @return ShelfRepository */

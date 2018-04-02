@@ -20,7 +20,12 @@ class Librarian {
 	 * @return BookSearchCriteria
 	 */
 	public function createBookSearchCriteria($textQuery, $sort = null) {
-		return new BookSearchCriteria($textQuery, $sort);
+		$criteria = new BookSearchCriteria($textQuery, $sort);
+		if ($criteria->isForPersonSearch()) {
+			$persons = $this->repoFinder->forPerson()->findRelatedAndSelfByName($criteria->term);
+			$criteria->terms = $persons->names();
+		}
+		return $criteria;
 	}
 
 	public function findBooksByCriteria(BookSearchCriteria $query) {

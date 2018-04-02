@@ -2,6 +2,7 @@
 
 use App\Entity\BookCategory;
 use App\Entity\BookField\BookField;
+use App\Entity\BookField\Map;
 use App\Entity\Shelf;
 
 class BookSearchCriteria {
@@ -18,6 +19,7 @@ class BookSearchCriteria {
 
 	public $field;
 	public $term;
+	public $terms;
 	public $normalized;
 	public $raw;
 	public $sort = [];
@@ -36,6 +38,10 @@ class BookSearchCriteria {
 		}
 		$this->normalized = BookField::normalizedFieldValue($this->field, $this->term);
 		$this->sortBy($sort);
+	}
+
+	public function isForPersonSearch() {
+		return Map::isFieldForPerson($this->field);
 	}
 
 	public function inShelf($shelf) {

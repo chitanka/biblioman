@@ -1,5 +1,6 @@
 <?php namespace App\Collection;
 
+use App\Entity\Entity;
 use App\Php\Looper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,7 +9,7 @@ class Entities extends ArrayCollection {
 
 	public function toIdArray() {
 		$idArray = [];
-		foreach ($this as $entity) {
+		foreach ($this as $entity/* @var $entity Entity */) {
 			$idArray[$entity->getId()] = $entity;
 		}
 		return $idArray;
@@ -20,6 +21,21 @@ class Entities extends ArrayCollection {
 
 	public function filter(\Closure $c) {
 		return new static(array_values(array_filter($this->getValues(), $c)));
+	}
+
+	public function unique() {
+		return new static(array_values($this->toIdArray()));
+	}
+
+	/**
+	 * @param array|static $elements
+	 * @return static
+	 */
+	public function mergeWith($elements) {
+		if ($elements instanceof static) {
+			$elements = $elements->getValues();
+		}
+		return new static(array_merge($this->getValues(), $elements));
 	}
 
 	/**

@@ -39,4 +39,11 @@ class Map {
 		}
 		return null;
 	}
+
+	public static function isFieldForPerson($field) {
+		if (!isset(self::$fieldClasses[$field])) {
+			return false;
+		}
+		return self::$fieldClasses[$field] === Person::class;
+	}
 }
