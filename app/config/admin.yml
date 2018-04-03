@@ -198,19 +198,20 @@ easy_admin:
         Person:
             class: App\Entity\Person
             role: ROLE_EDITOR_PLUS
+            label: Persons
             form:
                 fields:
                     - name
-                    - canonicalPerson
                     -
                         property: nameType
                         type: choice
                         type_options:
                             multiple: false
                             choices:
-                                realname: realname
-                                pseudonym: pseudonym
-                                altname: altname
+                                person.realname: realname
+                                person.pseudonym: pseudonym
+                                person.altname: altname
+                    - canonicalPerson
 
         User:
             class: App\Entity\User
