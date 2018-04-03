@@ -51,7 +51,6 @@ class Person extends Entity {
 	 */
 	public function setName($name) {
 		$this->name = $name;
-		$this->slug = $name;
 	}
 
 	/**
