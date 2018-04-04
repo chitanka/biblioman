@@ -27,4 +27,14 @@ trait WithBookShelves {
 		});
 	}
 
+	private $publicShelves;
+	public function getPublicShelves() {
+		return $this->publicShelves ?: $this->publicShelves = $this->getShelves()->filter(function (Shelf $shelf) {
+			return $shelf->isPublic();
+		});
+	}
+
+	public function hasPublicShelves() {
+		return !$this->getPublicShelves()->isEmpty();
+	}
 }
