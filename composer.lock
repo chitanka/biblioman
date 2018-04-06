@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c123175d8b342bc5bd41cad2d3f989e5",
+    "content-hash": "e33cb09a56697eb8aa8af37a09bd58ba",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -82,16 +82,16 @@
         },
         {
             "name": "chitanka/utils",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/utils.git",
-                "reference": "909fe22e72d772fd9d097e1d9386d90e5c7f0a36"
+                "reference": "695f208c283bb49221d1d708cfa5b64391611c32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/utils/zipball/909fe22e72d772fd9d097e1d9386d90e5c7f0a36",
-                "reference": "909fe22e72d772fd9d097e1d9386d90e5c7f0a36",
+                "url": "https://api.github.com/repos/chitanka/utils/zipball/695f208c283bb49221d1d708cfa5b64391611c32",
+                "reference": "695f208c283bb49221d1d708cfa5b64391611c32",
                 "shasum": ""
             },
             "require": {
@@ -108,7 +108,7 @@
                 "MIT"
             ],
             "description": "Miscelaneous functionality used in the chitanka projects",
-            "time": "2017-02-06T06:49:06+00:00"
+            "time": "2018-04-06T18:46:59+00:00"
         },
         {
             "name": "chitanka/wiki-bundle",
@@ -4016,8 +4016,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "liip/url-auto-converter-bundle": 20,
-        "chitanka/wiki-bundle": 20,
-        "chitanka/utils": 20
+        "chitanka/wiki-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -54,7 +54,7 @@
 		"stof/doctrine-extensions-bundle": "^1.2",
 		"lightgallery": "*",
 		"chitanka/wiki-bundle": "*@dev",
-		"chitanka/utils": "*@dev",
+		"chitanka/utils": "^1.0",
 		"chitanka/thumbnail-server": "^1.0",
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",
 		"cosmicdreams/fontawesome-iconpicker": "^1.2",
