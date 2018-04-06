@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,9 +25,19 @@ class Person extends Entity {
 
 	/**
 	 * @var Person
-	 * @ORM\ManyToOne(targetEntity="Person")
+	 * @ORM\ManyToOne(targetEntity="Person", inversedBy="relatedPersons")
 	 */
 	private $canonicalPerson;
+
+	/**
+	 * @var Person[]
+	 * @ORM\OneToMany(targetEntity="Person", mappedBy="canonicalPerson")
+	 */
+	private $relatedPersons;
+
+	public function __construct() {
+		$this->relatedPersons = new ArrayCollection();
+	}
 
 	public function __toString() {
 		return $this->name;
@@ -79,5 +90,12 @@ class Person extends Entity {
 	 */
 	public function setCanonicalPerson($canonicalPerson) {
 		$this->canonicalPerson = $canonicalPerson;
+	}
+
+	/**
+	 * @return Person[]
+	 */
+	public function getRelatedPersons() {
+		return $this->relatedPersons;
 	}
 }

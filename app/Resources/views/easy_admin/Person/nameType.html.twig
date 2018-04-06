@@ -1,0 +1,2 @@
+{% set label_map = { altname: 'default', pseudonym: 'info', realname: 'primary' } %}
+<span class="label label-{{ label_map[value] }}">{{ ('person.'~value)|trans }}</span>

@@ -212,6 +212,13 @@ easy_admin:
                                 person.pseudonym: pseudonym
                                 person.altname: altname
                     - canonicalPerson
+            list:
+                title: Persons
+                fields:
+                    - name
+                    - { property: nameType, template: nameType.html.twig }
+                    - canonicalPerson
+                    - relatedPersons
 
         User:
             class: App\Entity\User

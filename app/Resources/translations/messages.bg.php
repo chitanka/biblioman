@@ -8,6 +8,7 @@ return [
 	'Person' => 'Личност',
 	'Persons' => 'Личности',
 	'Canonical person' => 'Канонична личност',
+	'Related persons' => 'Свързани личности',
 	'Name type' => 'Тип на името',
 	'Author' => 'Автор',
 	'Titling' => 'Заглавни данни',
