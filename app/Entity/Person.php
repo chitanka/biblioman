@@ -30,7 +30,7 @@ class Person extends Entity {
 	private $canonicalPerson;
 
 	/**
-	 * @var Person[]
+	 * @var Person[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="Person", mappedBy="canonicalPerson")
 	 */
 	private $relatedPersons;
