@@ -12,6 +12,9 @@ class PersonRepository extends EntityRepository {
 	 */
 	public function findRelatedAndSelfByName($name) {
 		$persons = new Persons($this->findBy(['name' => $name]));
+		if ($persons->isEmpty()) {
+			return $persons;
+		}
 		$personsWithCanonicalOnes = $persons->expandWithCanonicalPersons();
 		$relatedPersons = $this->findBy(['canonicalPerson' => $personsWithCanonicalOnes->toArray()]);
 		return $personsWithCanonicalOnes->mergeWith($relatedPersons)->unique();
