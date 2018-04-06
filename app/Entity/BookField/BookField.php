@@ -31,6 +31,9 @@ class BookField {
 	}
 
 	private static function normalizeGenericValue($value) {
-		return trim(preg_replace('/ \(не е указан[ао]?|не е посочен[ао]?\)/u', '', $value));
+		$normalizedValue = $value;
+		$normalizedValue = trim(preg_replace('/ \(не е указан[ао]?|не е посочен[ао]?\)/u', '', $normalizedValue));
+		$normalizedValue = strtr($normalizedValue, [' - ' => ' — ']);
+		return $normalizedValue;
 	}
 }
