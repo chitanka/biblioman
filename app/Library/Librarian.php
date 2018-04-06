@@ -2,6 +2,7 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
+use App\Entity\BookField\BookField;
 use App\Entity\BookOnShelf;
 use App\Entity\Shelf;
 use App\Persistence\RepositoryFinder;
@@ -22,7 +23,8 @@ class Librarian {
 	public function createBookSearchCriteria($textQuery, $sort = null) {
 		$criteria = new BookSearchCriteria($textQuery, $sort);
 		if ($criteria->isForPersonSearch()) {
-			$persons = $this->repoFinder->forPerson()->findRelatedAndSelfByName($criteria->term);
+			$normalizedName = BookField::normalizedFieldValue($criteria->field, $criteria->term);
+			$persons = $this->repoFinder->forPerson()->findRelatedAndSelfByName($normalizedName);
 			$criteria->terms = $persons->names();
 		}
 		return $criteria;
