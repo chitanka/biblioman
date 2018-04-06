@@ -101,21 +101,21 @@ trait WithBookStaff {
 	 */
 	private $prepress;
 
-	public function setChiefEditor($chiefEditor) { $this->chiefEditor = $chiefEditor; }
-	public function setManagingEditor($managingEditor) { $this->managingEditor = $managingEditor; }
-	public function setEditor($editor) { $this->editor = $editor; }
-	public function setEditorialStaff($editorialStaff) { $this->editorialStaff = $editorialStaff; }
-	public function setPublisherEditor($publisherEditor) { $this->publisherEditor = $publisherEditor; }
-	public function setArtistEditor($artistEditor) { $this->artistEditor = $artistEditor; }
-	public function setTechnicalEditor($technicalEditor) { $this->technicalEditor = $technicalEditor; }
-	public function setConsultant($consultant) { $this->consultant = $consultant; }
-	public function setScienceEditor($scienceEditor) { $this->scienceEditor = $scienceEditor; }
-	public function setCopyreader($copyreader) { $this->copyreader = $copyreader; }
-	public function setReviewer($reviewer) { $this->reviewer = $reviewer; }
-	public function setArtist($artist) { $this->artist = $artist; }
-	public function setIllustrator($illustrator) { $this->illustrator = $illustrator; }
-	public function setCorrector($corrector) { $this->corrector = $corrector; }
-	public function setLayout($layout) { $this->layout = $layout; }
+	public function setChiefEditor($chiefEditor) { $this->chiefEditor = Typograph::replaceDash($chiefEditor); }
+	public function setManagingEditor($managingEditor) { $this->managingEditor = Typograph::replaceDash($managingEditor); }
+	public function setEditor($editor) { $this->editor = Typograph::replaceDash($editor); }
+	public function setEditorialStaff($editorialStaff) { $this->editorialStaff = Typograph::replaceDash($editorialStaff); }
+	public function setPublisherEditor($publisherEditor) { $this->publisherEditor = Typograph::replaceDash($publisherEditor); }
+	public function setArtistEditor($artistEditor) { $this->artistEditor = Typograph::replaceDash($artistEditor); }
+	public function setTechnicalEditor($technicalEditor) { $this->technicalEditor = Typograph::replaceDash($technicalEditor); }
+	public function setConsultant($consultant) { $this->consultant = Typograph::replaceDash($consultant); }
+	public function setScienceEditor($scienceEditor) { $this->scienceEditor = Typograph::replaceDash($scienceEditor); }
+	public function setCopyreader($copyreader) { $this->copyreader = Typograph::replaceDash($copyreader); }
+	public function setReviewer($reviewer) { $this->reviewer = Typograph::replaceDash($reviewer); }
+	public function setArtist($artist) { $this->artist = Typograph::replaceDash($artist); }
+	public function setIllustrator($illustrator) { $this->illustrator = Typograph::replaceDash($illustrator); }
+	public function setCorrector($corrector) { $this->corrector = Typograph::replaceDash($corrector); }
+	public function setLayout($layout) { $this->layout = Typograph::replaceDash($layout); }
 	public function setCoverLayout($coverLayout) { $this->coverLayout = Typograph::replaceAll($coverLayout); }
 	public function setLibraryDesign($libraryDesign) { $this->libraryDesign = Typograph::replaceAll($libraryDesign); }
 	public function setComputerProcessing($computerProcessing) { $this->computerProcessing = Typograph::replaceAll($computerProcessing); }

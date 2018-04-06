@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use Chitanka\Utils\Typograph;
 use Doctrine\ORM\Mapping as ORM;
 
 trait WithBookAuthorship {
@@ -39,13 +40,13 @@ trait WithBookAuthorship {
 	 */
 	private $compiler;
 
-	public function setAuthor($author) { $this->author = $author; }
-	public function setTranslator($translator) { $this->translator = $translator; }
+	public function setAuthor($author) { $this->author = Typograph::replaceDash($author); }
+	public function setTranslator($translator) { $this->translator = Typograph::replaceDash($translator); }
 	public function setTranslatedFromLanguage($translatedFromLanguage) { $this->translatedFromLanguage = $translatedFromLanguage; }
 	public function setDateOfTranslation($dateOfTranslation) { $this->dateOfTranslation = $dateOfTranslation; }
-	public function setAdaptedBy($adaptedBy) { $this->adaptedBy = $adaptedBy; }
-	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = $otherAuthors; }
-	public function setCompiler($compiler) { $this->compiler = $compiler; }
+	public function setAdaptedBy($adaptedBy) { $this->adaptedBy = Typograph::replaceDash($adaptedBy); }
+	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = Typograph::replaceDash($otherAuthors); }
+	public function setCompiler($compiler) { $this->compiler = Typograph::replaceDash($compiler); }
 
 	protected function authorshipToArray() {
 		return [
