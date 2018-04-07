@@ -57,7 +57,7 @@ trait WithBookPublishing {
 	public function setPublishingYear($publishingYear) { $this->publishingYear = $publishingYear; }
 	public function setPublisherAddress($publisherAddress) { $this->publisherAddress = Typograph::replaceAll($publisherAddress); }
 	public function setPublisherCode($publisherCode) { $this->publisherCode = $publisherCode; }
-	public function setPublisherOrder($publisherOrder) { $this->publisherOrder = $publisherOrder; }
+	public function setPublisherOrder($publisherOrder) { $this->publisherOrder = Typograph::replaceAll($publisherOrder); }
 	public function setPublisherNumber($publisherNumber) { $this->publisherNumber = $publisherNumber; }
 	public function setPrice($price) { $this->price = $price; }
 
