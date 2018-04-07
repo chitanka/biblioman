@@ -131,6 +131,10 @@
 	<a href="{{ path('books_by_category', { slug: category.slug }) }}">{{ category.name }}</a>
 {% endmacro %}
 
+{% macro printBookTitle(book) %}
+	{{ book.title|replace({'; ': ' • '}) }}
+{% endmacro %}
+
 {% macro printBookButtons(book) %}
 	{% import _self as _ %}
 	{{ _.printShowLink(book) }}

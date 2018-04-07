@@ -6,7 +6,7 @@
 	{% if book.author is not empty %}
 		<span class="author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</span><br>
 	{% endif %}
-	<span class="title">{{ book.title }}</span>
+	<span class="title">{{ _.printBookTitle(book) }}</span>
 	{% if book.volumeTitle is not empty %}
 		<span class="book-volumeTitle">• {{ book.volumeTitle }}</span>
 	{% endif %}
