@@ -9,9 +9,9 @@ class Persons extends Entities {
 	}
 
 	public function names() {
-		return $this->map(function (Person $person) {
+		return array_unique($this->map(function (Person $person) {
 			return $person->getName();
-		})->toArray();
+		})->toArray());
 	}
 
 	/**
