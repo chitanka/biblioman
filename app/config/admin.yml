@@ -208,9 +208,11 @@ easy_admin:
                         type_options:
                             multiple: false
                             choices:
+                                person.canonical: canonical
                                 person.realname: realname
                                 person.pseudonym: pseudonym
                                 person.altname: altname
+                                person.wrongname: wrongname
                     - canonicalPerson
             list:
                 title: Persons
