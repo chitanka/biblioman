@@ -112,16 +112,16 @@
         },
         {
             "name": "chitanka/wiki-bundle",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/wiki-bundle.git",
-                "reference": "a63aa6467c577d93ec09978b1a8df500c5d5cba0"
+                "reference": "a86c4d74ee2f721015e561f3310e35b141ec62fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/wiki-bundle/zipball/a63aa6467c577d93ec09978b1a8df500c5d5cba0",
-                "reference": "a63aa6467c577d93ec09978b1a8df500c5d5cba0",
+                "url": "https://api.github.com/repos/chitanka/wiki-bundle/zipball/a86c4d74ee2f721015e561f3310e35b141ec62fb",
+                "reference": "a86c4d74ee2f721015e561f3310e35b141ec62fb",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +143,7 @@
             "keywords": [
                 "wiki"
             ],
-            "time": "2018-04-21T13:29:20+00:00"
+            "time": "2018-04-21T14:01:04+00:00"
         },
         {
             "name": "components/bootstrap",
