@@ -53,7 +53,7 @@
 		"liip/url-auto-converter-bundle": "dev-master",
 		"stof/doctrine-extensions-bundle": "^1.2",
 		"lightgallery": "*",
-		"chitanka/wiki-bundle": "*@dev",
+		"chitanka/wiki-bundle": "^1.0",
 		"chitanka/utils": "^1.0",
 		"chitanka/thumbnail-server": "^1.0",
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",

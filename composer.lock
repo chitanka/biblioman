@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e33cb09a56697eb8aa8af37a09bd58ba",
+    "content-hash": "3753736e4ca3d884a51fb1c3e7d656e2",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -112,16 +112,16 @@
         },
         {
             "name": "chitanka/wiki-bundle",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/wiki-bundle.git",
-                "reference": "003a3fe5707980400c933d6216f39794aa8e0eec"
+                "reference": "a63aa6467c577d93ec09978b1a8df500c5d5cba0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/wiki-bundle/zipball/003a3fe5707980400c933d6216f39794aa8e0eec",
-                "reference": "003a3fe5707980400c933d6216f39794aa8e0eec",
+                "url": "https://api.github.com/repos/chitanka/wiki-bundle/zipball/a63aa6467c577d93ec09978b1a8df500c5d5cba0",
+                "reference": "a63aa6467c577d93ec09978b1a8df500c5d5cba0",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +143,7 @@
             "keywords": [
                 "wiki"
             ],
-            "time": "2017-03-04T15:31:27+00:00"
+            "time": "2018-04-21T13:29:20+00:00"
         },
         {
             "name": "components/bootstrap",
@@ -4015,8 +4015,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "liip/url-auto-converter-bundle": 20,
-        "chitanka/wiki-bundle": 20
+        "liip/url-auto-converter-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
