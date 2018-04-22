@@ -58,7 +58,7 @@ $helpBlocks.each(function () {
 			$helpBlock.slideDown();
 		}
 	}).css({'margin-left': '.5em', 'opacity': '0.5', 'cursor': 'help'});
-	$helpBlock.closest('.form-group').find('.control-label:first').append($helpToggler);
+	$helpBlock.closest('.form-group').find('label:first').append($helpToggler);
 	$helpBlock.hide();
 });
 
