@@ -7,6 +7,14 @@
 .form-control:focus {
 	background-color: #FFEDBE;
 }
+form label.control-label.required::after {
+	content: "";
+}
+form label.control-label.required::before {
+	content: "*\00a0";
+	color: #D42124;
+	font-size: 16px;
+}
 .field-book_cover,
 .field-book_scan {
 	border-bottom: 3px dotted #808080;
