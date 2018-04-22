@@ -34,10 +34,10 @@ easy_admin:
         assets:
             css:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
-                - css/admin.css
+                - css/admin.css?20180422
             js:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
-                - js/admin.js?2
+                - js/admin.js?20180422
     entities:
         Book:
             class: App\Entity\Book
@@ -73,14 +73,14 @@ easy_admin:
             form:
                 fields:
                     - { type: group, label: Basic data, icon: gear }
-                    - { property: media, type: choice, type_options: { expanded: true, choices: {media.paper: paper, media.digital: digital} }, icon: book }
+                    - { property: media, type: choice, type_options: { expanded: true, choices: {media.paper: paper, media.digital: digital} } }
             new:
                 title: Book.new_title
                 action_label: Нова книга
                 fields:
-                    - { property: author, help: help.author }
+                    - { property: author }
                     - { property: title }
-                    - { property: volumeTitle, help: help.volumeTitle }
+                    - { property: volumeTitle }
                     - { property: subtitle }
                     - { property: publisher }
                     - { property: publishingYear }
@@ -90,10 +90,10 @@ easy_admin:
                 title: Book.form_title
                 fields:
                     - { type: group, label: Data from paper, icon: book }
-                    - { property: author, help: help.author }
+                    - { property: author }
                     - { property: title }
-                    - { property: altTitle, help: help.altTitle }
-                    - { property: volumeTitle, help: help.volumeTitle }
+                    - { property: altTitle }
+                    - { property: volumeTitle }
                     - { property: subtitle }
                     - { property: subtitle2 }
                     - { property: sequence }
@@ -102,80 +102,80 @@ easy_admin:
                     - { property: subsequenceNr, type: text }
                     - { property: series }
                     - { property: seriesNr }
-                    - { property: translator, help: help.translator }
+                    - { property: translator }
                     - { property: translatedFromLanguage }
                     - { property: dateOfTranslation }
                     - { property: adaptedBy }
-                    - { property: otherAuthors, help: help.otherAuthors }
+                    - { property: otherAuthors }
                     - { property: compiler }
-                    - { property: editorialStaff, help: help.editorialStaff }
+                    - { property: editorialStaff }
                     - { property: chiefEditor }
                     - { property: managingEditor }
                     - { property: editor }
                     - { property: publisherEditor }
                     - { property: consultant }
-                    - { property: artist, help: help.artist }
+                    - { property: artist }
                     - { property: illustrator }
-                    - { property: artistEditor, help: help.artistEditor }
+                    - { property: artistEditor }
                     - { property: technicalEditor }
                     - { property: reviewer }
                     - { property: scienceEditor }
                     - { property: copyreader }
                     - { property: corrector }
                     - { property: layout }
-                    - { property: coverLayout, help: help.coverLayout }
+                    - { property: coverLayout }
                     - { property: libraryDesign }
-                    - { property: computerProcessing, help: help.computerProcessing }
+                    - { property: computerProcessing }
                     - { property: prepress }
                     - { property: publisher }
                     - { property: publisherCity }
                     - { property: publishingYear }
                     - { property: publisherAddress }
                     - { property: printingHouse }
-                    - { property: contentType, help: help.contentType }
+                    - { property: contentType }
                     - { property: nationality }
                     - { property: language }
-                    - { property: edition, help: help.edition }
+                    - { property: edition }
                     - { property: litGroup }
                     - { property: typeSettingIn }
                     - { property: printSigned }
                     - { property: printOut }
-                    - { property: printerSheets, help: help.printerSheets }
+                    - { property: printerSheets }
                     - { property: publisherSheets }
-                    - { property: provisionPublisherSheets, help: help.provisionPublisherSheets }
-                    - { property: format, help: help.format }
+                    - { property: provisionPublisherSheets }
+                    - { property: format }
                     - { property: publisherCode }
-                    - { property: trackingCode, help: help.trackingCode }
+                    - { property: trackingCode }
                     - { property: publisherOrder }
                     - { property: publisherNumber }
-                    - { property: uniformProductClassification, help: help.uniformProductClassification }
-                    - { property: pageCount, type: text, help: help.pageCount }
+                    - { property: uniformProductClassification }
+                    - { property: pageCount, type: text }
                     - { property: totalPrint }
                     - { property: price }
-                    - { property: binding, help: help.binding }
+                    - { property: binding }
                     - { property: illustrated, type: checkbox }
-                    - { property: isbn, help: help.isbn }
+                    - { property: isbn }
                     - { property: annotation }
-                    - { property: notesAboutAuthor, help: help.notesAboutAuthor }
-                    - { property: marketingSnippets, help: help.marketingSnippets }
+                    - { property: notesAboutAuthor }
+                    - { property: marketingSnippets }
                     - { property: toc }
                     - { property: notesAboutOriginal }
-                    - { property: otherFields, help: help.otherFields }
+                    - { property: otherFields }
 
                     - { type: group, label: Notes, icon: sticky-note-o }
                     - { property: notes }
 
                     - { type: group, label: Categorization, icon: tag }
                     - { property: category }
-                    - { property: genre, help: help.genre }
-                    - { property: themes, help: help.themes }
-                    - { property: universalDecimalClassification, help: help.universalDecimalClassification }
+                    - { property: genre }
+                    - { property: themes }
+                    - { property: universalDecimalClassification }
 
                     - { type: group, label: Links, icon: link }
                     # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
                     # See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
                     - { property: chitankaId, type: text }
-                    - { property: links, type: collection, type_options: { entry_type: App\Form\BookLinkType, by_reference: false }, help: help.links }
+                    - { property: links, type: collection, type_options: { entry_type: App\Form\BookLinkType, by_reference: false } }
 
                     - { type: group, label: Covers, icon: image }
                     - { property: coverFile, type: vich_image }
@@ -183,15 +183,15 @@ easy_admin:
                     - { property: otherCovers, type: collection, type_options: { entry_type: App\Form\BookCoverType, by_reference: false }, css_class: 'files' }
 
                     - { type: group, label: Files, icon: image }
-                    - { property: fullContentFile, help: help.fullContentFile, type: vich_file }
-                    - { property: availableAt, help: help.availableAt }
+                    - { property: fullContentFile, type: vich_file }
+                    - { property: availableAt }
                     - { type: divider }
-                    - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, help: help.scans, css_class: 'files' }
+                    - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, css_class: 'files' }
 
                     - { type: group, label: Metadata, icon: file-text-o }
-                    - { property: infoSources, help: help.infoSources }
-                    - { property: adminComment, help: help.adminComment }
-                    - { property: ocredText, help: help.ocredText }
+                    - { property: infoSources }
+                    - { property: adminComment }
+                    - { property: ocredText }
                     - isIncomplete
                     - reasonWhyIncomplete
 

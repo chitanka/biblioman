@@ -2,6 +2,8 @@
 
 use App\Entity\Book;
 use App\Entity\Entity;
+use Chitanka\WikiBundle\Service\WikiEngine;
+use Doctrine\Common\Util\Inflector;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,6 +41,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 		parent::initialize($request);
 		$this->checkUserRole();
 		$this->checkUserAuthorization($request->query->get('action'), $request->attributes->get('easyadmin')['item']);
+		$this->putHelpMessagesFromWiki();
 	}
 
 	protected function prePersistBookEntity(Book $book) {
@@ -110,6 +113,26 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 				throw $this->createAccessDeniedException("auth.$key");
 			}
 		}
+	}
+
+	protected function putHelpMessagesFromWiki() {
+		$easyadmin = $this->request->attributes->get('easyadmin');
+		if ($easyadmin['entity']['name'] !== 'Book') {
+			return;
+		}
+		$wiki = new WikiEngine($this->container->getParameter('chitanka_wiki.content_dir'));
+		$action = $this->request->query->get('action');
+		foreach ($easyadmin['entity'][$action]['fields'] as $fieldName => $field) {
+			if ($fieldName[0] === '_') {
+				continue;
+			}
+			$wikiPageName = str_replace('_', '-', Inflector::tableize($fieldName));
+			$page = $wiki->getPage("docs/books/$wikiPageName", false);
+			if ($page->exists()) {
+				$easyadmin['entity'][$action]['fields'][$fieldName]['help'] = $page->getContentHtml().' <a href="/wiki/edit/docs/books/'.$wikiPageName.'" tabindex="-1" class="wiki-edit-link"><span class="fa fa-file-text-o"></span></a>';
+			}
+		}
+		$this->request->attributes->set('easyadmin', $easyadmin);
 	}
 
 	protected function redirectToReferrer() {

@@ -17,3 +17,13 @@
 .field-book_scan .field-checkbox {
 	display: none;
 }
+.help-block p:first-of-type {
+	display: inline;
+	padding-left: .3em;
+}
+.help-block .wiki-edit-link {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: .3;
+}
