@@ -53,19 +53,15 @@ $('#book_links,#book_otherCovers,#book_scans').find('.help-block').remove();
 var $helpBlocks = $('.help-block');
 $helpBlocks.each(function () {
 	var $helpBlock = $(this);
-	var $helpToggler = $('<i class="fa fa-info-circle"></i>').mouseenter(function () {
+	var $helpToggler = $('<i class="fa fa-info-circle"></i>').on('click', function () {
 		if ($helpBlock.is(':hidden')) {
 			$helpBlock.slideDown();
+		} else {
+			$helpBlock.slideUp();
 		}
-	}).css({'margin-left': '.5em', 'opacity': '0.5', 'cursor': 'help'});
+	}).css({'margin-left': '.5em', 'opacity': '0.5', 'cursor': 'pointer'});
 	$helpBlock.closest('.form-group').find('label:first').append($helpToggler);
 	$helpBlock.hide();
 });
 
 $('form a').attr('target', '_blank');
-
-$('.form-control').on('focus', function () {
-	var $helpBlockToShow = $(this).next('.help-block');
-	$helpBlocks.filter(':visible').not($helpBlockToShow).slideUp();
-	$helpBlockToShow.slideDown();
-});
