@@ -65,3 +65,12 @@ $helpBlocks.each(function () {
 });
 
 $('form a').attr('target', '_blank');
+
+$('form').on('submit', function() {
+	if ($(this).data('submitted')) {
+		console.log("no second submit");
+		return false;
+	}
+	$(this).data('submitted', true);
+	return true;
+});
