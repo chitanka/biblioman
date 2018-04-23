@@ -161,10 +161,6 @@ return [
 		'inner' => 'вътрешна',
 		'other' => 'друга',
 	],
-	'media' => [
-		'paper' => 'хартия',
-		'digital' => 'цифров',
-	],
 	'person' => [
 		'canonical' => 'Канонично име',
 		'realname' => 'Истинско име',

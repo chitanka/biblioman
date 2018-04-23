@@ -60,7 +60,7 @@
 {% endmacro %}
 
 {% macro printSearchLink(term, field, searchableFields) -%}
-	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ field in ['media'] ? (field~'.'~term)|trans : term }}</a>
+	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term }}</a>
 {%- endmacro %}
 
 {% macro printSearchLinks(term, field, searchableFields) %}

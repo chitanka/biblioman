@@ -5,13 +5,13 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait WithBookBody {
 
-	public static $MEDIA_PAPER = 'paper';
-	public static $MEDIA_DIGITAL = 'digital';
+	public static $MEDIA_PAPER = 'хартия';
+	public static $MEDIA_DIGITAL = 'цифров';
 
 	/**
 	 * @ORM\Column(type="string", length=30)
 	 */
-	private $media = 'paper';
+	private $media = 'хартия';
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)

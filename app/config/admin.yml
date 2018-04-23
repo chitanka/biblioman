@@ -73,7 +73,7 @@ easy_admin:
             form:
                 fields:
                     - { type: group, label: Basic data, icon: gear }
-                    - { property: media, type: choice, type_options: { expanded: true, choices: {media.paper: paper, media.digital: digital} } }
+                    - { property: media, type: choice, type_options: { expanded: true, choices: {хартия: хартия, цифров: цифров} } }
             new:
                 title: Book.new_title
                 action_label: Нова книга
