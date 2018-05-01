@@ -56,7 +56,7 @@
 {% endmacro %}
 
 {% macro printLink(link) %}
-	<a href="{{ link.url }}" title="{{ link.title }} - {{ link.author }}" target="_blank">{{ link.author ? link.author ~ ': ' : '' }}{{ link.title|default(link.url|slice(0, 50)) }}</a>
+	<a href="{{ '://' in link.url ? link.url : 'http://'~link.url }}" title="{{ link.title }} - {{ link.author }}" target="_blank">{{ link.author ? link.author ~ ': ' : '' }}{{ link.title|default(link.url|slice(0, 50)) }}</a>
 {% endmacro %}
 
 {% macro printSearchLink(term, field, searchableFields) -%}
