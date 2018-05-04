@@ -35,3 +35,8 @@ form label.control-label.required::before {
 	top: 0;
 	opacity: .3;
 }
+
+#book_media .radio {
+	display: inline-block;
+	margin-right: 1em;
+}
