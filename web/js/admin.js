@@ -64,7 +64,7 @@ $helpBlocks.each(function () {
 	$helpBlock.hide();
 });
 
-$('form a').attr('target', '_blank');
+$('form a:not(.action-list)').attr('target', '_blank');
 
 $('form').on('submit', function() {
 	if ($(this).data('submitted')) {
