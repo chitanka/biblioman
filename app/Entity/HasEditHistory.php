@@ -25,7 +25,7 @@ trait HasEditHistory {
 	private $createdByUser;
 
 	/**
-	 * @ORM\Column(type="string", length=50)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $completedBy;
 
