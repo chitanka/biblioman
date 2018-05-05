@@ -47,7 +47,10 @@ trait HasEditHistory {
 		$this->createdBy = $user->getUsername();
 	}
 
-	public function isCreatedByTheUser(User $user) {
+	public function isCreatedByTheUser(User $user = null) {
+		if ($user === null) {
+			return false;
+		}
 		return $this->createdByUser->equals($user);
 	}
 
