@@ -37,6 +37,9 @@
 					{% if book.reasonWhyIncomplete is not empty %}
 						({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
 					{% endif %}
+					{% if book.hasOnlyScans %}
+						({{ _.printSearchLink(book.hasOnlyScans, 'hasOnlyScans', searchableFields) }})
+					{% endif %}
 				</p>
 			{% endif %}
 			<dl class="dl-horizontal">

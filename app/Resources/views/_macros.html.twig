@@ -38,7 +38,7 @@
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
-			{% if field == 'createdBy' %}
+			{% if field in ['createdBy', 'completedBy'] %}
 				{{ _.printUserMessageLink(attr, book) }}
 			{% endif %}
 			{% if field == 'sequence' and book.sequenceNr is not empty %}
@@ -60,7 +60,7 @@
 {% endmacro %}
 
 {% macro printSearchLink(term, field, searchableFields) -%}
-	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term }}</a>
+	<a href="{{ path('books', { q: field ~ searchableFields.separator ~' '~ term }) }}">{{ term is same as(false) or term is same as(true) ? field|humanize|trans : term }}</a>
 {%- endmacro %}
 
 {% macro printSearchLinks(term, field, searchableFields) %}
@@ -151,6 +151,9 @@
 			Записът е непълен.
 			{% if book.reasonWhyIncomplete is not empty %}
 				({{ _.printSearchLink(book.reasonWhyIncomplete, 'reasonWhyIncomplete', searchableFields) }})
+			{% endif %}
+			{% if book.hasOnlyScans %}
+				({{ _.printSearchLink(book.hasOnlyScans, 'hasOnlyScans', searchableFields) }})
 			{% endif %}
 		</div>
 	{% endif %}

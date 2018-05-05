@@ -24,6 +24,23 @@ trait HasEditHistory {
 	 */
 	private $createdByUser;
 
+	/**
+	 * @ORM\Column(type="string", length=50)
+	 */
+	private $completedBy;
+
+	/**
+	 * @var User
+	 * @ORM\ManyToOne(targetEntity="User")
+	 */
+	private $completedByUser;
+
+	/**
+	 * The user who currently edits the entity
+	 * @var User
+	 */
+	private $currentEditor;
+
 	public function setRevisions($revisions) { $this->revisions = $revisions; }
 	public function setCreatedByUser(User $user) {
 		$this->createdByUser = $user;
@@ -32,6 +49,10 @@ trait HasEditHistory {
 
 	public function isCreatedByTheUser(User $user) {
 		return $this->createdByUser->equals($user);
+	}
+
+	public function setCurrentEditor(User $editor) {
+		$this->currentEditor = $editor;
 	}
 
 	public function hasRevisions() {
@@ -78,6 +99,7 @@ trait HasEditHistory {
 	protected function revisionsToArray() {
 		return [
 			'createdBy' => $this->createdBy,
+			'completedBy' => $this->completedBy,
 		];
 	}
 }

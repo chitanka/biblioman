@@ -50,6 +50,13 @@
 					{% endif %}
 					{{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }}
 					{{ _.printUserMessageLink(book.createdByUser.name, book) }}
+					{% if book.completedByUser is not empty %}
+						{% if book.completedByUser.is('ROLE_EDITOR_PLUS') %}
+							<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
+						{% endif %}
+						{{ _.printSearchLink(book.completedBy, 'completedBy', searchableFields) }}
+						{{ _.printUserMessageLink(book.completedByUser.name, book) }}
+					{% endif %}
 				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}
 			</div>

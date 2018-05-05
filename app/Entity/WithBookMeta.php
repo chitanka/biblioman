@@ -34,6 +34,12 @@ trait WithBookMeta {
 	 * @var boolean
 	 * @ORM\Column(type="boolean")
 	 */
+	private $hasOnlyScans = false;
+
+	/**
+	 * @var boolean
+	 * @ORM\Column(type="boolean")
+	 */
 	private $isIncomplete = true;
 
 	/**
@@ -52,6 +58,8 @@ trait WithBookMeta {
 	public function setInfoSources($infoSources) { $this->infoSources = $infoSources; }
 	public function setAdminComment($adminComment) { $this->adminComment = $adminComment; }
 	public function setOcredText($ocredText) { $this->ocredText = $ocredText; }
+	public function hasOnlyScans() { return $this->hasOnlyScans; }
+	public function setHasOnlyScans($hasOnlyScans) { $this->hasOnlyScans = $hasOnlyScans; }
 	public function isIncomplete() { return $this->isIncomplete; }
 	public function setIsIncomplete($isIncomplete) { $this->isIncomplete = $isIncomplete; }
 	public function setReasonWhyIncomplete($reasonWhyIncomplete) { $this->reasonWhyIncomplete = $reasonWhyIncomplete; }
@@ -63,6 +71,7 @@ trait WithBookMeta {
 			'notes' => $this->notes,
 			'infoSources' => $this->infoSources,
 			'ocredText' => $this->ocredText,
+			'hasOnlyScans' => $this->hasOnlyScans,
 			'isIncomplete' => $this->isIncomplete,
 			'reasonWhyIncomplete' => $this->reasonWhyIncomplete,
 			'verified' => $this->verified,

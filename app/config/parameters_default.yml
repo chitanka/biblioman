@@ -125,6 +125,7 @@ parameters:
         - notesAboutOriginal
         - _divider
         - createdBy
+        - completedBy
         - createdAt
         - updatedAt
         - _divider
@@ -156,7 +157,9 @@ parameters:
         - pageCount
         - isbn
         - createdBy
+        - completedBy
         - createdAt
+        - updatedAt
 
     default_shelves:
         to-read:

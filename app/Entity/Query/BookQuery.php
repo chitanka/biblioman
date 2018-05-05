@@ -78,7 +78,9 @@ class BookQuery {
 		'genre',
 		'themes',
 		'createdBy',
+		'completedBy',
 		'nbScans',
+		'hasOnlyScans',
 		'isIncomplete',
 		'reasonWhyIncomplete',
 	];

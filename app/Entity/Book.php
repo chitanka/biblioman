@@ -66,6 +66,13 @@ class Book extends Entity {
 		if ($this->updatedTrackingEnabled) {
 			$this->updateNbFiles();
 		}
+		if ($this->hasOnlyScans) {
+			if (empty($this->completedByUser) && $this->currentEditor) {
+				$this->completedByUser = $this->currentEditor;
+				$this->completedBy = $this->completedByUser->getName();
+			}
+			$this->isIncomplete = true;
+		}
 	}
 
 	public function __toString() {
