@@ -67,7 +67,7 @@ class Book extends Entity {
 			$this->updateNbFiles();
 		}
 		if ($this->hasOnlyScans) {
-			if (empty($this->completedByUser) && $this->currentEditor) {
+			if (empty($this->completedByUser) && $this->currentEditor && !$this->currentEditor->equals($this->createdByUser)) {
 				$this->completedByUser = $this->currentEditor;
 				$this->completedBy = $this->completedByUser->getName();
 			}
