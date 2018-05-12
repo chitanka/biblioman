@@ -1,7 +1,9 @@
 <?php namespace App\Entity\Query;
 
+use App\Collection\BookMultiFields;
 use App\Entity\BookCategory;
 use App\Entity\BookField\BookField;
+use App\Entity\Repository\BookMultiFieldRepository;
 use App\Entity\Repository\BookRepository;
 use App\Entity\Shelf;
 use App\Library\BookSearchCriteria;
@@ -126,11 +128,14 @@ class BookQuery {
 
 	/** @var BookRepository */
 	private $repository;
+	/** @var BookMultiFieldRepository */
+	private $bookMultiFieldRepository;
 	/** @var QueryBuilder */
 	private $qb;
 
 	public function __construct(BookRepository $repository, BookSearchCriteria $criteria) {
 		$this->repository = $repository;
+		$this->bookMultiFieldRepository = $this->repository->getBookMultiFieldRepository();
 		$this->qb = $this->repository->createQueryBuilder(self::ALIAS);
 		$this->applySearchCriteria($criteria);
 	}
@@ -189,37 +194,65 @@ class BookQuery {
 	}
 
 	private function filterBySelectedField($field, $term) {
-		if ($field == 'isbn') {
-			$field = 'isbnClean';
+		$predicates = $this->createSearchPredicates($field, $term);
+		$orX = $this->qb->expr()->orX();
+		foreach ($predicates as $field => $fdata) {
+			if (!in_array($field, BookMultiFields::MULTI_FIELDS)) {
+				foreach ($fdata as $idx => $fdatum) {
+					list($operator, $fieldQuery) = $fdatum;
+					$orX->add($this->fieldForQuery($field)." $operator ?$idx");
+					$this->qb->setParameter($idx, $fieldQuery);
+				}
+				unset($predicates[$field]);
+			}
 		}
-		list($predicates, $fieldQueries) = $this->createSearchPredicates($field, $term);
-		$this->qb->andWhere(implode(' OR ', $predicates));
-		foreach ($fieldQueries as $idx => $fieldQuery) {
-			$this->qb->setParameter($idx, $fieldQuery);
+		$bmfAlias = 'bmf';
+		$orMultiFields = $this->qb->expr()->orX();
+		foreach ($predicates as $field => $fdata) {
+			$orMultiField = $this->qb->expr()->orX();
+			foreach ($fdata as $idx => $fdatum) {
+				list($operator, $fieldQuery) = $fdatum;
+				$orMultiField->add("$bmfAlias.value $operator :value$idx");
+				$this->qb->setParameter("value$idx", $fieldQuery);
+			}
+			$orMultiFields->add($this->qb->expr()->andX("$bmfAlias.field = :$field", $orMultiField));
+			$this->qb->setParameter($field, $field);
 		}
+		if ($orMultiFields->count() > 0) {
+			$orX = $this->qb->expr()->orX(
+				$orX,
+				$this->qb->expr()->in(
+					$this->fieldForQuery('id'),
+					$this->bookMultiFieldRepository->createQueryBuilder($bmfAlias)
+						->select("identity($bmfAlias.book)")
+						->where($orMultiFields)
+						->getDQL()
+				)
+			);
+		}
+		$this->qb->andWhere($orX);
 		return $this->qb;
 	}
 
 	private function createSearchPredicates($field, $term) {
 		$terms = is_array($term) ? $term : [$term];
 		$predicates = [];
-		$fieldQueries = [];
 		foreach ($terms as $idx => $term) {
 			if ($term[0] === '"') {
 				$operator = '=';
-				$fieldQueries[$idx] = trim($term, '"');
+				$fieldQuery = trim($term, '"');
 			} else {
 				$operator = 'LIKE';
-				$fieldQueries[$idx] = '%'.BookField::normalizedFieldValue($field, $term).'%';
+				$fieldQuery = '%'.BookField::normalizedFieldValue($field, $term).'%';
 			}
-			$predicates[] = $this->fieldForQuery($field)." $operator ?$idx";
+			$predicates[$field][$idx] = [$operator, $fieldQuery];
 			if (isset(self::$linkedSearchableFields[$field])) {
-				$predicates = array_merge($predicates, array_map(function ($field) use ($operator, $idx) {
-					return $this->fieldForQuery($field)." $operator ?$idx";
-				}, self::$linkedSearchableFields[$field]));
+				foreach (self::$linkedSearchableFields[$field] as $linkedSearchableField) {
+					$predicates[$linkedSearchableField][$idx] = [$operator, $fieldQuery];
+				}
 			}
 		}
-		return [$predicates, $fieldQueries];
+		return $predicates;
 	}
 
 	private function filterByPublishingYear(Year $year) {

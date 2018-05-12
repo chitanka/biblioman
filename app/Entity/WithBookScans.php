@@ -20,7 +20,7 @@ trait WithBookScans {
 
 	/** @return BookScan[]|BookScans */
 	public function getScans() {
-		return BookScans::fromCollection($this->scans)->sortByTitle();
+		return (new BookScans($this->scans))->sortByTitle();
 	}
 
 	/** @param BookScan[] $scans */
