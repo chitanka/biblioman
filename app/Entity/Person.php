@@ -11,6 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Person extends Entity {
 
+	const NAME_TYPE_CANONICAL = 'canonical';
+	const NAME_TYPE_REALNAME = 'realname';
+	const NAME_TYPE_PSEUDONYM = 'pseudonym';
+	const NAME_TYPE_ALTNAME = 'altname';
+	const NAME_TYPE_WRONGNAME = 'wrongname';
+	const NAME_TYPE_MAYBE = 'maybe';
+
 	/**
 	 * @var string $name
 	 * @ORM\Column(type="string", length=100)

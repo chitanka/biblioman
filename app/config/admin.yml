@@ -214,6 +214,7 @@ easy_admin:
                                 person.pseudonym: pseudonym
                                 person.altname: altname
                                 person.wrongname: wrongname
+                                person.maybe: maybe
                     - canonicalPerson
             list:
                 title: Persons

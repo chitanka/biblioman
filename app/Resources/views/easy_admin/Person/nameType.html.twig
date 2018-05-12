@@ -1,2 +1,2 @@
-{% set label_map = { altname: 'default', canonical: 'primary', pseudonym: 'info', realname: 'success', wrongname: 'danger' } %}
-<span class="label label-{{ label_map[value] }}">{{ ('person.'~value)|trans }}</span>
+{% set label_map = { altname: 'default', canonical: 'primary', pseudonym: 'info', realname: 'success', wrongname: 'danger', maybe: 'default' } %}
+<span class="label label-{{ label_map[value]|default('default') }}">{{ ('person.'~value)|trans }}</span>
