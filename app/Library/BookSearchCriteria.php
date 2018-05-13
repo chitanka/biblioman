@@ -33,6 +33,9 @@ class BookSearchCriteria {
 		$this->raw = trim($textQuery);
 		if (strpos($this->raw, self::FIELD_SEARCH_SEPARATOR) !== false) {
 			list($this->field, $this->term) = array_map('trim', explode(self::FIELD_SEARCH_SEPARATOR, $this->raw));
+			if ($this->field === 'isbn') {
+				$this->field = 'isbnClean';
+			}
 		} else {
 			$this->term = $this->raw;
 		}

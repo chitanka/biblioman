@@ -2,6 +2,8 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
+use App\Entity\BookField\BookField;
+use App\Entity\BookMultiField;
 use App\Entity\BookRevision;
 use App\Entity\Query\BookQuery;
 use App\Library\BookSearchCriteria;
@@ -71,5 +73,10 @@ class BookRepository extends EntityRepository {
 	/** @return BookRevisionRepository */
 	private function getRevisionRepository() {
 		return $this->_em->getRepository(BookRevision::class);
+	}
+
+	/** @return BookMultiFieldRepository */
+	public function getBookMultiFieldRepository() {
+		return $this->_em->getRepository(BookMultiField::class);
 	}
 }

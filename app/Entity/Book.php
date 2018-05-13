@@ -1,7 +1,9 @@
 <?php namespace App\Entity;
 
 use App\Collection\BookCovers;
+use App\Collection\BookMultiFields;
 use App\Collection\BookScans;
+use App\Collection\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -29,6 +31,12 @@ class Book extends Entity {
 
 	private $updatedTrackingEnabled = true;
 
+	/**
+	 * @var BookMultiField[]|BookMultiFields
+	 * @ORM\OneToMany(targetEntity="BookMultiField", mappedBy="book", cascade={"persist"}, orphanRemoval=true)
+	 */
+	private $multiFields;
+
 //	/**
 //	 * @ORM\OneToMany(targetEntity="BookItem", mappedBy="book")
 //	 * @ORM\OrderBy({"position" = "ASC"})
@@ -36,13 +44,14 @@ class Book extends Entity {
 //	private $items;
 
 	public function __construct() {
-		$this->covers = new BookCovers();
-		$this->newCovers = new BookCovers();
-		$this->scans = new BookScans();
+		$this->covers = new ArrayCollection();
+		$this->newCovers = new ArrayCollection();
+		$this->scans = new ArrayCollection();
 		$this->links = new ArrayCollection();
 		$this->revisions = new ArrayCollection();
 		$this->booksOnShelf = new ArrayCollection();
 		$this->updatedAt = new \DateTime();
+		$this->multiFields = new ArrayCollection();
 	}
 
 	public function getState() {
@@ -59,6 +68,7 @@ class Book extends Entity {
 	/** @ORM\PrePersist */
 	public function onPreInsert() {
 		$this->updateNbFiles();
+		(new BookMultiFields($this->multiFields))->updateFromBook($this);
 	}
 
 	/** @ORM\PreUpdate */
@@ -73,6 +83,7 @@ class Book extends Entity {
 			}
 			$this->isIncomplete = true;
 		}
+		(new BookMultiFields($this->multiFields))->updateFromBook($this);
 	}
 
 	public function __toString() {

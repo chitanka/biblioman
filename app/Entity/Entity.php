@@ -16,6 +16,10 @@ abstract class Entity implements \JsonSerializable {
 		return $this->id;
 	}
 
+	public function getUniqueKey() {
+		return $this->getId();
+	}
+
 	public function equals(Entity $entity) {
 		return $this->getId() === $entity->getId();
 	}

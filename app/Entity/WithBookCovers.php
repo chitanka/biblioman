@@ -98,14 +98,14 @@ trait WithBookCovers {
 	 */
 	public function getOtherCovers() {
 		$specialCoverNames = [$this->cover, $this->backCover];
-		return BookCovers::fromCollection($this->covers)->filter(function(BookCover $cover) use ($specialCoverNames) {
+		return (new BookCovers($this->covers))->filter(function(BookCover $cover) use ($specialCoverNames) {
 			return !in_array($cover->getName(), $specialCoverNames);
 		});
 	}
 
 	/** @param BookCovers|BookCover[] $covers */
 	public function setOtherCovers($covers) {
-		$covers = BookCovers::fromCollection($covers);
+		$covers = new BookCovers($covers);
 		$covers->onlyNew()->forEach(function(BookCover $cover) {
 			$cover->setBook($this);
 			$this->covers[] = $cover;
