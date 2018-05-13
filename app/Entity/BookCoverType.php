@@ -10,6 +10,7 @@ class BookCoverType {
 	const VALUE_FRONT = 'front';
 	const VALUE_BACK = 'back';
 	const VALUE_INNER = 'inner';
+	const VALUE_SIDE = 'side';
 	const VALUE_OTHER = 'other';
 
 	public static $values = [
