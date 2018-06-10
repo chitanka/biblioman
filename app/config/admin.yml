@@ -185,6 +185,7 @@ easy_admin:
                     - { type: group, label: Files, icon: image }
                     - { property: fullContentFile, type: vich_file }
                     - { property: availableAt }
+                    - { property: contentFiles, type: collection, type_options: { entry_type: App\Form\BookContentFileType, by_reference: false }, css_class: 'files' }
                     - { type: divider }
                     - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, css_class: 'files' }
 

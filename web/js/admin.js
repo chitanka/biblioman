@@ -48,7 +48,7 @@ if ($bookForm.length) {
 }
 
 // bigfix - remove unnecessary help blocks
-$('#book_links,#book_otherCovers,#book_scans').find('.help-block').remove();
+$('#book_links,#book_otherCovers,#book_scans,#book_contentFiles').find('.help-block').remove();
 
 var $helpBlocks = $('.help-block');
 $helpBlocks.each(function () {

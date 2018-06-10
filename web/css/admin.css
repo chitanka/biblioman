@@ -16,13 +16,24 @@ form label.control-label.required::before {
 	font-size: 16px;
 }
 .field-book_cover,
-.field-book_scan {
+.field-book_scan,
+.field-book_content_file {
 	border-bottom: 3px dotted #808080;
 	padding-bottom: 1em;
 	margin-bottom: 1em;
 }
+.field-divider hr {
+	border-bottom: 3px dotted #808080;
+}
 .field-book_cover .field-checkbox,
-.field-book_scan .field-checkbox {
+.field-book_scan .field-checkbox,
+.field-book_content_file .field-checkbox {
+	display: none;
+}
+#book_links .help-block,
+#book_otherCovers .help-block,
+#book_scans .help-block,
+#book_contentFiles .help-block {
 	display: none;
 }
 .help-block p:first-of-type {

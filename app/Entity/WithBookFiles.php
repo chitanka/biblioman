@@ -8,6 +8,7 @@ trait WithBookFiles {
 
 	use WithBookCovers;
 	use WithBookScans;
+	use WithBookContentFiles;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
@@ -50,6 +51,7 @@ trait WithBookFiles {
 	protected function updateNbFiles() {
 		$this->updateNbCovers();
 		$this->updateNbScans();
+		$this->updateNbContentFiles();
 	}
 
 	public function setCreatorByNewFiles($user) {
@@ -61,6 +63,7 @@ trait WithBookFiles {
 		Looper::forEachValue($this->scans, $setCreatedBy);
 		Looper::forEachValue($this->covers, $setCreatedBy);
 		Looper::forEachValue($this->newCovers, $setCreatedBy);
+		Looper::forEachValue($this->contentFiles, $setCreatedBy);
 	}
 
 	protected function filesToArray() {
@@ -70,6 +73,7 @@ trait WithBookFiles {
 			'otherCovers' => $this->getOtherCovers()->toArray(),
 			'scans' => $this->getScans()->toArray(),
 			'nbScans' => $this->nbScans,
+			'contentFiles' => $this->getContentFiles()->toArray(),
 		];
 	}
 

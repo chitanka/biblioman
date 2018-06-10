@@ -119,6 +119,12 @@
 	{% endif %}
 {% endmacro %}
 
+{% macro printContentLink(contentFile) %}
+	{% if (contentFile.book.isAvailable() or contentFile.book.isCreatedByTheUser(app.user)) %}
+		<a href="/{{ contentFile.name|contentpath }}" title="{{ contentFile.title }}" class="book-content-file" target="_blank"><span class="fa fa-file-text-o"></span> {{ contentFile }}</a>
+	{% endif %}
+{% endmacro %}
+
 {% macro printChitankaLink(book) %}
 	{% if book.chitankaId is not empty %}
 		<a href="//chitanka.info/book/{{ book.chitankaId }}" title="Книгата в Моята библиотека" class="btn btn-info btn-sm book-chitanka" target="_blank"><span class="fa fa-file-text-o"></span></a>

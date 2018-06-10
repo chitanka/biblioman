@@ -79,6 +79,13 @@
 					{% if is_granted('ROLE_EDITOR') %}
 						{{ _.printEditLink(book) }}
 					{% endif %}
+					{% if book.hasContentFiles %}
+						<ul>
+							{% for contentFile in book.contentFiles %}
+								<li>{{ _.printContentLink(contentFile) }}</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
 				</dd>
 			</dl>
 		</div>

@@ -48,6 +48,7 @@ class Book extends Entity {
 		$this->covers = new ArrayCollection();
 		$this->newCovers = new ArrayCollection();
 		$this->scans = new ArrayCollection();
+		$this->contentFiles = new ArrayCollection();
 		$this->links = new ArrayCollection();
 		$this->revisions = new ArrayCollection();
 		$this->booksOnShelf = new ArrayCollection();
@@ -74,9 +75,10 @@ class Book extends Entity {
 
 	/** @ORM\PreUpdate */
 	public function onPreUpdate(PreUpdateEventArgs $event) {
-		if ($this->updatedTrackingEnabled) {
-			$this->updateNbFiles();
+		if (!$this->updatedTrackingEnabled) {
+			return;
 		}
+		$this->updateNbFiles();
 		if ($this->hasOnlyScans || $event->hasChangedField('hasOnlyScans')) {
 			if (empty($this->completedByUser) && $this->currentEditor && !$this->currentEditor->equals($this->createdByUser)) {
 				$this->completedByUser = $this->currentEditor;
@@ -122,5 +124,6 @@ class Book extends Entity {
 
 	public function __clone() {
 		$this->scans = clone $this->scans;
+		$this->contentFiles = clone $this->contentFiles;
 	}
 }
