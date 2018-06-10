@@ -34,10 +34,10 @@ easy_admin:
         assets:
             css:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
-                - css/admin.css?20180422
+                - css/admin.css?20180610
             js:
                 - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
-                - js/admin.js?20180422
+                - js/admin.js?20180610
     entities:
         Book:
             class: App\Entity\Book
