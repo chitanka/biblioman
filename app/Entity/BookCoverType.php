@@ -17,6 +17,7 @@ class BookCoverType {
 		self::VALUE_FRONT,
 		self::VALUE_BACK,
 		self::VALUE_INNER,
+		self::VALUE_SIDE,
 		self::VALUE_OTHER,
 	];
 
