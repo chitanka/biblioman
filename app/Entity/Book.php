@@ -5,6 +5,7 @@ use App\Collection\BookMultiFields;
 use App\Collection\BookScans;
 use App\Collection\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -72,15 +73,17 @@ class Book extends Entity {
 	}
 
 	/** @ORM\PreUpdate */
-	public function onPreUpdate() {
+	public function onPreUpdate(PreUpdateEventArgs $event) {
 		if ($this->updatedTrackingEnabled) {
 			$this->updateNbFiles();
 		}
-		if ($this->hasOnlyScans) {
+		if ($this->hasOnlyScans || $event->hasChangedField('hasOnlyScans')) {
 			if (empty($this->completedByUser) && $this->currentEditor && !$this->currentEditor->equals($this->createdByUser)) {
 				$this->completedByUser = $this->currentEditor;
 				$this->completedBy = $this->completedByUser->getName();
 			}
+		}
+		if ($this->hasOnlyScans) {
 			$this->isIncomplete = true;
 		}
 		(new BookMultiFields($this->multiFields))->updateFromBook($this);
