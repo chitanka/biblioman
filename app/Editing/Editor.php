@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 class Editor {
 
 	public function computeBookDifferences(Book $book1, Book $book2) {
-		$excludedFields = ['updatedAt', 'nbScans'];
+		$excludedFields = ['updatedAt'];
 		$fields1 = array_diff_key($book1->toArray(), array_flip($excludedFields));
 		$diffs = $this->computeArrayDifferences($fields1, $book2->toArray());
 		return $diffs;
@@ -15,7 +15,9 @@ class Editor {
 	public function computeArrayDifferences($fields1, $fields2) {
 		$diffs = [];
 		foreach ($fields1 as $field => $value) {
-			$diffs[$field] = $this->computeFieldDifferences($value, $fields2[$field]);
+			if (isset($fields2[$field])) {
+				$diffs[$field] = $this->computeFieldDifferences($value, $fields2[$field]);
+			}
 		}
 		$diffs = array_filter($diffs);
 		return $diffs;
