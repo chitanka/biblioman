@@ -30,6 +30,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 		$this->initialize($request);
 		$book = $this->getEntity($request); /* @var $book Book */
 		if ($book) {
+			$book->disableUpdatedTracking();
 			$book->extendLock();
 			$this->em->flush($book);
 			return new JsonResponse(true);
@@ -73,7 +74,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 		$this->bookPreEdit = clone $book;
 		if ($book->isLockedForUser($this->getUsername())) {
 			$form->addError(new FormError("В момента този запис се редактира от {$book->getLockedBy()}."));
-		} else {
+		} else if ($book->isLockExpired()) {
 			$book->disableUpdatedTracking();
 			$book->setLock($this->getUsername());
 			$this->em->persist($book);
