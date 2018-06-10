@@ -7,6 +7,9 @@ class BookMultiFields extends Entities {
 
 	const MULTI_FIELDS = [
 		'author',
+		'title',
+		'altTitle',
+		'volumeTitle',
 		'translator',
 		'adaptedBy',
 		'otherAuthors',
@@ -32,6 +35,11 @@ class BookMultiFields extends Entities {
 		'prepress',
 		'isbnClean',
 		'publisher',
+		'nationality',
+		'language',
+		'edition',
+		'genre',
+		'themes',
 	];
 	const VALUE_SEPARATOR = ';';
 
