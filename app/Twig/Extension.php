@@ -53,8 +53,8 @@ class Extension extends \Twig_Extension {
 		return Thumbnail::createPath($image, $type, $width, $humanReadableName);
 	}
 
-	public function createContentPath($file) {
-		return implode('/', ['fullcontent', Thumbnail::createSubPathFromFileName($file), $file]);
+	public function createContentPath($file, $title) {
+		return implode('/', array_filter(['fullcontent', Thumbnail::createSubPathFromFileName($file), $file, Thumbnail::normalizeHumanReadableNameForFile($title, $file)]));
 	}
 
 	public function getIdsFromCollection(ArrayCollection $collection) {

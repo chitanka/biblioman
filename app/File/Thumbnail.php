@@ -24,6 +24,13 @@ class Thumbnail {
 		return self::createSubPath(explode('-', $name)[0]);
 	}
 
+	public static function normalizeHumanReadableNameForFile($name, $file) {
+		if ($name === null) {
+			return null;
+		}
+		return mb_substr(Normalizer::removeSpecialCharacters($name), 0, 60) .'.'. pathinfo($file, PATHINFO_EXTENSION);
+	}
+
 	private static function normalizeHumanReadableNameForThumb($name, $thumbFile, $width) {
 		if ($name === null) {
 			return null;
