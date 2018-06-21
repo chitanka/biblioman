@@ -14,7 +14,7 @@
 					<a href="{{ path('books_show', { id: book.id }) }}">{{ _.printBookTitle(book) }}{% if book.volumeTitle is not empty %}<span class="book-volumeTitle"> &bull; {{ book.volumeTitle }}</span>{% endif %}</a>
 				</div>
 				{% if book.subtitle is not empty %}
-					<div class="entity-field entity-field-subtitle book-subtitle">{{ _.printSearchLink(book.subtitle, 'subtitle', searchableFields) }}</div>
+					<div class="entity-field entity-field-subtitle book-subtitle">{{ _.printSearchLinks(book.subtitle, 'subtitle', searchableFields) }}</div>
 				{% endif %}
 				{% if book.author is not empty %}
 					<div class="entity-field entity-field-author book-author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</div>

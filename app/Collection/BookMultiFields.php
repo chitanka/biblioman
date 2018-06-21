@@ -9,6 +9,7 @@ class BookMultiFields extends Entities {
 		'author',
 		'title',
 		'altTitle',
+		'subtitle',
 		'volumeTitle',
 		'translator',
 		'adaptedBy',
