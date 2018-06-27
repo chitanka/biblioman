@@ -43,7 +43,7 @@
 			<div class="book-snippet-extra-info book-buttons">
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-created-by">
-					{{ _.printDateIcon(book.createdAt) }}
+					{{ _.printDateIcon(book.createdAt, 'Created at'|trans) }}
 					{% if book.createdByUser.is('ROLE_EDITOR_PLUS') %}
 						<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
 					{% endif %}

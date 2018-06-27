@@ -98,8 +98,8 @@
 	<time datetime="{{ date|date('c') }}">{{ date|date('d.m.Y H:i') }}</time>
 {% endmacro %}
 
-{% macro printDateIcon(date) %}
-	<time datetime="{{ date|date('c') }}" title="{{ date|date('d.m.Y H:i') }}"><span class="fa fa-clock-o"></span></time>
+{% macro printDateIcon(date, title) %}
+	<time datetime="{{ date|date('c') }}" title="{{ title|default('') }} {{ date|date('d.m.Y H:i') }}"><span class="fa fa-clock-o"></span></time>
 {% endmacro %}
 
 {% macro printTitleWithAuthor(book, glue) %}
