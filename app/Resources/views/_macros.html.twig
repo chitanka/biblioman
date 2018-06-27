@@ -98,6 +98,10 @@
 	<time datetime="{{ date|date('c') }}">{{ date|date('d.m.Y H:i') }}</time>
 {% endmacro %}
 
+{% macro printDateIcon(date) %}
+	<time datetime="{{ date|date('c') }}" title="{{ date|date('d.m.Y H:i') }}"><span class="fa fa-clock-o"></span></time>
+{% endmacro %}
+
 {% macro printTitleWithAuthor(book, glue) %}
 <i>{{ book.title|maxlength(60) }}</i>{% if book.author is not empty %}{{ glue|default(' – ') }}{{ book.author|maxlength(40) }}{% endif %}
 {% endmacro %}
