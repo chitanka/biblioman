@@ -1,5 +1,6 @@
 <?php namespace App\Listener;
 
+use App\Entity\User;
 use App\Persistence\RepositoryFinder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,19 +50,21 @@ class KernelListener implements EventSubscriberInterface {
 	}
 
 	private function initTokenStorage() {
+		$user = $this->initUser();
+		$token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, null, 'User', $user->getRoles());
+		$this->tokenStorage->setToken($token);
+	}
+
+	private function initUser() {
 		if (!$this->singleLoginProvider) {
-			return;
+			return User::createAnonymousUser();
 		}
 		$chitankaUser = (require $this->singleLoginProvider)();
 		if ($chitankaUser['username']) {
 			$repo = $this->repoFinder->forUser();
-			$user = $repo->findByUsername($chitankaUser['username']);
-			if (!$user) {
-				$user = $repo->createUser($chitankaUser['username'], $chitankaUser['email']);
-			}
-			$token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, null, 'User', $user->getRoles());
-			$this->tokenStorage->setToken($token);
+			return $repo->findByUsername($chitankaUser['username']) ?: $repo->createUser($chitankaUser['username'], $chitankaUser['email']);
 		}
+		return User::createAnonymousUser();
 	}
 
 }

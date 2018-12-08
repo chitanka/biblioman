@@ -83,11 +83,15 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 	}
 
 	public function __toString() {
-		return $this->getUsername();
+		return (string) $this->getUsername();
 	}
 
 	public function isAnonymous() {
 		return $this->username === null;
+	}
+
+	public function isRegistered() {
+		return !$this->isAnonymous();
 	}
 
 	public function getUsername() {

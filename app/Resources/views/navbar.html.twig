@@ -23,7 +23,7 @@
 					<a href="{{ path('shelves') }}" title="Публични рафтове">Рафтове</a>
 				</li>
 			</ul>
-			{% if app.user %}
+			{% if app.user.isRegistered %}
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Групи: {{ _.printUserRolesInline(app.user) }}"><span class="fa fa-user"></span> {{ app.user.username }} <span class="caret"></span></a>
