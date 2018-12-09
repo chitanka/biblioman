@@ -97,6 +97,9 @@ class BookController extends Controller {
 		if ($_format == 'cover') {
 			return $this->redirect(Thumbnail::createPath($book->getCover(), 'covers', $request->get('size', 300)));
 		}
+		if ($_format == 'json') {
+			return $this->json($book);
+		}
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
