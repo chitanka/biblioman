@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="bg" prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
 	<head>
 		{% block headers %}
 			<meta charset="utf-8">
-			<meta name="description" content="{% block description '' %}">
 			<meta name="viewport" content="initial-scale=1.0, width=device-width">
-			<title>{{ block('title') is defined ? block('title')|replace({'<br>': ' — '})|striptags ~ ' — ' ~ sitename : sitename }}</title>
+			<title>{{ block('title') is defined ? block('title')|replace({'<br>': ' — '})|striptags|trim ~ ' — ' ~ sitename : sitename }}</title>
+			<meta name="description" content="{% block description 'Проект за създаване на пълно описание на всички книги, издадени на български език' %}">
+
+			{% if opengraph is defined %}
+				{% for key, value in opengraph %}
+					<meta property="og:{{ key }}" content="{{ value|replace({'<br>': ' — '})|striptags|trim }}">
+				{% endfor %}
+			{% else %}
+				<meta property="og:title" content="{{ sitename }}">
+				<meta property="og:url" content="{{ url('homepage') }}">
+				<meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset('images/logo.png') }}">
+				<meta property="og:image:alt" content="Лого на {{ sitename }}">
+			{% endif %}
+			<meta property="og:site_name" content="{{ sitename }}">
+			<meta property="og:locale" content="bg_BG">
+
 			<link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
-			<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+			<link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
+
 			{% block stylesheets %}
 				<link rel="stylesheet" href="{{ asset('bundles/easyadmin/stylesheet/bootstrap.min.css') }}">
 				<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
@@ -15,7 +30,7 @@
 				<link rel="stylesheet" href="{{ asset('lightgallery/css/lightgallery.min.css') }}">
 				<link rel="stylesheet" href="{{ asset('bootstrap-multiselect/css/bootstrap-multiselect.css') }}">
 				<link rel="stylesheet" href="{{ asset('fontawesome-iconpicker/css/fontawesome-iconpicker.min.css') }}">
-				<link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
+				<link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
 			{% endblock %}
 		{% endblock headers %}
 	</head>

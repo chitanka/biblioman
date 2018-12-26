@@ -12,6 +12,15 @@
 	{% endif %}
 {% endblock %}
 
+{% set opengraph = {
+	'title': book.title,
+	'type': 'book',
+	'url': url('books_show', {'id': book.id}),
+	'image': app.request.schemeAndHttpHost ~ _.thumbFrontCover(book.cover, 1000, book.title),
+	'image:alt': 'Корица',
+	'image:width': 1000
+} %}
+
 {% block content %}
 
 	<h1 class="book-heading">{{ block('title') }}</h1>
