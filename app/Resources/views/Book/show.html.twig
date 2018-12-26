@@ -23,7 +23,7 @@
 
 {% set descriptionParts = [] %}
 {% if book.author is not empty %}
-	{% set descriptionParts = descriptionParts|merge(['от '~book.author]) %}
+	{% set descriptionParts = descriptionParts|merge(['от '~book.authorsAtMost(2)]) %}
 {% endif %}
 {% if book.publisher is not empty %}
 	{% set descriptionParts = descriptionParts|merge([book.publisher]) %}
@@ -34,7 +34,7 @@
 {% if book.category is not empty %}
 	{% set descriptionParts = descriptionParts|merge(['категория: '~book.category.name]) %}
 {% endif %}
-{% block description %}{{ descriptionParts|join('; ') }}{% endblock %}
+{% block description %}{{ descriptionParts|join(' • ') }}{% endblock %}
 
 {% block content %}
 

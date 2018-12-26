@@ -48,6 +48,10 @@ trait WithBookAuthorship {
 	public function setOtherAuthors($otherAuthors) { $this->otherAuthors = Typograph::replaceDash($otherAuthors); }
 	public function setCompiler($compiler) { $this->compiler = Typograph::replaceDash($compiler); }
 
+	public function getAuthorsAtMost($count) {
+		return implode(';', array_slice(explode(';', $this->author), 0, $count));
+	}
+
 	protected function authorshipToArray() {
 		return [
 			'author' => $this->author,
