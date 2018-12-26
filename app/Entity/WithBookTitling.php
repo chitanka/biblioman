@@ -38,6 +38,13 @@ trait WithBookTitling {
 	public function setSubtitle2($subtitle2) { $this->subtitle2 = Typograph::replaceAll($subtitle2); }
 	public function setVolumeTitle($volumeTitle) { $this->volumeTitle = Typograph::replaceAll($volumeTitle); }
 
+	public function getTitleWithVolume() {
+		if (empty($this->volumeTitle)) {
+			return $this->title;
+		}
+		return "{$this->title} ({$this->volumeTitle})";
+	}
+
 	protected function titlingToArray() {
 		return [
 			'title' => $this->title,
