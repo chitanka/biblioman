@@ -2,6 +2,7 @@
 
 use App\Entity\Entity;
 use App\File\Normalizer;
+use App\File\Path;
 use App\File\Thumbnail;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Router;
@@ -54,7 +55,7 @@ class Extension extends \Twig_Extension {
 	}
 
 	public function createContentPath($file, $title) {
-		return implode('/', array_filter(['fullcontent', Thumbnail::createSubPathFromFileName($file), $file, Thumbnail::normalizeHumanReadableNameForFile($title, $file)]));
+		return implode('/', array_filter([Path::DIR_FULLCONTENT, Thumbnail::createSubPathFromFileName($file), $file, Thumbnail::normalizeHumanReadableNameForFile($title, $file)]));
 	}
 
 	public function getIdsFromCollection(ArrayCollection $collection) {

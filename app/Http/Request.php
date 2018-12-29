@@ -27,6 +27,10 @@ class Request extends \Symfony\Component\HttpFoundation\Request {
 		return $this->get('_route');
 	}
 
+	public function getAllParams() {
+		return $this->get('_route_params') + $this->query->all();
+	}
+
 	protected function getFromQuery($param, $default = null) {
 		return $this->query->get($param, $default);
 	}

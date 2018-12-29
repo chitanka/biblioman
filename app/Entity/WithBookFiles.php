@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use App\File\Thumbnail;
 use App\Php\Looper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -74,6 +75,15 @@ trait WithBookFiles {
 			'scans' => $this->getScans()->toArray(),
 			'nbScans' => $this->nbScans,
 			'contentFiles' => $this->getContentFiles()->toArray(),
+
+			'urls' => [
+				'cover' => Thumbnail::createCoverPath($this->cover, 1000),
+				'coverSmall' => Thumbnail::createCoverPath($this->cover, 300),
+				'coverMini' => Thumbnail::createCoverPath($this->cover, 150),
+				'backCover' => Thumbnail::createCoverPath($this->backCover, 1000),
+				'backCoverSmall' => Thumbnail::createCoverPath($this->backCover, 300),
+				'backCoverMini' => Thumbnail::createCoverPath($this->backCover, 150),
+			],
 		];
 	}
 

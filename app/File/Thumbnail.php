@@ -2,9 +2,20 @@
 
 class Thumbnail {
 
+	public static function createCoverPath($image, $width, $humanReadableName = null) {
+		return static::createPath($image, Path::DIR_COVERS, $width, $humanReadableName);
+	}
+
+	public static function createScanPath($image, $width, $humanReadableName = null) {
+		return static::createPath($image, Path::DIR_SCANS, $width, $humanReadableName);
+	}
+
 	public static function createPath($image, $type, $width, $humanReadableName = null) {
-		return '/'. implode('/', array_filter([
-			'thumb',
+		if (empty($image)) {
+			return null;
+		}
+		return Path::SEP. implode(Path::SEP, array_filter([
+			Path::DIR_THUMB,
 			$type,
 			self::createSubPathFromFileName($image),
 			preg_replace('/\.(.+)$/', ".$width.$1", $image),
@@ -17,7 +28,7 @@ class Thumbnail {
 			return '';
 		}
 		$subDirCount = 4;
-		return implode('/', array_slice(str_split(str_pad($objectId, $subDirCount, '0', STR_PAD_LEFT)), -$subDirCount));
+		return implode(Path::SEP, array_slice(str_split(str_pad($objectId, $subDirCount, '0', STR_PAD_LEFT)), -$subDirCount));
 	}
 
 	public static function createSubPathFromFileName($name) {

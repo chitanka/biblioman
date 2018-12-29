@@ -22,6 +22,9 @@ class Entities implements Collection {
 		} else if ($collection instanceof Collection) {
 			$this->collection = $collection;
 		} else {
+			if ($collection instanceof \Traversable) {
+				$collection = iterator_to_array($collection);
+			}
 			$this->collection = new ArrayCollection($collection ?: []);
 		}
 	}

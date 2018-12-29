@@ -1,5 +1,6 @@
 <?php namespace App\Controller;
 
+use App\Collection\Books;
 use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\Query\BookQuery;
@@ -27,7 +28,7 @@ class BookController extends Controller {
 		return $this->renderBookListing('Book/index.html.twig', $pager, [
 			'fields' => $fields,
 			'query' => $searchQuery,
-		], $_format);
+		], $_format, $request);
 	}
 
 	/**
@@ -48,7 +49,7 @@ class BookController extends Controller {
 			'category' => $category,
 			'categoryPath' => $this->repoFinder()->forBookCategory()->getPath($category),
 			'tree' => $this->generateCategoryTree($category),
-		], $_format);
+		], $_format, $request);
 	}
 
 	/**
@@ -56,7 +57,7 @@ class BookController extends Controller {
 	 */
 	public function listIncompleteAction(Request $request, $_format) {
 		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete());
-		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager, [], $_format);
+		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager, [], $_format, $request);
 	}
 
 	/**
@@ -94,12 +95,13 @@ class BookController extends Controller {
 	 * @Route("/{id}.{_format}", defaults={"_format" = "html"}, name="books_show")
 	 */
 	public function showAction(Request $request, Book $book, $_format) {
-		if ($_format == 'cover') {
-			return $this->redirect(Thumbnail::createPath($book->getCover(), 'covers', $request->get('size', 300)));
+		switch ($_format) {
+			case 'cover':
+				return $this->redirect(Thumbnail::createCoverPath($book->getCover(), $request->get('size', 300)));
+			case self::FORMAT_JSON:
+				return $this->json($book);
 		}
-		if ($_format == 'json') {
-			return $this->json($book);
-		}
+		$request->getCurrentRoute();
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
@@ -108,9 +110,12 @@ class BookController extends Controller {
 		]);
 	}
 
-	private function renderBookListing($template, Pagerfanta $pager, $viewVariables = [], $format) {
-		if ($format === self::FORMAT_CSV) {
-			return $this->renderBookExport($pager);
+	private function renderBookListing($template, Pagerfanta $pager, $viewVariables, $format, Request $request) {
+		switch ($format) {
+			case self::FORMAT_CSV:
+				return $this->renderBookExport($pager);
+			case self::FORMAT_JSON:
+				return $this->renderResultsAsJson($pager->getCurrentPageResults(), $pager, $request);
 		}
 		return $this->render($template, array_merge([
 			'pager' => $pager,
@@ -119,6 +124,19 @@ class BookController extends Controller {
 			'sortableFields' => BookQuery::$sortableFields,
 			'addToShelfForms' => $this->createAddToShelfForms($pager->getCurrentPageResults()),
 		], $viewVariables));
+	}
+
+	protected function renderResultsAsJson($data, Pagerfanta $pager, Request $request) {
+		$host = $request->getSchemeAndHttpHost();
+		$books = new Books($data);
+		$books->setJsonFormatter(function (Book $book) use ($host) {
+			$bookData = $book->jsonSerialize();
+			$bookData['urls'] = array_map(function($path) use ($host) {
+				return $host.$path;
+			}, $bookData['urls']);
+			return array_merge_recursive($bookData, ['urls' => ['canonical' => $this->generateAbsoluteUrl('books_show', ['id' => $book->getId()])]]);
+		});
+		return parent::renderResultsAsJson($books, $pager, $request);
 	}
 
 	/**

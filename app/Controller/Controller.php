@@ -20,6 +20,7 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	const ITEMS_PER_PAGE = 24;
 
 	const FORMAT_CSV = 'csv';
+	const FORMAT_JSON = 'json';
 
 	/** @return User */
 	protected function getUser() {
@@ -92,6 +93,25 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 		}
 		$data = BookExport::fromPager($pager)->toArray($fieldsToExport);
 		return new CsvResponse($this->get('serializer')->encode($data, 'csv'));
+	}
+
+	protected function renderResultsAsJson($data, Pagerfanta $pager, Request $request) {
+		$output = [
+			'results' => $data,
+			'page' => $pager->getCurrentPage(),
+			'pages' => $pager->getNbPages(),
+		];
+		if ($pager->hasPreviousPage()) {
+			$output['prev'] = $this->generateAbsoluteUrl($request->getCurrentRoute(), [Request::PARAM_PAGER_PAGE => $pager->getPreviousPage()] + $request->getAllParams());
+		}
+		if ($pager->hasNextPage()) {
+			$output['next'] = $this->generateAbsoluteUrl($request->getCurrentRoute(), [Request::PARAM_PAGER_PAGE => $pager->getNextPage()] + $request->getAllParams());
+		}
+		return $this->json($output, 200, ['Access-Control-Allow-Origin' => '*']);
+	}
+
+	protected function generateAbsoluteUrl($route, $params) {
+		return $this->generateUrl($route, $params, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
 	}
 
 	private function createPager($adapter, Request $request, $maxPerPage) {
