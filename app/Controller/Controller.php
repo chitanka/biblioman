@@ -99,7 +99,8 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 		$output = [
 			'results' => $data,
 			'page' => $pager->getCurrentPage(),
-			'pages' => $pager->getNbPages(),
+			'nbPages' => $pager->getNbPages(),
+			'nbResults' => $pager->getNbResults(),
 		];
 		if ($pager->hasPreviousPage()) {
 			$output['prev'] = $this->generateAbsoluteUrl($request->getCurrentRoute(), [Request::PARAM_PAGER_PAGE => $pager->getPreviousPage()] + $request->getAllParams());
