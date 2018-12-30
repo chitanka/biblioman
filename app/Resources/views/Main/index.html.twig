@@ -17,7 +17,11 @@
 		</div>
 		<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> {{ 'Book.new_title'|trans }}</a></p>
 	{% elseif is_granted('ROLE_USER') %}
-		<p class="text-center">Пишете на някой от <a href="{{ path('users_by_role', {'role': 'admin'}) }}">администраторите</a>, ако желаете да получите права на редактор.</p>
+		<p class="text-center">Пишете на <span id="contactAddress">някого от <a href="{{ path('users_by_role', {'role': 'admin'}) }}">администраторите</a></span>, ако желаете да запишете книга в Библиоман.</p>
+		<script>
+			var __a__ = ((n, s, o) => [n, s, o].join(''))('parent.child', 'at', 'postoffice').replace('parent', 'chitanka').replace('child', 'biblioman').replace('at', String.fromCharCode(Math.pow(8, 2))).replace('postoffice', 'gm'+(('ai')+('l'))+('.')+(('c'))+'om');
+			document.getElementById('contactAddress').innerHTML = '<b><'+'a hr'+'ef="ma'+('il')+('to')+(':')+__a__+'">'+__a__+'<'+'/'+'a></b>';
+		</script>
 	{% endif %}
 
 	{% include 'Book/books.html.twig' with { heading: 'Последни книги', route: 'homepage', books: pager.currentPageResults } %}
