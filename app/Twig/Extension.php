@@ -19,6 +19,7 @@ class Extension extends \Twig_Extension {
 		return [
 			new \Twig_SimpleFilter('autolink', [$this, 'autolink'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
+			new \Twig_SimpleFilter('format_bytes', [$this, 'formatBytes']),
 			new \Twig_SimpleFilter('maxlength', [$this, 'maxlength'], ['is_safe' => ['html']]),
 			new \Twig_SimpleFilter('thumb', [$this, 'createThumbPath']),
 			new \Twig_SimpleFilter('contentpath', [$this, 'createContentPath']),
@@ -40,6 +41,16 @@ class Extension extends \Twig_Extension {
 			"\t" => str_repeat("\xC2\xA0", 8), // non-breaking space
 		]);
 		return $content;
+	}
+
+	// from https://stackoverflow.com/a/28047922
+	public function formatBytes($bytes, $precision = 2) {
+		if ($bytes === null) {
+			return '';
+		}
+		$units = ['B', 'KiB', 'MiB', 'GiB'];
+		$unitIndex = (int) floor(log($bytes, 1024));
+		return round($bytes/pow(1024, $unitIndex), $precision) .' '. $units[$unitIndex];
 	}
 
 	public function maxlength($string, $maxlength = 30, $suffix = null) {

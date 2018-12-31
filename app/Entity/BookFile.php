@@ -2,6 +2,7 @@
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -46,6 +47,24 @@ class BookFile extends Entity {
 	protected $hash;
 
 	/**
+	 * @var int
+	 * @ORM\Column(type="integer")
+	 */
+	protected $size;
+
+	/**
+	 * @var int
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	protected $width;
+
+	/**
+	 * @var int
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	protected $height;
+
+	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=50)
 	 */
@@ -68,7 +87,7 @@ class BookFile extends Entity {
 	}
 
 	public function toArray() {
-		return [
+		return parent::toArray() + [
 			'title' => $this->title,
 			'name' => $this->name,
 			'internalFormat' => $this->internalFormat,
@@ -89,15 +108,22 @@ class BookFile extends Entity {
 	public function setInternalFormat($internalFormat) { $this->internalFormat = $internalFormat; }
 	public function getHash() { return $this->hash; }
 	public function setHash($hash) { $this->hash = $hash; }
+	public function getSize() { return $this->size; }
+
+	public function getDimensions() {
+		if ($this->width && $this->height) {
+			return $this->width.'×'.$this->height;
+		}
+		return null;
+	}
 
 	public function getFile() { return $this->file; }
-	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
+	/** @param File|UploadedFile $file */
 	public function setFile(File $file = null) {
 		$this->file = $file;
 		if ($file) {
-			if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-				$this->setInternalFormat($file->guessExtension());
-				$this->updatedAt = new \DateTime();
+			if ($file instanceof UploadedFile) {
+				$this->fillFromUploadedFile($file);
 			}
 			$this->setHashFromPath($file->getRealPath());
 		}
@@ -119,4 +145,14 @@ class BookFile extends Entity {
 	public function setCreatedAt($createdAt) { $this->createdAt = $createdAt; }
 	public function getUpdatedAt() { return $this->updatedAt; }
 	public function setUpdatedAt($updatedAt) { $this->updatedAt = $updatedAt; }
+
+	protected function fillFromUploadedFile(UploadedFile $file) {
+		$this->internalFormat = $file->guessExtension();
+		$this->size = $file->getSize();
+		if ($this->size > 0 && $imageInfo = getimagesize($file->getRealPath())) {
+			$this->width = $imageInfo[0];
+			$this->height = $imageInfo[1];
+		}
+		$this->updatedAt = new \DateTime();
+	}
 }
