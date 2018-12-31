@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% macro show(cover, book) %}
+	{% import '_macros.html.twig' as _ %}
+	<a href="{{ _.thumbCover(cover.name, 1000, book.title) }}" class="thumbnail thumb-link" data-sub-html=".caption">
+		<figure>
+			<img src="{{ _.thumbCover(cover.name, 300, book.title~'-'~cover.type) }}" style="max-height: 370px" title="{{ cover.size|format_bytes }} • {{ cover.dimensions }} • {{ cover.internalFormat|upper }}">
+			<figcaption class="caption">
+				{% if cover.title %}
+					{{ cover.title }} •
+				{% endif %}
+				{{ ('BookCover.'~cover.type)|trans }}
+			</figcaption>
+		</figure>
+	</a>
+{% endmacro %}
+
+{% import '_macros.html.twig' as _ %}
+
+{% block title %}
+	<a href="{{ path('books_show', { id: book.id }) }}">{{ _.printTitleWithAuthor(book) }}</a>:
+	Корици
+{% endblock %}
+
+{% block content %}
+
+	<h1>{{ block('title') }}</h1>
+
+	<ol class="breadcrumb">
+		<li><a href="{{ path('books') }}">Книги</a></li>
+		<li><a href="{{ path('books_show', {id: book.id}) }}">№ {{ book.id }}</a></li>
+		<li class="active">Корици</li>
+	</ol>
+
+	{% import _self as _selfM %}
+
+	<h2>Основни корици</h2>
+	<div class="row">
+		{% for cover in book.mainCovers %}
+			<div class="col-xs-6 col-md-3">
+				{{ _selfM.show(cover, book) }}
+			</div>
+		{% endfor %}
+	</div>
+
+	{% if book.hasOtherCovers %}
+		<h2>Други корици</h2>
+		{% for coverRow in book.otherCovers|batch(4) %}
+			<div class="row">
+				{% for cover in coverRow %}
+					<div class="col-xs-6 col-md-3">
+						{{ _selfM.show(cover, book) }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% import '_macros.html.twig' as _ %}
+
+{% block title %}
+	<a href="{{ path('books_show', { id: book.id }) }}">{{ _.printTitleWithAuthor(book) }}</a>:
+	Сканирани страници
+{% endblock %}
+
+{% block content %}
+
+	<h1>{{ block('title') }}</h1>
+
+	<ol class="breadcrumb">
+		<li><a href="{{ path('books') }}">Книги</a></li>
+		<li><a href="{{ path('books_show', {id: book.id}) }}">№ {{ book.id }}</a></li>
+		<li class="active">Сканирани страници</li>
+	</ol>
+
+	{% if book.canHaveScans %}
+		{% for scanRow in book.scans|batch(4) %}
+			<div class="row">
+				{% for scan in scanRow %}
+					<div class="col-xs-6 col-md-3">
+						<a href="{{ _.thumbScan(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
+							<figure>
+								<img src="{{ _.thumbScan(scan.name, 300) }}" style="max-height: 370px" title="{{ scan.size|format_bytes }} • {{ scan.dimensions }} • {{ scan.internalFormat|upper }}">
+								<figcaption class="caption">
+									{{ scan.title is not empty ? scan : ('Missing scan title'|trans) }}
+								</figcaption>
+							</figure>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</div>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}
