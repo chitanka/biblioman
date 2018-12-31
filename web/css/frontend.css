@@ -141,6 +141,8 @@ h1 .extra-info {
 .entity-field-notesAboutAuthor,
 .entity-field-infoSources {
 	margin-top: 1em;
+	max-height: 10em;
+	overflow-y: auto;
 }
 .thumbnail .caption {
 	padding: .3em 0;
