@@ -12,7 +12,6 @@
 					<meta property="og:{{ key }}" content="{{ value|replace({'<br>': ' — '})|striptags|trim }}">
 				{% endfor %}
 			{% else %}
-				<meta property="og:title" content="{{ sitename }}">
 				<meta property="og:url" content="{{ url('homepage') }}">
 				<meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset('images/logo.png') }}">
 				<meta property="og:image:alt" content="Лого на {{ sitename }}">
