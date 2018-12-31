@@ -114,12 +114,12 @@
 					{% endif %}
 
 					{% if book.hasOtherCovers %}
-						<p><a href="{{ path('books_show_covers', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-image-o"></span> Корици</a></p>
+						<p><a href="{{ path('books_show_covers', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-image-o"></span> Корици <span class="badge">{{ book.nbCovers }}</span></a></p>
 					{% endif %}
 
 					{% if book.canHaveScans %}
 						{% if book.scans is not empty %}
-							<p><a href="{{ path('books_show_scans', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-text-o"></span> Сканирани страници</a></p>
+							<p><a href="{{ path('books_show_scans', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-text-o"></span> Сканирани страници <span class="badge">{{ book.nbScans }}</span></a></p>
 						{% else %}
 							<p class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</p>
 						{% endif %}
