@@ -101,12 +101,29 @@ class BookController extends Controller {
 			case self::FORMAT_JSON:
 				return $this->json($book);
 		}
-		$request->getCurrentRoute();
 		return $this->render('Book/show.html.twig', [
 			'book' => $book,
 			'fields' => $this->getParameter('book_fields_long'),
 			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 			'addToShelfForms' => $this->createAddToShelfForms([$book]),
+		]);
+	}
+
+	/**
+	 * @Route("/{id}/covers", defaults={"_format" = "html"}, name="books_show_covers")
+	 */
+	public function showCoversAction(Book $book) {
+		return $this->render('Book/showCovers.html.twig', [
+			'book' => $book,
+		]);
+	}
+
+	/**
+	 * @Route("/{id}/scans", defaults={"_format" = "html"}, name="books_show_scans")
+	 */
+	public function showScansAction(Book $book) {
+		return $this->render('Book/showScans.html.twig', [
+			'book' => $book,
 		]);
 	}
 

@@ -100,6 +100,17 @@ trait WithBookCovers {
 	}
 
 	/**
+	 * Return only the canonical front and back covers
+	 * @return BookCovers|BookCover[]
+	 */
+	public function getMainCovers() {
+		$specialCoverNames = [$this->cover, $this->backCover];
+		return (new BookCovers($this->covers))->filter(function(BookCover $cover) use ($specialCoverNames) {
+			return in_array($cover->getName(), $specialCoverNames);
+		});
+	}
+
+	/**
 	 * Return all covers except the front and the back one
 	 * @return BookCovers|BookCover[]
 	 */

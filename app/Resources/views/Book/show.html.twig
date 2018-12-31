@@ -98,11 +98,13 @@
 				{% endif %}
 				<dt>...</dt>
 				<dd>
+					<p>
 					{{ _.printFullContentLink(book) }}
 					{{ _.printChitankaLink(book) }}
 					{% if is_granted('ROLE_EDITOR') %}
 						{{ _.printEditLink(book) }}
 					{% endif %}
+					</p>
 					{% if book.hasContentFiles %}
 						<ul>
 							{% for contentFile in book.contentFiles %}
@@ -110,56 +112,21 @@
 							{% endfor %}
 						</ul>
 					{% endif %}
+
+					{% if book.hasOtherCovers %}
+						<p><a href="{{ path('books_show_covers', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-image-o"></span> Корици</a></p>
+					{% endif %}
+
+					{% if book.canHaveScans %}
+						{% if book.scans is not empty %}
+							<p><a href="{{ path('books_show_scans', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-text-o"></span> Сканирани страници</a></p>
+						{% else %}
+							<p class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</p>
+						{% endif %}
+					{% endif %}
 				</dd>
 			</dl>
 		</div>
 	</div>
-
-	{% if book.hasOtherCovers %}
-		<h2>Други корици</h2>
-		{% for coverRow in book.otherCovers|batch(4) %}
-		<div class="row">
-			{% for cover in coverRow %}
-				<div class="col-xs-6 col-md-3">
-				<a href="{{ _.thumbCover(cover.name, 1000, book.title) }}" class="thumbnail thumb-link" data-sub-html=".caption">
-					<figure>
-						<img src="{{ _.thumbCover(cover.name, 300, book.title~'-'~cover.type) }}" style="max-height: 370px" title="{{ cover.size|format_bytes }} • {{ cover.dimensions }} • {{ cover.internalFormat|upper }}">
-						<figcaption class="caption">
-							{% if cover.title %}
-								{{ cover.title }} •
-							{% endif %}
-							{{ ('BookCover.'~cover.type)|trans }}
-						</figcaption>
-					</figure>
-				</a>
-				</div>
-			{% endfor %}
-		</div>
-		{% endfor %}
-	{% endif %}
-
-	{% if book.canHaveScans %}
-		<section>
-			<h2>Сканирани страници</h2>
-			{% for scanRow in book.scans|batch(4) %}
-				<div class="row">
-					{% for scan in scanRow %}
-						<div class="col-xs-6 col-md-3">
-							<a href="{{ _.thumbScan(scan.name, 1000) }}" class="thumbnail thumb-link" data-sub-html=".caption">
-								<figure>
-									<img src="{{ _.thumbScan(scan.name, 300) }}" style="max-height: 370px" title="{{ scan.size|format_bytes }} • {{ scan.dimensions }} • {{ scan.internalFormat|upper }}">
-									<figcaption class="caption">
-										{{ scan.title is not empty ? scan : ('Missing scan title'|trans) }}
-									</figcaption>
-								</figure>
-							</a>
-						</div>
-					{% endfor %}
-				</div>
-			{% else %}
-				<div class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</div>
-			{% endfor %}
-		</section>
-	{% endif %}
 
 {% endblock %}
