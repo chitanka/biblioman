@@ -134,13 +134,23 @@ h1 .extra-info {
 	opacity: .7;
 	font-size: 70%;
 }
+.entity-field-annotation,
 .entity-field-toc,
 .entity-field-marketingSnippets,
 .entity-field-notes,
 .entity-field-notesAboutOriginal,
 .entity-field-notesAboutAuthor,
 .entity-field-infoSources {
-	margin-top: 1em;
+	margin-top: 1.3em;
+}
+dd.entity-field-annotation,
+dd.entity-field-toc,
+dd.entity-field-marketingSnippets,
+dd.entity-field-notes,
+dd.entity-field-notesAboutOriginal,
+dd.entity-field-notesAboutAuthor,
+dd.entity-field-infoSources {
+	box-shadow: 0 10px 10px -10px #c0c0c0;
 	max-height: 10em;
 	overflow-y: auto;
 }
