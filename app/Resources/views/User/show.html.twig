@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+
+{% import '_macros.html.twig' as _ %}
+
+{% block title %}{{ _.printUserBadge(user) }}{{ user.name }}{% endblock %}
+
+{% block content %}
+
+	<h1 class="page-header">{{ block('title') }} {{ _.printUserMessageLink(user.name) }}</h1>
+
+	<h2>Групи</h2>
+	<ul>
+		{% for role in user.nonDefaultRoles %}
+			<li><a href="{{ path('users_by_role', {role:role|lower|replace({'role_': ''})}) }}">{{ ('roles.'~role)|trans }}</a></li>
+		{% endfor %}
+	</ul>
+
+	<h2>Записи</h2>
+	<ul>
+		<li><a href="{{ path('users_show_created_books', {username: user.name}) }}">Създадени записи</a></li>
+		<li><a href="{{ path('users_show_completed_books', {username: user.name}) }}">Завършени записи</a></li>
+		<li><a href="{{ path('users_show_book_revisions', {username: user.name}) }}">Променени записи</a></li>
+	</ul>
+
+{% endblock %}

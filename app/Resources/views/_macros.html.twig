@@ -35,6 +35,8 @@
 				{{ attr | converturls | format_whitespaces }}
 			{% elseif field == 'notes' %}
 				{{ attr | converturls | autolink | format_whitespaces }}
+			{% elseif field in ['createdByUser', 'completedByUser'] %}
+				{{ _.printUser(attr, book) }}
 			{% else %}
 				{{ attr|nl2br }}
 			{% endif %}
@@ -80,8 +82,12 @@
 
 {% macro printUser(user, book) %}
 	{% from _self import printUserMessageLink %}
-	{{ user }}
-	{{ printUserMessageLink(user, book) }}
+	{% from _self import printUserBadge %}
+	{{ printUserBadge(user) }}
+	<a href="{{ path('users_show', {username: user.name}) }}">{{ user }}</a>
+	{% if book is defined %}
+		{{ printUserMessageLink(user.name, book) }}
+	{% endif %}
 {% endmacro %}
 
 {% macro printUserMessageLink(user, book) %}

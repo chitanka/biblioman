@@ -1,5 +1,6 @@
 <?php namespace App\Entity\Repository;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -11,5 +12,9 @@ class BookRevisionRepository extends EntityRepository {
 	public function allInReverse() {
 		return $this->createQueryBuilder('r')
 			->orderBy('r.createdAt', 'desc');
+	}
+
+	public function fromCreatorInReverse(User $creator) {
+		return $this->allInReverse()->where('r.createdBy = :creator')->setParameter(':creator', $creator->getUsername());
 	}
 }

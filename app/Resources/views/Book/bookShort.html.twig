@@ -44,13 +44,9 @@
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-created-by">
 					{{ _.printDateIcon(book.createdAt, 'Created at'|trans) }}
-					{{ _.printUserBadge(book.createdByUser) }}
-					{{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }}
-					{{ _.printUserMessageLink(book.createdByUser.name, book) }}
+					{{ _.printUser(book.createdByUser, book) }}
 					{% if book.completedByUser is not empty %}
-						{{ _.printUserBadge(book.completedByUser) }}
-						{{ _.printSearchLink(book.completedBy, 'completedBy', searchableFields) }}
-						{{ _.printUserMessageLink(book.completedByUser.name, book) }}
+						{{ _.printUser(book.completedByUser, book) }}
 					{% endif %}
 				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}

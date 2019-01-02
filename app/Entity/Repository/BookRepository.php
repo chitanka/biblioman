@@ -6,6 +6,7 @@ use App\Entity\BookField\BookField;
 use App\Entity\BookMultiField;
 use App\Entity\BookRevision;
 use App\Entity\Query\BookQuery;
+use App\Entity\User;
 use App\Library\BookSearchCriteria;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -68,6 +69,10 @@ class BookRepository extends EntityRepository {
 
 	public function revisions() {
 		return $this->getRevisionRepository()->allInReverse();
+	}
+
+	public function revisionsFromUser(User $user) {
+		return $this->getRevisionRepository()->fromCreatorInReverse($user);
 	}
 
 	/** @return BookRevisionRepository */

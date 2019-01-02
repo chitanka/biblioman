@@ -1,6 +1,7 @@
 <?php namespace App\Controller;
 
 use App\Entity\User;
+use App\Http\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -27,4 +28,34 @@ class UserController extends Controller {
 		]);
 	}
 
+	/**
+	 * @Route("/{username}", name="users_show")
+	 */
+	public function show(User $user) {
+		return $this->render('User/show.html.twig', ['user' => $user]);
+	}
+
+	/**
+	 * @Route("/{username}/created-books", name="users_show_created_books")
+	 */
+	public function showCreatedBooks(Request $request, User $user) {
+		return $this->redirectToRoute('books', ['q' => 'createdBy: '.$user->getName()]);
+	}
+
+	/**
+	 * @Route("/{username}/completed-books", name="users_show_completed_books")
+	 */
+	public function showCompletedBooks(Request $request, User $user) {
+		return $this->redirectToRoute('books', ['q' => 'completedBy: '.$user->getName()]);
+	}
+
+	/**
+	 * @Route("/{username}/book-revisions", name="users_show_book_revisions")
+	 */
+	public function showBookRevisions(Request $request, User $user) {
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->revisionsFromUser($user), 30);
+		return $this->render('Book/showAllRevisions.html.twig', [
+			'pager' => $pager,
+		]);
+	}
 }

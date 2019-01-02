@@ -137,6 +137,10 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 		return array_merge([self::ROLE_DEFAULT], $this->roles);
 	}
 
+	public function getNonDefaultRoles() {
+		return $this->roles;
+	}
+
 	/**
 	 * @param array $roles
 	 */
