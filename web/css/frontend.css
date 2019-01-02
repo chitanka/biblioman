@@ -143,7 +143,8 @@ h1 .extra-info {
 .entity-field-notes,
 .entity-field-notesAboutOriginal,
 .entity-field-notesAboutAuthor,
-.entity-field-infoSources {
+.entity-field-infoSources,
+.entity-field-linksByCategory {
 	margin-top: 1.3em;
 }
 dd.entity-field-annotation,
@@ -152,9 +153,10 @@ dd.entity-field-marketingSnippets,
 dd.entity-field-notes,
 dd.entity-field-notesAboutOriginal,
 dd.entity-field-notesAboutAuthor,
-dd.entity-field-infoSources {
+dd.entity-field-infoSources,
+dd.entity-field-linksByCategory {
 	box-shadow: 0 10px 10px -10px #c0c0c0;
-	max-height: 10em;
+	max-height: 15em;
 	overflow-y: auto;
 }
 .thumbnail .caption {
