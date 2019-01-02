@@ -131,7 +131,7 @@ div:target {
 	color: green;
 }
 .badge-editor-managing {
-	color: #ffa100;
+	color: red;
 }
 h1 .extra-info {
 	opacity: .7;
