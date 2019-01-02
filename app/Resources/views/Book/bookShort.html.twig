@@ -44,15 +44,11 @@
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-created-by">
 					{{ _.printDateIcon(book.createdAt, 'Created at'|trans) }}
-					{% if book.createdByUser.is('ROLE_EDITOR_PLUS') %}
-						<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
-					{% endif %}
+					{{ _.printUserBadge(book.createdByUser) }}
 					{{ _.printSearchLink(book.createdBy, 'createdBy', searchableFields) }}
 					{{ _.printUserMessageLink(book.createdByUser.name, book) }}
 					{% if book.completedByUser is not empty %}
-						{% if book.completedByUser.is('ROLE_EDITOR_PLUS') %}
-							<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
-						{% endif %}
+						{{ _.printUserBadge(book.completedByUser) }}
 						{{ _.printSearchLink(book.completedBy, 'completedBy', searchableFields) }}
 						{{ _.printUserMessageLink(book.completedByUser.name, book) }}
 					{% endif %}

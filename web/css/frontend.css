@@ -130,6 +130,9 @@ div:target {
 .badge-editor-plus {
 	color: green;
 }
+.badge-editor-managing {
+	color: #ffa100;
+}
 h1 .extra-info {
 	opacity: .7;
 	font-size: 70%;

@@ -192,6 +192,7 @@ return [
 		'ROLE_USER' => 'потребител',
 		'ROLE_EDITOR' => 'редактор',
 		'ROLE_EDITOR_PLUS' => 'старши редактор',
+		'ROLE_EDITOR_MANAGING' => 'отговорен редактор',
 		'ROLE_WIKI_EDITOR' => 'уики редактор',
 		'ROLE_ADMIN' => 'администратор',
 	],

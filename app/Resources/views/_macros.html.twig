@@ -88,6 +88,14 @@
 	<a href="{{ path('fos_message_thread_new', { username: user }|merge( book is not empty ? { subject: 'Относно №'~book.id } : {} )) }}" title="Изпращане на лично съобщение"><span class="fa fa-comment-o"></span></a>
 {% endmacro %}
 
+{% macro printUserBadge(user) %}
+	{% if user.is('ROLE_EDITOR_MANAGING') %}
+		<span class="fa fa-certificate badge-editor-managing" title="{{ 'roles.ROLE_EDITOR_MANAGING'|trans }}"></span>
+	{% elseif user.is('ROLE_EDITOR_PLUS') %}
+		<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
+	{% endif %}
+{% endmacro %}
+
 {% macro printUserRolesInline(user) %}
 	{% for role in user.roles %}
 		- {{ ('roles.'~role)|trans }}

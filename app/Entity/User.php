@@ -16,12 +16,14 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 	const ROLE_DEFAULT = 'ROLE_USER';
 	const ROLE_EDITOR = 'ROLE_EDITOR';
 	const ROLE_EDITOR_PLUS = 'ROLE_EDITOR_PLUS';
+	const ROLE_EDITOR_MANAGING = 'ROLE_EDITOR_MANAGING';
 	const ROLE_WIKI_EDITOR = 'ROLE_WIKI_EDITOR';
 	const ROLE_ADMIN = 'ROLE_ADMIN';
 
 	const ROLES = [
 		self::ROLE_EDITOR,
 		self::ROLE_EDITOR_PLUS,
+		self::ROLE_EDITOR_MANAGING,
 		self::ROLE_WIKI_EDITOR,
 		self::ROLE_ADMIN,
 	];
