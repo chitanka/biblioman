@@ -141,26 +141,18 @@ return $first ? null : array();
 return $first ? $default : array($default);
 }
 if ($first) {
-return \count($headers[$key]) ? $headers[$key][0] : $default;
+return count($headers[$key]) ? $headers[$key][0] : $default;
 }
 return $headers[$key];
 }
 public function set($key, $values, $replace = true)
 {
 $key = str_replace('_','-', strtolower($key));
-if (\is_array($values)) {
-$values = array_values($values);
+$values = array_values((array) $values);
 if (true === $replace || !isset($this->headers[$key])) {
 $this->headers[$key] = $values;
 } else {
 $this->headers[$key] = array_merge($this->headers[$key], $values);
-}
-} else {
-if (true === $replace || !isset($this->headers[$key])) {
-$this->headers[$key] = array($values);
-} else {
-$this->headers[$key][] = $values;
-}
 }
 if ('cache-control'=== $key) {
 $this->cacheControl = $this->parseCacheControl(implode(', ', $this->headers[$key]));
@@ -1077,16 +1069,6 @@ public function isMethodCacheable()
 {
 return in_array($this->getMethod(), array('GET','HEAD'));
 }
-public function getProtocolVersion()
-{
-if ($this->isFromTrustedProxy()) {
-preg_match('~^(HTTP/)?([1-9]\.[0-9]) ~', $this->headers->get('Via'), $matches);
-if ($matches) {
-return'HTTP/'.$matches[2];
-}
-}
-return $this->server->get('SERVER_PROTOCOL');
-}
 public function getContent($asResource = false)
 {
 $currentContentIsResource = is_resource($this->content);
@@ -1202,16 +1184,7 @@ return'XMLHttpRequest'== $this->headers->get('X-Requested-With');
 protected function prepareRequestUri()
 {
 $requestUri ='';
-if ($this->headers->has('X_ORIGINAL_URL')) {
-$requestUri = $this->headers->get('X_ORIGINAL_URL');
-$this->headers->remove('X_ORIGINAL_URL');
-$this->server->remove('HTTP_X_ORIGINAL_URL');
-$this->server->remove('UNENCODED_URL');
-$this->server->remove('IIS_WasUrlRewritten');
-} elseif ($this->headers->has('X_REWRITE_URL')) {
-$requestUri = $this->headers->get('X_REWRITE_URL');
-$this->headers->remove('X_REWRITE_URL');
-} elseif ('1'== $this->server->get('IIS_WasUrlRewritten') &&''!= $this->server->get('UNENCODED_URL')) {
+if ('1'== $this->server->get('IIS_WasUrlRewritten') &&''!= $this->server->get('UNENCODED_URL')) {
 $requestUri = $this->server->get('UNENCODED_URL');
 $this->server->remove('UNENCODED_URL');
 $this->server->remove('IIS_WasUrlRewritten');
@@ -1278,11 +1251,11 @@ return rtrim($baseUrl,'/'.DIRECTORY_SEPARATOR);
 }
 protected function prepareBasePath()
 {
+$filename = basename($this->server->get('SCRIPT_FILENAME'));
 $baseUrl = $this->getBaseUrl();
 if (empty($baseUrl)) {
 return'';
 }
-$filename = basename($this->server->get('SCRIPT_FILENAME'));
 if (basename($baseUrl) === $filename) {
 $basePath = dirname($baseUrl);
 } else {
@@ -1295,6 +1268,7 @@ return rtrim($basePath,'/');
 }
 protected function preparePathInfo()
 {
+$baseUrl = $this->getBaseUrl();
 if (null === ($requestUri = $this->getRequestUri())) {
 return'/';
 }
@@ -1304,12 +1278,11 @@ $requestUri = substr($requestUri, 0, $pos);
 if (''!== $requestUri &&'/'!== $requestUri[0]) {
 $requestUri ='/'.$requestUri;
 }
-if (null === ($baseUrl = $this->getBaseUrl())) {
-return $requestUri;
-}
 $pathInfo = substr($requestUri, strlen($baseUrl));
-if (false === $pathInfo ||''=== $pathInfo) {
+if (null !== $baseUrl && (false === $pathInfo ||''=== $pathInfo)) {
 return'/';
+} elseif (null === $baseUrl) {
+return $requestUri;
 }
 return (string) $pathInfo;
 }
@@ -1365,6 +1338,11 @@ $clientValues[] = (self::HEADER_CLIENT_PORT === $type ?'0.0.0.0:':'').trim($v);
 if (self::$trustedHeaders[self::HEADER_FORWARDED] && $this->headers->has(self::$trustedHeaders[self::HEADER_FORWARDED])) {
 $forwardedValues = $this->headers->get(self::$trustedHeaders[self::HEADER_FORWARDED]);
 $forwardedValues = preg_match_all(sprintf('{(?:%s)=(?:"?\[?)([a-zA-Z0-9\.:_\-/]*+)}', self::$forwardedParams[$type]), $forwardedValues, $matches) ? $matches[1] : array();
+if (self::HEADER_CLIENT_PORT === $type) {
+foreach ($forwardedValues as $k => $v) {
+$forwardedValues[$k] = substr_replace($v,'0.0.0.0', 0, strrpos($v,':'));
+}
+}
 }
 if (null !== $ip) {
 $clientValues = $this->normalizeAndFilterClientIps($clientValues, $ip);
