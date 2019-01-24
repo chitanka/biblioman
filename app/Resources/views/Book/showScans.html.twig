@@ -38,4 +38,27 @@
 		{% endfor %}
 	{% endif %}
 
+	<table class="table table-bordered table-hover table-condensed">
+		<tr>
+			<th>Файл</th>
+			<th>Име</th>
+			<th>Размери</th>
+			<th>Големина</th>
+			<th>Формат</th>
+			<th>Дата</th>
+			<th>Създател</th>
+		</tr>
+		{% for scan in book.scans %}
+			<tr>
+				<td><img src="{{ _.thumbScan(scan.name, 300) }}" style="max-height: 60px" alt="{{ scan.name }}"></td>
+				<td>{{ scan.title }}</td>
+				<td>{{ scan.dimensions }}</td>
+				<td>{{ scan.size|format_bytes }}</td>
+				<td>{{ scan.internalFormat|upper }}</td>
+				<td>{{ _.printDate(scan.createdAt) }}</td>
+				<td>{{ scan.createdBy }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+
 {% endblock %}

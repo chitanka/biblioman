@@ -113,7 +113,7 @@
 						</ul>
 					{% endif %}
 
-					{% if book.hasOtherCovers %}
+					{% if book.covers is not empty %}
 						<p><a href="{{ path('books_show_covers', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-image-o"></span> Корици <span class="badge">{{ book.nbCovers }}</span></a></p>
 					{% endif %}
 

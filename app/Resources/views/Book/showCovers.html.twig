@@ -56,4 +56,29 @@
 		{% endfor %}
 	{% endif %}
 
+	<table class="table table-bordered table-hover table-condensed">
+		<tr>
+			<th>Файл</th>
+			<th>Име</th>
+			<th>Вид</th>
+			<th>Размери</th>
+			<th>Големина</th>
+			<th>Формат</th>
+			<th>Дата</th>
+			<th>Създател</th>
+		</tr>
+		{% for cover in book.covers %}
+			<tr>
+				<td><img src="{{ _.thumbCover(cover.name, 300) }}" style="max-height: 60px" alt="{{ cover.name }}"></td>
+				<td>{{ cover.title }}</td>
+				<td>{{ ('BookCover.'~cover.type)|trans }}</td>
+				<td>{{ cover.dimensions }}</td>
+				<td>{{ cover.size|format_bytes }}</td>
+				<td>{{ cover.internalFormat|upper }}</td>
+				<td>{{ _.printDate(cover.createdAt) }}</td>
+				<td>{{ cover.createdBy }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+
 {% endblock %}
