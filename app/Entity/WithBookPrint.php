@@ -26,17 +26,17 @@ trait WithBookPrint {
 	private $printOut;
 
 	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $printerSheets;
 
 	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $publisherSheets;
 
 	/**
-	 * @ORM\Column(type="string", length=10, nullable=true)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $provisionPublisherSheets;
 
