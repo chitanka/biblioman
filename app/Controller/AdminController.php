@@ -47,7 +47,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 
 	protected function prePersistBookEntity(Book $book) {
 		$book->setCurrentEditor($this->getUser());
-		$book->setCreatorByNewFiles($this->getUsername());
+		$book->setCreator($this->getUser());
 		$book->setCreatedByUser($this->getUser());
 	}
 
@@ -57,7 +57,7 @@ class AdminController extends \EasyCorp\Bundle\EasyAdminBundle\Controller\AdminC
 		if ($revision) {
 			$this->em->persist($revision);
 		}
-		$book->setCreatorByNewFiles($this->getUsername());
+		$book->setCreator($this->getUser());
 		$book->clearLock();
 	}
 

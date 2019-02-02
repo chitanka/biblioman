@@ -55,10 +55,12 @@ trait WithBookFiles {
 		$this->updateNbContentFiles();
 	}
 
-	public function setCreatorByNewFiles($user) {
+	public function setCreator(User $user) {
 		$setCreatedBy = function (BookFile $file) use ($user) {
 			if ($file->isNew()) {
-				$file->setCreatedBy($user);
+				$file->setCreatedByUser($user);
+			} else if ($file->getFile() !== null) {
+				$file->setUpdatedByUser($user);
 			}
 		};
 		Looper::forEachValue($this->scans, $setCreatedBy);

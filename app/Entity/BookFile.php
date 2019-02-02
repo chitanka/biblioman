@@ -71,10 +71,28 @@ class BookFile extends Entity {
 	protected $createdBy;
 
 	/**
+	 * @var User
+	 * @ORM\ManyToOne(targetEntity="User")
+	 */
+	protected $createdByUser;
+
+	/**
 	 * @var \DateTime
 	 * @ORM\Column(type="datetime")
 	 */
 	protected $createdAt;
+
+	/**
+	 * @var string
+	 * @ORM\Column(type="string", length=50)
+	 */
+	protected $updatedBy;
+
+	/**
+	 * @var User
+	 * @ORM\ManyToOne(targetEntity="User")
+	 */
+	protected $updatedByUser;
 
 	/**
 	 * @var \DateTime
@@ -94,6 +112,7 @@ class BookFile extends Entity {
 			'hash' => $this->hash,
 			'createdBy' => $this->createdBy,
 			'createdAt' => $this->createdAt,
+			'updatedBy' => $this->updatedBy,
 			'updatedAt' => $this->updatedAt,
 		];
 	}
@@ -136,9 +155,17 @@ class BookFile extends Entity {
 	}
 
 	public function getCreatedBy() { return $this->createdBy; }
-	public function setCreatedBy($createdBy) {
-		$this->createdBy = $createdBy;
+	public function setCreatedByUser(User $creator) {
+		$this->createdByUser = $creator;
+		$this->createdBy = $creator->getUsername();
 		$this->createdAt = new \DateTime();
+	}
+
+	public function getUpdatedBy() { return $this->updatedBy; }
+	public function setUpdatedByUser(User $creator) {
+		$this->updatedByUser = $creator;
+		$this->updatedBy = $creator->getUsername();
+		$this->updatedAt = new \DateTime();
 	}
 
 	public function getCreatedAt() { return $this->createdAt; }
