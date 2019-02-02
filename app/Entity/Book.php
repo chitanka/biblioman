@@ -17,12 +17,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Book extends Entity {
 
-	const STATE_INCOMPLETE = 'incomplete';
-	const STATE_VERIFIED_0 = 'verified_0';
-	const STATE_VERIFIED_1 = 'verified_1';
-	const STATE_VERIFIED_2 = 'verified_2';
-	const STATE_VERIFIED_3 = 'verified_3';
-
 	use CanBeLocked;
 	use HasEditHistory;
 	use HasTimestamp;
@@ -54,13 +48,6 @@ class Book extends Entity {
 		$this->booksOnShelf = new ArrayCollection();
 		$this->updatedAt = new \DateTime();
 		$this->multiFields = new ArrayCollection();
-	}
-
-	public function getState() {
-		if ($this->isIncomplete()) {
-			return self::STATE_INCOMPLETE;
-		}
-		return self::STATE_VERIFIED_0;
 	}
 
 	public function disableUpdatedTracking() {

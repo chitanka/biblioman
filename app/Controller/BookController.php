@@ -92,6 +92,18 @@ class BookController extends Controller {
 	}
 
 	/**
+	 * @Route("/{id}/verify", name="books_verify", methods={"PUT"})
+	 */
+	public function verifyAction(Book $book) {
+		$book->verify($this->getUser());
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($book);
+		$em->flush();
+		$this->addFlash('success', 'Верифициран запис');
+		return $this->redirectToRoute('books_show', ['id' => $book->getId()]);
+	}
+
+	/**
 	 * @Route("/{id}.{_format}", defaults={"_format" = "html"}, name="books_show")
 	 */
 	public function showAction(Request $request, Book $book, $_format) {

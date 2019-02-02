@@ -206,4 +206,8 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 	public function canAccessBookContents(Book $book) {
 		return $book->isAvailable() || $book->isCreatedByTheUser($this) || $this->is(self::ROLE_EDITOR_PLUS);
 	}
+
+	public function canVerifyBook(Book $book) {
+		return $this->is(self::ROLE_EDITOR_MANAGING);
+	}
 }

@@ -5,6 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait WithBookMeta {
 
+	public static $STATE_INCOMPLETE = 'incomplete';
+	public static $STATE_VERIFIED = 'verified';
+
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
@@ -49,9 +52,10 @@ trait WithBookMeta {
 	private $reasonWhyIncomplete;
 
 	/**
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @var int
+	 * @ORM\Column(type="integer")
 	 */
-	private $verified;
+	private $verifiedCount = 0;
 
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 	public function setNotes($notes) { $this->notes = Typograph::replaceAll($notes); }
@@ -61,9 +65,28 @@ trait WithBookMeta {
 	public function hasOnlyScans() { return $this->hasOnlyScans; }
 	public function setHasOnlyScans($hasOnlyScans) { $this->hasOnlyScans = $hasOnlyScans; }
 	public function isIncomplete() { return $this->isIncomplete; }
-	public function setIsIncomplete($isIncomplete) { $this->isIncomplete = $isIncomplete; }
+	public function setIsIncomplete($isIncomplete) {
+		if ($this->isVerified()) {
+			// no way back when verified
+			return;
+		}
+		$this->isIncomplete = $isIncomplete;
+	}
 	public function setReasonWhyIncomplete($reasonWhyIncomplete) { $this->reasonWhyIncomplete = $reasonWhyIncomplete; }
-	public function setVerified($verified) { $this->verified = $verified; }
+	public function verify(User $user) {
+		if ($this->isIncomplete) {
+			$this->setIsIncomplete(false);
+		}
+		$this->verifiedCount++;
+	}
+	public function isVerified() { return $this->verifiedCount > 0; }
+
+	public function getState() {
+		if ($this->isIncomplete) {
+			return self::$STATE_INCOMPLETE;
+		}
+		return self::$STATE_VERIFIED.'_'.$this->verifiedCount;
+	}
 
 	protected function metaToArray() {
 		return [
@@ -74,7 +97,7 @@ trait WithBookMeta {
 			'hasOnlyScans' => $this->hasOnlyScans,
 			'isIncomplete' => $this->isIncomplete,
 			'reasonWhyIncomplete' => $this->reasonWhyIncomplete,
-			'verified' => $this->verified,
+			'verifiedCount' => $this->verifiedCount,
 		];
 	}
 

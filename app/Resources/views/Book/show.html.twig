@@ -124,6 +124,13 @@
 							<p class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</p>
 						{% endif %}
 					{% endif %}
+
+					{% if app.user.canVerifyBook(book) %}
+						<form action="{{ path('books_verify', {id: book.id}) }}" method="post">
+							<input type="hidden" name="_method" value="PUT">
+							<button type="submit" class="btn btn-primary">Верифициране</button>
+						</form>
+					{% endif %}
 				</dd>
 			</dl>
 		</div>

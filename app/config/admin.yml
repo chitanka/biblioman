@@ -86,7 +86,7 @@ easy_admin:
                     - { property: publishingYear }
             edit:
                 auth:
-                    role_editor_plus: object.isIncomplete or object.createdBy == user.getUsername() or object.completedBy == user.getUsername() or user.is('ROLE_EDITOR_PLUS')
+                    role_editor_plus: object.isIncomplete or object.createdBy == user.getUsername() or object.completedBy == user.getUsername() or user.is('ROLE_EDITOR_MANAGING') or (user.is('ROLE_EDITOR_PLUS') and not object.isVerified)
                 title: Book.form_title
                 fields:
                     - { type: group, label: Data from paper, icon: book }
