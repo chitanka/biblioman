@@ -58,7 +58,8 @@
 		"chitanka/thumbnail-server": "^1.0",
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",
 		"cosmicdreams/fontawesome-iconpicker": "^1.2",
-		"djvu-html5": "^0.2.2"
+		"djvu-html5": "^0.2.2",
+		"chitanka/permission-bundle": "^0.2.0"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",

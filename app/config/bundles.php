@@ -14,6 +14,7 @@ return [
 	new \FOS\MessageBundle\FOSMessageBundle(),
 	new \Liip\UrlAutoConverterBundle\LiipUrlAutoConverterBundle(),
 	new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+	new \Chitanka\PermissionBundle\ChitankaPermissionBundle(),
 	new \Chitanka\WikiBundle\ChitankaWikiBundle(),
 	new \App\App(),
 ];

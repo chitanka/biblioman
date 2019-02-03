@@ -13,6 +13,9 @@
 		{% for role in user.nonDefaultRoles %}
 			<li><a href="{{ path('users_by_role', {role:role|lower|replace({'role_': ''})}) }}">{{ ('roles.'~role)|trans }}</a></li>
 		{% endfor %}
+		{% if is_granted('ROLE_EDITOR_MANAGING') %}
+			<a href="{{ path('chitanka_permission_index', {username: user.username}) }}" class="btn btn-default">Управление на правата</a>
+		{% endif %}
 	</ul>
 
 	<h2>Записи</h2>

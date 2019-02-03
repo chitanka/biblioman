@@ -99,3 +99,26 @@ fos_message:
 liip_url_auto_converter:
     linkclass: external
     target: _blank
+
+chitanka_permission:
+    transitions:
+        -
+            from: user
+            to: editor
+            managers: [ editor_managing, admin ]
+        -
+            from: user
+            to: wiki_editor
+            managers: admin
+        -
+            from: user
+            to: admin
+            managers: admin
+        -
+            from: editor
+            to: editor_plus
+            managers: [ editor_managing, admin ]
+        -
+            from: editor_plus
+            to: editor_managing
+            managers: admin

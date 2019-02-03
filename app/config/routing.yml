@@ -12,6 +12,10 @@ app:
     resource: "@App/Controller/"
     type:     annotation
 
+chitanka_permission:
+    resource: "@ChitankaPermissionBundle/Resources/config/routing.yml"
+    prefix:   /
+
 chitanka_wiki:
     resource: "@ChitankaWikiBundle/Resources/config/routing.yml"
     prefix:   /

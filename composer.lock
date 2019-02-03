@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3753736e4ca3d884a51fb1c3e7d656e2",
+    "content-hash": "7f82ee64a098392efb8b3e93603cbc8c",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -49,6 +49,40 @@
                 "transliterator"
             ],
             "time": "2017-04-04T11:38:05+00:00"
+        },
+        {
+            "name": "chitanka/permission-bundle",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chitanka/permission-bundle.git",
+                "reference": "1aaca364732381535d26bc5cd9ace275838cae56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chitanka/permission-bundle/zipball/1aaca364732381535d26bc5cd9ace275838cae56",
+                "reference": "1aaca364732381535d26bc5cd9ace275838cae56",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Chitanka\\PermissionBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A simple system for managing user permissions",
+            "keywords": [
+                "permission",
+                "symfony roles"
+            ],
+            "time": "2019-02-03T18:37:48+00:00"
         },
         {
             "name": "chitanka/thumbnail-server",
