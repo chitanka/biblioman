@@ -84,7 +84,7 @@ class BookFile extends Entity {
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string", length=50)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	protected $updatedBy;
 
@@ -96,7 +96,7 @@ class BookFile extends Entity {
 
 	/**
 	 * @var \DateTime
-	 * @ORM\Column(type="datetime")
+	 * @ORM\Column(type="datetime", nullable=true)
 	 */
 	protected $updatedAt;
 
