@@ -51,3 +51,7 @@ services:
     app.librarian:
         class: App\Library\Librarian
         arguments: ["@app.repository_finder"]
+
+    vich_uploader.storage.file_system:
+        class: App\Storage\FileSystemStorage
+        arguments: ["@vich_uploader.property_mapping_factory"]
