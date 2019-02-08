@@ -29,12 +29,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Групи: {{ _.printUserRolesInline(app.user) }}"><span class="fa fa-user"></span> {{ app.user.username }} <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="{{ path('my_shelves') }}"><span class="fa fa-folder-o fa-fw"></span> Моите рафтове</a>
-							</li>
-							<li role="separator" class="divider"></li>
-							<li>
 								<a href="{{ path('users_show', {username: app.user.username}) }}"><span class="fa fa-user fa-fw"></span> Профил</a>
 								<a href="{{ path('fos_message_inbox') }}"><span class="fa fa-comments-o fa-fw"></span> Лични съобщения</a>
+								<a href="{{ path('my_shelves') }}"><span class="fa fa-folder-o fa-fw"></span> Моите рафтове</a>
 							</li>
 							<li role="separator" class="divider"></li>
 							{% if is_granted('ROLE_EDITOR') %}
