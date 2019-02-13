@@ -16,12 +16,12 @@ trait WithBookAuthorship {
 	private $translator;
 
 	/**
-	 * @ORM\Column(type="string", length=50, nullable=true)
+	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
 	private $translatedFromLanguage;
 
 	/**
-	 * @ORM\Column(type="string", length=20, nullable=true)
+	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
 	private $dateOfTranslation;
 
