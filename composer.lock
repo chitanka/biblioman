@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f82ee64a098392efb8b3e93603cbc8c",
+    "content-hash": "1ad284253cfd7e513ba8da5a6f18f372",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -83,6 +83,37 @@
                 "symfony roles"
             ],
             "time": "2019-02-03T18:37:48+00:00"
+        },
+        {
+            "name": "chitanka/rocket-chat-client",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chitanka/rocket-chat-client.git",
+                "reference": "dd8d5d8d9de6b5fd55e480eeb4eadca4ab0ffd50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chitanka/rocket-chat-client/zipball/dd8d5d8d9de6b5fd55e480eeb4eadca4ab0ffd50",
+                "reference": "dd8d5d8d9de6b5fd55e480eeb4eadca4ab0ffd50",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chitanka\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple PHP client for Rocket.Chat",
+            "homepage": "https://github.com/chitanka/rocket-chat-client",
+            "keywords": [
+                "rocket.chat"
+            ],
+            "time": "2019-03-17T20:12:31+00:00"
         },
         {
             "name": "chitanka/thumbnail-server",

@@ -59,7 +59,8 @@
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",
 		"cosmicdreams/fontawesome-iconpicker": "^1.2",
 		"djvu-html5": "^0.2.2",
-		"chitanka/permission-bundle": "^0.2.0"
+		"chitanka/permission-bundle": "^0.2.0",
+		"chitanka/rocket-chat-client": "^0.1.2"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",
