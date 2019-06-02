@@ -26,6 +26,11 @@
 						<span class="fa fa-list-alt fa-fw"></span>
 						{{ _.printSearchLink(book.sequence, 'sequence', searchableFields) }}{% if book.sequenceNr is not empty %}, <span class="book-sequenceNr">№{{ book.sequenceNr }}</span>{% endif %}
 					</div>
+				{% elseif book.series is not empty %}
+					<div class="entity-field entity-field-sequence book-sequence">
+						<span class="fa fa-list-alt fa-fw"></span>
+						{{ _.printSearchLink(book.series, 'series', searchableFields) }}{% if book.seriesNr is not empty %}, <span class="book-sequenceNr">№{{ book.seriesNr }}</span>{% endif %}
+					</div>
 				{% endif %}
 				{% if book.publisher is not empty %}
 					<div class="entity-field entity-field-publisher book-publisher">
