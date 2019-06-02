@@ -28,9 +28,9 @@
 					</div>
 				{% endif %}
 				{% if book.series is not empty and not book.isSeriesSameAsTheSequence %}
-					<div class="entity-field entity-field-series book-sequence">
-						<span class="fa fa-list-alt fa-fw"></span>
-						{{ _.printSearchLink(book.series, 'series', searchableFields) }}{% if book.seriesNr is not empty %}, <span class="book-sequenceNr">№{{ book.seriesNr }}</span>{% endif %}
+					<div class="entity-field entity-field-series book-series">
+						<span class="fa fa-list fa-fw"></span>
+						{{ _.printSearchLink(book.series, 'series', searchableFields) }}{% if book.seriesNr is not empty %}, <span class="book-seriesNr">№{{ book.seriesNr }}</span>{% endif %}
 					</div>
 				{% endif %}
 				{% if book.publisher is not empty %}
