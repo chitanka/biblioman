@@ -45,6 +45,10 @@ trait WithBookGrouping {
 	public function setSeries($series) { $this->series = Typograph::replaceAll($series); }
 	public function setSeriesNr($seriesNr) { $this->seriesNr = $seriesNr; }
 
+	public function isSeriesSameAsTheSequence() {
+		return $this->series === $this->sequence && $this->seriesNr == $this->sequenceNr;
+	}
+
 	protected function groupingToArray() {
 		return [
 			'sequence' => $this->sequence,
