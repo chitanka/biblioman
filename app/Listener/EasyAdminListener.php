@@ -20,7 +20,7 @@ class EasyAdminListener implements EventSubscriberInterface {
 		if (!$book) {
 			return;
 		}
-		$msg = "Нов запис в Библиоман: [_{$book->getTitleWithVolume()}_](https://biblioman.chitanka.info/books/{$book->getId()}) – добавен от **{$book->getCreatedBy()}**";
+		$msg = "Нов запис в Библиоман: _[{$book->getTitleWithVolume()}](https://biblioman.chitanka.info/books/{$book->getId()})_ – добавен от **{$book->getCreatedBy()}**";
 		$file = (new \DateTime('+20 minutes'))->format('Ymd_His').'-'.uniqid().'.msg';
 		file_put_contents(__DIR__.'/../../var/rocketchat/'.$file, $msg);
 	}
