@@ -127,11 +127,15 @@ div:target {
 .book-incomplete {
 	border-left: 0.2em solid red;
 }
-.badge-editor-plus {
+.badge-editor-senior {
 	color: green;
 }
 .badge-editor-managing {
 	color: red;
+}
+.badge-editor-chief {
+	color: red;
+	font-size: 110%;
 }
 h1 .extra-info {
 	opacity: .7;

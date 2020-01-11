@@ -192,13 +192,14 @@ return [
 
 	'roles' => [
 		'ROLE_USER' => 'потребител',
-		'ROLE_EDITOR' => 'редактор',
-		'ROLE_EDITOR_PLUS' => 'старши редактор',
-		'ROLE_EDITOR_MANAGING' => 'отговорен редактор',
 		'ROLE_WIKI_EDITOR' => 'уики редактор',
+		'ROLE_EDITOR' => 'редактор',
+		'ROLE_EDITOR_SENIOR' => 'старши редактор',
+		'ROLE_EDITOR_MANAGING' => 'отговорен редактор',
+		'ROLE_EDITOR_CHIEF' => 'главен редактор',
 		'ROLE_ADMIN' => 'администратор',
 	],
 	'auth' => [
-		'role_editor_plus' => 'Само старши редактори могат да променят този запис.',
+		'role_editor_senior' => 'Само старши редактори могат да променят този запис.',
 	],
 ];

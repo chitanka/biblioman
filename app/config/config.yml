@@ -105,7 +105,7 @@ chitanka_permission:
         -
             from: user
             to: editor
-            managers: [ editor_managing, admin ]
+            managers: [ editor_managing, editor_chief, admin ]
         -
             from: user
             to: wiki_editor
@@ -116,9 +116,13 @@ chitanka_permission:
             managers: admin
         -
             from: editor
-            to: editor_plus
-            managers: [ editor_managing, admin ]
+            to: editor_senior
+            managers: [ editor_managing, editor_chief, admin ]
         -
-            from: editor_plus
+            from: editor_senior
             to: editor_managing
+            managers: [ editor_chief, admin ]
+        -
+            from: editor_managing
+            to: editor_chief
             managers: admin

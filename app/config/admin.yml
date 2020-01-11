@@ -86,7 +86,7 @@ easy_admin:
                     - { property: publishingYear }
             edit:
                 auth:
-                    role_editor_plus: object.isIncomplete or object.createdBy == user.getUsername() or object.completedBy == user.getUsername() or user.is('ROLE_EDITOR_MANAGING') or (user.is('ROLE_EDITOR_PLUS') and not object.isVerified)
+                    role_editor_senior: object.isIncomplete or object.createdBy == user.getUsername() or object.completedBy == user.getUsername() or user.is('ROLE_EDITOR_MANAGING') or (user.is('ROLE_EDITOR_SENIOR') and not object.isVerified)
                 title: Book.form_title
                 fields:
                     - { type: group, label: Data from paper, icon: book }
@@ -199,7 +199,7 @@ easy_admin:
 
         Person:
             class: App\Entity\Person
-            role: ROLE_EDITOR_PLUS
+            role: ROLE_EDITOR_SENIOR
             label: Persons
             form:
                 fields:
@@ -241,5 +241,5 @@ easy_admin:
                             choices:
                                 ROLE_USER: ROLE_USER
                                 ROLE_EDITOR: ROLE_EDITOR
-                                ROLE_EDITOR_PLUS: ROLE_EDITOR_PLUS
+                                ROLE_EDITOR_SENIOR: ROLE_EDITOR_SENIOR
                                 ROLE_ADMIN: ROLE_ADMIN

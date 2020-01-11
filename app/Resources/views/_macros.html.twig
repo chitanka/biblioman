@@ -95,10 +95,12 @@
 {% endmacro %}
 
 {% macro printUserBadge(user) %}
-	{% if user.is('ROLE_EDITOR_MANAGING') %}
+	{% if user.is('ROLE_EDITOR_CHIEF') %}
+		<span class="fa fa-user-circle-o badge-editor-chief" title="{{ 'roles.ROLE_EDITOR_CHIEF'|trans }}"></span>
+	{% elseif user.is('ROLE_EDITOR_MANAGING') %}
 		<span class="fa fa-certificate badge-editor-managing" title="{{ 'roles.ROLE_EDITOR_MANAGING'|trans }}"></span>
-	{% elseif user.is('ROLE_EDITOR_PLUS') %}
-		<span class="fa fa-certificate badge-editor-plus" title="{{ 'roles.ROLE_EDITOR_PLUS'|trans }}"></span>
+	{% elseif user.is('ROLE_EDITOR_SENIOR') %}
+		<span class="fa fa-certificate badge-editor-senior" title="{{ 'roles.ROLE_EDITOR_SENIOR'|trans }}"></span>
 	{% endif %}
 {% endmacro %}
 
