@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ad284253cfd7e513ba8da5a6f18f372",
+    "content-hash": "0a11c19af12f1ae0ac4bbec8afbc9d1d",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -52,16 +52,16 @@
         },
         {
             "name": "chitanka/permission-bundle",
-            "version": "0.2",
+            "version": "0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/permission-bundle.git",
-                "reference": "1aaca364732381535d26bc5cd9ace275838cae56"
+                "reference": "259e1bf02c1ad9107946b723fc9fab334bd90fdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/permission-bundle/zipball/1aaca364732381535d26bc5cd9ace275838cae56",
-                "reference": "1aaca364732381535d26bc5cd9ace275838cae56",
+                "url": "https://api.github.com/repos/chitanka/permission-bundle/zipball/259e1bf02c1ad9107946b723fc9fab334bd90fdb",
+                "reference": "259e1bf02c1ad9107946b723fc9fab334bd90fdb",
                 "shasum": ""
             },
             "require": {
@@ -82,7 +82,7 @@
                 "permission",
                 "symfony roles"
             ],
-            "time": "2019-02-03T18:37:48+00:00"
+            "time": "2020-01-11T11:53:58+00:00"
         },
         {
             "name": "chitanka/rocket-chat-client",
@@ -441,8 +441,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
-                "reference": "master",
-                "shasum": null
+                "reference": "master"
             },
             "type": "library"
         },
