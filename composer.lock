@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a11c19af12f1ae0ac4bbec8afbc9d1d",
+    "content-hash": "1bdada4457da7c41f795ea54e03bc5fd",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -177,16 +177,16 @@
         },
         {
             "name": "chitanka/wiki-bundle",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/wiki-bundle.git",
-                "reference": "a86c4d74ee2f721015e561f3310e35b141ec62fb"
+                "reference": "ee7563042d91031384e490df47affee84d87e4be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/wiki-bundle/zipball/a86c4d74ee2f721015e561f3310e35b141ec62fb",
-                "reference": "a86c4d74ee2f721015e561f3310e35b141ec62fb",
+                "url": "https://api.github.com/repos/chitanka/wiki-bundle/zipball/ee7563042d91031384e490df47affee84d87e4be",
+                "reference": "ee7563042d91031384e490df47affee84d87e4be",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
             "keywords": [
                 "wiki"
             ],
-            "time": "2018-04-21T14:01:04+00:00"
+            "time": "2020-01-12T16:32:18+00:00"
         },
         {
             "name": "components/bootstrap",

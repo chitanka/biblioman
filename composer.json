@@ -53,14 +53,14 @@
 		"liip/url-auto-converter-bundle": "dev-master",
 		"stof/doctrine-extensions-bundle": "^1.2",
 		"lightgallery": "*",
-		"chitanka/wiki-bundle": "^1.0",
-		"chitanka/utils": "^1.0",
-		"chitanka/thumbnail-server": "^1.0",
+		"chitanka/wiki-bundle": "*",
+		"chitanka/utils": "*",
+		"chitanka/thumbnail-server": "*",
 		"mrohnstock/bootstrap-multiselect": "^0.9.13",
 		"cosmicdreams/fontawesome-iconpicker": "^1.2",
 		"djvu-html5": "^0.2.2",
-		"chitanka/permission-bundle": "^0.2.0",
-		"chitanka/rocket-chat-client": "^0.1.2"
+		"chitanka/permission-bundle": "*",
+		"chitanka/rocket-chat-client": "*"
 	},
 	"require-dev": {
 		"sensio/generator-bundle": "^3.0",
