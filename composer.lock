@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bdada4457da7c41f795ea54e03bc5fd",
+    "content-hash": "0d43e663993eb7b09f433a02e1626ad5",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -434,16 +434,6 @@
                 "git"
             ],
             "time": "2017-06-12T11:48:39+00:00"
-        },
-        {
-            "name": "djvu-html5",
-            "version": "0.2.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
-                "reference": "master"
-            },
-            "type": "library"
         },
         {
             "name": "doctrine/annotations",
@@ -1740,16 +1730,6 @@
             "time": "2016-11-11T18:43:20+00:00"
         },
         {
-            "name": "lightgallery",
-            "version": "1.3.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sachinchoolur/lightGallery",
-                "reference": "master"
-            },
-            "type": "library"
-        },
-        {
             "name": "liip/url-auto-converter-bundle",
             "version": "dev-master",
             "source": {
@@ -1803,6 +1783,16 @@
             ],
             "abandoned": true,
             "time": "2017-12-05T09:38:32+00:00"
+        },
+        {
+            "name": "mateusz-matela/djvu-html5",
+            "version": "0.2.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
+                "reference": "master"
+            },
+            "type": "library"
         },
         {
             "name": "michelf/php-markdown",
@@ -2482,6 +2472,16 @@
             ],
             "description": "Allows installation of Components via Composer.",
             "time": "2015-08-10T12:35:38+00:00"
+        },
+        {
+            "name": "sachinchoolur/lightgallery",
+            "version": "1.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sachinchoolur/lightGallery",
+                "reference": "master"
+            },
+            "type": "library"
         },
         {
             "name": "sensio/distribution-bundle",
