@@ -6,7 +6,7 @@ use Pagerfanta\Pagerfanta;
 
 class BookExport {
 
-	const MAX_ROWS = 1000;
+	const MAX_ROWS = 10000;
 
 	/** @var Book[] */
 	private $books;
