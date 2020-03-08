@@ -37,7 +37,7 @@ class Entities implements Collection {
 		if ($this->collection->isEmpty()) {
 			return $this;
 		}
-		return new static(array_filter($this->collection->getValues(), $c));
+		return new static(array_values(array_filter($this->collection->getValues(), $c)));
 	}
 
 	public function unique() {
