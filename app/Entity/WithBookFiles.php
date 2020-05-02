@@ -51,8 +51,10 @@ trait WithBookFiles {
 
 	protected function updateNbFiles() {
 		$this->updateNbCovers();
-		$this->updateNbScans();
 		$this->updateNbContentFiles();
+		if ($this->canHaveScans()) {
+			$this->updateNbScans();
+		}
 	}
 
 	public function setCreator(User $user) {

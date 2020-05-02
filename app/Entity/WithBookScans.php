@@ -14,7 +14,7 @@ trait WithBookScans {
 
 	/**
 	 * Number of uploaded scans for the book
-	 * @ORM\Column(type="smallint")
+	 * @ORM\Column(type="smallint", nullable=true)
 	 */
 	private $nbScans;
 
