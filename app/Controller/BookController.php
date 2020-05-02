@@ -6,6 +6,7 @@ use App\Entity\BookCategory;
 use App\Entity\Query\BookQuery;
 use App\File\Thumbnail;
 use App\Http\Request;
+use App\Library\BookSearchCriteria;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -56,7 +57,7 @@ class BookController extends Controller {
 	 * @Route("/incomplete.{_format}", name="books_incomplete", defaults={"_format": "html"})
 	 */
 	public function listIncompleteAction(Request $request, $_format) {
-		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete());
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete(new BookSearchCriteria(null, $request->getBookSort())));
 		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager, [], $_format, $request);
 	}
 

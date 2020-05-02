@@ -133,10 +133,10 @@ class BookQuery {
 	/** @var QueryBuilder */
 	private $qb;
 
-	public function __construct(BookRepository $repository, BookSearchCriteria $criteria) {
+	public function __construct(BookRepository $repository, BookSearchCriteria $criteria, QueryBuilder $qb = null) {
 		$this->repository = $repository;
 		$this->bookMultiFieldRepository = $this->repository->getBookMultiFieldRepository();
-		$this->qb = $this->repository->createQueryBuilder(self::ALIAS);
+		$this->qb = $qb ?? $this->repository->createQueryBuilder(self::ALIAS);
 		$this->applySearchCriteria($criteria);
 	}
 
