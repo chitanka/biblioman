@@ -164,7 +164,7 @@ class BookQuery {
 		if ($yearRange = YearRange::tryCreateFromString($criteria->term)) {
 			return $this->filterByPublishingYearRange($yearRange);
 		}
-		return $this->filterGlobally($criteria->term);
+		return $this->filterGlobally($criteria->terms ?: $criteria->term);
 	}
 
 	private function addSort(array $sort) {
@@ -268,10 +268,11 @@ class BookQuery {
 	}
 
 	private function filterGlobally($term) {
-		$this->qb->andWhere(implode(' OR ', array_map(function($field) {
-			return $this->fieldForQuery($field)." LIKE ?1";
+		$comparison = is_array($term) ? 'IN (?1)' : 'LIKE ?1';
+		$this->qb->andWhere(implode(' OR ', array_map(function($field) use ($comparison) {
+			return $this->fieldForQuery($field) .' '. $comparison;
 		}, self::$globallySearchableFields)));
-		$this->qb->setParameter('1', "%{$term}%");
+		$this->qb->setParameter('1', is_array($term) ? $term : "%{$term}%");
 		return $this->qb;
 	}
 

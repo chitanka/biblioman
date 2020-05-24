@@ -22,9 +22,9 @@ class Librarian {
 	 */
 	public function createBookSearchCriteria($textQuery, $sort = null) {
 		$criteria = new BookSearchCriteria($textQuery, $sort);
-		if ($criteria->isForPersonSearch()) {
-			$normalizedName = BookField::normalizedFieldValue($criteria->field, $criteria->term);
-			$persons = $this->repoFinder->forPerson()->findRelatedAndSelfByName($normalizedName);
+		$normalizedName = BookField::normalizedFieldValue($criteria->field, $criteria->term);
+		$persons = $this->repoFinder->forPerson()->findRelatedAndSelfByName($normalizedName);
+		if (!$persons->isEmpty()) {
 			$criteria->terms = $persons->names();
 		}
 		return $criteria;
