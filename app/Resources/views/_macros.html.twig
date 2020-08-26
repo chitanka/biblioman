@@ -183,7 +183,7 @@
 			{% endif %}
 		</div>
 	{% endif %}
-	{% if book.isMissingScans %}
+	{% if book.isMissingScans and not book.hasContentFiles %}
 		<div class="text-danger">{{ _.printMissingScansSearchLink(searchableFields) }}</div>
 	{% endif %}
 {% endmacro %}

@@ -120,7 +120,7 @@
 					{% if book.canHaveScans and app.user.canAccessBookContents(book) %}
 						{% if book.scans is not empty %}
 							<p><a href="{{ path('books_show_scans', {id: book.id}) }}" class="btn btn-default"><span class="fa fa-file-text-o"></span> Сканирани страници <span class="badge">{{ book.nbScans }}</span></a></p>
-						{% else %}
+						{% elseif not book.hasContentFiles %}
 							<p class="alert alert-danger"><span class="fa fa-warning"></span> {{ _.printMissingScansSearchLink(searchableFields) }}</p>
 						{% endif %}
 					{% endif %}
