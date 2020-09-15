@@ -54,7 +54,8 @@ class BookRepository extends EntityRepository {
 	}
 
 	public function filterIncomplete(BookSearchCriteria $criteria): QueryBuilder {
-		$qb = $this->createQueryBuilder('b')->where('b.isIncomplete = 1 OR b.nbScans = 0');
+		$qb = $this->createQueryBuilder('b')->where('b.isIncomplete = 1 OR (b.nbScans = 0 AND b.media = ?1)');
+		$qb->setParameter('1', Book::$MEDIA_PAPER);
 		return (new BookQuery($this, $criteria, $qb))->getQueryBuilder();
 	}
 
