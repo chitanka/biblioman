@@ -57,7 +57,8 @@ class BookController extends Controller {
 	 * @Route("/incomplete.{_format}", name="books_incomplete", defaults={"_format": "html"})
 	 */
 	public function listIncompleteAction(Request $request, $_format) {
-		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete(new BookSearchCriteria(null, $request->getBookSort())));
+		$searchQuery = $this->librarian()->createBookSearchCriteria($request->getSearchQuery(), $request->getBookSort());
+		$pager = $this->pager($request, $this->repoFinder()->forBook()->filterIncomplete($searchQuery));
 		return $this->renderBookListing('Book/listIncomplete.html.twig', $pager, [], $_format, $request);
 	}
 
