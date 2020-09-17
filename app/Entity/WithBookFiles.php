@@ -29,6 +29,8 @@ trait WithBookFiles {
 	 */
 	private $availableAt;
 
+	abstract public function canHaveScans(): bool;
+
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
 	public function setFullContentFile(File $file = null) {
 		$this->fullContentFile = $file;
