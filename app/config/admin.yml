@@ -23,8 +23,6 @@ vich_uploader:
 easy_admin:
     site_name: '%sitename%'
     design:
-        theme: default
-        color_scheme: light
         brand_color: '#2B547E'
         form_theme: '@App/admin_layout.html.twig'
         menu:
@@ -53,10 +51,10 @@ easy_admin:
                     - { name: show, icon: eye, label: Book.actions.show }
                     - { name: delete, icon: trash, label: Book.actions.delete }
                 fields:
-                    - { property: id, template: 'link.html.twig' }
+                    - { property: id, template: 'admin/Book/link.html.twig' }
                     - { property: cover, type: image }
                     - { property: backCover, type: image }
-                    - { property: title, template: 'link.html.twig' }
+                    - { property: title, template: 'admin/Book/link.html.twig' }
                     - { property: author }
                     - { property: publisher }
                     - { property: publishingYear, label: Publishing year short }
@@ -186,7 +184,7 @@ easy_admin:
                     - { property: fullContentFile, type: vich_file }
                     - { property: availableAt }
                     - { property: contentFiles, type: collection, type_options: { entry_type: App\Form\BookContentFileType, by_reference: false }, css_class: 'files' }
-                    - { type: divider }
+                    - { type: section }
                     - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, css_class: 'files' }
 
                     - { type: group, label: Metadata, icon: file-text-o }
@@ -221,7 +219,7 @@ easy_admin:
                 title: Persons
                 fields:
                     - name
-                    - { property: nameType, template: nameType.html.twig }
+                    - { property: nameType, template: 'admin/Person/nameType.html.twig' }
                     - canonicalPerson
                     - relatedPersons
 

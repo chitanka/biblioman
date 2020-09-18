@@ -10,8 +10,8 @@ use App\Library\ShelfStore;
 use App\Persistence\Manager;
 use App\Persistence\RepositoryFinder;
 use Doctrine\Common\Collections\Collection;
-use Pagerfanta\Adapter\DoctrineCollectionAdapter;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Doctrine\Collections\CollectionAdapter;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormView;
 
@@ -22,9 +22,8 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	const FORMAT_CSV = 'csv';
 	const FORMAT_JSON = 'json';
 
-	/** @return User */
-	protected function getUser() {
-		return parent::getUser() ?: User::createAnonymousUser();
+	protected function getAppUser(): User {
+		return parent::getUser() ?? User::createAnonymousUser();
 	}
 
 	/** @return Manager */
@@ -53,9 +52,9 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 
 	private function createPagerAdapter($query) {
 		if ($query instanceof Collection) {
-			return new DoctrineCollectionAdapter($query);
+			return new CollectionAdapter($query);
 		}
-		return new DoctrineORMAdapter($query);
+		return new QueryAdapter($query);
 	}
 
 	/**
@@ -63,10 +62,10 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Con
 	 * @return FormView[]
 	 */
 	protected function createAddToShelfForms($books) {
-		if ($this->getUser()->isAnonymous()) {
+		if ($this->getAppUser()->isAnonymous()) {
 			return null;
 		}
-		return $this->shelfStore()->createAddToShelfForms($books, $this->createFormBuilder(), $this->getUser(), $this->getParameter('default_shelves'));
+		return $this->shelfStore()->createAddToShelfForms($books, $this->createFormBuilder(), $this->getAppUser(), $this->getParameter('default_shelves'));
 	}
 
 	protected function addSuccessFlash($message, $params = []) {

@@ -4,7 +4,7 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
 
 class FileSystemStorage extends \Vich\UploaderBundle\Storage\FileSystemStorage {
 
-	protected function doRemove(PropertyMapping $mapping, $dir, $name) {
+	protected function doRemove(PropertyMapping $mapping, ?string $dir, string $name): ?bool {
 		$file = $this->doResolvePath($mapping, $dir, $name);
 		if (!file_exists($file)) {
 			$file = preg_replace('/(jpg|png)$/', 'tif', $file);

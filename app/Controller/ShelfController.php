@@ -47,7 +47,7 @@ class ShelfController extends Controller {
 	}
 
 	protected function assertUserCanViewShelf(Shelf $shelf) {
-		$this->denyAccessUnless($this->shelfStore()->userCanViewShelf($this->getUser(), $shelf));
+		$this->denyAccessUnless($this->shelfStore()->userCanViewShelf($this->getAppUser(), $shelf));
 	}
 
 }

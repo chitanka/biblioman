@@ -18,7 +18,7 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\Uploade
 	 *
 	 * @return string The file name.
 	 */
-	public function name($object, PropertyMapping $mapping) {
+	public function name($object, PropertyMapping $mapping): string {
 		$extension = $this->fixExtension($mapping->getFile($object));
 		return $this->getBookIdFromEntity($object) .'-'. uniqid() .'.'. $extension;
 	}
@@ -40,7 +40,7 @@ class Namer implements \Vich\UploaderBundle\Naming\NamerInterface, \Vich\Uploade
 	 *
 	 * @return string The directory name.
 	 */
-	public function directoryName($object, PropertyMapping $mapping) {
+	public function directoryName($object, PropertyMapping $mapping): string {
 		return Thumbnail::createSubPath($this->getBookIdFromEntity($object));
 	}
 

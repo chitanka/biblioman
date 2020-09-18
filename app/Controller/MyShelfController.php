@@ -20,13 +20,13 @@ class MyShelfController extends ShelfController {
 	public function shelvesAction(Request $request) {
 		$this->assertUserCanHaveShelves();
 		$shelfStore = $this->shelfStore();
-		$newShelf = $shelfStore->createShelf($this->getUser());
+		$newShelf = $shelfStore->createShelf($this->getAppUser());
 		$createForm = $this->createForm(ShelfType::class, $newShelf);
 		if ($createForm->handleRequest($request)->isSubmitted() && $createForm->isValid()) {
 			$shelfStore->saveShelf($newShelf);
 			$this->addSuccessFlash('shelf.created', ['%shelf%' => $newShelf->getName()]);
 		}
-		$pager = $this->pager($request, $shelfStore->showUserShelves($this->getUser(), $request->getShelfGroup()));
+		$pager = $this->pager($request, $shelfStore->showUserShelves($this->getAppUser(), $request->getShelfGroup()));
 		return $this->render('Profile/shelves.html.twig', [
 			'pager' => $pager,
 			'createForm' => $createForm->createView(),
@@ -99,11 +99,11 @@ class MyShelfController extends ShelfController {
 	}
 
 	protected function assertUserCanHaveShelves() {
-		$this->denyAccessUnless($this->shelfStore()->userCanHaveShelves($this->getUser()));
+		$this->denyAccessUnless($this->shelfStore()->userCanHaveShelves($this->getAppUser()));
 	}
 
 	protected function assertUserOwnsShelf(Shelf $shelf) {
-		$this->denyAccessUnless($this->shelfStore()->userOwnsShelf($this->getUser(), $shelf));
+		$this->denyAccessUnless($this->shelfStore()->userOwnsShelf($this->getAppUser(), $shelf));
 	}
 
 }

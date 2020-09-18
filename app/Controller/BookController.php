@@ -97,7 +97,7 @@ class BookController extends Controller {
 	 * @Route("/{id}/verify", name="books_verify", methods={"PUT"})
 	 */
 	public function verifyAction(Book $book) {
-		$book->verify($this->getUser());
+		$book->verify($this->getAppUser());
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($book);
 		$em->flush();
