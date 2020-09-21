@@ -1,91 +1,131 @@
 {
-	"name": "chitanka/biblioman",
-	"license": "MIT",
-	"type": "project",
-	"description": "The Chitanka bibliographic site",
-	"autoload": {
-		"psr-4": { "App\\": "app/" }
-	},
-	"repositories": [{
-		"type": "package",
-		"package": {
-			"name": "sachinchoolur/lightgallery",
-			"version": "1.6.12",
-			"dist": {
-				"url": "https://github.com/sachinchoolur/lightGallery/archive/1.6.12.zip",
-				"type": "zip"
-			}
-		}
-	}, {
-		"type": "package",
-		"package": {
-			"name": "mateusz-matela/djvu-html5",
-			"version": "0.2.2",
-			"dist": {
-				"url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
-				"type": "zip",
-				"reference": "master"
-			}
-		}
-	}],
-	"require": {
-		"php": ">=5.5.9",
-		"symfony/symfony": "~3.2",
-		"doctrine/orm": "^2.5",
-		"doctrine/doctrine-bundle": "^1.6",
-		"doctrine/doctrine-cache-bundle": "^1.2",
-		"doctrine/inflector": "~1.0.1",
-		"doctrine/instantiator": "1.0.5",
-		"twig/extensions": "~1.0",
-		"symfony/swiftmailer-bundle": "^2.3",
-		"symfony/monolog-bundle": "^3.0",
-		"symfony/polyfill-apcu": "^1.0",
-		"sensio/distribution-bundle": "^5.0",
-		"sensio/framework-extra-bundle": "^3.0.2",
-		"fortawesome/font-awesome": "v4.3.0",
-		"easycorp/easyadmin-bundle": "^1.16",
-		"vich/uploader-bundle": "^1.4",
-		"babdev/pagerfanta-bundle": ">=1.0",
-		"friendsofsymfony/message-bundle": "^1.3",
-		"liip/url-auto-converter-bundle": "dev-master",
-		"stof/doctrine-extensions-bundle": "^1.2",
-		"sachinchoolur/lightgallery": "*",
-		"chitanka/wiki-bundle": "*",
-		"chitanka/utils": "*",
-		"chitanka/thumbnail-server": "*",
-		"mrohnstock/bootstrap-multiselect": "^0.9.13",
-		"cosmicdreams/fontawesome-iconpicker": "^1.2",
-		"mateusz-matela/djvu-html5": "^0.2.2",
-		"chitanka/permission-bundle": "*",
-		"chitanka/rocket-chat-client": "*",
-		"symfony/webpack-encore-bundle": "^1.7"
-	},
-	"require-dev": {
-		"symfony/phpunit-bridge": "^3.0"
-	},
-	"scripts": {
-		"symfony-scripts": [
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-		],
-		"post-install-cmd": [
-			"@symfony-scripts"
-		],
-		"post-update-cmd": [
-			"@symfony-scripts"
-		]
-	},
-	"config": {
-		"bin-dir": "bin"
-	},
-	"extra": {
-		"symfony-app-dir": "app",
-		"symfony-bin-dir": "bin",
-		"symfony-var-dir": "var",
-		"symfony-web-dir": "web",
-		"symfony-assets-install": "relative"
-	}
+    "type": "project",
+    "license": "proprietary",
+    "repositories": [{
+   		"type": "package",
+   		"package": {
+   			"name": "sachinchoolur/lightgallery",
+   			"version": "1.6.12",
+   			"dist": {
+   				"url": "https://github.com/sachinchoolur/lightGallery/archive/1.6.12.zip",
+   				"type": "zip"
+   			}
+   		}
+   	}, {
+   		"type": "package",
+   		"package": {
+   			"name": "mateusz-matela/djvu-html5",
+   			"version": "0.2.2",
+   			"dist": {
+   				"url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
+   				"type": "zip",
+   				"reference": "master"
+   			}
+   		}
+   	}],
+    "require": {
+        "php": ">=7.1.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "babdev/pagerfanta-bundle": ">=1.0",
+        "chitanka/permission-bundle": "*",
+        "chitanka/rocket-chat-client": "*",
+        "chitanka/thumbnail-server": "*",
+        "chitanka/utils": "*",
+        "chitanka/wiki-bundle": "^1.1",
+        "composer/package-versions-deprecated": "^1.11",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.1",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.7",
+        "easycorp/easyadmin-bundle": "^3.0",
+        "fortawesome/font-awesome": "v4.3.0",
+        "friendsofsymfony/message-bundle": "^2.0",
+        "mateusz-matela/djvu-html5": "^0.2.2",
+        "mrohnstock/bootstrap-multiselect": "^0.9.13",
+        "phpdocumentor/reflection-docblock": "^5.2",
+        "sachinchoolur/lightgallery": "*",
+        "sensio/framework-extra-bundle": "^5.6",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "symfony/asset": "4.4.*",
+        "symfony/console": "4.4.*",
+        "symfony/expression-language": "4.4.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/form": "4.4.*",
+        "symfony/framework-bundle": "4.4.*",
+        "symfony/http-client": "4.4.*",
+        "symfony/intl": "4.4.*",
+        "symfony/mailer": "4.4.*",
+        "symfony/monolog-bundle": "^3.5",
+        "symfony/process": "4.4.*",
+        "symfony/property-access": "4.4.*",
+        "symfony/property-info": "4.4.*",
+        "symfony/security-bundle": "4.4.*",
+        "symfony/serializer": "4.4.*",
+        "symfony/translation": "4.4.*",
+        "symfony/twig-bundle": "^4.4",
+        "symfony/validator": "4.4.*",
+        "symfony/web-link": "4.4.*",
+        "symfony/yaml": "4.4.*",
+        "twig/extensions": "~1.0",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^1.4"
+    },
+    "require-dev": {
+        "symfony/browser-kit": "^4.4",
+        "symfony/css-selector": "^4.4",
+        "symfony/debug-bundle": "^4.4",
+        "symfony/dotenv": "4.4.*",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/phpunit-bridge": "^5.1",
+        "symfony/stopwatch": "^4.4",
+        "symfony/var-dumper": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "4.4.*"
+        }
+    }
 }

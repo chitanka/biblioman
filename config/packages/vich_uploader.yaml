@@ -1,0 +1,22 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        cover:
+            uri_prefix:         /thumb/covers
+            upload_destination: '%kernel.root_dir%/../data/covers'
+            namer:              App\File\Namer
+            directory_namer:    App\File\Namer
+            delete_on_update:   false
+        scan:
+            uri_prefix:         /thumb/scans
+            upload_destination: '%kernel.root_dir%/../data/scans'
+            namer:              App\File\Namer
+            directory_namer:    App\File\Namer
+            delete_on_update:   false
+        fullcontent:
+            uri_prefix:         /fullcontent
+            upload_destination: '%kernel.root_dir%/../data/fullcontent'
+            namer:              App\File\Namer
+            directory_namer:    App\File\Namer
+            delete_on_update:   false

@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+	<div class="jumbotron">
+		<p class="lead"><i class="sitename">{{ sitename }}</i> е проект за създаване на пълно описание на всички книги, издадени на български език.</p>
+	</div>
+	<div class="alert alert-info">
+		<p>Разгледайте <a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}">помощната информация</a> и се включете с описване на личната си библиотека. <i class="sitename">{{ sitename }}</i> има нужда от вас.</p>
+	</div>
+
+	{% if is_granted('ROLE_EDITOR') %}
+		<div class="alert alert-info">
+			<p><span class="badge badge-warning">Важно:</span> Когато въвеждате информация, която не се намира в хартиеното издание, винаги го посочвайте в полето <a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}">„Източници“</a>!</p>
+		</div>
+		<p class="text-center"><a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="btn btn-primary"><span class="fa fa-plus"></span> {{ 'Book.new_title'|trans }}</a></p>
+	{% elseif is_granted('ROLE_USER') %}
+		<p class="text-center">Пишете на <span id="contactAddress">някого от <a href="{{ path('users_by_role', {'role': 'admin'}) }}">администраторите</a></span>, ако желаете да впишете книга в Библиоман.</p>
+		<script>
+			var __a__ = ((n, s, o) => [n, s, o].join(''))('parent.child', 'at', 'postoffice').replace('parent', 'chitanka').replace('child', 'biblioman').replace('at', String.fromCharCode(Math.pow(8, 2))).replace('postoffice', 'gm'+(('ai')+('l'))+('.')+(('c'))+'om');
+			document.getElementById('contactAddress').innerHTML = '<b><'+'a hr'+'ef="ma'+('il')+('to')+(':')+__a__+'">'+__a__+'<'+'/'+'a></b>';
+		</script>
+	{% endif %}
+
+	{% include 'Book/books.html.twig' with { heading: 'Последни книги', route: 'homepage', books: pager.currentPageResults } %}
+	{% include 'pager.html.twig' %}
+
+{% endblock %}

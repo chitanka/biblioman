@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	Промени
+{% endblock %}
+
+{% block content %}
+
+	{% import '_macros.html.twig' as _ %}
+
+	<h1>{{ block('title') }}</h1>
+
+	<table class="table table-hover table-sm">
+	{% for revision in pager.currentPageResults %}
+		<tr>
+			<td><a href="{{ path('books_show_revisions', { id: revision.book.id }) }}#revision-{{ revision.id }}">{{ _.printDate(revision.createdAt) }}</a></td>
+			<td>{{ revision.createdBy }}</td>
+			<td>&times;{{ revision.diffs|length }}</td>
+			<td><a href="{{ path('books_show', { id: revision.book.id }) }}">{{ _.printTitleWithAuthor(revision.book) }}</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+
+	{% include 'pager.html.twig' %}
+
+{% endblock %}

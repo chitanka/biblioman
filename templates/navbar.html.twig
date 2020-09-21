@@ -1,0 +1,50 @@
+{% import '_macros.html.twig' as _ %}
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<a class="navbar-brand" href="{{ path('homepage') }}">{{ sitename }}</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Включване/изключване на навигацията">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" id="booksDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Книги <span class="caret"></span></a>
+					<div class="dropdown-menu" aria-labelledby="booksDropdown">
+						<a href="{{ path('books') }}" class="dropdown-item"><span class="fa fa-sort-alpha-asc fa-fw"></span> По заглавие</a>
+						<a href="{{ path('books', { sort: 'createdAt-asc' }) }}" class="dropdown-item"><span class="fa fa-history fa-fw"></span> По дата на добавяне</a>
+						<a href="{{ path('books_categories') }}" class="dropdown-item"><span class="fa fa-tag fa-fw"></span> По категория</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a href="{{ path('shelves') }}" class="nav-link" title="Публични рафтове">Рафтове</a>
+				</li>
+			</ul>
+			{% include 'search_form.html.twig' %}
+			{% if app.user and app.user.registered %}
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+						<a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Групи: {{ _.printUserRolesInline(app.user) }}"><span class="fa fa-user"></span> {{ app.user.username }} <span class="caret"></span></a>
+						<div class="dropdown-menu" aria-labelledby="userDropdown">
+							<a href="{{ path('users_show', {username: app.user.username}) }}" class="dropdown-item"><span class="fa fa-user fa-fw"></span> Профил</a>
+							<a href="{{ path('fos_message_inbox') }}" class="dropdown-item"><span class="fa fa-comments-o fa-fw"></span> Лични съобщения</a>
+							<a href="{{ path('my_shelves') }}" class="dropdown-item"><span class="fa fa-folder-o fa-fw"></span> Моите рафтове</a>
+							<div role="separator" class="dropdown-divider"></div>
+							{% if is_granted('ROLE_EDITOR') %}
+								<a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="dropdown-item"><span class="fa fa-plus fa-fw"></span> Нова книга</a>
+							{% endif %}
+							<a href="{{ path('books', {q: 'createdBy: '~app.user.username}) }}" class="dropdown-item"><span class="fa fa-address-book fa-fw"></span> Създадени от мен</a>
+							<a href="{{ path('books_incomplete') }}" class="dropdown-item"><span class="fa fa-battery-half fa-fw"></span> Непълни записи</a>
+							<a href="{{ path('books_incomplete', {q: 'createdBy: '~app.user.username}) }}" class="dropdown-item"><span class="fa fa-battery-half fa-fw"></span> Непълни записи от мен</a>
+							<a href="{{ path('books_revisions') }}" class="dropdown-item"><span class="fa fa-eraser fa-fw"></span> Промени</a>
+							<div role="separator" class="dropdown-divider"></div>
+							<a href="{{ path('chitanka_wiki', { page: 'docs/books' }) }}" class="dropdown-item"><span class="fa fa-file-text-o fa-fw"></span> Как се въвеждат данните</a>
+						</div>
+					</li>
+				</ul>
+
+			{% else %}
+				<div class="navbar-text navbar-right">
+					<a href="//chitanka.info/login?returnto={{ url('homepage')|url_encode }}" class="nav-link"><span class="fa fa-sign-in"></span> Вход</a>
+				</div>
+			{% endif %}
+		</div><!-- /.navbar-collapse -->
+</nav>

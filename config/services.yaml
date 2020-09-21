@@ -1,0 +1,249 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+    sitename: Библиоман
+    env(SINGLE_LOGIN_PROVIDER): ''
+
+    book_fields_short:
+        - author
+        - title
+        - volumeTitle
+        - subtitle
+        - sequence
+        - edition
+        - category
+        - genre
+        - translator
+        - compiler
+        - editor
+        - chiefEditor
+        - publisherEditor
+        - artist
+        - illustrator
+        - artistEditor
+        - technicalEditor
+        - publisher
+        - publishingYear
+        - media
+        - binding
+        - pageCount
+        - isbn
+        - createdBy
+    book_fields_long:
+        - author
+        - title
+        - altTitle
+        - volumeTitle
+        - subtitle
+        - subtitle2
+        - sequence
+        - subsequence
+        - series
+        - adaptedBy
+        - otherAuthors
+        - contentType
+        - nationality
+        - language
+        - edition
+        - category
+        - genre
+        - themes
+        - _divider
+        - translator
+        - translatedFromLanguage
+        - dateOfTranslation
+        - compiler
+        - editor
+        - chiefEditor
+        - managingEditor
+        - publisherEditor
+        - editorialStaff
+        - consultant
+        - artist
+        - illustrator
+        - artistEditor
+        - technicalEditor
+        - reviewer
+        - scienceEditor
+        - copyreader
+        - corrector
+        - layout
+        - coverLayout
+        - libraryDesign
+        - computerProcessing
+        - prepress
+        - _divider
+        - publisher
+        - publisherCity
+        - publishingYear
+        - publisherAddress
+        - printingHouse
+        - otherFields
+        - _divider
+        - media
+        - litGroup
+        - typeSettingIn
+        - printSigned
+        - printOut
+        - printerSheets
+        - publisherSheets
+        - provisionPublisherSheets
+        - format
+        - publisherCode
+        - trackingCode
+        - publisherOrder
+        - publisherNumber
+        - pageCount
+        - totalPrint
+        - binding
+        - price
+        - illustrated
+        - _divider
+        - isbn
+        - uniformProductClassification
+        - universalDecimalClassification
+        - _divider
+        - annotation
+        - notesAboutAuthor
+        - marketingSnippets
+        - toc
+        - notes
+        - notesAboutOriginal
+        - _divider
+        - createdByUser
+        - completedByUser
+        - createdAt
+        - updatedAt
+        - _divider
+        - infoSources
+        - linksByCategory
+    book_fields_export:
+        - id
+        - author
+        - title
+        - volumeTitle
+        - subtitle
+        - sequence
+        - edition
+        - category
+        - genre
+        - translator
+        - compiler
+        - editor
+        - chiefEditor
+        - publisherEditor
+        - artist
+        - illustrator
+        - artistEditor
+        - technicalEditor
+        - publisher
+        - publishingYear
+        - media
+        - binding
+        - pageCount
+        - isbn
+        - createdBy
+        - completedBy
+        - createdAt
+        - updatedAt
+
+    default_shelves:
+        to-read:
+            name: За прочит
+            icon: fa-bookmark-o
+            description: Книги за прочит
+            group: Четене
+        currently-reading:
+            name: Четени в момента
+            icon: fa-bookmark
+            description: Четени в момента книги
+            group: Четене
+        read:
+            name: Прочетени
+            icon: fa-check
+            description: Прочетени книги
+            group: Четене
+            important: true
+        favorities:
+            name: Любими
+            icon: fa-star
+            description: Любими книги
+            group: ~
+            important: true
+        own:
+            name: Притежавани
+            icon: fa-home
+            description: Притежавани книги
+            group: ~
+
+    footer_links:
+        - { icon: code, url: https://github.com/chitanka/biblioman, text: Изходен код }
+        - { icon: database, url: /biblioman.sql.gz, text: База от данни }
+
+    chitanka_wiki.content_dir: "%kernel.root_dir%/../data/wiki"
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: true
+
+        bind:
+            $singleLoginProvider: '%env(SINGLE_LOGIN_PROVIDER)%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/{DependencyInjection,Entity,Repository,Tests,Kernel.php}'
+            - '../src/Library/{BookExport,BookSearchCriteria}.php'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Listener\KernelListener:
+#        arguments: ['@App\Persistence\RepositoryFinder', "@security.token_storage", "%single_login_provider%", "@twig"]
+        tags:
+            - { name: kernel.event_subscriber }
+
+#    easyadmin.listener:
+#        class: App\Listener\EasyAdminListener
+#        tags:
+#            - { name: kernel.event_subscriber }
+
+    app.file_namer:
+        class: App\File\Namer
+
+    App\Persistence\Manager:
+        arguments: ["@doctrine"]
+
+    App\Persistence\RepositoryFinder:
+        arguments: ['@App\Persistence\Manager']
+
+    App\Form\DataTransformer\UserToUsernameTransformer:
+        arguments: ["@doctrine"]
+
+    App\Form\Messaging\NewThreadMessageFormFactory:
+        arguments: ["@form.factory", '@App\Form\Messaging\NewThreadMessageFormType', "%fos_message.new_thread_form.name%", "%fos_message.new_thread_form.model%", '@App\Form\DataTransformer\UserToUsernameTransformer']
+
+    App\Twig\Extension:
+        arguments: ['@router']
+        public:    false
+        tags:
+            - { name: twig.extension }
+
+    vich_uploader.storage.file_system:
+        class: App\Storage\FileSystemStorage
+        arguments: ["@vich_uploader.property_mapping_factory"]

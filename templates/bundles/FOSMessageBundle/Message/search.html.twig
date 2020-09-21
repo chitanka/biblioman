@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	{% include 'bundles/FOSMessageBundle/Message/menu.html.twig' %}
+
+	<h2>{% trans from 'FOSMessageBundle' %}search{% endtrans %}</h2>
+
+	<p>{% transchoice threads|length with {'%num%': threads|length } from 'FOSMessageBundle' %}
+		threads_found
+	{% endtranschoice %}</p>
+
+	{% include 'bundles/FOSMessageBundle/Message/threads_list.html.twig' with {'threads': threads} %}
+
+{% endblock %}

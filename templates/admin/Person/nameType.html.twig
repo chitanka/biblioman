@@ -1,0 +1,2 @@
+{% set label_map = { altname: 'default', canonical: 'primary', pseudonym: 'info', realname: 'success', wrongname: 'danger', maybe: 'default' } %}
+<span class="badge badge-{{ label_map[field.value]|default('secondary') }}">{{ ('person.'~field.value)|trans }}</span>

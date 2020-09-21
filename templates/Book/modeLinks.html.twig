@@ -1,0 +1,20 @@
+{% if route is not defined %}
+	{% set route = app.request.attributes.get('_route') %}
+{% endif %}
+{% if routeParams is not defined %}
+	{% set routeParams = app.request.attributes.get('_route_params') %}
+{% endif %}
+{% set routeParams = routeParams|merge(app.request.query.all) %}
+<div class="btn-toolbar pull-right" role="toolbar">
+	<div class="btn-group" role="group" aria-label="Вид на изгледа">
+		<a href="{{ path(route, routeParams|merge({ _mode: 'listcols' })) }}" class="btn btn-light {{ mode == 'listcols' ? 'active' : '' }}" title="Кратък преглед в списък"><span class="fa fa-columns"></span></a>
+		<a href="{{ path(route, routeParams|merge({ _mode: 'list' })) }}" class="btn btn-light {{ mode == 'list' ? 'active' : '' }}" title="Подробен преглед в списък"><span class="fa fa-list"></span></a>
+		<a href="{{ path(route, routeParams|merge({ _mode: 'mosaic' })) }}" class="btn btn-light {{ mode == 'mosaic' ? 'active' : '' }}" title="Мозаечен преглед"><span class="fa fa-th"></span></a>
+		<a href="{{ path(route, routeParams|merge({ _mode: 'mosaic_large' })) }}" class="btn btn-light {{ mode == 'mosaic_large' ? 'active' : '' }}" title="Мозаечен преглед с големи икони"><span class="fa fa-th-large"></span></a>
+	</div>
+	{% if route != 'homepage' %}
+		<div class="btn-group" role="group" aria-label="Експорт">
+			<a href="{{ path(route, routeParams|merge({ _format: 'csv' })) }}" class="btn btn-light" title="Експорт като CSV"><span class="fa fa-file-text-o"></span></a>
+		</div>
+	{% endif %}
+</div>

@@ -1,0 +1,3 @@
+chitanka_permission:
+    resource: '@ChitankaPermissionBundle/Resources/config/routing.yml'
+    prefix:   /

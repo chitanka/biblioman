@@ -1,0 +1,22 @@
+{% if route is not defined %}
+	{% set route = app.request.attributes.get('_route') %}
+{% endif %}
+{% if routeParams is not defined %}
+	{% set routeParams = app.request.attributes.get('_route_params') %}
+{% endif %}
+{% set routeParams = routeParams|merge(app.request.query.all) %}
+{% import '_macros.html.twig' as _ %}
+<div class="dropdown pull-right" style="line-height: 0.7em; margin-right: 0.3em">
+	{% set currentSort = app.request.query.get('sort') %}
+	<button class="btn btn-outline-secondary dropdown-toggle {{ currentSort is not empty ? 'active' : '' }}" type="button" id="bookSortOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<span class="fa fa-sort"></span>
+		Подредба
+		<span class="caret"></span>
+	</button>
+	<div class="dropdown-menu" aria-labelledby="bookSortOptions">
+		{% for field in sortableFields %}
+			{{ _.printSortLink(route, routeParams, field, 'asc', currentSort) }}
+			{{ _.printSortLink(route, routeParams, field, 'desc', currentSort) }}
+		{% endfor %}
+	</div>
+</div>

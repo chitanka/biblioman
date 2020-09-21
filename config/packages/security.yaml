@@ -1,0 +1,39 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        main:
+            entity: { class: App\Entity\User, property: username }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: lazy
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+            #anonymous: true # sf5
+            #lazy: true # sf5
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER]
+        ROLE_EDITOR_CHIEF: ROLE_EDITOR_MANAGING
+        ROLE_EDITOR_MANAGING: ROLE_EDITOR_SENIOR
+        ROLE_EDITOR_SENIOR: ROLE_EDITOR
+        ROLE_EDITOR:      ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin/, roles: [ROLE_ADMIN, ROLE_EDITOR] }

@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	{% include 'bundles/FOSMessageBundle/Message/menu.html.twig' with { messagePage: 'inbox' } %}
+
+	<h2>{% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</h2>
+
+	{% include 'bundles/FOSMessageBundle/Message/threads_list.html.twig' with {'threads': threads} %}
+
+{% endblock %}

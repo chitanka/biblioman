@@ -1,0 +1,8 @@
+fos_message:
+    db_driver: orm
+    thread_class: App\Entity\Messaging\MessageThread
+    message_class: App\Entity\Messaging\Message
+    user_transformer: App\Form\DataTransformer\UserToUsernameTransformer
+    new_thread_form:
+        type: App\Form\Messaging\NewThreadMessageFormType
+        factory: App\Form\Messaging\NewThreadMessageFormFactory

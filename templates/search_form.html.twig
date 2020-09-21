@@ -1,0 +1,21 @@
+<form role="form" class="{{ class|default('') }} form-inline book-search-form" method="get" action="{{ searchAction|default(path('books')) }}">
+	{% set mode = app.request.get('_mode') %}
+	{% if mode is not empty %}
+		<input type="hidden" name="_mode" value="{{ mode }}">
+	{% endif %}
+		<div class="input-group search-input">
+			{% if searchScope is defined %}
+				<div class="input-group-prepend">
+					<button type="button" class="btn btn-secondary dropdown-toggle js-search-action-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="button-text">{{ ('search.'~searchScope)|trans }}</span> <span class="caret"></span></button>
+					<div class="dropdown-menu js-search-actions">
+						<a  class="dropdown-item" href="{{ searchAction }}">{{ ('search.'~searchScope)|trans }}</a>
+						<a  class="dropdown-item" href="{{ path('books') }}">Навсякъде</a>
+					</div>
+				</div>
+			{% endif %}
+			<input placeholder="заглавие, автор…" aria-label="Низ за търсене: заглавие, автор и др." value="{{ app.request.get('q') }}" tabindex="1" class="form-control" name="q" id="q" type="search">
+			<div class="input-group-append">
+				<button type="submit" class="btn btn-outline-secondary"><span class="fa fa-search"></span><span class="sr-only">Търсене</span></button>
+			</div>
+		</div>
+</form>

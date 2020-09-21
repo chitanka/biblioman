@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Рафтове{% endblock %}
+
+{% block content %}
+
+	<h1 class="page-header">{{ block('title') }}</h1>
+	<table class="table table-sm table-hover">
+		<tr>
+			<th>{{ 'Shelf'|trans }}</th>
+			<th>{{ 'Group'|trans }}</th>
+			<th>{{ 'Description'|trans }}</th>
+			<th title="{{ 'Is important'|trans }}"><span class="fa fa-level-up"></span></th>
+			<th title="{{ 'Is public'|trans }}"><span class="fa fa-eye"></span></th>
+			<th title="Брой книги в рафта">#</th>
+			<th></th>
+		</tr>
+	{% for shelf in pager.currentPageResults %}
+		<tr>
+			<td><span class="fa {{ shelf.icon }} shelf-icon"></span> <a href="{{ path('my_shelf', { id: shelf.id }) }}">{{ shelf.name }}</a></td>
+			<td><a href="{{ path('my_shelves', { group: shelf.group }) }}">{{ shelf.group }}</a></td>
+			<td title="{{ shelf.description }}">{{ shelf.description|maxlength(40) }}</td>
+			<td>{% if shelf.important %}<span class="fa fa-level-up" title="{{ 'Is important'|trans }}"></span>{% endif %}</td>
+			<td>{% if shelf.public %}<span class="fa fa-eye" title="{{ 'Is public'|trans }}"></span>{% endif %}</td>
+			<td><span class="badge badge-light" title="Брой книги в рафта">{{ shelf.nbBooks }}</span></td>
+			<td><a href="{{ path('my_shelf_form', { id: shelf.id }) }}" class="btn btn-outline-secondary btn-sm" title="Промяна"><span class="fa fa-edit"></span></a></td>
+		</tr>
+	{% else %}
+		<li>Нямате създадени рафтове.</li>
+	{% endfor %}
+	</table>
+	{% include 'pager.html.twig' %}
+
+	<div class="text-center">
+		<a class="btn btn-primary" role="button" data-toggle="collapse" href="#createShelfForm" aria-expanded="false" aria-controls="createShelfForm">
+			<span class="fa fa-plus"></span> Нов рафт
+		</a>
+	</div>
+	<div id="createShelfForm" class="collapse">
+		{{ form(createForm) }}
+	</div>
+
+{% endblock %}
+
+{% block custom_javascript %}
+	{% include 'Profile/formJavascript.html.twig' %}
+{% endblock %}

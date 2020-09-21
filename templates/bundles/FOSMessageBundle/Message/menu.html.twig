@@ -1,0 +1,6 @@
+<nav class="nav nav-pills my-3">
+	<a href="{{ url('fos_message_inbox') }}" class="nav-link {{ messagePage is defined and messagePage == 'inbox' ? 'active' : '' }}"><span class="fa fa-inbox"></span> {% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</a>
+	<a href="{{ url('fos_message_sent') }}" class="nav-link {{ messagePage is defined and messagePage == 'sent' ? 'active' : '' }}"><span class="fa fa-share"></span> {% trans from 'FOSMessageBundle' %}sent{% endtrans %}</a>
+	<a href="{{ url('fos_message_deleted') }}" class="nav-link mr-auto {{ messagePage is defined and messagePage == 'deleted' ? 'active' : '' }}"><span class="fa fa-trash-o"></span> {% trans from 'FOSMessageBundle' %}deleted{% endtrans %}</a>
+	<a href="{{ url('fos_message_thread_new' )}}" class="nav-link btn btn-outline-primary"><span class="fa fa-comment-o"></span> {% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</a>
+</nav>

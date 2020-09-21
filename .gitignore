@@ -1,19 +1,27 @@
-/app/config/parameters.yml
-/app/config/users.yml
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/src/.preload.php
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
 /data/*/*
 /data/wiki
-/phpunit.xml
-/var/*/*
-/vendor/
-/web/bundles/
-/web/cache/*
-/web/*.sql.gz
+/public/cache/*
+/public/*.sql.gz
 *.min.js
 *.swp
 /composer.phar
 
 # instaled by composer but not needed
 /components
-
-!.gitignore
-!.gitkeep

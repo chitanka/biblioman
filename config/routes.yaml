@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+chitanka_wiki:
+    resource: '@ChitankaWikiBundle/Resources/config/routing.yml'
+    prefix:   /

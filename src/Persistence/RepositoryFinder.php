@@ -1,0 +1,50 @@
+<?php namespace App\Persistence;
+
+use App\Entity\Book;
+use App\Entity\BookCategory;
+use App\Entity\Person;
+use App\Repository\BookCategoryRepository;
+use App\Repository\PersonRepository;
+use App\Repository\UserRepository;
+use App\Entity\Shelf;
+use App\Repository\BookRepository;
+use App\Repository\ShelfRepository;
+use App\Entity\User;
+
+class RepositoryFinder {
+
+	protected $manager;
+
+	public function __construct(Manager $manager) {
+		$this->manager = $manager;
+	}
+
+	/** @return BookRepository */
+	public function forBook() {
+		return $this->getRepository(Book::class);
+	}
+
+	/** @return BookCategoryRepository */
+	public function forBookCategory() {
+		return $this->getRepository(BookCategory::class);
+	}
+
+	/** @return PersonRepository */
+	public function forPerson() {
+		return $this->getRepository(Person::class);
+	}
+
+	/** @return ShelfRepository */
+	public function forShelf() {
+		return $this->getRepository(Shelf::class);
+	}
+
+	/** @return UserRepository */
+	public function forUser() {
+		return $this->getRepository(User::class);
+	}
+
+	protected function getRepository($entityName) {
+		return $this->manager->getRepository($entityName);
+	}
+}

@@ -1,0 +1,228 @@
+#easy_admin:
+#    entities:
+#        # List the entity class name you want to manage
+#        - App\Entity\Product
+#        - App\Entity\Category
+#        - App\Entity\User
+
+easy_admin:
+    site_name: '%sitename%'
+    design:
+        brand_color: '#2B547E'
+        form_theme: 'admin/layout.html.twig'
+        menu:
+            - { label: Main page, route: homepage }
+            - Book
+            - Person
+        assets:
+            css:
+                - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css
+                - css/admin.css?20180610
+            js:
+                - //cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js
+                - js/admin.js?20180610
+    entities:
+        Book:
+            class: App\Entity\Book
+            role: ROLE_EDITOR
+            label: Books
+            image_base_path: /thumb/covers
+            disabled_actions: [delete]
+            list:
+                title: Books
+                actions:
+                    - { name: new, icon: plus, label: Book.actions.new }
+                    - { name: edit, icon: pencil, label: Book.actions.edit }
+                    - { name: show, icon: eye, label: Book.actions.show }
+                    - { name: delete, icon: trash, label: Book.actions.delete }
+                fields:
+                    - { property: id, template: 'admin/Book/link.html.twig' }
+                    - { property: cover, type: image }
+                    - { property: backCover, type: image }
+                    - { property: title, template: 'admin/Book/link.html.twig' }
+                    - { property: author }
+                    - { property: publisher }
+                    - { property: publishingYear, label: Publishing year short }
+            show:
+                title: 'Книга (№%%entity_id%%)'
+                fields:
+                    - { property: id }
+                    - { property: cover, type: image }
+                    - { property: backCover, type: image }
+                    - { property: title, label: Заглавие }
+                    - { property: author, label: Автор }
+                    - { property: publisher, label: Издател }
+                    - { property: publishingYear, label: Година }
+            form:
+                fields:
+                    - { type: group, label: Basic data, icon: gear }
+                    - { property: media, type: choice, type_options: { expanded: true, choices: {хартия: хартия, цифров: цифров} } }
+            new:
+                title: Book.new_title
+                action_label: Нова книга
+                fields:
+                    - { property: author }
+                    - { property: title }
+                    - { property: volumeTitle }
+                    - { property: subtitle }
+                    - { property: publisher }
+                    - { property: publishingYear }
+            edit:
+                auth:
+                    role_editor_senior: object.isIncomplete or object.createdBy == user.getUsername() or object.completedBy == user.getUsername() or user.is('ROLE_EDITOR_MANAGING') or (user.is('ROLE_EDITOR_SENIOR') and not object.isVerified)
+                title: Book.form_title
+                fields:
+                    - { type: group, label: Data from paper, icon: book }
+                    - { property: author }
+                    - { property: title }
+                    - { property: altTitle }
+                    - { property: volumeTitle }
+                    - { property: subtitle }
+                    - { property: subtitle2 }
+                    - { property: sequence }
+                    - { property: sequenceNr, type: text }
+                    - { property: subsequence }
+                    - { property: subsequenceNr, type: text }
+                    - { property: series }
+                    - { property: seriesNr }
+                    - { property: translator }
+                    - { property: translatedFromLanguage }
+                    - { property: dateOfTranslation }
+                    - { property: adaptedBy }
+                    - { property: otherAuthors }
+                    - { property: compiler }
+                    - { property: editorialStaff }
+                    - { property: chiefEditor }
+                    - { property: managingEditor }
+                    - { property: editor }
+                    - { property: publisherEditor }
+                    - { property: consultant }
+                    - { property: artist }
+                    - { property: illustrator }
+                    - { property: artistEditor }
+                    - { property: technicalEditor }
+                    - { property: reviewer }
+                    - { property: scienceEditor }
+                    - { property: copyreader }
+                    - { property: corrector }
+                    - { property: layout }
+                    - { property: coverLayout }
+                    - { property: libraryDesign }
+                    - { property: computerProcessing }
+                    - { property: prepress }
+                    - { property: publisher }
+                    - { property: publisherCity }
+                    - { property: publishingYear }
+                    - { property: publisherAddress }
+                    - { property: printingHouse }
+                    - { property: contentType }
+                    - { property: nationality }
+                    - { property: language }
+                    - { property: edition }
+                    - { property: litGroup }
+                    - { property: typeSettingIn }
+                    - { property: printSigned }
+                    - { property: printOut }
+                    - { property: printerSheets }
+                    - { property: publisherSheets }
+                    - { property: provisionPublisherSheets }
+                    - { property: format }
+                    - { property: publisherCode }
+                    - { property: trackingCode }
+                    - { property: publisherOrder }
+                    - { property: publisherNumber }
+                    - { property: uniformProductClassification }
+                    - { property: pageCount, type: text }
+                    - { property: totalPrint }
+                    - { property: price }
+                    - { property: binding }
+                    - { property: illustrated, type: checkbox }
+                    - { property: isbn }
+                    - { property: annotation }
+                    - { property: notesAboutAuthor }
+                    - { property: marketingSnippets }
+                    - { property: toc }
+                    - { property: notesAboutOriginal }
+                    - { property: otherFields }
+
+                    - { type: group, label: Notes, icon: sticky-note-o }
+                    - { property: notes }
+
+                    - { type: group, label: Categorization, icon: tag }
+                    - { property: category }
+                    - { property: genre }
+                    - { property: themes }
+                    - { property: universalDecimalClassification }
+
+                    - { type: group, label: Links, icon: link }
+                    # by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
+                    # See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
+                    - { property: chitankaId, type: text }
+                    - { property: links, type: collection, type_options: { entry_type: App\Form\BookLinkType, by_reference: false } }
+
+                    - { type: group, label: Covers, icon: image }
+                    - { property: coverFile, type: vich_image }
+                    - { property: backCoverFile, type: vich_image }
+                    - { property: otherCovers, type: collection, type_options: { entry_type: App\Form\BookCoverType, by_reference: false }, css_class: 'files' }
+
+                    - { type: group, label: Files, icon: image }
+                    - { property: fullContentFile, type: vich_file }
+                    - { property: availableAt }
+                    - { property: contentFiles, type: collection, type_options: { entry_type: App\Form\BookContentFileType, by_reference: false }, css_class: 'files' }
+                    - { type: section }
+                    - { property: scans, type: collection, type_options: { entry_type: App\Form\BookScanType, by_reference: false }, css_class: 'files' }
+
+                    - { type: group, label: Metadata, icon: file-text-o }
+                    - { property: infoSources }
+                    - { property: adminComment }
+                    - { property: ocredText }
+                    - hasOnlyScans
+                    - isIncomplete
+                    - reasonWhyIncomplete
+
+        Person:
+            class: App\Entity\Person
+            role: ROLE_EDITOR_SENIOR
+            label: Persons
+            form:
+                fields:
+                    - name
+                    -
+                        property: nameType
+                        type: choice
+                        type_options:
+                            multiple: false
+                            choices:
+                                person.canonical: canonical
+                                person.realname: realname
+                                person.pseudonym: pseudonym
+                                person.altname: altname
+                                person.wrongname: wrongname
+                                person.maybe: maybe
+                    - canonicalPerson
+            list:
+                title: Persons
+                fields:
+                    - name
+                    - { property: nameType, template: 'admin/Person/nameType.html.twig' }
+                    - canonicalPerson
+                    - relatedPersons
+
+        User:
+            class: App\Entity\User
+            role: ROLE_ADMIN
+            disabled_actions: [new, delete]
+            form:
+                fields:
+                    - username
+                    - email
+                    -
+                        property: roles
+                        type: choice
+                        type_options:
+                            multiple: true
+                            choices:
+                                ROLE_USER: ROLE_USER
+                                ROLE_EDITOR: ROLE_EDITOR
+                                ROLE_EDITOR_SENIOR: ROLE_EDITOR_SENIOR
+                                ROLE_ADMIN: ROLE_ADMIN
