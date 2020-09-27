@@ -8,98 +8,98 @@ trait WithBookStaff {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $chiefEditor;
+	public $chiefEditor;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $managingEditor;
+	public $managingEditor;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $editor;
+	public $editor;
 
 	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
-	private $editorialStaff;
+	public $editorialStaff;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $publisherEditor;
+	public $publisherEditor;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $artistEditor;
+	public $artistEditor;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $technicalEditor;
+	public $technicalEditor;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $consultant;
+	public $consultant;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $scienceEditor;
+	public $scienceEditor;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $copyreader;
+	public $copyreader;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $reviewer;
+	public $reviewer;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $artist;
+	public $artist;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $illustrator;
+	public $illustrator;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $corrector;
+	public $corrector;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $layout;
+	public $layout;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $coverLayout;
+	public $coverLayout;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $libraryDesign;
+	public $libraryDesign;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $computerProcessing;
+	public $computerProcessing;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $prepress;
+	public $prepress;
 
 	public function setChiefEditor($chiefEditor) { $this->chiefEditor = Typograph::replaceDash($chiefEditor); }
 	public function setManagingEditor($managingEditor) { $this->managingEditor = Typograph::replaceDash($managingEditor); }

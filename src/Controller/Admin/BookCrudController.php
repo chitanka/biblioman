@@ -7,54 +7,58 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class BookCrudController extends AbstractCrudController
-{
-	public static function getEntityFqcn(): string
-	{
+class BookCrudController extends AbstractCrudController {
+
+	protected $baseImagePath = 'https://biblioman.chitanka.info/thumb/covers';
+
+	public static function getEntityFqcn(): string {
 		return Book::class;
 	}
 
-	public function configureCrud(Crud $crud): Crud
-	{
+	public function configureCrud(Crud $crud): Crud {
 		return $crud
 			->setPageTitle(Crud::PAGE_INDEX, 'Books')
 			->setPageTitle(Crud::PAGE_EDIT, 'Book.form_title')
 			->setPageTitle(Crud::PAGE_DETAIL, 'Книга (№%entity_short_id%)')
 			->setPageTitle(Crud::PAGE_NEW, 'Book.new_title')
-			->setSearchFields(['id', 'lockedBy', 'createdBy', 'completedBy', 'author', 'translator', 'translatedFromLanguage', 'dateOfTranslation', 'adaptedBy', 'otherAuthors', 'compiler', 'media', 'format', 'pageCount', 'binding', 'themes', 'genre', 'trackingCode', 'litGroup', 'uniformProductClassification', 'universalDecimalClassification', 'isbn', 'isbnClean', 'contentType', 'nationality', 'language', 'notesAboutOriginal', 'annotation', 'notesAboutAuthor', 'marketingSnippets', 'toc', 'fullContent', 'cover', 'backCover', 'nbCovers', 'nbScans', 'nbContentFiles', 'sequence', 'sequenceNr', 'subsequence', 'subsequenceNr', 'series', 'seriesNr', 'otherFields', 'notes', 'infoSources', 'adminComment', 'ocredText', 'reasonWhyIncomplete', 'verifiedCount', 'printingHouse', 'typeSettingIn', 'printSigned', 'printOut', 'printerSheets', 'publisherSheets', 'provisionPublisherSheets', 'totalPrint', 'edition', 'publisher', 'publisherCity', 'publishingYear', 'publisherAddress', 'publisherCode', 'publisherOrder', 'publisherNumber', 'price', 'chiefEditor', 'managingEditor', 'editor', 'editorialStaff', 'publisherEditor', 'artistEditor', 'technicalEditor', 'consultant', 'scienceEditor', 'copyreader', 'reviewer', 'artist', 'illustrator', 'corrector', 'layout', 'coverLayout', 'libraryDesign', 'computerProcessing', 'prepress', 'title', 'altTitle', 'subtitle', 'subtitle2', 'volumeTitle', 'chitankaId']);
+			->setSearchFields(['id', 'lockedBy', 'createdBy', 'completedBy', 'author', 'translator', 'translatedFromLanguage', 'dateOfTranslation', 'adaptedBy', 'otherAuthors', 'compiler', 'media', 'format', 'pageCount', 'binding', 'themes', 'genre', 'trackingCode', 'litGroup', 'uniformProductClassification', 'universalDecimalClassification', 'isbn', 'isbnClean', 'contentType', 'nationality', 'language', 'notesAboutOriginal', 'annotation', 'notesAboutAuthor', 'marketingSnippets', 'toc', 'fullContent', 'cover', 'backCover', 'nbCovers', 'nbScans', 'nbContentFiles', 'sequence', 'sequenceNr', 'subsequence', 'subsequenceNr', 'series', 'seriesNr', 'otherFields', 'notes', 'infoSources', 'adminComment', 'ocredText', 'reasonWhyIncomplete', 'verifiedCount', 'printingHouse', 'typeSettingIn', 'printSigned', 'printOut', 'printerSheets', 'publisherSheets', 'provisionPublisherSheets', 'totalPrint', 'edition', 'publisher', 'publisherCity', 'publishingYear', 'publisherAddress', 'publisherCode', 'publisherOrder', 'publisherNumber', 'price', 'chiefEditor', 'managingEditor', 'editor', 'editorialStaff', 'publisherEditor', 'artistEditor', 'technicalEditor', 'consultant', 'scienceEditor', 'copyreader', 'reviewer', 'artist', 'illustrator', 'corrector', 'layout', 'coverLayout', 'libraryDesign', 'computerProcessing', 'prepress', 'title', 'altTitle', 'subtitle', 'subtitle2', 'volumeTitle', 'chitankaId'])
+			->setDefaultSort(['id' => 'DESC']);
+
+		#$this->putHelpMessagesFromWiki();
 	}
 
-	public function configureActions(Actions $actions): Actions
-	{
+	public function configureActions(Actions $actions): Actions {
 		return $actions
 			->disable('delete');
 	}
 
-	public function configureFields(string $pageName): iterable
-	{
-		$panel1 = FormField::addPanel('Basic data');
-		$media = TextField::new('media');
+	public function configureFields(string $pageName): iterable {
+		$panelBasic = FormField::addPanel('Basic data')->setIcon('menu-icon fas fa-cog fa-fw');
+		$media = ChoiceField::new('media')->setChoices(array_combine(Book::mediaValues(), Book::mediaValues()))->renderExpanded();
 		$author = TextField::new('author');
 		$title = TextField::new('title')->setTemplatePath('admin/Book/link.html.twig');
 		$volumeTitle = TextField::new('volumeTitle');
 		$subtitle = TextField::new('subtitle');
 		$publisher = TextField::new('publisher');
 		$publishingYear = TextField::new('publishingYear');
-		$panel2 = FormField::addPanel('Data from paper');
+		$panelPaperData = FormField::addPanel('Data from paper')->setIcon('menu-icon fas fa-book fa-fw');
 		$altTitle = TextField::new('altTitle');
 		$subtitle2 = TextField::new('subtitle2');
 		$sequence = TextField::new('sequence');
-		$sequenceNr = IntegerField::new('sequenceNr');
+		$sequenceNr = TextField::new('sequenceNr');
 		$subsequence = TextField::new('subsequence');
-		$subsequenceNr = IntegerField::new('subsequenceNr');
+		$subsequenceNr = TextField::new('subsequenceNr');
 		$series = TextField::new('series');
 		$seriesNr = TextField::new('seriesNr');
 		$translator = TextField::new('translator');
@@ -106,7 +110,7 @@ class BookCrudController extends AbstractCrudController
 		$totalPrint = TextField::new('totalPrint');
 		$price = TextField::new('price');
 		$binding = TextField::new('binding');
-		$illustrated = Field::new('illustrated');
+		$illustrated = BooleanField::new('illustrated');
 		$isbn = TextField::new('isbn');
 		$annotation = TextareaField::new('annotation');
 		$notesAboutAuthor = TextareaField::new('notesAboutAuthor');
@@ -114,149 +118,110 @@ class BookCrudController extends AbstractCrudController
 		$toc = TextareaField::new('toc');
 		$notesAboutOriginal = TextareaField::new('notesAboutOriginal');
 		$otherFields = TextareaField::new('otherFields');
-		$panel3 = FormField::addPanel('Notes');
+		$panelNotes = FormField::addPanel('Notes')->setIcon('menu-icon far fa-sticky-note fa-fw');
 		$notes = TextareaField::new('notes');
-		$panel4 = FormField::addPanel('Categorization');
+		$panelCategorization = FormField::addPanel('Categorization')->setIcon('menu-icon fas fa-tag fa-fw');
 		$category = AssociationField::new('category');
 		$genre = TextField::new('genre');
 		$themes = TextField::new('themes');
 		$universalDecimalClassification = TextField::new('universalDecimalClassification');
-		$panel5 = FormField::addPanel('Links');
+		$panelLinks = FormField::addPanel('Links')->setIcon('menu-icon fas fa-link fa-fw');
 		$chitankaId = IntegerField::new('chitankaId');
-		$links = Field::new('links');
-		$panel6 = FormField::addPanel('Covers');
-		$coverFile = Field::new('coverFile');
-		$backCoverFile = Field::new('backCoverFile');
-		$otherCovers = Field::new('otherCovers')->addCssClass('files');
-		$panel7 = FormField::addPanel('Files');
-		$fullContentFile = Field::new('fullContentFile');
+		# by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
+		# See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
+		$links = CollectionField::new('links')->setEntryType(\App\Form\BookLinkType::class)->setFormTypeOptions(['by_reference' => false]);
+		$panelCovers = FormField::addPanel('Covers')->setIcon('menu-icon far fa-images fa-fw');
+		$coverFile = ImageField::new('coverFile')->setFormType(VichImageType::class);
+		$backCoverFile = ImageField::new('backCoverFile')->setFormType(VichImageType::class);
+		$otherCovers = CollectionField::new('otherCovers')->addCssClass('files')->setEntryType(\App\Form\BookCoverType::class)->setFormTypeOptions(['by_reference' => false]);;
+		$panelFiles = FormField::addPanel('Files')->setIcon('menu-icon far fa-file-alt fa-fw');
+		$fullContentFile = ImageField::new('fullContentFile')->setFormType(VichImageType::class);
 		$availableAt = DateField::new('availableAt');
-		$contentFiles = Field::new('contentFiles')->addCssClass('files');
-		$scans = Field::new('scans')->addCssClass('files');
-		$panel8 = FormField::addPanel('Metadata');
+		$contentFiles = CollectionField::new('contentFiles')->addCssClass('files')->setEntryType(\App\Form\BookContentFileType::class)->setFormTypeOptions(['by_reference' => false]);
+		$scans = CollectionField::new('scans')->addCssClass('files')->setEntryType(\App\Form\BookScanType::class)->setFormTypeOptions(['by_reference' => false]);;
+		$panelMetadata = FormField::addPanel('Metadata')->setIcon('menu-icon far fa-folder-open fa-fw')->addCssClass('last-panel');
 		$infoSources = TextareaField::new('infoSources');
 		$adminComment = TextareaField::new('adminComment');
 		$ocredText = TextareaField::new('ocredText');
-		$hasOnlyScans = Field::new('hasOnlyScans');
-		$isIncomplete = Field::new('isIncomplete');
+		$hasOnlyScans = BooleanField::new('hasOnlyScans');
+		$isIncomplete = BooleanField::new('isIncomplete');
 		$reasonWhyIncomplete = TextField::new('reasonWhyIncomplete');
 		$id = IntegerField::new('id', 'ID')->setTemplatePath('admin/Book/link.html.twig');
-		$cover = ImageField::new('cover');
-		$backCover = ImageField::new('backCover');
+		$cover = ImageField::new('cover')->setBasePath($this->baseImagePath);
+		$backCover = ImageField::new('backCover')->setBasePath($this->baseImagePath);
 
 		if (Crud::PAGE_INDEX === $pageName) {
-			return [$id, $cover, $backCover, $title, $author, $publisher, $publishingYear];
+			return [$id, $cover, $backCover, $title, $author, $publisher, TextField::new('publishingYear', 'Publishing year short')];
 		}
 		if (Crud::PAGE_DETAIL === $pageName) {
 			return [$id, $cover, $backCover, $title, $author, $publisher, $publishingYear];
 		}
 		if (Crud::PAGE_NEW === $pageName) {
 			return [
-			$media, $author, $title, $volumeTitle, $subtitle, $publisher, $publishingYear];
+				$panelBasic, $media,
+				$panelPaperData, $author, $title, $volumeTitle, $subtitle, $publisher, $publishingYear,
+			];
 		}
 		if (Crud::PAGE_EDIT === $pageName) {
 			return [
-				#$panel1,
+				$panelBasic,
 				$media,
-				#$panel2,
+				$panelPaperData,
 				$author,
-				$title,
-				$altTitle,
-				$volumeTitle,
-				$subtitle,
-				$subtitle2,
-				$sequence,
-				$sequenceNr,
-				$subsequence,
-				$subsequenceNr,
-				$series,
-				$seriesNr,
-				$translator,
-				$translatedFromLanguage,
-				$dateOfTranslation,
-				$adaptedBy,
-				$otherAuthors,
-				$compiler,
-				$editorialStaff,
-				$chiefEditor,
-				$managingEditor,
-				$editor,
-				$publisherEditor,
+				$title, $altTitle, $volumeTitle, $subtitle, $subtitle2,
+				$sequence, $sequenceNr, $subsequence, $subsequenceNr, $series, $seriesNr,
+				$translator, $translatedFromLanguage, $dateOfTranslation,
+				$adaptedBy, $otherAuthors, $compiler,
+				$editorialStaff, $chiefEditor, $managingEditor, $editor, $publisherEditor,
 				$consultant,
-				$artist,
-				$illustrator,
-				$artistEditor,
-				$technicalEditor,
-				$reviewer,
-				$scienceEditor,
-				$copyreader,
-				$corrector,
-				$layout,
-				$coverLayout,
-				$libraryDesign,
-				$computerProcessing,
-				$prepress,
-				$publisher,
-				$publisherCity,
-				$publishingYear,
-				$publisherAddress,
+				$artist, $illustrator, $artistEditor,
+				$technicalEditor, $reviewer, $scienceEditor, $copyreader, $corrector,
+				$layout, $coverLayout, $libraryDesign, $computerProcessing, $prepress,
+				$publisher, $publisherCity, $publishingYear, $publisherAddress,
 				$printingHouse,
 				$contentType,
-				$nationality,
-				$language,
+				$nationality, $language,
 				$edition,
 				$litGroup,
 				$typeSettingIn,
-				$printSigned,
-				$printOut,
-				$printerSheets,
-				$publisherSheets,
-				$provisionPublisherSheets,
+				$printSigned, $printOut,
+				$printerSheets, $publisherSheets, $provisionPublisherSheets,
 				$format,
-				$publisherCode,
-				$trackingCode,
-				$publisherOrder,
-				$publisherNumber,
+				$publisherCode, $trackingCode,
+				$publisherOrder, $publisherNumber,
 				$uniformProductClassification,
-				$pageCount,
-				$totalPrint,
-				$price,
-				$binding,
-				$illustrated,
+				$pageCount, $totalPrint, $price, $binding, $illustrated,
 				$isbn,
-				$annotation,
-				$notesAboutAuthor,
-				$marketingSnippets,
-				$toc,
-				$notesAboutOriginal,
+				$annotation, $notesAboutAuthor, $marketingSnippets, $toc, $notesAboutOriginal,
 				$otherFields,
-				#$panel3,
+				$panelNotes,
 				$notes,
-				#$panel4,
-				$category,
-				$genre,
-				$themes,
-				$universalDecimalClassification,
-				#$panel5,
+				$panelCategorization,
+				$category, $genre, $themes, $universalDecimalClassification,
+				$panelLinks,
 				$chitankaId,
-				#$links,
-				#$panel6,
-				$coverFile,
-				$backCoverFile,
-				$otherCovers,
-				#$panel7,
-				$fullContentFile,
-				$availableAt,
-				#$contentFiles,
-				#$scans,
-				#$panel8,
-				$infoSources,
-				$adminComment,
-				$ocredText,
-				$hasOnlyScans,
-				$isIncomplete,
-				$reasonWhyIncomplete,
+				$links,
+				$panelCovers,
+				$coverFile, $backCoverFile, $otherCovers,
+				$panelFiles,
+				$fullContentFile, $availableAt,
+				$contentFiles,
+				$scans,
+				$panelMetadata,
+				$infoSources, $adminComment, $ocredText, $hasOnlyScans, $isIncomplete, $reasonWhyIncomplete,
 			];
+		}
+	}
+
+	public function edit(\EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext $context) {
+		$this->denyAccessIfCannotEditBook($context);
+		return parent::edit($context);
+	}
+
+	protected function denyAccessIfCannotEditBook(\EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext $context) {
+		$user = $context->getUser();/* @var $use \App\Entity\User */
+		if (!$user->canEditBook($context->getEntity()->getInstance())) {
+			$context->getEntity()->markAsInaccessible();
 		}
 	}
 }

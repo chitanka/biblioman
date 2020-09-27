@@ -1,19 +1,41 @@
-.form-group {
-	margin-bottom: .5em;
+form.dirty .changed {
+	background-color: #fffebe;
 }
-.form-control, .form-control:focus {
-	border: 1px solid #d0d0d0;
+form.dirty .form-check-input.changed {
+	outline: 6px solid #fffebe;
+}
+.form-group {
+	padding: 0.3em;
 }
 .form-control:focus {
-	background-color: #FFEDBE;
+	background: #FFEDBE;
 }
-form label.control-label.required::after {
+.form-group .col-form-label.required::after, .form-group label.required::after {
 	content: "";
 }
-form label.control-label.required::before {
+.form-group .col-form-label.required::before, .form-group .form-control-label.required::before {
 	content: "*\00a0";
 	color: #D42124;
 	font-size: 16px;
+}
+.form-group .col-form-label, .form-group .form-control-label {
+	font-weight: 700;
+	margin-right: 0.67em;
+}
+.form-widget input.form-control, .form-widget select.form-control, .form-widget textarea.form-control {
+	max-width: 100%;
+}
+.content-panel-header {
+	cursor: pointer;
+}
+.content-panel-header.collapsed::after {
+	content: '\00a0 +';
+	font-weight: bold;
+	text-shadow: 3px 3px 2px rgba(150, 150, 150, 1);
+}
+.last-panel {
+	/* leave some room after the last panel so that the scrolling positions it at the top */
+	margin-bottom: 50rem;
 }
 .field-book_cover,
 .field-book_scan,
@@ -30,10 +52,10 @@ form label.control-label.required::before {
 .field-book_content_file .field-checkbox {
 	display: none;
 }
-#book_links .help-block,
-#book_otherCovers .help-block,
-#book_scans .help-block,
-#book_contentFiles .help-block {
+#Book_links .help-block,
+#Book_otherCovers .help-block,
+#Book_scans .help-block,
+#Book_contentFiles .help-block {
 	display: none;
 }
 .help-block p:first-of-type {
@@ -47,7 +69,7 @@ form label.control-label.required::before {
 	opacity: .3;
 }
 
-#book_media .radio {
+#Book_media .form-check {
 	display: inline-block;
-	margin-right: 1em;
+	margin-right: 0.5em;
 }

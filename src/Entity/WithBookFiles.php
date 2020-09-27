@@ -14,20 +14,20 @@ trait WithBookFiles {
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $fullContent;
+	public $fullContent;
 
 	/**
 	 * @Vich\UploadableField(mapping="fullcontent", fileNameProperty="fullContent")
 	 * @var File
 	 */
-	private $fullContentFile;
+	public $fullContentFile;
 
 	/**
 	 * If set, the content file will be available for the public at the given date.
 	 * @var \DateTime
 	 * @ORM\Column(type="date", nullable=true)
 	 */
-	private $availableAt;
+	public $availableAt;
 
 	abstract public function canHaveScans(): bool;
 

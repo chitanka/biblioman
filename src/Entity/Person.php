@@ -18,6 +18,15 @@ class Person extends Entity {
 	const NAME_TYPE_WRONGNAME = 'wrongname';
 	const NAME_TYPE_MAYBE = 'maybe';
 
+	const NAME_TYPES = [
+		self::NAME_TYPE_CANONICAL,
+		self::NAME_TYPE_REALNAME,
+		self::NAME_TYPE_PSEUDONYM,
+		self::NAME_TYPE_ALTNAME,
+		self::NAME_TYPE_WRONGNAME,
+		self::NAME_TYPE_MAYBE,
+	];
+
 	/**
 	 * @var string $name
 	 * @ORM\Column(type="string", length=100)

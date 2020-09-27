@@ -29,7 +29,7 @@
 							<a href="{{ path('my_shelves') }}" class="dropdown-item"><span class="fa fa-folder-o fa-fw"></span> Моите рафтове</a>
 							<div role="separator" class="dropdown-divider"></div>
 							{% if is_granted('ROLE_EDITOR') %}
-								<a href="{{ path('easyadmin', {'action': 'new', 'entity': 'Book'}) }}" class="dropdown-item"><span class="fa fa-plus fa-fw"></span> Нова книга</a>
+								<a href="{{ _.adminLinkNewBook() }}" class="dropdown-item"><span class="fa fa-plus fa-fw"></span> Нова книга</a>
 							{% endif %}
 							<a href="{{ path('books', {q: 'createdBy: '~app.user.username}) }}" class="dropdown-item"><span class="fa fa-address-book fa-fw"></span> Създадени от мен</a>
 							<a href="{{ path('books_incomplete') }}" class="dropdown-item"><span class="fa fa-battery-half fa-fw"></span> Непълни записи</a>

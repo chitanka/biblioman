@@ -3,7 +3,7 @@
 	<div class="row">
 		{% for book in bookRow %}
 			<div class="col-xs-12 col-md-6">
-				{% include 'Book/bookShort.html.twig' with { book: (book.book is not empty ? book.book : book) } %}
+				{% include 'Book/bookShort.html.twig' with { book: (book.book is defined ? book.book : book) } %}
 			</div>
 		{% endfor %}
 	</div>

@@ -10,14 +10,14 @@ trait HasTimestamp {
 	 * @Gedmo\Timestampable(on="create")
 	 * @ORM\Column(type="datetime")
 	 */
-	protected $createdAt;
+	public $createdAt;
 
 	/**
 	 * @var \DateTime
 	 * @Gedmo\Timestampable(on="update")
 	 * @ORM\Column(type="datetime")
 	 */
-	protected $updatedAt;
+	public $updatedAt;
 
 	protected function isOlderThanSeconds($seconds) {
 		return (time() - $this->updatedAt->getTimestamp()) > $seconds;

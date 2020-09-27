@@ -8,18 +8,20 @@ trait WithBookLinks {
 	/**
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
-	private $chitankaId;
+	public $chitankaId;
 
 	/**
 	 * @var BookLink[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 */
-	private $links;
+	public $links;
 
 	public function setChitankaId($chitankaId) { $this->chitankaId = $chitankaId; }
 
 	/** @param BookLink[] $links */
-	public function setLinks($links) { $this->links = $links; }
+	public function setLinks($links) {
+		$this->links = $links;
+	}
 
 	public function addLink(BookLink $link) {
 		if (!empty($link->getUrl())) {

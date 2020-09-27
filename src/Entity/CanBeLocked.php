@@ -1,18 +1,20 @@
 <?php namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 trait CanBeLocked {
 
 	/**
 	 * @var \DateTime
 	 * @ORM\Column(type="datetime", nullable=true)
 	 */
-	private $lockedAt;
+	public $lockedAt;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $lockedBy;
+	public $lockedBy;
 
 	public function setLock($user) {
 		$this->lockedBy = $user;

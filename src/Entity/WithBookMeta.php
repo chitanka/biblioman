@@ -11,51 +11,51 @@ trait WithBookMeta {
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $otherFields;
+	public $otherFields;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $notes;
+	public $notes;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $infoSources;
+	public $infoSources;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $adminComment;
+	public $adminComment;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $ocredText;
+	public $ocredText;
 
 	/**
 	 * @var boolean
 	 * @ORM\Column(type="boolean")
 	 */
-	private $hasOnlyScans = false;
+	public $hasOnlyScans = false;
 
 	/**
 	 * @var boolean
 	 * @ORM\Column(type="boolean")
 	 */
-	private $isIncomplete = true;
+	public $isIncomplete = true;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
-	private $reasonWhyIncomplete;
+	public $reasonWhyIncomplete;
 
 	/**
 	 * @var int
 	 * @ORM\Column(type="integer")
 	 */
-	private $verifiedCount = 0;
+	public $verifiedCount = 0;
 
 	public function setOtherFields($otherFields) { $this->otherFields = Typograph::replaceAll($otherFields); }
 	public function setNotes($notes) { $this->notes = Typograph::replaceAll($notes); }

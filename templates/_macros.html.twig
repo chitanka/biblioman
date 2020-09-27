@@ -6,7 +6,7 @@
 	{% else %}
 		{% set attr = attribute(book, field) %}
 		{% if attr is not empty %}
-		<dt class="col-md-4 entity-field entity-field-{{ field }}" title="{{ field|humanize|trans }}">{{ field|humanize|trans }}</dt>
+		<dt class="col-md-4 entity-field entity-field-{{ field }}" title="{{ field|admin_title|trans }}">{{ field|admin_title|trans }}</dt>
 		<dd class="col-md-8 entity-field entity-field-{{ field }}">
 			{% if attr.timestamp is defined %}
 				{{ _.printDate(attr) }}
@@ -127,7 +127,7 @@
 {% endmacro %}
 
 {% macro printEditLink(book) %}
-	<a href="{{ path('easyadmin', { action: 'edit', entity: 'Book', id: book.id, referer: app.request.uri }) }}" title="Редактиране на записа" class="btn btn-outline-primary btn-sm"><span class="fa fa-pencil"></span></a>
+	<a href="{{ _self.adminLinkEditBook(book) }}" title="Редактиране на записа" class="btn btn-outline-primary btn-sm"><span class="fa fa-pencil"></span></a>
 {% endmacro %}
 
 {% macro printFullContentLink(book) %}
@@ -216,3 +216,6 @@
 {% macro thumbFrontCover(image, width, humanReadableName) %}{{ image|thumb('covers', width, humanReadableName ~ '-front') }}{% endmacro %}
 {% macro thumbBackCover(image, width, humanReadableName) %}{{ image|thumb('covers', width, humanReadableName ~ '-back') }}{% endmacro %}
 {% macro thumbScan(image, width) %}{{ image|thumb('scans', width) }}{% endmacro %}
+
+{% macro adminLinkNewBook() %}{{ ea_url().setController('App\\Controller\\Admin\\BookCrudController').setAction('new') }}{% endmacro %}
+{% macro adminLinkEditBook(book) %}{{ ea_url().includeReferrer().setController('App\\Controller\\Admin\\BookCrudController').setAction('edit').setEntityId(book.id) }}{% endmacro %}

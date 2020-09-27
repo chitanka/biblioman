@@ -10,13 +10,13 @@ trait WithBookScans {
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
-	private $scans;
+	public $scans;
 
 	/**
 	 * Number of uploaded scans for the book
 	 * @ORM\Column(type="smallint", nullable=true)
 	 */
-	private $nbScans;
+	public $nbScans;
 
 	/** @return BookScan[]|BookScans */
 	public function getScans() {

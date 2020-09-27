@@ -10,13 +10,13 @@ trait WithBookContentFiles {
 	 * @ORM\OneToMany(targetEntity="BookContentFile", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
-	private $contentFiles;
+	public $contentFiles;
 
 	/**
 	 * Number of uploaded content files for the book
 	 * @ORM\Column(type="smallint")
 	 */
-	private $nbContentFiles;
+	public $nbContentFiles;
 
 	/** @return BookContentFile[]|BookContentFiles */
 	public function getContentFiles() {

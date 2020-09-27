@@ -26,6 +26,7 @@ class Extension extends \Twig_Extension {
 			new TwigFilter('thumb', [$this, 'createThumbPath']),
 			new TwigFilter('contentpath', [$this, 'createContentPath']),
 			new TwigFilter('ids', [$this, 'getIdsFromCollection']),
+			new TwigFilter('admin_title', [$this, 'formatTitleLikeAdmin']),
 		];
 	}
 
@@ -83,4 +84,7 @@ class Extension extends \Twig_Extension {
 		})->toArray();
 	}
 
+	public function formatTitleLikeAdmin(string $fieldName): string {
+		return ucwords(\Symfony\Component\String\u($fieldName)->snake()->replace('_', ' '));
+	}
 }

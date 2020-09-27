@@ -15,7 +15,7 @@ class AdminController {
 	/** @var Book */
 	private $bookPreEdit;
 
-	/**
+	/*
 	 * @Route("/admin/books/extend-lock")
 	 */
 	public function extendBookLock(Request $request) {
@@ -30,12 +30,6 @@ class AdminController {
 		return new JsonResponse(false);
 	}
 
-	protected function initialize(Request $request) {
-		parent::initialize($request);
-		$this->checkUserRole();
-		$this->checkUserAuthorization($request->query->get('action'), $request->attributes->get('easyadmin')['item']);
-		$this->putHelpMessagesFromWiki();
-	}
 
 	protected function prePersistBookEntity(Book $book) {
 		$book->setCurrentEditor($this->getUser());
@@ -83,33 +77,6 @@ class AdminController {
 		return $builder;
 	}
 
-	protected function getUsername() {
-		return $this->getUser()->getUsername();
-	}
-
-	protected function checkUserRole() {
-		if (isset($this->entity['role'])) {
-			$this->denyAccessUnlessGranted($this->entity['role']);
-		}
-	}
-
-	protected function checkUserAuthorization($action, $object) {
-		if (!isset($this->entity[$action]['auth'])) {
-			return;
-		}
-		$language = new ExpressionLanguage();
-		foreach ($this->entity[$action]['auth'] as $key => $expression) {
-			$params = [
-				'user' => $this->getUser(),
-				'object' => $object,
-			];
-			$isAllowed = $language->evaluate($expression, $params);
-			if (!$isAllowed) {
-				throw $this->createAccessDeniedException("auth.$key");
-			}
-		}
-	}
-
 	protected function putHelpMessagesFromWiki() {
 		$easyadmin = $this->request->attributes->get('easyadmin');
 		if ($easyadmin['entity']['name'] !== 'Book') {
@@ -128,6 +95,10 @@ class AdminController {
 			}
 		}
 		$this->request->attributes->set('easyadmin', $easyadmin);
+	}
+
+	protected function getUsername() {
+		return $this->getUser()->getUsername();
 	}
 
 	protected function redirectToReferrer() {

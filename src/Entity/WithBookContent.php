@@ -9,47 +9,47 @@ trait WithBookContent {
 	 * single collection anthology almanac
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $contentType;
+	public $contentType;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $nationality;
+	public $nationality;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $language = 'български';
+	public $language = 'български';
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $notesAboutOriginal;
+	public $notesAboutOriginal;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $annotation;
+	public $annotation;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $notesAboutAuthor;
+	public $notesAboutAuthor;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $marketingSnippets;
+	public $marketingSnippets;
 
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	private $toc;
+	public $toc;
 
 	/**
 	 * @ORM\Column(type="boolean", nullable=true)
 	 */
-	private $illustrated;
+	public $illustrated;
 
 	public function setContentType($contentType) { $this->contentType = $contentType; }
 	public function setNationality($nationality) { $this->nationality = $nationality; }

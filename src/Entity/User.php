@@ -209,6 +209,16 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 		return $this->isRegistered() && ($book->isAvailable() || $book->isCreatedByTheUser($this) || $this->is(self::ROLE_EDITOR_SENIOR));
 	}
 
+	public function canEditBook(Book $book): bool {
+		if ($book->isVerified() && !$this->is(self::ROLE_EDITOR_CHIEF)) {
+			return false;
+		}
+		return $book->isIncomplete
+			|| $book->createdBy == $this->getUsername()
+			|| $book->completedBy == $this->getUsername()
+			|| $this->is(self::ROLE_EDITOR_SENIOR);
+	}
+
 	public function canVerifyBook(Book $book) {
 		return $this->is(self::ROLE_EDITOR_MANAGING);
 	}

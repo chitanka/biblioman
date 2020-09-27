@@ -8,37 +8,37 @@ trait WithBookAuthorship {
 	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
-	private $author;
+	public $author;
 
 	/**
 	 * @ORM\Column(type="string", length=1500, nullable=true)
 	 */
-	private $translator;
+	public $translator;
 
 	/**
 	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
-	private $translatedFromLanguage;
+	public $translatedFromLanguage;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $dateOfTranslation;
+	public $dateOfTranslation;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $adaptedBy;
+	public $adaptedBy;
 
 	/**
 	 * @ORM\Column(type="string", length=1500, nullable=true)
 	 */
-	private $otherAuthors;
+	public $otherAuthors;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $compiler;
+	public $compiler;
 
 	public function setAuthor($author) { $this->author = Typograph::replaceDash($author); }
 	public function setTranslator($translator) { $this->translator = Typograph::replaceDash($translator); }

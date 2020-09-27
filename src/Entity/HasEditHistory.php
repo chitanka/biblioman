@@ -11,35 +11,35 @@ trait HasEditHistory {
 	 * @ORM\OneToMany(targetEntity="BookRevision", mappedBy="book")
 	 * @ORM\OrderBy({"createdAt" = "ASC"})
 	 */
-	private $revisions;
+	public $revisions;
 
 	/**
 	 * @ORM\Column(type="string", length=50)
 	 */
-	private $createdBy;
+	public $createdBy;
 
 	/**
 	 * @var User
 	 * @ORM\ManyToOne(targetEntity="User")
 	 */
-	private $createdByUser;
+	public $createdByUser;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $completedBy;
+	public $completedBy;
 
 	/**
 	 * @var User
 	 * @ORM\ManyToOne(targetEntity="User")
 	 */
-	private $completedByUser;
+	public $completedByUser;
 
 	/**
 	 * The user who currently edits the entity
 	 * @var User
 	 */
-	private $currentEditor;
+	public $currentEditor;
 
 	public function getRevisions() {
 		return $this->revisions;

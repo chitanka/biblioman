@@ -9,43 +9,43 @@ trait WithBookCovers {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $cover;
+	public $cover;
 
 	/**
 	 * @Vich\UploadableField(mapping="cover", fileNameProperty="cover")
 	 * @var File
 	 */
-	private $coverFile;
+	public $coverFile;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $backCover;
+	public $backCover;
 
 	/**
 	 * @Vich\UploadableField(mapping="cover", fileNameProperty="backCover")
 	 * @var File
 	 */
-	private $backCoverFile;
+	public $backCoverFile;
 
 	/**
 	 * @var BookCover[]|BookCovers
 	 * @ORM\OneToMany(targetEntity="BookCover", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
-	private $covers;
+	public $covers;
 
 	/**
 	 * Number of uploaded covers for the book
 	 * @ORM\Column(type="smallint")
 	 */
-	private $nbCovers;
+	public $nbCovers;
 
 	/**
 	 * Temporary storage for new covers, uploaded through the special fields
 	 * @var BookCovers|array
 	 */
-	private $newCovers = [];
+	public $newCovers = [];
 
 	public function getCover() {
 		return $this->cover ?: 'nocover.png';

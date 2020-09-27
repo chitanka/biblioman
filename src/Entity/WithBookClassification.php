@@ -10,55 +10,55 @@ trait WithBookClassification {
 	 * @var string
 	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
-	private $themes;
+	public $themes;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
-	private $genre;
+	public $genre;
 
 	/**
 	 * @var BookCategory
 	 * @ORM\ManyToOne(targetEntity="BookCategory", fetch="EAGER")
 	 */
-	private $category;
+	public $category;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $trackingCode;
+	public $trackingCode;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $litGroup;
+	public $litGroup;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=30, nullable=true)
 	 */
-	private $uniformProductClassification;
+	public $uniformProductClassification;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $universalDecimalClassification;
+	public $universalDecimalClassification;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $isbn;
+	public $isbn;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $isbnClean;
+	public $isbnClean;
 
 	public function setThemes($themes) { $this->themes = $themes; }
 	public function setGenre($genre) { $this->genre = $genre; }

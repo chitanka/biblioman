@@ -8,42 +8,42 @@ trait WithBookPrint {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $printingHouse;
+	public $printingHouse;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $typeSettingIn;
+	public $typeSettingIn;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $printSigned;
+	public $printSigned;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $printOut;
+	public $printOut;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $printerSheets;
+	public $printerSheets;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $publisherSheets;
+	public $publisherSheets;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $provisionPublisherSheets;
+	public $provisionPublisherSheets;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $totalPrint;
+	public $totalPrint;
 
 	public function setPrintingHouse($printingHouse) { $this->printingHouse = Typograph::replaceAll($printingHouse); }
 	public function setTypeSettingIn($typeSettingIn) { $this->typeSettingIn = $typeSettingIn; }

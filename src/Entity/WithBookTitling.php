@@ -9,28 +9,28 @@ trait WithBookTitling {
 	 * @var string
 	 * @ORM\Column(type="string", length=255)
 	 */
-	private $title;
+	public $title;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $altTitle;
+	public $altTitle;
 
 	/**
 	 * @ORM\Column(type="string", length=500, nullable=true)
 	 */
-	private $subtitle;
+	public $subtitle;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $subtitle2;
+	public $subtitle2;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $volumeTitle;
+	public $volumeTitle;
 
 	public function setTitle($title) { $this->title = Typograph::replaceAll($title); }
 	public function setAltTitle($altTitle) { $this->altTitle = Typograph::replaceAll($altTitle); }

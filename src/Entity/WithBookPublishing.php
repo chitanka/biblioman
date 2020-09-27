@@ -9,47 +9,47 @@ trait WithBookPublishing {
 	 * Поредност на изданието
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $edition;
+	public $edition;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $publisher;
+	public $publisher;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $publisherCity;
+	public $publisherCity;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $publishingYear;
+	public $publishingYear;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $publisherAddress;
+	public $publisherAddress;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $publisherCode;
+	public $publisherCode;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $publisherOrder;
+	public $publisherOrder;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $publisherNumber;
+	public $publisherNumber;
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $price;
+	public $price;
 
 	public function setEdition($edition) { $this->edition = $edition; }
 	public function setPublisher($publisher) { $this->publisher = Typograph::replaceAll($publisher); }

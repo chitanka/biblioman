@@ -11,22 +11,26 @@ trait WithBookBody {
 	/**
 	 * @ORM\Column(type="string", length=30)
 	 */
-	private $media = 'хартия';
+	public $media = 'хартия';
 
 	/**
 	 * @ORM\Column(type="string", length=50, nullable=true)
 	 */
-	private $format;
+	public $format;
 
 	/**
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
-	private $pageCount;
+	public $pageCount;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $binding;
+	public $binding;
+
+	public static function mediaValues(): array {
+		return [self::$MEDIA_PAPER, self::$MEDIA_DIGITAL];
+	}
 
 	public function setMedia($media) { $this->media = $media; }
 	public function setFormat($format) { $this->format = Typograph::replaceTimesChar($format); }

@@ -9,12 +9,12 @@ trait WithBookShelves {
 	 * @var BookOnShelf[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookOnShelf", mappedBy="book", fetch="EXTRA_LAZY")
 	 */
-	private $booksOnShelf;
+	public $booksOnShelf;
 
 	/**
 	 * @var Shelf[]|ArrayCollection
 	 */
-	private $shelves;
+	public $shelves;
 
 	public function getBooksOnShelf() { return $this->booksOnShelf; }
 	public function setBooksOnShelf($booksOnShelf) { $this->booksOnShelf = $booksOnShelf; }

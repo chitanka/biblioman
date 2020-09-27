@@ -1,9 +1,6 @@
 <?php namespace App\Entity;
 
-use App\Collection\BookCovers;
 use App\Collection\BookMultiFields;
-use App\Collection\BookScans;
-use App\Collection\Entities;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,12 +14,22 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Book extends Entity {
 
-//	use CanBeLocked;
-//	use HasEditHistory;
-//	use HasTimestamp;
-//	use WithBookComponents;
-//	use WithBookLinks;
-//	use WithBookShelves;
+	use CanBeLocked;
+	use HasEditHistory;
+	use HasTimestamp;
+	use WithBookAuthorship;
+	use WithBookBody;
+	use WithBookClassification;
+	use WithBookContent;
+	use WithBookFiles;
+	use WithBookGrouping;
+	use WithBookMeta;
+	use WithBookPrint;
+	use WithBookPublishing;
+	use WithBookStaff;
+	use WithBookTitling;
+	use WithBookLinks;
+	use WithBookShelves;
 
 	private $updatedTrackingEnabled = true;
 
@@ -82,24 +89,19 @@ class Book extends Entity {
 		return $this->title;
 	}
 
-	public function __get($name) {
-		$normalizedName = lcfirst(preg_replace('/^get/', '', $name));
-		if (property_exists($this, $normalizedName)) {
-			return $this->$normalizedName;
-		}
-		return null;
-	}
-
-	public function __call($name, $args) {
-		if (property_exists($this, $name)) {
-			return $this->$name;
-		}
-		return $this->__get($name);
-	}
-
 	public function toArray() {
 		return parent::toArray() +
-			$this->componentsToArray() +
+			$this->titlingToArray() +
+			$this->authorshipToArray() +
+			$this->bodyToArray() +
+			$this->classificationToArray() +
+			$this->contentToArray() +
+			$this->filesToArray() +
+			$this->groupingToArray() +
+			$this->metaToArray() +
+			$this->printToArray() +
+			$this->publishingToArray() +
+			$this->staffToArray() +
 			$this->linksToArray() +
 			$this->revisionsToArray() +
 			$this->timestampToArray();

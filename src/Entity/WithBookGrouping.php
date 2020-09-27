@@ -8,35 +8,35 @@ trait WithBookGrouping {
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $sequence;
+	public $sequence;
 
 	/**
 	 * @var int
 	 * @ORM\Column(type="smallint", nullable=true)
 	 */
-	private $sequenceNr;
+	public $sequenceNr;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $subsequence;
+	public $subsequence;
 
 	/**
 	 * @var int
 	 * @ORM\Column(type="smallint", nullable=true)
 	 */
-	private $subsequenceNr;
+	public $subsequenceNr;
 
 	/**
 	 * @ORM\Column(type="string", length=100, nullable=true)
 	 */
-	private $series;
+	public $series;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=20, nullable=true)
 	 */
-	private $seriesNr;
+	public $seriesNr;
 
 	public function setSequence($sequence) { $this->sequence = Typograph::replaceAll($sequence); }
 	public function setSequenceNr($sequenceNr) { $this->sequenceNr = $sequenceNr; }
