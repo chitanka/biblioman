@@ -26,6 +26,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
+    "cosmicdreams/fontawesome-iconpicker": {
+        "version": "dev-master"
+    },
     "cypresslab/gitelephant": {
         "version": "v4.2.1"
     },

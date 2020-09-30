@@ -48,30 +48,22 @@ $('textarea').css({'height': '2.2em', 'min-height': '2em'}).on('focus', function
 	$(this).css('height', '2.2em');
 });
 
-var $bookForm = $('#edit-book-form');
+const $bookForm = $('#edit-Book-form');
 if ($bookForm.length) {
+	const bookId = new URLSearchParams(document.location.search.substring(1)).get('entityId');
 	setInterval(function() {
-		$.post('/admin/books/extend-lock?' + $.param({
-			entity: $bookForm.data('entity'),
-			id: $bookForm.data('entity-id')
-		}));
+		$.post('/admin/books/extend-lock/' + bookId);
 	}, 120000);
 }
 
-// bigfix - remove unnecessary help blocks
-$('#Book_links,#Book_otherCovers,#Book_scans,#Book_contentFiles').find('.help-block').remove();
-
-var $helpBlocks = $('.help-block');
+const $helpBlocks = $('.form-help');
 $helpBlocks.each(function () {
 	var $helpBlock = $(this);
 	var $helpToggler = $('<i class="fa fa-info-circle"></i>').on('click', function () {
-		if ($helpBlock.is(':hidden')) {
-			$helpBlock.slideDown();
-		} else {
-			$helpBlock.slideUp();
-		}
+		$helpBlock.toggle();
+		return false; // this stops the default behaviour of clicking the label and focusing the field
 	}).css({'margin-left': '.5em', 'opacity': '0.5', 'cursor': 'pointer'});
-	$helpBlock.closest('.form-group').find('label:first').append($helpToggler);
+	$helpBlock.closest('.form-group').find('legend,label').first().append($helpToggler);
 	$helpBlock.hide();
 });
 
@@ -116,4 +108,13 @@ $(`<ul class="sidebar-menu position-fixed"><li class="header"><span>Книга</
 		scrollTop: $($(this).attr('href')).offset().top - 100
 	}, 0);
 	return false;
+});
+
+$('.field-collection-delete-button').each(function () {
+	this.onclick = function() {
+		if (confirm('Потвърдете изтриването.')) {
+			this.closest('.form-group').remove();
+		}
+		return false;
+	};
 });

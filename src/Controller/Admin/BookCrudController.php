@@ -3,9 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Book;
+use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -16,11 +21,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookCrudController extends AbstractCrudController {
 
-	protected $baseImagePath = 'https://biblioman.chitanka.info/thumb/covers';
+	protected $baseImagePath = '/thumb/covers';
+
+	/** @var Book */
+	private $bookPreEdit;
 
 	public static function getEntityFqcn(): string {
 		return Book::class;
@@ -34,16 +46,25 @@ class BookCrudController extends AbstractCrudController {
 			->setPageTitle(Crud::PAGE_NEW, 'Book.new_title')
 			->setSearchFields(['id', 'lockedBy', 'createdBy', 'completedBy', 'author', 'translator', 'translatedFromLanguage', 'dateOfTranslation', 'adaptedBy', 'otherAuthors', 'compiler', 'media', 'format', 'pageCount', 'binding', 'themes', 'genre', 'trackingCode', 'litGroup', 'uniformProductClassification', 'universalDecimalClassification', 'isbn', 'isbnClean', 'contentType', 'nationality', 'language', 'notesAboutOriginal', 'annotation', 'notesAboutAuthor', 'marketingSnippets', 'toc', 'fullContent', 'cover', 'backCover', 'nbCovers', 'nbScans', 'nbContentFiles', 'sequence', 'sequenceNr', 'subsequence', 'subsequenceNr', 'series', 'seriesNr', 'otherFields', 'notes', 'infoSources', 'adminComment', 'ocredText', 'reasonWhyIncomplete', 'verifiedCount', 'printingHouse', 'typeSettingIn', 'printSigned', 'printOut', 'printerSheets', 'publisherSheets', 'provisionPublisherSheets', 'totalPrint', 'edition', 'publisher', 'publisherCity', 'publishingYear', 'publisherAddress', 'publisherCode', 'publisherOrder', 'publisherNumber', 'price', 'chiefEditor', 'managingEditor', 'editor', 'editorialStaff', 'publisherEditor', 'artistEditor', 'technicalEditor', 'consultant', 'scienceEditor', 'copyreader', 'reviewer', 'artist', 'illustrator', 'corrector', 'layout', 'coverLayout', 'libraryDesign', 'computerProcessing', 'prepress', 'title', 'altTitle', 'subtitle', 'subtitle2', 'volumeTitle', 'chitankaId'])
 			->setDefaultSort(['id' => 'DESC']);
-
-		#$this->putHelpMessagesFromWiki();
 	}
 
 	public function configureActions(Actions $actions): Actions {
 		return $actions
-			->disable('delete');
+			->disable(Action::DELETE)
+			->add(Crud::PAGE_NEW, Action::SAVE_AND_CONTINUE)
+			->remove(Crud::PAGE_NEW, Action::SAVE_AND_RETURN)
+			->remove(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
+			->remove(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE)
+		;
 	}
 
 	public function configureFields(string $pageName): iterable {
+		$fields = $this->createFields($pageName);
+		$this->putHelpMessagesFromWiki($fields);
+		return $fields;
+	}
+
+	protected function createFields(string $pageName): iterable {
 		$panelBasic = FormField::addPanel('Basic data')->setIcon('menu-icon fas fa-cog fa-fw');
 		$media = ChoiceField::new('media')->setChoices(array_combine(Book::mediaValues(), Book::mediaValues()))->renderExpanded();
 		$author = TextField::new('author');
@@ -213,15 +234,98 @@ class BookCrudController extends AbstractCrudController {
 		}
 	}
 
-	public function edit(\EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext $context) {
+	public function edit(AdminContext $context) {
 		$this->denyAccessIfCannotEditBook($context);
+		$this->checkForLockedBook($this->get('doctrine')->getManagerForClass($context->getEntity()->getFqcn()), $context->getEntity()->getInstance());
 		return parent::edit($context);
 	}
 
-	protected function denyAccessIfCannotEditBook(\EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext $context) {
+	public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface {
+		$builder = parent::createEditFormBuilder($entityDto, $formOptions, $context);
+		$book = $entityDto->getInstance(); /* @var Book $book */
+		if ($book->isLockedForUser($this->getUser()->getUsername())) {
+			$builder->setDisabled(true);
+		}
+		return $builder;
+	}
+
+	public function createNewForm(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormInterface {
+		$form = parent::createNewForm($entityDto, $formOptions, $context);
+		$request = $this->container->get('request_stack')->getCurrentRequest();/* @var \App\Http\Request $request */
+		foreach ($request->query->all() as $param => $value) {
+			if ($form->has($param)) {
+				$form->get($param)->setData($value);
+			}
+		}
+		return $form;
+	}
+
+	/**
+	 * @Route("/admin/books/extend-lock/{id}")
+	 */
+	public function extendBookLock(EntityManagerInterface $entityManager, Book $book) {
+		$book->disableUpdatedTracking();
+		$book->extendLock();
+		$entityManager->persist($book);
+		$entityManager->flush();
+		return new JsonResponse($book->toArray());
+	}
+
+	protected function denyAccessIfCannotEditBook(AdminContext $context) {
 		$user = $context->getUser();/* @var $use \App\Entity\User */
 		if (!$user->canEditBook($context->getEntity()->getInstance())) {
 			$context->getEntity()->markAsInaccessible();
 		}
 	}
+
+	/** @param \EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface[] $fields */
+	protected function putHelpMessagesFromWiki(iterable $fields) {
+		$wiki = new \Chitanka\WikiBundle\Service\WikiEngine($this->getParameter('chitanka_wiki.content_dir'));
+		$inflector = \Doctrine\Inflector\InflectorFactory::create()->build();
+		foreach ($fields as $field) {
+			$fieldDto = $field->getAsDto();
+			$wikiPageName = str_replace('_', '-', $inflector->tableize($fieldDto->getProperty()));
+			$page = $wiki->getPage("docs/books/$wikiPageName", false);
+			if ($page->exists()) {
+				$url = $this->generateUrl('chitanka_wiki_edit', ['page' => "docs/books/$wikiPageName"]);
+				$fieldDto->setHelp($page->getContentHtml().' <a href="'.$url.'" tabindex="-1" class="wiki-edit-link"><span class="far fa-file-alt"></span></a>');
+				$fieldDto->setCssClass($fieldDto->getCssClass(). ' field-with-help');
+			}
+		}
+	}
+
+	protected function checkForLockedBook(EntityManagerInterface $entityManager, Book $book) {
+		$this->bookPreEdit = clone $book;
+		if ($book->isLockedForUser($this->getUser()->getUsername())) {
+			$this->addFlash('warning', 'В момента този запис се редактира от <a href="'.$this->generateUrl('users_show', ['username' => $book->getLockedBy()]).'">'.$book->getLockedBy().'</a>.');
+		} else if ($book->isLockExpired()) {
+			$book->disableUpdatedTracking();
+			$book->setLock($this->getUser()->getUsername());
+			$entityManager->persist($book);
+			$entityManager->flush();
+		}
+	}
+
+	/** @param Book $book */
+	public function persistEntity(EntityManagerInterface $entityManager, $book): void {
+		$book->setCurrentEditor($this->getUser());
+		$book->setCreator($this->getUser());
+		$book->setCreatedByUser($this->getUser());
+		parent::persistEntity($entityManager, $book);
+	}
+
+	/** @param Book $book */
+	public function updateEntity(EntityManagerInterface $entityManager, $book): void {
+		$book->setCurrentEditor($this->getUser());
+		if ($this->bookPreEdit) {
+			$revision = $book->createRevisionIfNecessary($this->bookPreEdit, $this->getUser()->getUsername());
+			if ($revision) {
+				$entityManager->persist($revision);
+			}
+		}
+		$book->setCreator($this->getUser());
+		$book->clearLock();
+		parent::updateEntity($entityManager, $book);
+	}
+
 }

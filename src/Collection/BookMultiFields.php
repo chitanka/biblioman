@@ -81,7 +81,8 @@ class BookMultiFields extends Entities {
 	}
 
 	private static function getMultiFieldValuesFromBook(Book $book, $multiField) {
-		return array_map('trim', explode(self::VALUE_SEPARATOR, $book->{'get'.ucfirst($multiField)}()));
+		$propertyAccessor = \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor();
+		return array_map('trim', explode(self::VALUE_SEPARATOR, $propertyAccessor->getValue($book, $multiField)));
 	}
 
 }

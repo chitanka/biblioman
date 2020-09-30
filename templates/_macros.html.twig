@@ -218,4 +218,4 @@
 {% macro thumbScan(image, width) %}{{ image|thumb('scans', width) }}{% endmacro %}
 
 {% macro adminLinkNewBook() %}{{ ea_url().setController('App\\Controller\\Admin\\BookCrudController').setAction('new') }}{% endmacro %}
-{% macro adminLinkEditBook(book) %}{{ ea_url().includeReferrer().setController('App\\Controller\\Admin\\BookCrudController').setAction('edit').setEntityId(book.id) }}{% endmacro %}
+{% macro adminLinkEditBook(book) %}{{ ea_url({referrer: app.request.requestUri}).setController('App\\Controller\\Admin\\BookCrudController').setAction('edit').setEntityId(book.id) }}{% endmacro %}

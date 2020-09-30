@@ -25,6 +25,23 @@ form.dirty .form-check-input.changed {
 .form-widget input.form-control, .form-widget select.form-control, .form-widget textarea.form-control {
 	max-width: 100%;
 }
+.form-widget-compound {
+	flex-grow: 1;
+}
+.form-widget-compound .form-group {
+	padding: 0.3em;
+}
+.form-group .field-collection-item-complex label, .form-group .field-collection-item-complex legend.col-form-label {
+	flex-basis: 25%;
+	text-align: right;
+	padding-right: 0.6em;
+}
+.field-collection[data-entry-is-complex="true"] .form-group .field-collection-item-complex .form-widget {
+	flex-basis: 75%;
+}
+.ea-vich-image-actions {
+	float: right;
+}
 .content-panel-header {
 	cursor: pointer;
 }
@@ -52,17 +69,19 @@ form.dirty .form-check-input.changed {
 .field-book_content_file .field-checkbox {
 	display: none;
 }
-#Book_links .help-block,
-#Book_otherCovers .help-block,
-#Book_scans .help-block,
-#Book_contentFiles .help-block {
+#Book_links .form-help,
+#Book_otherCovers .form-help,
+#Book_scans .form-help,
+#Book_contentFiles .form-help {
 	display: none;
 }
-.help-block p:first-of-type {
-	display: inline;
-	padding-left: .3em;
+.form-help p:last-of-type {
+	margin-bottom: 0;
 }
-.help-block .wiki-edit-link {
+.field-with-help {
+	position: relative;
+}
+.form-help .wiki-edit-link {
 	position: absolute;
 	right: 0;
 	top: 0;
