@@ -74,9 +74,8 @@ class MyShelfController extends ShelfController {
 	}
 
 	/**
-	 * @Route("/shelves/{id}/books/{book_id}", name="my_shelf_add_book")
+	 * @Route("/shelves/{id}/books/{book_id}", methods={"POST"}, name="my_shelf_add_book")
 	 * @ParamConverter("book", options={"id": "book_id"})
-	 * @Method({"POST"})
 	 */
 	public function addToShelfAction(Shelf $shelf, Book $book, ShelfStore $shelfStore) {
 		$this->assertUserOwnsShelf($shelf, $shelfStore);
@@ -85,9 +84,8 @@ class MyShelfController extends ShelfController {
 	}
 
 	/**
-	 * @Route("/shelves/{id}/books/{book_id}", name="my_shelf_remove_book")
+	 * @Route("/shelves/{id}/books/{book_id}", methods={"DELETE"}, name="my_shelf_remove_book")
 	 * @ParamConverter("book", options={"id": "book_id"})
-	 * @Method({"DELETE"})
 	 */
 	public function removeFromShelfAction(Shelf $shelf, Book $book, ShelfStore $shelfStore) {
 		$this->assertUserOwnsShelf($shelf, $shelfStore);

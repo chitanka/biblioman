@@ -9,6 +9,7 @@
 	{% endif %}
 </h1>
 {{ contentAfterHeading|default('') }}
+<div class="books books-{{ mode }}">
 {% if mode == 'mosaic' %}
 	{% include 'Book/booksMosaic.html.twig' %}
 {% elseif mode == 'mosaic_large' %}
@@ -18,3 +19,4 @@
 {% else %}
 	{% include 'Book/booksListcols.html.twig' %}
 {% endif %}
+</div>

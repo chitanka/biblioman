@@ -2,7 +2,7 @@
 <div class="card card-body bg-light book-card book-{{ book.state }}" itemscope itemtype="http://schema.org/Book">
 	<div class="row">
 		<div class="col-md-4">
-			<a href="{{ path('books_show', { id: book.id }) }}" class="popover-trigger" data-content="{{ book.annotation|nl2br }}" data-placement="right">
+			<a href="{{ path('books_show', { id: book.id }) }}" class="popover-trigger" data-content="{{ book.annotation|format_paragraphs|e }}" data-placement="right">
 				<img class="img-thumbnail" src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" width="150" alt="Корица">
 			</a>
 		</div>
@@ -47,7 +47,7 @@
 			<div class="book-snippet-extra-info book-buttons">
 				{{ _.printBookButtons(book) }}
 				<span class="book-snippet-created-by">
-					{{ _.printDateIcon(book.createdAt, 'Created at'|trans) }}
+					{{ _.printDateIcon(book.createdAt, 'Created At'|trans) }}
 					{{ _.printUser(book.createdByUser, book) }}
 					{% if book.completedByUser is not empty %}
 						{{ _.printUser(book.completedByUser, book) }}

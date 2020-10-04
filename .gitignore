@@ -22,6 +22,3 @@
 *.min.js
 *.swp
 /composer.phar
-
-# instaled by composer but not needed
-/components

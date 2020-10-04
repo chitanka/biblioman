@@ -1,6 +1,6 @@
 {% import '_macros.html.twig' as _ %}
 {% for bookRow in books|batch(6) %}
-	<div class="row books-mosaic">
+	<div class="row">
 		{% for book in bookRow %}
 			<div class="col-xs-4 col-md-2">
 				{{ _.printBookThumbnailLink((book.book is defined ? book.book : book), 150) }}

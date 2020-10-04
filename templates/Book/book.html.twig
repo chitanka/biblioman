@@ -1,24 +1,24 @@
 {% import '_macros.html.twig' as _ %}
-<div class="well book book-{{ book.state }}" itemscope itemtype="http://schema.org/Book">
+<div class="card card-body bg-light book book-{{ book.state }}" itemscope itemtype="http://schema.org/Book">
 	<div class="row">
 		<div class="col-md-3">
 			<div style="width: 210px; max-width: 100%">
-				<a href="{{ _.thumbFrontCover(book.cover, 1000, book.title) }}" class="popover-trigger thumb-link" data-content="{{ book.annotation|nl2br }}" data-placement="right">
+				<a href="{{ _.thumbFrontCover(book.cover, 1000, book.title) }}" class="popover-trigger thumb-link" data-content="{{ book.annotation|format_paragraphs|e }}" data-placement="right">
 					<img src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" class="img-thumbnail" alt="Корица" width="200">
 				</a>
 			</div>
 		</div>
 		<div class="col-md-9">
-			<dl class="row">
+			<dl class="row dl-horizontal">
 				{% for field in fields %}
 					{{ _.printField(book, field, searchableFields) }}
 				{% endfor %}
 				{% if addToShelfForms[book.id] is defined %}
-					<dt class="col-md-2">Рафтове</dt>
-					<dd class="col">{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}</dd>
+					<dt class="col-md-4">Рафтове</dt>
+					<dd class="col-md-8">{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}</dd>
 				{% endif %}
-				<dt class="col-md-2">...</dt>
-				<dd class="col book-buttons">
+				<dt class="col-md-4"></dt>
+				<dd class="col-md-8 book-buttons">
 					{{ _.printBookButtons(book) }}
 					{{ _.printBookEditInfo(book, searchableFields) }}
 				</dd>

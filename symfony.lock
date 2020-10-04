@@ -20,9 +20,6 @@
     "chitanka/wiki-bundle": {
         "version": "1.1"
     },
-    "components/jquery": {
-        "version": "2.1.4"
-    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
@@ -147,9 +144,6 @@
     },
     "monolog/monolog": {
         "version": "1.25.5"
-    },
-    "mrohnstock/bootstrap-multiselect": {
-        "version": "0.9.15"
     },
     "nikic/php-parser": {
         "version": "v4.9.1"

@@ -100,7 +100,7 @@ div:target {
 	border-left: 0.3em solid darkorange;
 	box-shadow: 2px 2px 10px -5px darkorange;
 }
-.books .row+.row {
+.books .row+.row, .books-list .book+.book {
 	margin-top: 1.6rem;
 }
 .book-heading {
@@ -189,8 +189,15 @@ figcaption {
 	background-color: #f0f0f0;
 	color: black;
 }
+.link-thumbnail {
+	display: block;
+}
 .img-thumbnail img {
 	max-width: 100%;
+}
+.popover {
+	box-shadow: 0 0 20px #808080;
+	min-width: 50em;
 }
 
 .dl-horizontal dt.entity-field-notesAboutOriginal {
@@ -223,4 +230,11 @@ figcaption {
 
 textarea.message-body {
 	height: 15em;
+}
+.text-content p {
+	text-indent: 2em;
+	margin: 0;
+}
+.text-content p:empty {
+	margin-bottom: 1em;
 }

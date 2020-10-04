@@ -43,7 +43,6 @@
         "fortawesome/font-awesome": "v4.3.0",
         "friendsofsymfony/message-bundle": "^2.0",
         "mateusz-matela/djvu-html5": "^0.2.2",
-        "mrohnstock/bootstrap-multiselect": "^0.9.13",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sachinchoolur/lightgallery": "*",
         "sensio/framework-extra-bundle": "^5.6",

@@ -6,18 +6,18 @@
 
 	{% set shelfDescription %}
 		{% if shelf.description is not empty %}
-			<div class="shelf-description well">
-				{{ shelf.description|nl2br }}
+			<div class="shelf-description card card-body bg-light mb-3">
+				{{ shelf.description|format_paragraphs }}
 			</div>
 		{% endif %}
 	{% endset %}
 	{% set heading %}
 		{{ block('title') }}
 		<span class="extra-info">•</span>
-		<a href="{{ path('my_shelf_form', { id: shelf.id }) }}" class="btn btn-outline-secondary btn-xs"><span class="fa fa-edit"></span> Промяна</a>
+		<a href="{{ path('my_shelf_form', { id: shelf.id }) }}" class="btn btn-outline-secondary btn-sm"><span class="fa fa-edit"></span> Промяна</a>
 		<form action="{{ path('my_shelf_form', { id: shelf.id }) }}" method="POST" style="display: inline" data-confirmation="Рафтът ще бъде изтрит безвъзратно. Това ли искате да изпълните?">
 			<input type="hidden" name="_method" value="DELETE">
-			<button type="submit" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Изтриване</button>
+			<button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span> Изтриване</button>
 		</form>
 	{% endset %}
 	{% include 'Book/books.html.twig' with { heading: heading, contentAfterHeading: shelfDescription, books: pager.currentPageResults } %}

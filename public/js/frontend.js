@@ -30,17 +30,24 @@ function registerFormConfirmations() {
 }
 
 function registerShelfPickers() {
-	var shelfPicker = new ShelfPicker();
-	$('.shelf-picker').each(function() {
-		var $self = $(this);
+	$('.shelf-picker').on('change', 'input', function (e) {
+		$(this.parentNode).toggleClass(this.parentNode.getAttribute('data-state-classes'));
+		const shelfId = this.value;
+		const bookId = e.delegateTarget.getAttribute('data-book');
+		$.ajax({
+			url: '/my/shelves/'+shelfId+'/books/'+bookId,
+			type: (this.checked ? 'POST' : 'DELETE')
+		});
+	}).each(function() {
+		const $notCheckedSecondLevelShelves = $(this).find('label:not(.active).is-not-important');
+		if ($notCheckedSecondLevelShelves.length < 2) {
+			return;
+		}
 		$('<a class="btn btn-outline-secondary btn-sm fa fa-ellipsis-h" title="Показване на всички рафтове"></a>').on('click', function(){
-			$self.show().multiselect(shelfPicker.multiselectOptions);
-			$(this).remove();
-		}).appendTo($self.prev());
-		$self.hide();
-	});
-	$('.important-shelf-picker').on('click', 'label', function () {
-		shelfPicker.clickOnImportantShelf($(this));
+			$notCheckedSecondLevelShelves.show();
+			this.remove();
+		}).appendTo(this);
+		$notCheckedSecondLevelShelves.hide();
 	});
 }
 
@@ -52,60 +59,3 @@ function registerBookSearchForm() {
 		return false;
 	});
 }
-
-var ShelfPicker = function () {
-	var my = this;
-
-	my.clickOnImportantShelf = function($label) {
-		var shelfId = $label.find('input').val();
-		var wasSelected = $label.is('.active');
-		var $shelfPicker = $label.parent().siblings('select.shelf-picker');
-		$label.toggleClass('btn-info btn-outline-secondary');
-		if (wasSelected) {
-			$shelfPicker.multiselect('deselect', shelfId, true);
-		} else {
-			$shelfPicker.multiselect('select', shelfId, true);
-		}
-	};
-	my.clickOnOption = function ($container, $option, checked) {
-		var shelfId = $option.val();
-		var bookId = $option.closest('select').data('book');
-		$.ajax({
-			url: '/my/shelves/'+shelfId+'/books/'+bookId,
-			type: (checked ? 'POST' : 'DELETE')
-		});
-		updateImportantShelfButtonOnOptionClick($container, shelfId, checked);
-	};
-	function updateImportantShelfButtonOnOptionClick($container, shelfId, checked) {
-		var $importantShelfLabel = $container.siblings('.important-shelf-picker').find('label.shelf-'+shelfId);
-		if (shouldToggleImportantShelfButton($importantShelfLabel, checked)) {
-			var toggledClasses = 'btn-info btn-outline-secondary active';
-			$importantShelfLabel.toggleClass(toggledClasses);
-		}
-	}
-	function shouldToggleImportantShelfButton($importantShelfLabel, checked) {
-		return (checked && !$importantShelfLabel.is('.btn-info')) || (!checked && $importantShelfLabel.is('.btn-info'));
-	}
-	my.multiselectOptions = {
-		nonSelectedText: 'Рафт...',
-		nSelectedText: 'рафта избрани',
-		allSelectedText: 'Всички рафтове са избрани',
-		enableFiltering: true,
-		enableCaseInsensitiveFiltering: true,
-		filterPlaceholder: 'Търсене',
-		buttonContainer: '<div class="btn-group shelf-picker"/>',
-		buttonWidth: '100%',
-		optionLabel: function(option) {
-			return '<span class="fa fa-fw '+$(option).data('icon')+' shelf-icon"></span> ' + $(option).html();
-		},
-		enableHTML: true,
-		templates: {
-			button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="fa fa-folder-o"></span> <span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
-			filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-outline-secondary multiselect-clear-filter" type="button"><i class="fa fa-remove"></i></button></span>'
-		},
-		onChange: function(option, checked) {
-			my.clickOnOption(this.$container, $(option), checked);
-		}
-	};
-};

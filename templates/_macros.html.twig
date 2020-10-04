@@ -190,26 +190,19 @@
 
 {% macro printBookThumbnailLink(book, width) %}
 	{% from _self import thumbFrontCover %}
-	<a href="{{ path('books_show', { id: book.id }) }}" class="popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|nl2br }}" data-placement="bottom" title="{{ book.title }} – {{ book.author }}">
+	<a href="{{ path('books_show', { id: book.id }) }}" class="link-thumbnail popover-trigger book-{{ book.state }}" data-content="{{ book.annotation|format_paragraphs|e }}" data-placement="top" title="{{ book.title }} – {{ book.author }}">
 		<img src="{{ thumbFrontCover(book.cover, width, book.title) }}" class="img-thumbnail" alt="Корица">
 	</a>
 {% endmacro %}
 
 {% macro printShelfPicker(book, form) %}
-	{% set selectedShelfIds = book.shelves|ids %}
-	{% if form.shelves.vars.preferred_choices %}
-		<div class="btn-group btn-group-toggle important-shelf-picker">
-			{% for choiceGroup in form.shelves.vars.preferred_choices %}
-				{% for choice in choiceGroup.choices %}
-					{% set checked = choice.value in selectedShelfIds %}
-					<label class="btn btn-sm {{ checked ? 'active btn-secondary' : 'btn-outline-secondary' }} shelf-{{ choice.value }} fa {{ choice.attr['data-icon'] }}" title="{{ choice.label }}">
-						<input type="checkbox" value="{{ choice.value }}" {% if checked %}checked{% endif %}>
-					</label>
-				{% endfor %}
-			{% endfor %}
-		</div>
-	{% endif %}
-	{{ form_widget(form.shelves, { value: selectedShelfIds, id: "shelfPicker_"~book.id, attr: { class: "shelf-picker", 'data-book': book.id, 'data-live-search': 'true' } }) }}
+	<div class="btn-group btn-group-toggle shelf-picker" data-book="{{ book.id }}">
+		{% for choice in form.shelves %}
+			<label class="btn btn-sm {{ choice.vars.attr['data-important'] ? 'is-important' : 'is-not-important' }} {{ choice.vars.checked ? 'active btn-info' : 'btn-outline-info' }} shelf-{{ choice.vars.value }} fa {{ choice.vars.attr['data-icon'] }}" title="{{ choice.vars.label }}" data-state-classes="active btn-info btn-outline-info">
+				<input type="checkbox" value="{{ choice.vars.value }}" {% if choice.vars.checked %}checked{% endif %}>
+			</label>
+		{% endfor %}
+	</div>
 {% endmacro %}
 
 {% macro thumbCover(image, width, humanReadableName) %}{{ image|thumb('covers', width, humanReadableName) }}{% endmacro %}

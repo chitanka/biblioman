@@ -31,21 +31,22 @@ class ShelfStore {
 			return null;
 		}
 		$shelves = $this->findShelvesForUser($user, $defaultShelvesDefinition);
-		$builder->add('shelves', ChoiceType::class, [
+		$options = [
 			'choices' => $shelves->toChoices(),
 			'choice_label' => function(Shelf $shelf) { return $shelf->getName(); },
 			'choice_value' => function(Shelf $shelf) { return $shelf->getId(); },
 			'choice_attr' => function(Shelf $shelf) {
-				return ['data-icon' => $shelf->getIcon()];
+				return ['data-icon' => $shelf->getIcon(), 'data-important' => $shelf->isImportant()];
 			},
 			'multiple' => true,
+			'expanded' => true,
 			'choice_translation_domain' => false,
 			'preferred_choices' => function(Shelf $shelf) { return $shelf->isImportant(); },
-		]);
+		];
 		$this->repoFinder->forShelf()->loadShelfAssociationForBooks($books);
 		$addToShelfForms = [];
 		foreach ($books as $book) {
-			$addToShelfForms[$book->getId()] = $builder->getForm()->createView();
+			$addToShelfForms[$book->getId()] = (clone $builder)->add('shelves', ChoiceType::class, $options + ['data' => $book->getShelves()->toArray()])->getForm()->createView();
 		}
 		return $addToShelfForms;
 	}

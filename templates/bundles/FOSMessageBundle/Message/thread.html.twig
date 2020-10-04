@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="card-body messenger_thread_message_body" id="message_{{ message.id }}">
-				{{ message.body | converturls | autolink | nl2br }}
+				{{ message.body | converturls | autolink | format_paragraphs }}
 			</div>
 		</div>
 	{% endfor %}

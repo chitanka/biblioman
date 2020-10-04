@@ -21,13 +21,14 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 	const FORMAT_CSV = 'csv';
 	const FORMAT_JSON = 'json';
 
-	protected function getAppUser(): User {
-		return parent::getUser() ?? User::createAnonymousUser();
+	protected $translator;
+
+	public function __construct(\Symfony\Contracts\Translation\TranslatorInterface $translator) {
+		$this->translator = $translator;
 	}
 
-	/** @return Manager */
-	protected function persistenceManager() {
-		return $this->get('app.persistence_manager');
+	protected function getAppUser(): User {
+		return parent::getUser() ?? User::createAnonymousUser();
 	}
 
 	protected function pager(Request $request, $query, $maxPerPage = null) {
@@ -61,7 +62,7 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 	}
 
 	protected function translate($message, $params = []) {
-		return $this->get('translator')->trans($message, $params);
+		return $this->translator->trans($message, $params);
 	}
 
 	protected function denyAccessUnless($assertion) {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "105f8268e0f0780e6feea210a8f728ec",
+    "content-hash": "5b8061284d68732d83cc56e1ee4c8760",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -284,48 +284,6 @@
                 "wiki"
             ],
             "time": "2020-09-20T06:41:48+00:00"
-        },
-        {
-            "name": "components/jquery",
-            "version": "2.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/components/jquery.git",
-                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/components/jquery/zipball/7b1d1104656a092423fbfba13c5920e9bbba290c",
-                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c",
-                "shasum": ""
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "jquery.js"
-                    ],
-                    "files": [
-                        "jquery.min.js",
-                        "jquery.min.map",
-                        "jquery-migrate.js",
-                        "jquery-migrate.min.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "John Resig",
-                    "email": "jeresig@gmail.com"
-                }
-            ],
-            "description": "jQuery JavaScript Library",
-            "homepage": "http://jquery.com",
-            "time": "2015-05-08T05:04:47+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -2421,54 +2379,6 @@
                 }
             ],
             "time": "2020-07-23T08:35:51+00:00"
-        },
-        {
-            "name": "mrohnstock/bootstrap-multiselect",
-            "version": "0.9.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mrohnstock/bootstrap-multiselect.git",
-                "reference": "1d028a1112afaa1958af98f9fa48dc3ff0af0be8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mrohnstock/bootstrap-multiselect/zipball/1d028a1112afaa1958af98f9fa48dc3ff0af0be8",
-                "reference": "1d028a1112afaa1958af98f9fa48dc3ff0af0be8",
-                "shasum": ""
-            },
-            "require": {
-                "components/jquery": "~2.1.3"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "js/bootstrap-multiselect.js"
-                    ],
-                    "files": [
-                        "css/bootstrap-multiselect.css",
-                        "js/bootstrap-multiselect.js",
-                        "less/bootstrap-multiselect.less"
-                    ],
-                    "shim": {
-                        "deps": [
-                            "jquery"
-                        ]
-                    }
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "JQuery multiselect plugin based on Twitter Bootstrap.",
-            "homepage": "http://davidstutz.github.io/bootstrap-multiselect/",
-            "keywords": [
-                "JS",
-                "bootstrap",
-                "css",
-                "jquery",
-                "less",
-                "multiselect"
-            ],
-            "time": "2019-01-28T07:38:39+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -8088,6 +7998,7 @@
                 "i18n",
                 "text"
             ],
+            "abandoned": true,
             "time": "2018-12-05T18:34:18+00:00"
         },
         {

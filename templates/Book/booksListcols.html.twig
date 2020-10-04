@@ -1,4 +1,3 @@
-<div class="books">
 {% for bookRow in books|batch(2) %}
 	<div class="row">
 		{% for book in bookRow %}
@@ -10,4 +9,3 @@
 {% else %}
 	{% include 'Book/notFound.html.twig' %}
 {% endfor %}
-</div>
