@@ -75,12 +75,17 @@ $('form').on('change', ':input', function() {
 		if (typeof originalValue === 'boolean') {
 			return el.checked;
 		}
-		return el.value;
+		const value = $(el).val();
+		return Array.isArray(value) ? value.join('') : value;
 	}
+	const marker = 'changed';
+	const $select2 = $(this).next('.select2');
 	if (comparisonValue(this) === originalValue) {
-		this.classList.remove('changed');
+		this.classList.remove(marker);
+		$select2.removeClass(marker)
 	} else {
-		this.classList.add('changed');
+		this.classList.add(marker);
+		$select2.addClass(marker)
 	}
 
 }).on('submit', function() {

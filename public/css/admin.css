@@ -1,4 +1,4 @@
-form.dirty .changed {
+form.dirty .changed, .select2-container--bootstrap.changed .select2-selection {
 	background-color: #fffebe;
 }
 form.dirty .form-check-input.changed {
