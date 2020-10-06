@@ -31,6 +31,9 @@ form.dirty .form-check-input.changed {
 .form-widget-compound .form-group {
 	padding: 0.3em;
 }
+.form-widget-compound .collection-empty {
+	display: none;
+}
 .form-group .field-collection-item-complex label, .form-group .field-collection-item-complex legend.col-form-label {
 	flex-basis: 25%;
 	text-align: right;

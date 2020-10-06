@@ -9,7 +9,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class ShelfRepository extends EntityRepository {
+class ShelfRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository {
+
+	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+		parent::__construct($registry, Shelf::class);
+	}
 
 	/**
 	 * @param string|null $group

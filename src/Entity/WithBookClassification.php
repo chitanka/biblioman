@@ -1,5 +1,6 @@
 <?php namespace App\Entity;
 
+use App\Collection\BookMultiFields;
 use App\Entity\BookField\Isbn;
 use App\Entity\BookField\IsbnClean;
 use Doctrine\ORM\Mapping as ORM;
@@ -60,8 +61,8 @@ trait WithBookClassification {
 	 */
 	public $isbnClean;
 
-	public function setThemes($themes) { $this->themes = $themes; }
-	public function setGenre($genre) { $this->genre = $genre; }
+	public function setThemes($themes) { $this->themes = BookMultiFields::arrayToText($themes); }
+	public function setGenre($genre) { $this->genre = BookMultiFields::arrayToText($genre); }
 	public function setCategory($category) { $this->category = $category; }
 	public function setTrackingCode($trackingCode) { $this->trackingCode = $trackingCode; }
 	public function setLitGroup($litGroup) { $this->litGroup = $litGroup; }
@@ -70,6 +71,13 @@ trait WithBookClassification {
 	public function setIsbn($isbn) {
 		$this->isbn = Isbn::normalizeInput($isbn);
 		$this->isbnClean = IsbnClean::normalizeInput($isbn);
+	}
+
+	public function getThemes(): array {
+		return BookMultiFields::textToArray($this->themes);
+	}
+	public function getGenre(): array {
+		return BookMultiFields::textToArray($this->genre);
 	}
 
 	protected function classificationToArray() {

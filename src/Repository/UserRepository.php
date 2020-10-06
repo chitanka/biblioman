@@ -1,13 +1,16 @@
 <?php namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserRepository extends EntityRepository implements UserProviderInterface {
+class UserRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository implements UserProviderInterface {
+
+	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+		parent::__construct($registry, User::class);
+	}
 
 	/**
 	 * @param string $username

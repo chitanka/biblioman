@@ -2,16 +2,18 @@
 
 use App\Entity\Book;
 use App\Entity\BookCategory;
-use App\Entity\BookField\BookField;
 use App\Entity\BookMultiField;
 use App\Entity\BookRevision;
 use App\Entity\Query\BookQuery;
 use App\Entity\User;
 use App\Library\BookSearchCriteria;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BookRepository extends EntityRepository {
+class BookRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository {
+
+	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+		parent::__construct($registry, Book::class);
+	}
 
 	/**
 	 * @return QueryBuilder

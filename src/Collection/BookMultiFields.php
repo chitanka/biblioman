@@ -42,6 +42,9 @@ class BookMultiFields extends Entities {
 		'genre',
 		'themes',
 	];
+	/**
+	 * The separator used in text fields with multiple semantic values
+	 */
 	const VALUE_SEPARATOR = ';';
 
 	/**
@@ -66,6 +69,20 @@ class BookMultiFields extends Entities {
 		}
 	}
 
+	public static function textToArray($text) {
+		if (is_array($text)) {
+			return $text;
+		}
+		return array_map('trim', explode(self::VALUE_SEPARATOR, $text));
+	}
+
+	public static function arrayToText($values) {
+		if (is_string($values)) {
+			return $values;
+		}
+		return implode(self::VALUE_SEPARATOR.' ', $values);
+	}
+
 	private static function fromBook(Book $book) {
 		$multiFields = [];
 		foreach (self::MULTI_FIELDS as $multiFieldName) {
@@ -81,8 +98,8 @@ class BookMultiFields extends Entities {
 	}
 
 	private static function getMultiFieldValuesFromBook(Book $book, $multiField) {
-		$propertyAccessor = \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor();
-		return array_map('trim', explode(self::VALUE_SEPARATOR, $propertyAccessor->getValue($book, $multiField)));
+		$value = \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor()->getValue($book, $multiField);
+		return is_array($value) ? $value : \App\Entity\Entity::textToArray($value);
 	}
 
 }

@@ -201,8 +201,9 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/{DependencyInjection,Entity,Repository,Tests,Kernel.php}'
+            - '../src/{Entity,Tests,Kernel.php}'
             - '../src/Library/{BookExport,BookSearchCriteria}.php'
+            - '../src/Repository/BookCategoryRepository.php'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

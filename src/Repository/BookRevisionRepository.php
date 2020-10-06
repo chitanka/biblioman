@@ -1,10 +1,14 @@
 <?php namespace App\Repository;
 
+use App\Entity\BookRevision;
 use App\Entity\User;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class BookRevisionRepository extends EntityRepository {
+class BookRevisionRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository {
+
+	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+		parent::__construct($registry, BookRevision::class);
+	}
 
 	/**
 	 * @return QueryBuilder

@@ -30,7 +30,7 @@
 					</tr>
 					{% for modifiedField, diffValues in revision.diffs %}
 						<tr>
-							<th>{{ modifiedField|humanize|trans }}</th>
+							<th>{{ modifiedField|admin_title|trans }}</th>
 							<td><div class="del-block">{{ diffValues.0|nl2br }}</div></td>
 							<td><div class="ins-block">{{ diffValues.1|nl2br }}</div></td>
 						</tr>

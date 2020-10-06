@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Book;
+use App\Repository\BookMultiFieldRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -25,6 +26,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class BookCrudController extends AbstractCrudController {
@@ -33,6 +35,15 @@ class BookCrudController extends AbstractCrudController {
 
 	/** @var Book */
 	private $bookPreEdit;
+	/** @var BookMultiFieldRepository */
+	private $multiFieldRepository;
+	/** @var TranslatorInterface|\Symfony\Component\Translation\DataCollectorTranslator */
+	private $translator;
+
+	public function __construct(BookMultiFieldRepository $multiFieldRepository, TranslatorInterface $translator) {
+		$this->multiFieldRepository = $multiFieldRepository;
+		$this->translator = $translator;
+	}
 
 	public static function getEntityFqcn(): string {
 		return Book::class;
@@ -49,12 +60,16 @@ class BookCrudController extends AbstractCrudController {
 	}
 
 	public function configureActions(Actions $actions): Actions {
+		$bookInFrontend = Action::new('Cancel', null, 'fa fa-close')->linkToRoute('books_show', function (Book $book) {
+			return ['id' => $book->getId()];
+		});
 		return $actions
 			->disable(Action::DELETE)
 			->add(Crud::PAGE_NEW, Action::SAVE_AND_CONTINUE)
 			->remove(Crud::PAGE_NEW, Action::SAVE_AND_RETURN)
 			->remove(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
 			->remove(Crud::PAGE_EDIT, Action::SAVE_AND_CONTINUE)
+			->add(Crud::PAGE_EDIT, $bookInFrontend)
 		;
 	}
 
@@ -65,15 +80,27 @@ class BookCrudController extends AbstractCrudController {
 	}
 
 	protected function createFields(string $pageName): iterable {
-		$panelBasic = FormField::addPanel('Basic data')->setIcon('menu-icon fas fa-cog fa-fw');
-		$media = ChoiceField::new('media')->setChoices(array_combine(Book::mediaValues(), Book::mediaValues()))->renderExpanded();
-		$author = TextField::new('author');
+		$id = IntegerField::new('id', 'ID')->setTemplatePath('admin/Book/link.html.twig');
+		$cover = ImageField::new('cover')->setBasePath($this->baseImagePath);
+		$backCover = ImageField::new('backCover')->setBasePath($this->baseImagePath);
+		$panelBasic = $this->panel('Basic data', 'fas fa-cog');
+		$panelPaperData = $this->panel('Data from paper', 'fas fa-book');
+		$media = ChoiceField::new('media')->setChoices(array_combine(Book::mediaValues(), Book::mediaValues()))->renderExpanded()->setFormTypeOptions(['choice_translation_domain' => false]);
 		$title = TextField::new('title')->setTemplatePath('admin/Book/link.html.twig');
 		$volumeTitle = TextField::new('volumeTitle');
 		$subtitle = TextField::new('subtitle');
+		$author = TextField::new('author');
 		$publisher = TextField::new('publisher');
 		$publishingYear = TextField::new('publishingYear');
-		$panelPaperData = FormField::addPanel('Data from paper')->setIcon('menu-icon fas fa-book fa-fw');
+		if (Crud::PAGE_INDEX === $pageName) {
+			return [$id, $cover, $backCover, $title, $author, $publisher, TextField::new('publishingYear', 'Publishing year short')];
+		}
+		if (Crud::PAGE_NEW === $pageName) {
+			return [
+				$panelBasic, $media,
+				$panelPaperData, $author, $title, $volumeTitle, $subtitle, $publisher, $publishingYear,
+			];
+		}
 		$altTitle = TextField::new('altTitle');
 		$subtitle2 = TextField::new('subtitle2');
 		$sequence = TextField::new('sequence');
@@ -133,105 +160,86 @@ class BookCrudController extends AbstractCrudController {
 		$binding = TextField::new('binding');
 		$illustrated = BooleanField::new('illustrated');
 		$isbn = TextField::new('isbn');
-		$annotation = TextareaField::new('annotation');
-		$notesAboutAuthor = TextareaField::new('notesAboutAuthor');
-		$marketingSnippets = TextareaField::new('marketingSnippets');
-		$toc = TextareaField::new('toc');
-		$notesAboutOriginal = TextareaField::new('notesAboutOriginal');
-		$otherFields = TextareaField::new('otherFields');
-		$panelNotes = FormField::addPanel('Notes')->setIcon('menu-icon far fa-sticky-note fa-fw');
-		$notes = TextareaField::new('notes');
-		$panelCategorization = FormField::addPanel('Categorization')->setIcon('menu-icon fas fa-tag fa-fw');
+		$annotation = $this->textarea('annotation');
+		$notesAboutAuthor = $this->textarea('notesAboutAuthor');
+		$marketingSnippets = $this->textarea('marketingSnippets');
+		$toc = $this->textarea('toc');
+		$notesAboutOriginal = $this->textarea('notesAboutOriginal');
+		$otherFields = $this->textarea('otherFields');
+		$panelNotes = $this->panel('Notes', 'far fa-sticky-note');
+		$notes = $this->textarea('notes');
+		$panelCategorization = $this->panel('Categorization', 'fas fa-tag');
 		$category = AssociationField::new('category');
-		$genre = TextField::new('genre');
-		$themes = TextField::new('themes');
+		$genre = $this->multipleChoiceWithSelect2('genre', $this->multiFieldRepository->findAllGenres());
+		$themes = $this->multipleChoiceWithSelect2('themes', $this->multiFieldRepository->findAllThemes());
 		$universalDecimalClassification = TextField::new('universalDecimalClassification');
-		$panelLinks = FormField::addPanel('Links')->setIcon('menu-icon fas fa-link fa-fw');
+		$panelLinks = $this->panel('Links', 'fas fa-link');
 		$chitankaId = IntegerField::new('chitankaId');
-		# by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
-		# See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
-		$links = CollectionField::new('links')->setEntryType(\App\Form\BookLinkType::class)->setFormTypeOptions(['by_reference' => false]);
-		$panelCovers = FormField::addPanel('Covers')->setIcon('menu-icon far fa-images fa-fw');
-		$coverFile = ImageField::new('coverFile')->setFormType(VichImageType::class);
-		$backCoverFile = ImageField::new('backCoverFile')->setFormType(VichImageType::class);
-		$otherCovers = CollectionField::new('otherCovers')->addCssClass('files')->setEntryType(\App\Form\BookCoverType::class)->setFormTypeOptions(['by_reference' => false]);;
-		$panelFiles = FormField::addPanel('Files')->setIcon('menu-icon far fa-file-alt fa-fw');
-		$fullContentFile = ImageField::new('fullContentFile')->setFormType(VichImageType::class);
+		$links = $this->collectionField('links', \App\Form\BookLinkType::class);
+		$panelCovers = $this->panel('Covers', 'far fa-images');
+		$coverFile = $this->uploadField('coverFile');
+		$backCoverFile = $this->uploadField('backCoverFile');
+		$otherCovers = $this->collectionField('otherCovers', \App\Form\BookCoverType::class);
+		$panelFiles = $this->panel('Files', 'far fa-file-alt');
+		$fullContentFile = $this->uploadField('fullContentFile');
 		$availableAt = DateField::new('availableAt');
-		$contentFiles = CollectionField::new('contentFiles')->addCssClass('files')->setEntryType(\App\Form\BookContentFileType::class)->setFormTypeOptions(['by_reference' => false]);
-		$scans = CollectionField::new('scans')->addCssClass('files')->setEntryType(\App\Form\BookScanType::class)->setFormTypeOptions(['by_reference' => false]);;
-		$panelMetadata = FormField::addPanel('Metadata')->setIcon('menu-icon far fa-folder-open fa-fw')->addCssClass('last-panel');
-		$infoSources = TextareaField::new('infoSources');
-		$adminComment = TextareaField::new('adminComment');
-		$ocredText = TextareaField::new('ocredText');
+		$contentFiles = $this->collectionField('contentFiles', \App\Form\BookContentFileType::class);
+		$scans = $this->collectionField('scans', \App\Form\BookScanType::class);
+		$panelMetadata = $this->panel('Metadata', 'far fa-folder-open')->addCssClass('last-panel');
+		$infoSources = $this->textarea('infoSources');
+		$adminComment = $this->textarea('adminComment');
+		$ocredText = $this->textarea('ocredText');
 		$hasOnlyScans = BooleanField::new('hasOnlyScans');
 		$isIncomplete = BooleanField::new('isIncomplete');
 		$reasonWhyIncomplete = TextField::new('reasonWhyIncomplete');
-		$id = IntegerField::new('id', 'ID')->setTemplatePath('admin/Book/link.html.twig');
-		$cover = ImageField::new('cover')->setBasePath($this->baseImagePath);
-		$backCover = ImageField::new('backCover')->setBasePath($this->baseImagePath);
 
-		if (Crud::PAGE_INDEX === $pageName) {
-			return [$id, $cover, $backCover, $title, $author, $publisher, TextField::new('publishingYear', 'Publishing year short')];
-		}
-		if (Crud::PAGE_DETAIL === $pageName) {
-			return [$id, $cover, $backCover, $title, $author, $publisher, $publishingYear];
-		}
-		if (Crud::PAGE_NEW === $pageName) {
-			return [
-				$panelBasic, $media,
-				$panelPaperData, $author, $title, $volumeTitle, $subtitle, $publisher, $publishingYear,
-			];
-		}
-		if (Crud::PAGE_EDIT === $pageName) {
-			return [
-				$panelBasic,
-				$media,
-				$panelPaperData,
-				$author,
-				$title, $altTitle, $volumeTitle, $subtitle, $subtitle2,
-				$sequence, $sequenceNr, $subsequence, $subsequenceNr, $series, $seriesNr,
-				$translator, $translatedFromLanguage, $dateOfTranslation,
-				$adaptedBy, $otherAuthors, $compiler,
-				$editorialStaff, $chiefEditor, $managingEditor, $editor, $publisherEditor,
-				$consultant,
-				$artist, $illustrator, $artistEditor,
-				$technicalEditor, $reviewer, $scienceEditor, $copyreader, $corrector,
-				$layout, $coverLayout, $libraryDesign, $computerProcessing, $prepress,
-				$publisher, $publisherCity, $publishingYear, $publisherAddress,
-				$printingHouse,
-				$contentType,
-				$nationality, $language,
-				$edition,
-				$litGroup,
-				$typeSettingIn,
-				$printSigned, $printOut,
-				$printerSheets, $publisherSheets, $provisionPublisherSheets,
-				$format,
-				$publisherCode, $trackingCode,
-				$publisherOrder, $publisherNumber,
-				$uniformProductClassification,
-				$pageCount, $totalPrint, $price, $binding, $illustrated,
-				$isbn,
-				$annotation, $notesAboutAuthor, $marketingSnippets, $toc, $notesAboutOriginal,
-				$otherFields,
-				$panelNotes,
-				$notes,
-				$panelCategorization,
-				$category, $genre, $themes, $universalDecimalClassification,
-				$panelLinks,
-				$chitankaId,
-				$links,
-				$panelCovers,
-				$coverFile, $backCoverFile, $otherCovers,
-				$panelFiles,
-				$fullContentFile, $availableAt,
-				$contentFiles,
-				$scans,
-				$panelMetadata,
-				$infoSources, $adminComment, $ocredText, $hasOnlyScans, $isIncomplete, $reasonWhyIncomplete,
-			];
-		}
+		return [
+			$panelBasic,
+			$media,
+			$panelPaperData,
+			$author,
+			$title, $altTitle, $volumeTitle, $subtitle, $subtitle2,
+			$sequence, $sequenceNr, $subsequence, $subsequenceNr, $series, $seriesNr,
+			$translator, $translatedFromLanguage, $dateOfTranslation,
+			$adaptedBy, $otherAuthors, $compiler,
+			$editorialStaff, $chiefEditor, $managingEditor, $editor, $publisherEditor,
+			$consultant,
+			$artist, $illustrator, $artistEditor,
+			$technicalEditor, $reviewer, $scienceEditor, $copyreader, $corrector,
+			$layout, $coverLayout, $libraryDesign, $computerProcessing, $prepress,
+			$publisher, $publisherCity, $publishingYear, $publisherAddress,
+			$printingHouse,
+			$contentType,
+			$nationality, $language,
+			$edition,
+			$litGroup,
+			$typeSettingIn,
+			$printSigned, $printOut,
+			$printerSheets, $publisherSheets, $provisionPublisherSheets,
+			$format,
+			$publisherCode, $trackingCode,
+			$publisherOrder, $publisherNumber,
+			$uniformProductClassification,
+			$pageCount, $totalPrint, $price, $binding, $illustrated,
+			$isbn,
+			$annotation, $notesAboutAuthor, $marketingSnippets, $toc, $notesAboutOriginal,
+			$otherFields,
+			$panelNotes,
+			$notes,
+			$panelCategorization,
+			$category, $genre, $themes, $universalDecimalClassification,
+			$panelLinks,
+			$chitankaId,
+			$links,
+			$panelCovers,
+			$coverFile, $backCoverFile, $otherCovers,
+			$panelFiles,
+			$fullContentFile, $availableAt,
+			$contentFiles,
+			$scans,
+			$panelMetadata,
+			$infoSources, $adminComment, $ocredText, $hasOnlyScans, $isIncomplete, $reasonWhyIncomplete,
+		];
 	}
 
 	public function edit(AdminContext $context) {
@@ -282,14 +290,18 @@ class BookCrudController extends AbstractCrudController {
 	protected function putHelpMessagesFromWiki(iterable $fields) {
 		$wiki = new \Chitanka\WikiBundle\Service\WikiEngine($this->getParameter('chitanka_wiki.content_dir'));
 		$inflector = \Doctrine\Inflector\InflectorFactory::create()->build();
+		$messageCatalogue = $this->translator->getCatalogue();
 		foreach ($fields as $field) {
 			$fieldDto = $field->getAsDto();
 			$wikiPageName = str_replace('_', '-', $inflector->tableize($fieldDto->getProperty()));
 			$page = $wiki->getPage("docs/books/$wikiPageName", false);
 			if ($page->exists()) {
+				$messageKey = $fieldDto->getProperty().'_help';
 				$url = $this->generateUrl('chitanka_wiki_edit', ['page' => "docs/books/$wikiPageName"]);
-				$fieldDto->setHelp($page->getContentHtml().' <a href="'.$url.'" tabindex="-1" class="wiki-edit-link"><span class="far fa-file-alt"></span></a>');
+				$messageCatalogue->set($messageKey, $page->getContentHtml().' <a href="'.$url.'" tabindex="-1" class="wiki-edit-link"><span class="far fa-file-alt"></span></a>');
+				$fieldDto->setHelp($messageKey);
 				$fieldDto->setCssClass($fieldDto->getCssClass(). ' field-with-help');
+				$fieldDto->setFormTypeOption('help_html', true);
 			}
 		}
 	}
@@ -328,4 +340,27 @@ class BookCrudController extends AbstractCrudController {
 		parent::updateEntity($entityManager, $book);
 	}
 
+	private function multipleChoiceWithSelect2(string $name, array $choices) {
+		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->allowMultipleChoices()->setFormTypeOptions(['attr' => ['data-tags' => 'true'], 'choice_translation_domain' => false]);
+	}
+
+	private function textarea(string $name) {
+		return TextareaField::new($name)->setNumOfRows(1)
+			->setFormTypeOption('attr.data-ea-textarea-field', false) // disable autogrow
+		;
+	}
+
+	private function uploadField(string $name) {
+		return ImageField::new($name)->setFormType(VichImageType::class);
+	}
+
+	private function collectionField(string $name, string $class) {
+		# by_reference : false => Needed to ensure that addLink() and removeLink() will be called during the flush.
+		# See (last lines) : http://symfony.com/doc/master/reference/forms/types/collection.html#by-reference
+		return CollectionField::new($name)->setEntryType($class)->setFormTypeOptions(['by_reference' => false]);
+	}
+
+	private function panel(string $name, string $icon) {
+		return FormField::addPanel($name, 'fa-fw '.$icon);
+	}
 }

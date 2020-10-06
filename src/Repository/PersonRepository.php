@@ -2,9 +2,12 @@
 
 use App\Collection\Persons;
 use App\Entity\Person;
-use Doctrine\ORM\EntityRepository;
 
-class PersonRepository extends EntityRepository {
+class PersonRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository {
+
+	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+		parent::__construct($registry, Person::class);
+	}
 
 	/**
 	 * @param string $name
