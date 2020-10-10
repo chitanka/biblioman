@@ -14,7 +14,7 @@ class Thumbnail {
 		if (empty($image)) {
 			return null;
 		}
-		return 'https://biblioman.chitanka.info'.Path::SEP. implode(Path::SEP, array_filter([
+		return Path::SEP. implode(Path::SEP, array_filter([
 			Path::DIR_THUMB,
 			$type,
 			self::createSubPathFromFileName($image),
