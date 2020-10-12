@@ -99,7 +99,7 @@ class BookMultiFields extends Entities {
 
 	private static function getMultiFieldValuesFromBook(Book $book, $multiField) {
 		$value = \Symfony\Component\PropertyAccess\PropertyAccess::createPropertyAccessor()->getValue($book, $multiField);
-		return is_array($value) ? $value : \App\Entity\Entity::textToArray($value);
+		return is_array($value) ? $value : self::textToArray($value);
 	}
 
 }
