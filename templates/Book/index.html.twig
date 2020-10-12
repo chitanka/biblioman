@@ -7,7 +7,7 @@
 		<span class="extra-info">
 			<span class="fa fa-search"></span>
 			{% if query.field is not empty %}
-				{{ query.field|humanize|trans }}:
+				{{ query.field|admin_title|trans }}:
 			{% endif %}
 			{{ query.term }}
 		</span>
