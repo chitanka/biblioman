@@ -29,11 +29,11 @@ class BookRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceE
 	 * @return Book[]
 	 */
 	public function findDuplicatesByTitle($title, $selfId) {
-		return $this->createQueryBuilder('b')
-			->where('b.id != ?1')->setParameter('1', $selfId)
-			->andWhere('b.title = ?2')->setParameter('2', $title)
-			->getQuery()
-			->getResult();
+		$b = $this->createQueryBuilder('b')->where('b.title = ?1')->setParameter('1', $title);
+		if ($selfId) {
+			$b->andWhere('b.id != ?2')->setParameter('2', $selfId);
+		}
+		return $b->getQuery()->getResult();
 	}
 
 	/**
