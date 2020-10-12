@@ -33,6 +33,9 @@ body {
 	font-weight: 600;
 	letter-spacing: 1px;
 }
+.book-heading {
+	font-family: 'Vollkorn', serif;
+}
 .navbar-text {
 	margin-bottom: 13px;
 	margin-top: 13px;
