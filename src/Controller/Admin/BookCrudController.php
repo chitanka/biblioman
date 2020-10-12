@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Book;
 use App\Repository\BookMultiFieldRepository;
+use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -36,12 +37,15 @@ class BookCrudController extends AbstractCrudController {
 
 	/** @var Book */
 	private $bookPreEdit;
+	/** @var BookRepository */
+	private $bookRepository;
 	/** @var BookMultiFieldRepository */
 	private $multiFieldRepository;
 	/** @var TranslatorInterface|\Symfony\Component\Translation\DataCollectorTranslator */
 	private $translator;
 
-	public function __construct(BookMultiFieldRepository $multiFieldRepository, TranslatorInterface $translator) {
+	public function __construct(BookRepository $bookRepository, BookMultiFieldRepository $multiFieldRepository, TranslatorInterface $translator) {
+		$this->bookRepository = $bookRepository;
 		$this->multiFieldRepository = $multiFieldRepository;
 		$this->translator = $translator;
 	}
@@ -104,11 +108,11 @@ class BookCrudController extends AbstractCrudController {
 		}
 		$altTitle = TextField::new('altTitle');
 		$subtitle2 = TextField::new('subtitle2');
-		$sequence = TextField::new('sequence');
+		$sequence = $this->choiceWithSelect2('sequence', $this->bookRepository->findAllSequences());
 		$sequenceNr = Field::new('sequenceNr');
 		$subsequence = TextField::new('subsequence');
 		$subsequenceNr = Field::new('subsequenceNr');
-		$series = TextField::new('series');
+		$series = $this->choiceWithSelect2('series', $this->bookRepository->findAllSeries());
 		$seriesNr = Field::new('seriesNr');
 		$translator = TextField::new('translator');
 		$translatedFromLanguage = TextField::new('translatedFromLanguage');
@@ -341,8 +345,12 @@ class BookCrudController extends AbstractCrudController {
 		parent::updateEntity($entityManager, $book);
 	}
 
+	private function choiceWithSelect2(string $name, array $choices) {
+		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions(['attr' => ['data-tags' => 'true'], 'choice_translation_domain' => false]);
+	}
+
 	private function multipleChoiceWithSelect2(string $name, array $choices) {
-		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->allowMultipleChoices()->setFormTypeOptions(['attr' => ['data-tags' => 'true'], 'choice_translation_domain' => false]);
+		return $this->choiceWithSelect2($name, $choices)->allowMultipleChoices();
 	}
 
 	private function textarea(string $name) {

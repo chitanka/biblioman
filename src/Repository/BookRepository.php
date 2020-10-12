@@ -83,4 +83,21 @@ class BookRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceE
 	public function getBookMultiFieldRepository() {
 		return $this->_em->getRepository(BookMultiField::class);
 	}
+
+	public function findAllSequences() {
+		return $this->findAllForField('sequence');
+	}
+
+	public function findAllSeries() {
+		return $this->findAllForField('series');
+	}
+
+	protected function findAllForField(string $field) {
+		return array_column($this->createQueryBuilder('b')
+			->select("b.$field")
+			->distinct()
+			->orderBy("b.$field")
+			->getQuery()->getScalarResult(), $field);
+	}
+
 }
