@@ -106,13 +106,14 @@ class BookCrudController extends AbstractCrudController {
 				$panelPaperData, $author, $title, $volumeTitle, $subtitle, $publisher, $publishingYear,
 			];
 		}
+		$bookFromRequest = $this->get('request_stack')->getMasterRequest()->request->get('Book');
 		$altTitle = TextField::new('altTitle');
 		$subtitle2 = TextField::new('subtitle2');
-		$sequence = $this->choiceWithSelect2('sequence', $this->bookRepository->findAllSequences());
+		$sequence = $this->choiceWithSelect2('sequence', $this->bookRepository->findAllSequences(), $bookFromRequest['sequence'] ?? null);
 		$sequenceNr = Field::new('sequenceNr');
 		$subsequence = TextField::new('subsequence');
 		$subsequenceNr = Field::new('subsequenceNr');
-		$series = $this->choiceWithSelect2('series', $this->bookRepository->findAllSeries());
+		$series = $this->choiceWithSelect2('series', $this->bookRepository->findAllSeries(), $bookFromRequest['series'] ?? null);
 		$seriesNr = Field::new('seriesNr');
 		$translator = TextField::new('translator');
 		$translatedFromLanguage = TextField::new('translatedFromLanguage');
@@ -345,7 +346,10 @@ class BookCrudController extends AbstractCrudController {
 		parent::updateEntity($entityManager, $book);
 	}
 
-	private function choiceWithSelect2(string $name, array $choices) {
+	private function choiceWithSelect2(string $name, array $choices, ?string $extraValue = null) {
+		if ($extraValue) {
+			$choices[] = $extraValue;
+		}
 		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions(['attr' => ['data-tags' => 'true'], 'choice_translation_domain' => false]);
 	}
 
