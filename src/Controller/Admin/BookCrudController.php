@@ -189,6 +189,7 @@ class BookCrudController extends AbstractCrudController {
 		$panelFiles = $this->panel('Files', 'far fa-file-alt');
 		$fullContentFile = $this->uploadField('fullContentFile');
 		$availableAt = DateField::new('availableAt');
+		$isPublic = BooleanField::new('isPublic');
 		$contentFiles = $this->collectionField('contentFiles', \App\Form\BookContentFileType::class);
 		$scans = $this->collectionField('scans', \App\Form\BookScanType::class);
 		$panelMetadata = $this->panel('Metadata', 'far fa-folder-open')->addCssClass('last-panel');
@@ -240,7 +241,7 @@ class BookCrudController extends AbstractCrudController {
 			$panelCovers,
 			$coverFile, $backCoverFile, $otherCovers,
 			$panelFiles,
-			$fullContentFile, $availableAt,
+			$fullContentFile, $availableAt, $isPublic,
 			$contentFiles,
 			$scans,
 			$panelMetadata,

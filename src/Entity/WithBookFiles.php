@@ -29,6 +29,12 @@ trait WithBookFiles {
 	 */
 	public $availableAt;
 
+	/**
+	 * Is the full book content available to the general public?
+	 * @ORM\Column(type="boolean")
+	 */
+	public $isPublic;
+
 	abstract public function canHaveScans(): bool;
 
 	/** @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file */
@@ -90,6 +96,9 @@ trait WithBookFiles {
 				'backCoverSmall' => Thumbnail::createCoverPath($this->backCover, 300),
 				'backCoverMini' => Thumbnail::createCoverPath($this->backCover, 150),
 			],
+
+			'availableAt' => $this->availableAt,
+			'isPublic' => $this->isPublic,
 		];
 	}
 
