@@ -7,6 +7,7 @@ trait WithBookBody {
 
 	public static $MEDIA_PAPER = 'хартия';
 	public static $MEDIA_DIGITAL = 'цифров';
+	public static $MEDIA_PAPER_AND_DIGITAL = 'хартия и цифров';
 
 	/**
 	 * @ORM\Column(type="string", length=30)
@@ -29,7 +30,7 @@ trait WithBookBody {
 	public $binding;
 
 	public static function mediaValues(): array {
-		return [self::$MEDIA_PAPER, self::$MEDIA_DIGITAL];
+		return [self::$MEDIA_PAPER, self::$MEDIA_DIGITAL, self::$MEDIA_PAPER_AND_DIGITAL];
 	}
 
 	public function setMedia($media) { $this->media = $media; }
