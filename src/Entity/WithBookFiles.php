@@ -33,7 +33,7 @@ trait WithBookFiles {
 	 * Is the full book content available to the general public?
 	 * @ORM\Column(type="boolean")
 	 */
-	public $isPublic;
+	public $isPublic = false;
 
 	abstract public function canHaveScans(): bool;
 
