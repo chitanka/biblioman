@@ -32,7 +32,7 @@
         "chitanka/rocket-chat-client": "*",
         "chitanka/thumbnail-server": "^1.0",
         "chitanka/utils": "*",
-        "chitanka/wiki-bundle": "^1.1",
+        "chitanka/wiki-bundle": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "cosmicdreams/fontawesome-iconpicker": "dev-master",
         "doctrine/annotations": "^1.0",
