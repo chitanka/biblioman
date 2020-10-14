@@ -3,6 +3,9 @@ body {
 	line-height: 1.6;
 	background-color: white;
 }
+a {
+	color: #337ab7;
+}
 .overall-header {
 	margin: 20px 0;
 }
