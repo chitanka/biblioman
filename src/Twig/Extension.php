@@ -29,6 +29,7 @@ class Extension extends \Twig\Extension\AbstractExtension {
 			new TwigFilter('contentpath', [$this, 'createContentPath']),
 			new TwigFilter('ids', [$this, 'getIdsFromCollection']),
 			new TwigFilter('admin_title', [$this, 'formatTitleLikeAdmin']),
+			new TwigFilter('split_multifield', [$this, 'splitMultiField']),
 		];
 	}
 
@@ -95,5 +96,9 @@ class Extension extends \Twig\Extension\AbstractExtension {
 
 	public function formatTitleLikeAdmin(string $fieldName): string {
 		return ucwords(\Symfony\Component\String\u($fieldName)->snake()->replace('_', ' '));
+	}
+
+	public function splitMultiField($value) {
+		return \App\Collection\BookMultiFields::textToArray($value);
 	}
 }

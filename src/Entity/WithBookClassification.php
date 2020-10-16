@@ -11,13 +11,13 @@ trait WithBookClassification {
 	 * @var string
 	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
-	public $themes;
+	private $themes;
 
 	/**
 	 * @var string
 	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
-	public $genre;
+	private $genre;
 
 	/**
 	 * @var BookCategory
