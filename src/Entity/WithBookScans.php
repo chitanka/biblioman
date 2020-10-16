@@ -10,7 +10,7 @@ trait WithBookScans {
 	 * @ORM\OneToMany(targetEntity="BookScan", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
-	public $scans;
+	private $scans;
 
 	/**
 	 * Number of uploaded scans for the book

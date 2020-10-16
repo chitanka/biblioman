@@ -3,13 +3,14 @@
 use App\Collection\BookCovers;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 trait WithBookCovers {
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	public $cover;
+	private $cover;
 
 	/**
 	 * @Vich\UploadableField(mapping="cover", fileNameProperty="cover")
@@ -20,7 +21,7 @@ trait WithBookCovers {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	public $backCover;
+	private $backCover;
 
 	/**
 	 * @Vich\UploadableField(mapping="cover", fileNameProperty="backCover")
@@ -33,7 +34,7 @@ trait WithBookCovers {
 	 * @ORM\OneToMany(targetEntity="BookCover", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
 	 * @ORM\OrderBy({"id" = "ASC"})
 	 */
-	public $covers;
+	private $covers;
 
 	/**
 	 * Number of uploaded covers for the book
