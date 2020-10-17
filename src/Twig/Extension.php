@@ -19,7 +19,7 @@ class Extension extends \Twig\Extension\AbstractExtension {
 
 	public function getFilters() {
 		return [
-			new TwigFilter('converturls', [$this, 'convertUrls'], ['is_safe' => ['html']]),
+			new TwigFilter('converturls', [$this, 'autoConvertUrls'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
 			new TwigFilter('autolink', [$this, 'autolink'], ['is_safe' => ['html']]),
 			new TwigFilter('format_paragraphs', [$this, 'formatParagraphs'], ['is_safe' => ['html']]),
 			new TwigFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
@@ -100,5 +100,48 @@ class Extension extends \Twig\Extension\AbstractExtension {
 
 	public function splitMultiField($value) {
 		return \App\Collection\BookMultiFields::textToArray($value);
+	}
+
+	/**
+	 * Convert plain urls or email addresses into links.
+	 * Copied from https://github.com/liip/LiipUrlAutoConverterBundle/blob/master/Extension/UrlAutoConverterTwigExtension.php
+	 *
+	 * @param string $string input string
+	 *
+	 * @return string with replaced links
+	 */
+	public function autoConvertUrls($string) {
+		$pattern = '/(href="|src=")?([-a-zA-Zа-яёА-ЯЁ0-9@:%_\+.~#?&\*\/\/=]{2,256}\.[a-zа-яё]{2,4}\b(\/?[-\p{L}0-9@:%_\+.~#?&\*\/\/=\(\),;]*)?)/u';
+		return preg_replace_callback($pattern, [$this, 'autoConvertUrlsCallback'], $string);
+	}
+	public function autoConvertUrlsCallback($matches) {
+		if ($matches[1] !== '') {
+			return $matches[0]; // don't modify existing <a href="">links</a> and <img src="">
+		}
+
+		$url = $matches[2];
+		$urlWithPrefix = $matches[2];
+
+		if (strpos($url, '@') !== false) {
+			$urlWithPrefix = 'mailto:' . $url;
+		} elseif (strpos($url, 'https://') === 0) {
+			$urlWithPrefix = $url;
+		} elseif (strpos($url, 'http://') !== 0) {
+			$urlWithPrefix = 'http://' . $url;
+		}
+
+		// ignore tailing special characters
+		// TODO: likely this could be skipped entirely with some more tweaks to the regular expression
+		if (preg_match("/^(.*)(\.|\,|\)|\?)$/", $urlWithPrefix, $matches)) {
+			$urlWithPrefix = $matches[1];
+			$url = substr($url, 0, -1);
+			$punctuation = $matches[2];
+		} else {
+			$punctuation = '';
+		}
+
+		$linkClass = 'autolink';
+		$target = '_blank';
+		return '<a href="' . $urlWithPrefix . '" class="' . $linkClass . '" target="' . $target . '"' . '>' . $url . '</a>' . $punctuation;
 	}
 }
