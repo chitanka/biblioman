@@ -46,7 +46,7 @@ trait WithBookCovers {
 	 * Temporary storage for new covers, uploaded through the special fields
 	 * @var BookCovers|array
 	 */
-	public $newCovers = [];
+	private $newCovers = [];
 
 	public function getCover() {
 		return $this->cover ?: 'nocover.png';
