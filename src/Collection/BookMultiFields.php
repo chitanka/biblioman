@@ -73,6 +73,9 @@ class BookMultiFields extends Entities {
 		if (is_array($text)) {
 			return $text;
 		}
+		if (empty($text)) {
+			return [];
+		}
 		return array_map('trim', explode(self::VALUE_SEPARATOR, $text));
 	}
 
