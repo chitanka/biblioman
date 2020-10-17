@@ -161,7 +161,6 @@
 
 {% macro printBookButtons(book) %}
 	{% import _self as _ %}
-	{{ _.printShowLink(book) }}
 	{{ _.printChitankaLink(book) }}
 	{{ _.printFullContentLink(book) }}
 	{% if is_granted('ROLE_EDITOR') %}
