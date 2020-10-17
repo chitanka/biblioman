@@ -92,6 +92,7 @@ $('form').on('change', ':input', function() {
 	if ($(this).data('submitted')) {
 		return false;
 	}
+	$('.page-actions button').prop('disabled', true);
 	$(this).data('submitted', true);
 	return true;
 }).on('wheel', 'input[type="number"]', function() {
