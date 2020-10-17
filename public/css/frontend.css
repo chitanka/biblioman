@@ -116,12 +116,10 @@ div:target {
 	font-size: 70%;
 	font-variant: small-caps;
 }
-.book-title-and-author {
-	margin-bottom: .4em;
-	padding-bottom: .4em;
-	border-bottom: 1px solid #e0e0e0;
-}
 .book-snippet-extra-info {
+	margin-top: .4rem;
+	padding-top: .4rem;
+	border-top: 1px solid #e0e0e0;
 	font-size: 90%;
 }
 .book-snippet-created-by {
@@ -218,8 +216,11 @@ figcaption {
 		height: 50vw;
 	}
 }
-.shelf-picker {
-	margin-bottom: .6em;
+.book-buttons .shelf-picker {
+	margin-left: .3em;
+}
+.shelf-picker-standalone {
+	margin: .6em 0;
 }
 .shelf-icon {
 	color: #FF6A00;

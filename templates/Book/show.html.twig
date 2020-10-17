@@ -73,8 +73,8 @@
 					{{ _.printField(book, field, searchableFields) }}
 				{% endfor %}
 				{% if book.hasRevisions %}
-					<dt class="col-md-3">Промени</dt>
-					<dd class="col-md-9">
+					<dt class="col-md-4">Промени</dt>
+					<dd class="col-md-8">
 						<ul class="list-unstyled">
 							{% for revision in book.revisions %}
 								<li><a href="{{ path('books_show_revisions', { id: book.id }) }}#revision-{{ revision.id }}">{{ revision.createdBy }} &middot; {{ _.printDate(revision.createdAt) }} &times;{{ revision.diffs|length }}</a></li>
@@ -83,12 +83,12 @@
 					</dd>
 				{% endif %}
 				{% if addToShelfForms[book.id] is defined %}
-					<dt class="col-md-3">Рафтове</dt>
-					<dd class="col-md-9">{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}</dd>
+					<dt class="col-md-4 shelf-picker-standalone">Рафтове</dt>
+					<dd class="col-md-8 shelf-picker-standalone">{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}</dd>
 				{% endif %}
 				{% if book.hasPublicShelves() %}
-					<dt class="col-md-3">Чужди рафтове</dt>
-					<dd class="col-md-9">
+					<dt class="col-md-4">Чужди рафтове</dt>
+					<dd class="col-md-8">
 						<ul>
 						{% for shelf in book.publicShelves %}
 							<li><span class="fa fa-fw {{ shelf.icon }} shelf-icon"></span> <a href="{{ path('shelf', { id: shelf.id }) }}">{{ shelf.name }}</a> от {{ shelf.creator }}</li>
@@ -96,14 +96,10 @@
 						</ul>
 					</dd>
 				{% endif %}
-				<dt class="col-md-3"></dt>
-				<dd class="col-md-9">
+				<dt class="col-md-4 book-buttons"></dt>
+				<dd class="col-md-8 book-buttons">
 					<p>
-					{{ _.printFullContentLink(book) }}
-					{{ _.printChitankaLink(book) }}
-					{% if is_granted('ROLE_EDITOR') %}
-						{{ _.printEditLink(book) }}
-					{% endif %}
+					{{ _.printBookButtons(book) }}
 					</p>
 					{% if book.hasContentFiles %}
 						<ul>

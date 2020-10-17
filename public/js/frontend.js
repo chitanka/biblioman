@@ -30,16 +30,16 @@ function registerFormConfirmations() {
 }
 
 function registerShelfPickers() {
-	$('.shelf-picker').on('change', 'input', function (e) {
-		$(this.parentNode).toggleClass(this.parentNode.getAttribute('data-state-classes'));
-		const shelfId = this.value;
+	$('.shelf-picker').on('click', 'button', function (e) {
+		$(this).toggleClass(this.getAttribute('data-state-classes'));
+		const shelfId = this.getAttribute('data-value');
 		const bookId = e.delegateTarget.getAttribute('data-book');
 		$.ajax({
 			url: '/my/shelves/'+shelfId+'/books/'+bookId,
-			type: (this.checked ? 'POST' : 'DELETE')
+			type: (this.classList.contains('active') ? 'POST' : 'DELETE')
 		});
 	}).each(function() {
-		const $notCheckedSecondLevelShelves = $(this).find('label:not(.active).is-not-important');
+		const $notCheckedSecondLevelShelves = $(this).find('button:not(.active).is-not-important');
 		if ($notCheckedSecondLevelShelves.length < 2) {
 			return;
 		}

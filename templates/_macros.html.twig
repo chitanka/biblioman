@@ -115,7 +115,7 @@
 {% endmacro %}
 
 {% macro printDateIcon(date, title) %}
-	<time datetime="{{ date|date('c') }}" title="{{ title|default('') }} {{ date|date('d.m.Y H:i') }}"><span class="fa fa-clock-o"></span></time>
+	<time datetime="{{ date|date('c') }}" title="{{ title|default('') }} {{ date|date('d.m.Y H:i') }}"><span class="fa fa-fw fa-clock-o"></span></time>
 {% endmacro %}
 
 {% macro printTitleWithAuthor(book, glue) %}
@@ -161,11 +161,11 @@
 
 {% macro printBookButtons(book) %}
 	{% import _self as _ %}
-	{{ _.printChitankaLink(book) }}
-	{{ _.printFullContentLink(book) }}
 	{% if is_granted('ROLE_EDITOR') %}
 		{{ _.printEditLink(book) }}
 	{% endif %}
+	{{ _.printChitankaLink(book) }}
+	{{ _.printFullContentLink(book) }}
 {% endmacro %}
 
 {% macro printBookEditInfo(book, searchableFields) %}
@@ -195,11 +195,9 @@
 {% endmacro %}
 
 {% macro printShelfPicker(book, form) %}
-	<div class="btn-group btn-group-toggle shelf-picker" data-book="{{ book.id }}">
+	<div class="btn-group btn-group-sm btn-group-toggle shelf-picker" data-book="{{ book.id }}">
 		{% for choice in form.shelves %}
-			<label class="btn btn-sm {{ choice.vars.attr['data-important'] ? 'is-important' : 'is-not-important' }} {{ choice.vars.checked ? 'active btn-info' : 'btn-outline-info' }} shelf-{{ choice.vars.value }} fa {{ choice.vars.attr['data-icon'] }}" title="{{ choice.vars.label }}" data-state-classes="active btn-info btn-outline-info">
-				<input type="checkbox" value="{{ choice.vars.value }}" {% if choice.vars.checked %}checked{% endif %}>
-			</label>
+			<button class="btn {{ choice.vars.attr['data-important'] ? 'is-important' : 'is-not-important' }} {{ choice.vars.checked ? 'active btn-info' : 'btn-outline-info' }} shelf-{{ choice.vars.value }} fa {{ choice.vars.attr['data-icon'] }}" title="{{ choice.vars.label }}" data-state-classes="active btn-info btn-outline-info" data-value="{{ choice.vars.value }}"></button>
 		{% endfor %}
 	</div>
 {% endmacro %}

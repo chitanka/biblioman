@@ -44,8 +44,7 @@
 					</div>
 				{% endif %}
 			</div>
-			<div class="book-snippet-extra-info book-buttons">
-				{{ _.printBookButtons(book) }}
+			<div class="book-snippet-extra-info">
 				<span class="book-snippet-created-by">
 					{{ _.printDateIcon(book.createdAt, 'Created At'|trans) }}
 					{{ _.printUser(book.createdByUser, book) }}
@@ -55,11 +54,12 @@
 				</span>
 				{{ _.printBookEditInfo(book, searchableFields) }}
 			</div>
-			{% if addToShelfForms[book.id] is defined %}
-				<div class="book-buttons book-shelf-picker">
+			<div class="book-buttons">
+				{{ _.printBookButtons(book) }}
+				{% if addToShelfForms[book.id] is defined %}
 					{{ _.printShelfPicker(book, addToShelfForms[book.id]) }}
-				</div>
-			{% endif %}
+				{% endif %}
+			</div>
 		</div>
 	</div>
 </div>
