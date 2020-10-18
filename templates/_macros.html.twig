@@ -105,9 +105,10 @@
 {% endmacro %}
 
 {% macro printUserRolesInline(user) %}
-	{% for role in user.roles %}
-		- {{ ('roles.'~role)|trans }}
-	{% endfor %}
+
+{% for role in user.roles %}
+• {{ ('roles.'~role)|trans }}
+{% endfor %}
 {% endmacro %}
 
 {% macro printDate(date) %}
