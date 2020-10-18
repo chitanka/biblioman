@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69443d74ba16052f6806635d4473e882",
+    "content-hash": "3dc463a1a6f1e2ab5f2b55c79f30d468",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -192,16 +192,16 @@
         },
         {
             "name": "chitanka/thumbnail-server",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/thumbnail-server.git",
-                "reference": "29a7f6b7ede0c8fb79f28210c90724e767309604"
+                "reference": "e2d0f5753d067b19a498112b07f2d1c3ac184e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/29a7f6b7ede0c8fb79f28210c90724e767309604",
-                "reference": "29a7f6b7ede0c8fb79f28210c90724e767309604",
+                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/e2d0f5753d067b19a498112b07f2d1c3ac184e60",
+                "reference": "e2d0f5753d067b19a498112b07f2d1c3ac184e60",
                 "shasum": ""
             },
             "require": {
@@ -218,7 +218,7 @@
                 "MIT"
             ],
             "description": "A very simple thumbnail generator and server",
-            "time": "2020-10-16T19:57:33+00:00"
+            "time": "2020-10-18T07:28:29+00:00"
         },
         {
             "name": "chitanka/utils",

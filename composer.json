@@ -30,7 +30,7 @@
         "babdev/pagerfanta-bundle": ">=1.0",
         "chitanka/permission-bundle": "*",
         "chitanka/rocket-chat-client": "*",
-        "chitanka/thumbnail-server": "^1.0",
+        "chitanka/thumbnail-server": "^1.1",
         "chitanka/utils": "*",
         "chitanka/wiki-bundle": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
