@@ -67,7 +67,7 @@ return [
 	'Lit Group' => 'Литературна група',
 	'Book Body' => 'Данни за хартиеното тяло',
 	'Print' => 'Данни за печата',
-	'Printing House' => 'Печатница',
+	'Printing House' => 'Печат',
 	'Type Setting In' => 'Дадена за набор/печат',
 	'Print Signed' => 'Подписана за печат',
 	'Print Out' => 'Излязла от печат',
