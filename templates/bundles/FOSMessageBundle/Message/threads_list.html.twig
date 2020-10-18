@@ -50,7 +50,7 @@
 							</form>
 						{% else %}
 							<form action="{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}" method="post">
-								<button type="submit" class="btn btn-danger btn-sm"><span class="fa fa-trash-o"></span> {% trans from 'FOSMessageBundle' %}delete{% endtrans %}</button>
+								<button type="submit" class="btn btn-outline-danger btn-sm button-inline delete-thread-button" title="{% trans from 'FOSMessageBundle' %}delete{% endtrans %}"><span class="fa fa-trash-o"></span></button>
 							</form>
 						{% endif %}
 					{% endif %}

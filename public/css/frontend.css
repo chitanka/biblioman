@@ -245,3 +245,7 @@ textarea.message-body {
 .text-content p:empty {
 	margin-bottom: 1em;
 }
+
+.button-inline {
+	padding: .1rem .4rem;
+}
