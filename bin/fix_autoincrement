@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-. `dirname $0`/parse_yaml.sh
+env_file=`dirname $0`/../.env.local
 
-config_file=$1
+db_credentials=$(grep DATABASE_URL $env_file | php -r 'preg_match("#//(.+):(.+)@(.+):(.+)/(.+)\?#", fgets(STDIN), $m); echo "-u$m[1] -p$m[2] -h$m[3] -P$m[4] $m[5]";')
 
-eval $(parse_yaml $config_file)
-
-db=$parameters_database_name
-db_credentials="--host=$parameters_database_host --user=$parameters_database_user --password=$parameters_database_password $db"
+read -ra db_credentials_parts <<< "$db_credentials"
+db=${db_credentials_parts[4]}
 
 sql_auto_increment="SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE table_schema = '$db' AND table_name = 'book'"
 sql_max_id="SELECT max(id) FROM book"
