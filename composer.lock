@@ -192,16 +192,16 @@
         },
         {
             "name": "chitanka/thumbnail-server",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/thumbnail-server.git",
-                "reference": "448d894f877a40474414f5b756d41229c45eaf1c"
+                "reference": "29a7f6b7ede0c8fb79f28210c90724e767309604"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/448d894f877a40474414f5b756d41229c45eaf1c",
-                "reference": "448d894f877a40474414f5b756d41229c45eaf1c",
+                "url": "https://api.github.com/repos/chitanka/thumbnail-server/zipball/29a7f6b7ede0c8fb79f28210c90724e767309604",
+                "reference": "29a7f6b7ede0c8fb79f28210c90724e767309604",
                 "shasum": ""
             },
             "require": {
@@ -218,7 +218,7 @@
                 "MIT"
             ],
             "description": "A very simple thumbnail generator and server",
-            "time": "2018-03-18T16:13:59+00:00"
+            "time": "2020-10-16T19:57:33+00:00"
         },
         {
             "name": "chitanka/utils",
