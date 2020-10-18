@@ -42,7 +42,7 @@
 
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="{{ path('books') }}">Книги</a></li>
-		<li class="breadcrumb-item active">№ {{ book.id }}</li>
+		<li class="breadcrumb-item active"><a href="{{ path('books_show', {id: book.id}) }}">№ {{ book.id }}</a></li>
 	</ol>
 
 	<div class="row" itemscope itemtype="http://schema.org/Book">
