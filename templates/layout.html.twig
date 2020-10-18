@@ -38,7 +38,7 @@
 			{% endblock %}
 		{% endblock headers %}
 	</head>
-	<body class="{% spaceless %}{% block body_class '' %}{% endspaceless %}">
+	<body class="{% spaceless %}{% block body_class '' %}{% endspaceless %} environment-{{ app.environment }}">
 		{% set withNavigation = app.request.get('nonavigation') is null %}
 		{% block body %}
 			{% if withNavigation %}
@@ -77,5 +77,6 @@
 			<script src="/js/frontend.js"></script>
 		{% endblock %}
 		{% block custom_javascript '' %}
+		<aside class="environment-badge"></aside>
 	</body>
 </html>

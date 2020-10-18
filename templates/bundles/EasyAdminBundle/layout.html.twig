@@ -1,0 +1,8 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block wrapper_wrapper %}
+	<div class="environment-{{ app.environment }}">
+		<aside class="environment-badge"></aside>
+		{{ parent() }}
+	</div>
+{% endblock %}

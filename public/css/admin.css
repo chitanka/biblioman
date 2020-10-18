@@ -1,3 +1,14 @@
+.environment-dev {
+	padding-top: 1rem;
+}
+.environment-dev .environment-badge {
+	width: 100%;
+	height: 1rem;
+	background-color: orangered;
+	position: fixed;
+	top: 0;
+}
+
 form.dirty .changed, .select2-container--bootstrap.changed .select2-selection {
 	background-color: #fffebe;
 }

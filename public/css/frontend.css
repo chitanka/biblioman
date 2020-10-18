@@ -3,6 +3,16 @@ body {
 	line-height: 1.6;
 	background-color: white;
 }
+body.environment-dev {
+	padding-top: 1rem;
+}
+body.environment-dev .environment-badge {
+	width: 100%;
+	height: 1rem;
+	background-color: orangered;
+	position: fixed;
+	top: 0;
+}
 a {
 	color: #337ab7;
 }
