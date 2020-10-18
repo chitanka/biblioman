@@ -1,8 +1,13 @@
 <div class="user-messages clearfix">
-	{% if app.user and fos_message_nb_unread() > 0 %}
+	{% set nb_unread_messages = fos_message_nb_unread() %}
+	{% if app.user and nb_unread_messages > 0 %}
 		<div class="alert alert-success new-messages-alert pull-right" role="alert">
 			<span class="fa fa-comments-o"></span>
-			Имате <a href="{{ path('fos_message_inbox') }}">нови съобщения</a>.
+			{% if app.user and nb_unread_messages > 1 %}
+				Имате <a href="{{ path('fos_message_inbox') }}">{{ nb_unread_messages }} нови съобщения</a>.
+			{% else %}
+				Имате <a href="{{ path('fos_message_inbox') }}?goto=first-unread">едно ново съобщение</a>.
+			{% endif %}
 		</div>
 	{% endif %}
 	{% for flashMessage in app.session.flashbag.get('error') %}

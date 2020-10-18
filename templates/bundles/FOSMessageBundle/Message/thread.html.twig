@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	{% for message in thread.messages %}
-		<div class="card mb-3 messenger_thread_message">
+		<div class="card mb-3 messenger_thread_message" id="message_{{ message.id }}">
 			<div class="card-header messenger_thread_message_info">
 				{% if not fos_message_is_read(message) %}
 					<span class="badge badge-info">{% trans from 'FOSMessageBundle' %}new{% endtrans %}</span>
@@ -28,7 +28,7 @@
 				{% trans with {'%sender%': message.sender, '%date%': message.createdAt|date('d.m.Y H:i')} from 'FOSMessageBundle' %}message_info{% endtrans %}
 			</div>
 
-			<div class="card-body messenger_thread_message_body" id="message_{{ message.id }}">
+			<div class="card-body messenger_thread_message_body">
 				{{ message.body | converturls | autolink | markdown_to_html }}
 			</div>
 		</div>

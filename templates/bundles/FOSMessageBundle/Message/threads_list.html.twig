@@ -15,13 +15,14 @@
 
 	{% if threads %}
 		{% for thread in threads %}
-			<tr>
+			{% set thread_is_read = fos_message_is_read(thread) %}
+			<tr class="{{ thread_is_read ? 'thread-read' : 'thread-unread' }}" data-id="{{ thread.id }}" data-is-read="{{ thread_is_read ? 'yes' : 'no' }}">
 				<td>
 					<a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" title="{{ thread.subject }}">
 						{{ thread.subject|slice(0, 40) }}{% if thread.subject|length > 40 %}…{% endif %}
 					</a>
 
-					{% if not fos_message_is_read(thread) %}
+					{% if not thread_is_read %}
 						<span class="badge badge-info">{% trans from 'FOSMessageBundle' %}new{% endtrans %}</span>
 					{% endif %}
 				</td>
@@ -36,7 +37,7 @@
 				</td>
 				<td>
 					{% if thread.lastMessage %}
-						<a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}#message_{{ thread.lastMessage.id }}" title="{% trans from 'FOSMessageBundle' %}goto_last{% endtrans %}"><span class="fa fa-arrow-circle-right"></span></a>
+						<a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}#message_{{ thread.lastMessage.id }}" class="last-message-link" title="{% trans from 'FOSMessageBundle' %}goto_last{% endtrans %}"><span class="fa fa-arrow-circle-right"></span></a>
 						{{ thread.lastMessage.sender|e }} &middot; <time>{{ thread.lastMessage.createdAt|date('d.m.Y H:i') }}</time>
 					{% else %}
 						----
@@ -68,3 +69,18 @@
 	</tbody>
 
 </table>
+
+<script>
+	function gotoFirstUnreadIfRequested() {
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.get('goto') === 'first-unread') {
+			const unreadThreads = document.getElementsByClassName('thread-unread');
+			if (unreadThreads.length === 0) {
+				return;
+			}
+			const lastMessageLink = unreadThreads[0].getElementsByClassName('last-message-link')[0];
+			window.location.href = lastMessageLink.href;
+		}
+	}
+	gotoFirstUnreadIfRequested();
+</script>
