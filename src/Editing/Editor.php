@@ -28,12 +28,19 @@ class Editor {
 			return array_filter($this->computeArrayDifferences($field1, $field2));
 		}
 		if ($field1 != $field2) {
-			return [(string) $field1, (string) $field2];
+			return [$this->valueToString($field1), $this->valueToString($field2)];
 		}
 		return null;
 	}
 
 	private function isCollection($var) {
 		return $var instanceof Collection || is_array($var);
+	}
+
+	private function valueToString($value) {
+		if ($value instanceof \DateTime) {
+			return strtr($value->format('d.m.Y H:i:s'), [' 00:00:00' => '']);
+		}
+		return (string) $value;
 	}
 }
