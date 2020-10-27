@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>DjVu Viewer</title>
+	<script id="djvu_js_lib" src="djvu.js"></script>
+	<script src="djvu_viewer.js"></script>
+	<link href="djvu_viewer.css" rel="stylesheet">
+
+	<script>
+		window.onload = function () {
+			const viewer = new DjVu.Viewer();
+			viewer.render(document.querySelector("#viewer_container"));
+
+			const params = new URLSearchParams(document.location.search.substring(1));
+			const file = params.get("file");
+			if (!file) {
+				return
+			}
+			viewer.loadDocumentByUrl(file);
+			document.title = file.split("/").reverse()[0];
+		}
+	</script>
+
+	<style>
+		body {
+			background: gray;
+		}
+		#viewer_container {
+			height: 96vh;
+			width: 80em;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+
+<body>
+    <div id="viewer_container"></div>
+</body>
+
+</html>
