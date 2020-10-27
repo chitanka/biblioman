@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dc463a1a6f1e2ab5f2b55c79f30d468",
+    "content-hash": "60aab6e4779ef1cc70a765858ef9f522",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -2236,10 +2236,10 @@
         },
         {
             "name": "mateusz-matela/djvu-html5",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.2/Djvu_html5-0.2.2.zip",
+                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.3/Djvu_html5-0.2.3.zip",
                 "reference": "master"
             },
             "type": "library"
