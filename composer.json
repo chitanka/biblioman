@@ -15,9 +15,9 @@
         "type": "package",
         "package": {
             "name": "mateusz-matela/djvu-html5",
-            "version": "0.2.3",
+            "version": "0.3.0-beta1",
             "dist": {
-                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.2.3/Djvu_html5-0.2.3.zip",
+                "url": "https://github.com/mateusz-matela/djvu-html5/releases/download/0.3.0-beta1/Djvu_html5-0.3.0-beta1.zip",
                 "type": "zip",
                 "reference": "master"
             }
@@ -42,7 +42,7 @@
         "easycorp/easyadmin-bundle": "^3.0",
         "fortawesome/font-awesome": "v4.3.0",
         "friendsofsymfony/message-bundle": "^2.0",
-        "mateusz-matela/djvu-html5": "0.2.3",
+        "mateusz-matela/djvu-html5": "0.3.0-beta1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sachinchoolur/lightgallery": "*",
         "sensio/framework-extra-bundle": "^5.6",
