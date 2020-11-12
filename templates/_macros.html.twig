@@ -135,7 +135,7 @@
 	{% if book.fullContent is not empty and app.user.canAccessBookContents(book) %}
 		<a href="/{{ book.fullContent|contentpath(book.title) }}" title="Сваляне на пълното съдържание на книгата" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-floppy-o"></span></a>
 		{% if '.djvu' in book.fullContent %}
-			<a href="/djvu-viewer/?file=/{{ book.fullContent|contentpath(book.title) }}" title="Преглед на пълното съдържание на книгата" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-file-text-o"></span></a>
+			<a href="/djvu-viewer/?file=/{{ book.fullContent|contentpath(book.title) }}" title="Преглед на пълното съдържание на книгата в браузъра" class="btn btn-success btn-sm book-fullcontent" target="_blank"><span class="fa fa-file-text-o"></span></a>
 		{% endif %}
 	{% endif %}
 {% endmacro %}
