@@ -65,7 +65,7 @@ class BookMultiFields extends Entities {
 			$this->collection->add($addedMultiField);
 		}
 		foreach ($this->diff($newMultiFields) as $removedMultiField) {
-			$this->collection->removeElement($removedMultiField);
+			$this->removeElement($removedMultiField);
 		}
 	}
 
