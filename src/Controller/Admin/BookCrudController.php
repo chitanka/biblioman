@@ -176,8 +176,8 @@ class BookCrudController extends AbstractCrudController {
 		$notes = $this->textarea('notes');
 		$panelCategorization = $this->panel('Categorization', 'fas fa-tag');
 		$category = AssociationField::new('category');
-		$genre = $this->multipleChoiceWithSelect2('genre', $this->multiFieldRepository->findAllGenres());
-		$themes = $this->multipleChoiceWithSelect2('themes', $this->multiFieldRepository->findAllThemes());
+		$genre = $this->multipleChoiceWithSelect2('genre', $this->multiFieldRepository->findAllGenres(), $bookFromRequest['genre'] ?? null);
+		$themes = $this->multipleChoiceWithSelect2('themes', $this->multiFieldRepository->findAllThemes(), $bookFromRequest['themes'] ?? null);
 		$universalDecimalClassification = TextField::new('universalDecimalClassification');
 		$panelLinks = $this->panel('Links', 'fas fa-link');
 		$chitankaId = IntegerField::new('chitankaId');
@@ -347,15 +347,15 @@ class BookCrudController extends AbstractCrudController {
 		parent::updateEntity($entityManager, $book);
 	}
 
-	private function choiceWithSelect2(string $name, array $choices, ?string $extraValue = null) {
+	private function choiceWithSelect2(string $name, array $choices, $extraValue = null) {
 		if ($extraValue) {
-			$choices[] = $extraValue;
+			$choices = array_merge($choices, (array) $extraValue);
 		}
 		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions(['attr' => ['data-tags' => 'true'], 'choice_translation_domain' => false]);
 	}
 
-	private function multipleChoiceWithSelect2(string $name, array $choices) {
-		return $this->choiceWithSelect2($name, $choices)->allowMultipleChoices();
+	private function multipleChoiceWithSelect2(string $name, array $choices, $extraValue = null) {
+		return $this->choiceWithSelect2($name, $choices, $extraValue)->allowMultipleChoices();
 	}
 
 	private function textarea(string $name) {
