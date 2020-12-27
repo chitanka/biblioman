@@ -2,8 +2,8 @@
 
 use App\Entity\Book;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityUpdatedEvent;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EasyAdminListener implements EventSubscriberInterface {
@@ -17,12 +17,12 @@ class EasyAdminListener implements EventSubscriberInterface {
 
 	public static function getSubscribedEvents() {
 		return [
-			BeforeEntityPersistedEvent::class => ['notifyRocketChatAboutCreation'],
+			AfterEntityPersistedEvent::class => ['notifyRocketChatAboutCreation'],
 			AfterEntityUpdatedEvent::class => ['saveNewBookCovers'],
 		];
 	}
 
-	public function notifyRocketChatAboutCreation(BeforeEntityPersistedEvent $event) {
+	public function notifyRocketChatAboutCreation(AfterEntityPersistedEvent $event) {
 		$book = $event->getEntityInstance();
 		if (!$book instanceof Book) {
 			return;
