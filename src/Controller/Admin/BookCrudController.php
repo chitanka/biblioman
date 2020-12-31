@@ -250,8 +250,13 @@ class BookCrudController extends AbstractCrudController {
 	}
 
 	public function edit(AdminContext $context) {
-		$this->denyAccessIfCannotEditBook($context);
-		$this->checkForLockedBook($this->get('doctrine')->getManagerForClass($context->getEntity()->getFqcn()), $context->getEntity()->getInstance());
+		$user = $context->getUser();/* @var $user \App\Entity\User */
+		$book = $context->getEntity()->getInstance();/* @var $book Book */
+		if (!$user->canEditBook($book)) {
+			$this->addFlash('error', 'Нямате право да редактирате този запис.');
+			return $this->redirectToRoute('books_show', ['id' => $book->getId()]);
+		}
+		$this->checkForLockedBook($this->get('doctrine')->getManagerForClass($context->getEntity()->getFqcn()), $book);
 		return parent::edit($context);
 	}
 
@@ -284,13 +289,6 @@ class BookCrudController extends AbstractCrudController {
 		$entityManager->persist($book);
 		$entityManager->flush();
 		return new JsonResponse($book->toArray());
-	}
-
-	protected function denyAccessIfCannotEditBook(AdminContext $context) {
-		$user = $context->getUser();/* @var $use \App\Entity\User */
-		if (!$user->canEditBook($context->getEntity()->getInstance())) {
-			$context->getEntity()->markAsInaccessible();
-		}
 	}
 
 	/** @param \EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface[] $fields */
