@@ -2,13 +2,20 @@
 
 {% import '_macros.html.twig' as _ %}
 
-{% block title %}
-	Промени – <a href="{{ path('books_show', { id: book.id }) }}">{{ _.printTitleWithAuthor(book) }}</a>
-{% endblock %}
+{% block title %}{{ _.printBookTitleAsBlock(book, searchableFields) }}: Промени{% endblock %}
 
 {% block content %}
 
-	<h1>{{ block('title') }}</h1>
+	<h1 class="book-heading">
+		{{ _.printBookTitleAsBlock(book, searchableFields) }}
+		<div class="subpage-title">Промени</div>
+	</h1>
+
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="{{ path('books') }}">Книги</a></li>
+		<li class="breadcrumb-item"><a href="{{ path('books_show', {id: book.id}) }}">№ {{ book.id }}</a></li>
+		<li class="breadcrumb-item active">Промени</li>
+	</ol>
 
 	<ul class="list-group">
 		{% for revision in book.revisions %}

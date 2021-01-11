@@ -46,9 +46,6 @@ a {
 	font-weight: 600;
 	letter-spacing: 1px;
 }
-.book-heading {
-	font-family: 'Vollkorn', serif;
-}
 .navbar-text {
 	margin-bottom: 13px;
 	margin-top: 13px;
@@ -121,10 +118,23 @@ div:target {
 }
 .book-heading {
 	text-align: center;
+	line-height: 1.15em;
+}
+.book-heading a {
+	color: inherit;
 }
 .book-heading .author {
 	font-size: 70%;
 	font-variant: small-caps;
+}
+.book-heading .title {
+	font-family: 'Vollkorn', serif;
+}
+.subpage-title {
+	margin-top: .3em;
+	font-size: 60%;
+	opacity: .8;
+	letter-spacing: .1em;
 }
 .book-snippet-extra-info {
 	margin-top: .4rem;

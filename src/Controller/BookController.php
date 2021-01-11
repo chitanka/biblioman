@@ -93,6 +93,7 @@ class BookController extends Controller {
 	public function showRevisionsAction(Book $book) {
 		return $this->render('Book/showRevisions.html.twig', [
 			'book' => $book,
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 		]);
 	}
 
@@ -132,6 +133,7 @@ class BookController extends Controller {
 	public function showCoversAction(Book $book) {
 		return $this->render('Book/showCovers.html.twig', [
 			'book' => $book,
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 		]);
 	}
 
@@ -141,6 +143,7 @@ class BookController extends Controller {
 	public function showScansAction(Book $book) {
 		return $this->render('Book/showScans.html.twig', [
 			'book' => $book,
+			'searchableFields' => BookQuery::getSearchableFieldsDefinition(),
 		]);
 	}
 

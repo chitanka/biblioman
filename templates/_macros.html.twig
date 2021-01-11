@@ -160,6 +160,19 @@
 	{{ book.title|replace({'; ': ' • '}) }}
 {% endmacro %}
 
+{% macro printBookTitleAsBlock(book, searchableFields) %}
+	{% from _self import printSearchLinks %}
+	{% from _self import printBookTitle %}
+	{% if book.author is not empty %}
+		<span class="author">{{ printSearchLinks(book.author, 'author', searchableFields) }}</span><br>
+	{% endif %}
+	<span class="title">{{ printBookTitle(book) }}
+		{% if book.volumeTitle is not empty %}
+			<span class="book-volumeTitle">• {{ book.volumeTitle }}</span>
+		{% endif %}
+	</span>
+{% endmacro %}
+
 {% macro printBookButtons(book) %}
 	{% import _self as _ %}
 	{% if is_granted('ROLE_EDITOR') %}

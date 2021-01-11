@@ -2,15 +2,7 @@
 
 {% import '_macros.html.twig' as _ %}
 
-{% block title %}
-	{% if book.author is not empty %}
-		<span class="author">{{ _.printSearchLinks(book.author, 'author', searchableFields) }}</span><br>
-	{% endif %}
-	<span class="title">{{ _.printBookTitle(book) }}</span>
-	{% if book.volumeTitle is not empty %}
-		<span class="book-volumeTitle">• {{ book.volumeTitle }}</span>
-	{% endif %}
-{% endblock %}
+{% block title %}{{ _.printBookTitleAsBlock(book, searchableFields) }}{% endblock %}
 
 {% set opengraph = {
 	'title': book.titleWithVolume,
