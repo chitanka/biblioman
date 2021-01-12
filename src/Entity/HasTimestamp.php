@@ -20,7 +20,7 @@ trait HasTimestamp {
 	public $updatedAt;
 
 	protected function isOlderThanSeconds($seconds) {
-		return (time() - $this->updatedAt->getTimestamp()) > $seconds;
+		return (time() - $this->createdAt->getTimestamp()) > $seconds;
 	}
 
 	protected function markAsChanged() {
