@@ -161,7 +161,7 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 	}
 
 	public function is($role) {
-		return in_array(self::normalizeRoleName($role), $this->getRoles()) || $this->is(self::ROLE_ADMIN);
+		return array_intersect([self::normalizeRoleName($role), self::ROLE_ADMIN], $this->getRoles());
 	}
 
 	/**
