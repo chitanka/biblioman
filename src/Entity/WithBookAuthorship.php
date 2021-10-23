@@ -11,7 +11,7 @@ trait WithBookAuthorship {
 	public $author;
 
 	/**
-	 * @ORM\Column(type="string", length=1500, nullable=true)
+	 * @ORM\Column(type="string", length=2500, nullable=true)
 	 */
 	public $translator;
 
@@ -31,7 +31,7 @@ trait WithBookAuthorship {
 	public $adaptedBy;
 
 	/**
-	 * @ORM\Column(type="string", length=1500, nullable=true)
+	 * @ORM\Column(type="string", length=2500, nullable=true)
 	 */
 	public $otherAuthors;
 
