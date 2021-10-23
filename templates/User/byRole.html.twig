@@ -10,7 +10,7 @@
 		<h2>{{ ('roles.'~role)|trans|upper }}</h2>
 		<ul>
 		{% for user in users %}
-			{% if user.is(role) %}
+			{% if user.hasRole(role) %}
 				<li>
 					<a href="{{ path('users_show', { username: user.name }) }}">{{ user.name }}</a>
 					{{ _.printUserMessageLink(user.name) }}
