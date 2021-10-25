@@ -173,6 +173,9 @@ div:target {
 	color: red;
 	font-size: 110%;
 }
+.badge-admin {
+	color: orangered;
+}
 h1 .extra-info {
 	opacity: .7;
 	font-size: 70%;

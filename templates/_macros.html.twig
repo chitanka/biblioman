@@ -95,7 +95,9 @@
 {% endmacro %}
 
 {% macro printUserBadge(user) %}
-	{% if user.is('ROLE_EDITOR_CHIEF') %}
+	{% if user.is('ROLE_ADMIN') %}
+		<span class="fa fa-id-badge badge-admin" title="{{ 'roles.ROLE_ADMIN'|trans }}"></span>
+	{% elseif user.is('ROLE_EDITOR_CHIEF') %}
 		<span class="fa fa-user-circle-o badge-editor-chief" title="{{ 'roles.ROLE_EDITOR_CHIEF'|trans }}"></span>
 	{% elseif user.is('ROLE_EDITOR_MANAGING') %}
 		<span class="fa fa-certificate badge-editor-managing" title="{{ 'roles.ROLE_EDITOR_MANAGING'|trans }}"></span>
