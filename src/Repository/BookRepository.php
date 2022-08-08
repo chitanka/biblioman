@@ -57,7 +57,6 @@ class BookRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceE
 
 	public function filterIncomplete(BookSearchCriteria $criteria): QueryBuilder {
 		$qb = $this->createQueryBuilder('b')->where('b.isIncomplete = 1');
-		$qb->setParameter('1', Book::$MEDIA_PAPER);
 		return (new BookQuery($this, $criteria, $qb))->getQueryBuilder();
 	}
 
