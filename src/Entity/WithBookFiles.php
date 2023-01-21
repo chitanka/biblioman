@@ -58,6 +58,10 @@ trait WithBookFiles {
 		return $this->availableAt < new \DateTime();
 	}
 
+	public function hasContentFiles(): bool {
+		return $this->fullContent !== null || $this->nbContentFiles > 0;
+	}
+
 	protected function updateNbFiles() {
 		$this->updateNbCovers();
 		$this->updateNbContentFiles();

@@ -48,10 +48,6 @@ trait WithBookContentFiles {
 		$this->updateNbContentFiles();
 	}
 
-	public function hasContentFiles() {
-		return $this->nbContentFiles > 0;
-	}
-
 	protected function updateNbContentFiles() {
 		$this->nbContentFiles = count($this->contentFiles);
 	}
