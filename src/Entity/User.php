@@ -217,6 +217,9 @@ class User extends Entity implements UserInterface, ParticipantInterface {
 	}
 
 	public function canEditBook(Book $book): bool {
+		if (!$this->is(self::ROLE_EDITOR)) {
+			return false;
+		}
 		if ($book->isVerified() && !$this->is(self::ROLE_EDITOR_CHIEF)) {
 			return false;
 		}
