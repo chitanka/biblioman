@@ -43,6 +43,7 @@
         "fortawesome/font-awesome": "v4.3.0",
         "friendsofsymfony/message-bundle": "^2.0",
         "mateusz-matela/djvu-html5": "0.3.0-beta1",
+        "pagerfanta/pagerfanta": "^3.7",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sachinchoolur/lightgallery": "*",
         "sensio/framework-extra-bundle": "^5.6",
@@ -92,7 +93,10 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "psr-4": {
