@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository implements UserProviderInterface {
 
-	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+	public function __construct(\Doctrine\Persistence\ManagerRegistry $registry) {
 		parent::__construct($registry, User::class);
 	}
 

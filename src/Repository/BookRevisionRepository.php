@@ -6,7 +6,7 @@ use Doctrine\ORM\QueryBuilder;
 
 class BookRevisionRepository extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository {
 
-	public function __construct(\Doctrine\Common\Persistence\ManagerRegistry $registry) {
+	public function __construct(\Doctrine\Persistence\ManagerRegistry $registry) {
 		parent::__construct($registry, BookRevision::class);
 	}
 
