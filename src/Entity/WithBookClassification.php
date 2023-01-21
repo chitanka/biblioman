@@ -51,13 +51,13 @@ trait WithBookClassification {
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
 	public $isbn;
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string", length=100, nullable=true)
+	 * @ORM\Column(type="string", length=200, nullable=true)
 	 */
 	public $isbnClean;
 
