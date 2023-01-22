@@ -102,19 +102,14 @@ $('form').on('change', ':input', function() {
 	this.blur();
 });
 
-const $panelHeaders = $('.content-panel-header');
-$panelHeaders.each(function () {
-	const $body = $(this).next().addClass('collapse show');
-	const target = $body.attr('id') || $body.attr('id', generateRandomId()).attr('id');
-	$(this).attr({'data-toggle': 'collapse', 'data-target': '#'+target, 'aria-expanded': 'false', 'aria-controls': target});
-});
-
+const $panelHeaders = $('.form-panel-header');
 const panelNav = $panelHeaders.map(function() {
 	const target = $(this).next().attr('id');
-	const iconClass = $(this).find('i')[0].className;
-	return `<li><a href="#${target}"><i class="${iconClass}"></i> <span>${$(this).text().trim()}</span></a></li>`;
+	const iconClass = $(this).find('.form-panel-icon')[0].className;
+	return `<li class="menu-item"><a href="#${target}" class="menu-item-contents"><i class="menu-icon ${iconClass}"></i> <span>${$(this).text().trim()}</span></a></li>`;
 }).get().join('');
-$(`<ul class="sidebar-menu position-fixed"><li class="header"><span>Книга</span></li>${panelNav}</ul>`).insertAfter('.sidebar').on('click', 'a', function () {
+$(`<ul class="menu position-fixed"><li class="menu-header"><span class="menu-header-contents">Книга</span></li>${panelNav}</ul>`)
+.appendTo('#main-menu').on('click', 'a', function () {
 	$([document.documentElement, document.body]).animate({
 		scrollTop: $($(this).attr('href')).offset().top - 100
 	}, 0);
