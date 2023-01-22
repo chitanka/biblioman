@@ -9,10 +9,10 @@
 	top: 0;
 }
 
-form.dirty .changed, .select2-container--bootstrap.changed .select2-selection {
+.changed, .form-select.changed {
 	background-color: #fffebe;
 }
-form.dirty .form-check-input.changed {
+.form-check-input.changed {
 	outline: 6px solid #fffebe;
 }
 .form-group {

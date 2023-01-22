@@ -71,23 +71,27 @@ $helpBlocks.each(function () {
 
 $('form a:not(.action-list)').attr('target', '_blank');
 
-$('form').on('change', ':input', function() {
-	const originalValue = $(this).data("ays-orig");
-	const comparisonValue = function(el) {
-		if (typeof originalValue === 'boolean') {
-			return el.checked;
-		}
-		const value = $(el).val();
-		return Array.isArray(value) ? value.join('') : value;
+const $inputs = $('form :input');
+const getInputValue = function(el) {
+	if (el.type === 'radio' || el.type === 'checkbox') {
+		return el.checked;
 	}
+	const value = $(el).val();
+	return Array.isArray(value) ? value.join('') : value;
+};
+$inputs.each(function() {
+	$(this).data("orig-value", getInputValue(this));
+});
+$inputs.on('change', function() {
+	const originalValue = $(this).data("orig-value");
 	const marker = 'changed';
-	const $select2 = $(this).next('.select2');
-	if (comparisonValue(this) === originalValue) {
+	const $richSelect = $(this).next('.form-select');
+	if (getInputValue(this) === originalValue) {
 		this.classList.remove(marker);
-		$select2.removeClass(marker)
+		$richSelect.removeClass(marker)
 	} else {
 		this.classList.add(marker);
-		$select2.addClass(marker)
+		$richSelect.addClass(marker)
 	}
 
 }).on('submit', function() {
