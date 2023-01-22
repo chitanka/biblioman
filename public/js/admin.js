@@ -4,6 +4,8 @@ function generateRandomId() {
 
 $.featherlight.defaults.autostart = false;
 
+$(function() {// on DOM load
+
 $('img').each(function() {
 	// TODO remove this building logic - it should come from the backend
 	let src = $(this).attr('src');
@@ -127,3 +129,5 @@ $('.field-collection-delete-button').each(function () {
 		return false;
 	};
 });
+
+});// on DOM load

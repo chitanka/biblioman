@@ -51,6 +51,10 @@ class BookLink extends Entity {
 	 */
 	private $author;
 
+	public function __toString() {
+		return $this->getUrl();
+	}
+
 	public function getBook() {
 		return $this->book;
 	}

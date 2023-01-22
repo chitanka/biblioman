@@ -11,7 +11,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -31,7 +30,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class BookCrudController extends AbstractCrudController {
+class BookCrudController extends CrudController {
 
 	protected $baseImagePath = '/thumb/covers';
 
@@ -80,6 +79,7 @@ class BookCrudController extends AbstractCrudController {
 
 	public function configureFields(string $pageName): iterable {
 		$fields = $this->createFields($pageName);
+		$this->renderFieldsWithFullsize($fields);
 		$this->putHelpMessagesFromWiki($fields);
 		return $fields;
 	}
@@ -363,7 +363,7 @@ class BookCrudController extends AbstractCrudController {
 	}
 
 	private function uploadField(string $name) {
-		return ImageField::new($name)->setFormType(VichImageType::class);
+		return TextField::new($name)->setFormType(VichImageType::class);
 	}
 
 	private function collectionField(string $name, string $class) {
@@ -373,6 +373,6 @@ class BookCrudController extends AbstractCrudController {
 	}
 
 	private function panel(string $name, string $icon) {
-		return FormField::addPanel($name, 'fa-fw '.$icon);
+		return FormField::addPanel($name, 'fa-fw '.$icon)->collapsible();
 	}
 }

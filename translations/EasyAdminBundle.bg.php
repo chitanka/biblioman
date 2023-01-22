@@ -27,7 +27,7 @@ return [
     'label' => [
         'true' => 'Да',
         'false' => 'Не',
-        'empty' => 'Празно',
+        'empty' => '',
         'null' => '',
         'nullable_field' => 'Да се остави празно',
         'object' => 'Обект от PHP',

@@ -36,6 +36,7 @@ class DashboardController extends AbstractDashboardController {
 			->addHtmlContentToHead('<style>:root { --color-primary: #2B547E; }</style>')
 			->addCssFile('//cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.css')
 			->addCssFile('css/admin.css')
+			->addJsFile('//code.jquery.com/jquery-3.5.1.min.js')
 			->addJsFile('//cdn.rawgit.com/noelboss/featherlight/1.2.0/release/featherlight.min.js')
 			->addJsFile('js/admin.js')
 		;

@@ -4,13 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Person;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PersonCrudController extends AbstractCrudController {
+class PersonCrudController extends CrudController {
 	public static function getEntityFqcn(): string {
 		return Person::class;
 	}
@@ -23,6 +22,12 @@ class PersonCrudController extends AbstractCrudController {
 	}
 
 	public function configureFields(string $pageName): iterable {
+		$fields = $this->createFields($pageName);
+		$this->renderFieldsWithFullsize($fields);
+		return $fields;
+	}
+
+	protected function createFields(string $pageName): iterable {
 		$name = TextField::new('name');
 		$nameType = ChoiceField::new('nameType')->setChoices($this->nameTypeChoices())->setTemplatePath('admin/Person/nameType.html.twig');
 		$canonicalPerson = AssociationField::new('canonicalPerson');

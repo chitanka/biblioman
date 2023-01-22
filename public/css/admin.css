@@ -21,17 +21,30 @@ form.dirty .form-check-input.changed {
 .form-control:focus {
 	background: #FFEDBE;
 }
-.form-group .col-form-label.required::after, .form-group label.required::after {
+.form-group legend.col-form-label.required::after, .form-group label.required::after {
 	content: "";
 }
-.form-group .col-form-label.required::before, .form-group .form-control-label.required::before {
+.form-group legend.col-form-label.required::before, .form-group .form-control-label.required::before {
 	content: "*\00a0";
 	color: #D42124;
 	font-size: 16px;
 }
-.form-group .col-form-label, .form-group .form-control-label {
-	font-weight: 700;
-	margin-right: 0.67em;
+@media (min-width: 768px) {
+	.col-md-12 .form-group {
+		display: flex;
+	}
+	.col-md-12 .form-group legend.col-form-label, .form-group .form-control-label {
+		flex-basis: 20%;
+		font-weight: 700;
+		margin-right: 0.67em;
+		text-align: right;
+	}
+	.col-md-12 .form-widget {
+		flex-basis: 75%;
+	}
+	.col-md-12 .field-boolean .form-widget {
+		margin-left: 21%;
+	}
 }
 .form-widget input.form-control, .form-widget select.form-control, .form-widget textarea.form-control {
 	max-width: 100%;
@@ -52,6 +65,9 @@ form.dirty .form-check-input.changed {
 }
 .field-collection[data-entry-is-complex="true"] .form-group .field-collection-item-complex .form-widget {
 	flex-basis: 75%;
+}
+.form-group.field-collection .accordion-item .form-group {
+	padding: 4px 0;/* default padding of 12 px is too much */
 }
 .ea-vich-image-actions {
 	float: right;
