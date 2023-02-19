@@ -24,7 +24,7 @@
         }
    	}],
     "require": {
-        "php": ">=7.1.3",
+        "php": ">=7.4.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "babdev/pagerfanta-bundle": ">=1.0",
