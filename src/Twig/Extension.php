@@ -4,6 +4,7 @@ use App\Entity\Entity;
 use App\File\Normalizer;
 use App\File\Path;
 use App\File\Thumbnail;
+use Chitanka\WikiBundle\Service\Markdown;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Routing\Router;
@@ -21,6 +22,7 @@ class Extension extends \Twig\Extension\AbstractExtension {
 		return [
 			new TwigFilter('converturls', [$this, 'autoConvertUrls'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
 			new TwigFilter('autolink', [$this, 'autolink'], ['is_safe' => ['html']]),
+			new TwigFilter('format_markdown', [$this, 'formatMarkdown'], ['is_safe' => ['html']]),
 			new TwigFilter('format_paragraphs', [$this, 'formatParagraphs'], ['is_safe' => ['html']]),
 			new TwigFilter('format_whitespaces', [$this, 'formatWhitespaces'], ['is_safe' => ['html']]),
 			new TwigFilter('format_bytes', [$this, 'formatBytes']),
@@ -43,6 +45,10 @@ class Extension extends \Twig\Extension\AbstractExtension {
 			return '<a href="'.$url.'">'.$matches[0].'</a>';
 		}, $content);
 		return $content;
+	}
+
+	public function formatMarkdown(string $content): string {
+		return Markdown::defaultTransform($content);
 	}
 
 	public function formatParagraphs($text): string {

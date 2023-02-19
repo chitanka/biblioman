@@ -30,11 +30,13 @@
 					{% endfor %}
 				{% endif %}
 			{% elseif field == 'toc' %}
-				{{ attr | format_whitespaces }}
+				{{ attr | format_whitespaces | format_markdown }}
+			{% elseif field in ['annotation', 'notesAboutAuthor', 'marketingSnippets', 'notesAboutOriginal'] %}
+				{{ attr | format_whitespaces | format_markdown }}
 			{% elseif field == 'infoSources' %}
 				{{ attr | converturls | format_whitespaces }}
 			{% elseif field == 'notes' %}
-				{{ attr | converturls | autolink | format_whitespaces }}
+				{{ attr | converturls | autolink | format_whitespaces | format_markdown }}
 			{% elseif field in ['createdByUser', 'completedByUser'] %}
 				{{ _.printUser(attr, book) }}
 			{% else %}
