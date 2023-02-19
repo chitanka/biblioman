@@ -156,6 +156,12 @@
 	{% endif %}
 {% endmacro %}
 
+{% macro printAtelieLink(book) %}
+	{% if book.atelieId is not empty %}
+		<a href="//chitanka.info/workroom/entry/{{ book.atelieId }}" title="Книгата в работното ателие на Моята библиотека" class="btn btn-info btn-sm book-atelie" target="_blank"><span class="fa fa-universal-access"></span></a>
+	{% endif %}
+{% endmacro %}
+
 {% macro printCategoryLink(category) %}
 	<a href="{{ path('books_by_category', { slug: category.slug }) }}">{{ category.name }}</a>
 {% endmacro %}
@@ -183,6 +189,9 @@
 		{{ _.printEditLink(book) }}
 	{% endif %}
 	{{ _.printChitankaLink(book) }}
+	{% if is_granted('ROLE_USER') %}
+		{{ _.printAtelieLink(book) }}
+	{% endif %}
 	{{ _.printFullContentLink(book) }}
 {% endmacro %}
 

@@ -181,6 +181,7 @@ class BookCrudController extends CrudController {
 		$universalDecimalClassification = TextField::new('universalDecimalClassification');
 		$panelLinks = $this->panel('Links', 'fas fa-link');
 		$chitankaId = IntegerField::new('chitankaId');
+		$atelieId = IntegerField::new('atelieId');
 		$links = $this->collectionField('links', \App\Form\BookLinkType::class);
 		$panelCovers = $this->panel('Covers', 'far fa-images');
 		$coverFile = $this->uploadField('coverFile');
@@ -236,7 +237,7 @@ class BookCrudController extends CrudController {
 			$panelCategorization,
 			$category, $genre, $themes, $universalDecimalClassification,
 			$panelLinks,
-			$chitankaId,
+			$chitankaId, $atelieId,
 			$links,
 			$panelCovers,
 			$coverFile, $backCoverFile, $otherCovers,
