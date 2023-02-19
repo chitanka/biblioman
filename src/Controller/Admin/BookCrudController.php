@@ -349,7 +349,7 @@ class BookCrudController extends CrudController {
 		if ($extraValue) {
 			$choices = array_merge($choices, (array) $extraValue);
 		}
-		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions(['attr' => ['data-tags' => 'true'], 'choice_translation_domain' => false]);
+		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions(['attr' => ['data-ea-autocomplete-allow-item-create' => 'true'], 'choice_translation_domain' => false]);
 	}
 
 	private function multipleChoiceWithSelect2(string $name, array $choices, $extraValue = null) {
