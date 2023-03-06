@@ -1,12 +1,11 @@
 <?php namespace App\Form\DataTransformer;
 
 use App\Entity\Repository\UserRepository;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-
-use App\Entity\User;
 
 /**
  * Transforms between a User instance and a username string
@@ -21,7 +20,7 @@ class UserToUsernameTransformer implements DataTransformerInterface {
 	 * @param Registry $doctrine
 	 */
 	public function __construct(ManagerRegistry $doctrine) {
-		$this->repository = $doctrine->getManager()->getRepository('App:User');
+		$this->repository = $doctrine->getManager()->getRepository(User::class);
 	}
 
 	/**
@@ -39,7 +38,7 @@ class UserToUsernameTransformer implements DataTransformerInterface {
 		}
 
 		if (! $value instanceof User) {
-			throw new UnexpectedTypeException($value, 'App\Entity\User');
+			throw new UnexpectedTypeException($value, User::class);
 		}
 
 		return $value->getUsername();
