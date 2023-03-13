@@ -4,7 +4,7 @@
 		<div class="col-md-3">
 			<div style="width: 210px; max-width: 100%">
 				<a href="{{ path('books_show', { id: book.id }) }}" class="popover-trigger" data-content="{{ book.annotation|format_paragraphs|e }}" data-placement="right">
-					<img src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" class="img-thumbnail" alt="Корица" width="200">
+					<img src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" class="img-thumbnail" alt="Корица" width="200" loading="lazy">
 				</a>
 			</div>
 		</div>

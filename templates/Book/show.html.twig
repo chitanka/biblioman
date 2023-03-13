@@ -40,11 +40,11 @@
 	<div class="row" itemscope itemtype="http://schema.org/Book">
 		<div class="col-md-4">
 			<a href="{{ _.thumbFrontCover(book.cover, 1000, book.title) }}" class="thumb-link" data-sub-html="Корица">
-				<img src="{{ _.thumbFrontCover(book.cover, 300, book.title) }}" class="img-thumbnail" alt="Корица" width="300">
+				<img src="{{ _.thumbFrontCover(book.cover, 300, book.title) }}" class="img-thumbnail" alt="Корица" width="300" loading="lazy">
 			</a>
 			{% if book.canHaveScans or book.hasBackCover %}
 				<a href="{{ _.thumbBackCover(book.backCover, 1000, book.title) }}" class="thumb-link" data-sub-html="Задна корица">
-					<img src="{{ _.thumbBackCover(book.backCover, 300, book.title) }}" class="img-thumbnail" alt="Задна корица" width="300">
+					<img src="{{ _.thumbBackCover(book.backCover, 300, book.title) }}" class="img-thumbnail" alt="Задна корица" width="300" loading="lazy">
 				</a>
 			{% endif %}
 		</div>

@@ -4,7 +4,7 @@
 	{% import '_macros.html.twig' as _ %}
 	<a href="{{ _.thumbCover(cover.name, 1000, book.title) }}" class="thumb-link" data-sub-html=".caption">
 		<figure class="img-thumbnail">
-			<img src="{{ _.thumbCover(cover.name, 300, book.title~'-'~cover.type) }}" alt="Корица" style="max-height: 370px" title="{{ cover.size|format_bytes }} • {{ cover.dimensions }} • {{ cover.internalFormat|upper }}">
+			<img src="{{ _.thumbCover(cover.name, 300, book.title~'-'~cover.type) }}" alt="Корица" style="max-height: 370px" title="{{ cover.size|format_bytes }} • {{ cover.dimensions }} • {{ cover.internalFormat|upper }}" loading="lazy">
 			<figcaption class="caption">
 				{% if cover.title %}
 					{{ cover.title }} •
@@ -69,7 +69,7 @@
 		</tr>
 		{% for cover in book.covers %}
 			<tr>
-				<td><img src="{{ _.thumbCover(cover.name, 300) }}" style="max-height: 60px" alt="{{ cover.name }}"></td>
+				<td><img src="{{ _.thumbCover(cover.name, 300) }}" style="max-height: 60px" alt="{{ cover.name }}" loading="lazy"></td>
 				<td>{{ cover.title }}</td>
 				<td>{{ ('BookCover.'~cover.type)|trans }}</td>
 				<td>{{ cover.dimensions }}</td>

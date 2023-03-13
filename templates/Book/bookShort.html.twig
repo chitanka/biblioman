@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<a href="{{ path('books_show', { id: book.id }) }}" class="popover-trigger" data-content="{{ book.annotation|format_paragraphs|e }}" data-placement="right">
-				<img class="img-thumbnail" src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" width="150" alt="Корица">
+				<img class="img-thumbnail" src="{{ _.thumbFrontCover(book.cover, 200, book.title) }}" width="150" alt="Корица" loading="lazy">
 			</a>
 		</div>
 		<div class="col-md-8">
