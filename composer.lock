@@ -140,16 +140,16 @@
         },
         {
             "name": "chitanka/permission-bundle",
-            "version": "1.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chitanka/permission-bundle.git",
-                "reference": "5eb751293316be885918e2a66199701603cbe901"
+                "reference": "01d0649f596cbee423e76b5d13a393260e80f8eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chitanka/permission-bundle/zipball/5eb751293316be885918e2a66199701603cbe901",
-                "reference": "5eb751293316be885918e2a66199701603cbe901",
+                "url": "https://api.github.com/repos/chitanka/permission-bundle/zipball/01d0649f596cbee423e76b5d13a393260e80f8eb",
+                "reference": "01d0649f596cbee423e76b5d13a393260e80f8eb",
                 "shasum": ""
             },
             "require": {
@@ -172,9 +172,9 @@
             ],
             "support": {
                 "issues": "https://github.com/chitanka/permission-bundle/issues",
-                "source": "https://github.com/chitanka/permission-bundle/tree/1.0"
+                "source": "https://github.com/chitanka/permission-bundle/tree/1.1"
             },
-            "time": "2020-09-20T10:33:29+00:00"
+            "time": "2023-03-21T11:08:16+00:00"
         },
         {
             "name": "chitanka/rocket-chat-client",
