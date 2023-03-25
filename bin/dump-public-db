@@ -1,17 +1,14 @@
 #!/bin/bash
 
-. `dirname $0`/parse_yaml.sh
+env_file=`dirname $0`/../.env.local
 
-config_file=$1
-out_file=$2
+db_credentials=$(grep DATABASE_URL $env_file | php -r 'preg_match("#//(.+):(.+)@(.+):(.+)/(.+)\?#", fgets(STDIN), $m); echo "-u$m[1] -p$m[2] -h$m[3] -P$m[4] $m[5]";')
 
-eval $(parse_yaml $config_file)
+out_file=$1
 
-db=$parameters_database_name
-db_credentials="--host=$parameters_database_host --user=$parameters_database_user --password=$parameters_database_password"
 # Public tables
 tables="book book_category book_cover book_link book_revision book_scan"
 
-mysqldump $db_credentials -d $db > $out_file
-mysqldump $db_credentials $db $tables >> $out_file
+mysqldump $db_credentials -d > $out_file
+mysqldump $db_credentials $tables >> $out_file
 gzip -f $out_file
