@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Book;
 use App\Repository\BookMultiFieldRepository;
 use App\Repository\BookRepository;
+use App\Repository\LabelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -38,14 +39,13 @@ class BookCrudController extends CrudController {
 	private $bookPreEdit;
 	/** @var BookRepository */
 	private $bookRepository;
-	/** @var BookMultiFieldRepository */
-	private $multiFieldRepository;
+	private LabelRepository $labelRepository;
 	/** @var TranslatorInterface|\Symfony\Component\Translation\DataCollectorTranslator */
 	private $translator;
 
-	public function __construct(BookRepository $bookRepository, BookMultiFieldRepository $multiFieldRepository, TranslatorInterface $translator) {
+	public function __construct(BookRepository $bookRepository, LabelRepository $labelRepository, TranslatorInterface $translator) {
 		$this->bookRepository = $bookRepository;
-		$this->multiFieldRepository = $multiFieldRepository;
+		$this->labelRepository = $labelRepository;
 		$this->translator = $translator;
 	}
 
@@ -176,8 +176,8 @@ class BookCrudController extends CrudController {
 		$notes = $this->textarea('notes');
 		$panelCategorization = $this->panel('Categorization', 'fas fa-tag');
 		$category = AssociationField::new('category');
-		$genre = $this->multipleChoiceWithSelect2('genre', $this->multiFieldRepository->findAllGenres(), $bookFromRequest['genre'] ?? null);
-		$themes = $this->multipleChoiceWithSelect2('themes', $this->multiFieldRepository->findAllThemes(), $bookFromRequest['themes'] ?? null);
+		$genre = $this->multipleChoiceWithSelect2('genre', $this->labelRepository->findAllGenres(), $bookFromRequest['genre'] ?? null, false);
+		$themes = $this->multipleChoiceWithSelect2('themes', $this->labelRepository->findAllCharacteristics(), $bookFromRequest['themes'] ?? null, false);
 		$universalDecimalClassification = TextField::new('universalDecimalClassification');
 		$panelLinks = $this->panel('Links', 'fas fa-link');
 		$chitankaId = IntegerField::new('chitankaId');
@@ -346,15 +346,19 @@ class BookCrudController extends CrudController {
 		parent::updateEntity($entityManager, $book);
 	}
 
-	private function choiceWithSelect2(string $name, array $choices, $extraValue = null) {
+	private function choiceWithSelect2(string $name, array $choices, $extraValue = null, bool $allowItemCreation = true) {
 		if ($extraValue) {
 			$choices = array_merge($choices, (array) $extraValue);
 		}
-		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions(['attr' => ['data-ea-autocomplete-allow-item-create' => 'true'], 'choice_translation_domain' => false]);
+		$options = ['choice_translation_domain' => false];
+		if ($allowItemCreation) {
+			$options['attr'] = ['data-ea-autocomplete-allow-item-create' => 'true'];
+		}
+		return ChoiceField::new($name)->setChoices(array_combine($choices, $choices))->setFormTypeOptions($options);
 	}
 
-	private function multipleChoiceWithSelect2(string $name, array $choices, $extraValue = null) {
-		return $this->choiceWithSelect2($name, $choices, $extraValue)->allowMultipleChoices();
+	private function multipleChoiceWithSelect2(string $name, array $choices, $extraValue = null, bool $allowItemCreation = true) {
+		return $this->choiceWithSelect2($name, $choices, $extraValue, $allowItemCreation)->allowMultipleChoices();
 	}
 
 	private function textarea(string $name) {
