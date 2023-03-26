@@ -176,8 +176,8 @@ class BookCrudController extends CrudController {
 		$notes = $this->textarea('notes');
 		$panelCategorization = $this->panel('Categorization', 'fas fa-tag');
 		$category = AssociationField::new('category');
-		$genre = $this->multipleChoiceWithSelect2('genre', $this->labelRepository->findAllGenres(), $bookFromRequest['genre'] ?? null, false);
-		$themes = $this->multipleChoiceWithSelect2('themes', $this->labelRepository->findAllCharacteristics(), $bookFromRequest['themes'] ?? null, false);
+		$genre = $this->multipleChoiceWithSelect2('genre', $this->labelRepository->findAllGenres(), $bookFromRequest['genre'] ?? $this->bookPreEdit->getGenre(), false);
+		$themes = $this->multipleChoiceWithSelect2('themes', $this->labelRepository->findAllCharacteristics(), $bookFromRequest['themes'] ?? $this->bookPreEdit->getThemes(), false);
 		$universalDecimalClassification = TextField::new('universalDecimalClassification');
 		$panelLinks = $this->panel('Links', 'fas fa-link');
 		$chitankaId = IntegerField::new('chitankaId');
