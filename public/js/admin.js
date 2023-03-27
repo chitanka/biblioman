@@ -106,6 +106,13 @@ $inputs.on('change', function() {
 	this.blur();
 });
 
+// disable form submission on hitting the Enter key
+$('form').on('keypress', 'input', function(event){
+	if (event.key === 'Enter') {
+		event.preventDefault();
+	}
+});
+
 const $panelHeaders = $('.form-panel-header');
 const panelNav = $panelHeaders.map(function() {
 	const target = $(this).next().attr('id');
