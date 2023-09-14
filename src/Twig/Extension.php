@@ -48,6 +48,9 @@ class Extension extends \Twig\Extension\AbstractExtension {
 	}
 
 	public function formatMarkdown(string $content): string {
+		// The current formatter cannot properly format emphasis of whole lines.
+		// It works however if there is a space after the second marker, so use this as a workaround.
+		$content = str_replace('<br', ' <br', $content);
 		return Markdown::defaultTransform($content);
 	}
 
