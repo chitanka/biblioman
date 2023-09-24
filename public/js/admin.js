@@ -101,9 +101,11 @@ $inputs.on('change', function() {
 	$('.page-actions button').addClass('disabled');
 	$(this).data('submitted', true);
 	return true;
-}).on('wheel', 'input[type="number"]', function() {
-	// We do not want that scrolling with a wheel changes the number value as this leads to unintended edits.
-	this.blur();
+});
+
+// We do not want that scrolling with a wheel changes the number value as this leads to unintended edits.
+$inputs.filter('input[type="number"]').on('wheel', function (e) {
+	e.preventDefault();
 });
 
 // disable form submission on hitting the Enter key
