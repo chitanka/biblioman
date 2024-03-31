@@ -83,7 +83,7 @@
 					<dd class="col-md-8">
 						<ul>
 						{% for shelf in book.publicShelves %}
-							<li><span class="fa fa-fw {{ shelf.icon }} shelf-icon"></span> <a href="{{ path('shelf', { id: shelf.id }) }}">{{ shelf.name }}</a> от {{ shelf.creator }}</li>
+							<li><span class="fa fa-fw {{ shelf.icon }} shelf-icon"></span> <a href="{{ path('shelf', { id: shelf.id }) }}">{{ shelf.name }}</a> / {{ shelf.creator }}</li>
 						{% endfor %}
 						</ul>
 					</dd>
