@@ -59,7 +59,7 @@ class BookCrudController extends CrudController {
 			->setPageTitle(Crud::PAGE_EDIT, 'Book.form_title')
 			->setPageTitle(Crud::PAGE_DETAIL, 'Книга (№%entity_short_id%)')
 			->setPageTitle(Crud::PAGE_NEW, 'Book.new_title')
-			->setSearchFields(['id', 'lockedBy', 'createdBy', 'completedBy', 'author', 'translator', 'translatedFromLanguage', 'dateOfTranslation', 'adaptedBy', 'otherAuthors', 'compiler', 'media', 'format', 'pageCount', 'binding', 'themes', 'genre', 'trackingCode', 'litGroup', 'uniformProductClassification', 'universalDecimalClassification', 'isbn', 'isbnClean', 'contentType', 'nationality', 'language', 'notesAboutOriginal', 'annotation', 'notesAboutAuthor', 'marketingSnippets', 'toc', 'fullContent', 'cover', 'backCover', 'nbCovers', 'nbScans', 'nbContentFiles', 'sequence', 'sequenceNr', 'subsequence', 'subsequenceNr', 'series', 'seriesNr', 'otherFields', 'notes', 'infoSources', 'adminComment', 'ocredText', 'reasonWhyIncomplete', 'verifiedCount', 'printingHouse', 'typeSettingIn', 'printSigned', 'printOut', 'printerSheets', 'publisherSheets', 'provisionPublisherSheets', 'totalPrint', 'edition', 'publisher', 'publisherCity', 'publishingYear', 'publisherAddress', 'publisherCode', 'publisherOrder', 'publisherNumber', 'price', 'chiefEditor', 'managingEditor', 'editor', 'editorialStaff', 'publisherEditor', 'artistEditor', 'technicalEditor', 'consultant', 'scienceEditor', 'copyreader', 'reviewer', 'artist', 'illustrator', 'corrector', 'layout', 'coverLayout', 'libraryDesign', 'computerProcessing', 'prepress', 'title', 'altTitle', 'subtitle', 'subtitle2', 'volumeTitle', 'chitankaId'])
+			->setSearchFields(['id', 'lockedBy', 'createdBy', 'completedBy', 'author', 'translator', 'translatedFromLanguage', 'dateOfTranslation', 'adaptedBy', 'otherAuthors', 'compiler', 'media', 'format', 'pageCount', 'binding', 'themes', 'genre', 'trackingCode', 'litGroup', 'uniformProductClassification', 'universalDecimalClassification', 'isbn', 'isbnClean', 'contentType', 'nationality', 'language', 'notesAboutOriginal', 'annotation', 'notesAboutAuthor', 'marketingSnippets', 'toc', 'fullContent', 'cover', 'backCover', 'nbCovers', 'nbScans', 'nbContentFiles', 'sequence', 'sequenceNr', 'subsequence', 'subsequenceNr', 'series', 'seriesNr', 'otherFields', 'notes', 'infoSources', 'adminComment', 'ocredText', 'reasonWhyIncomplete', 'verifiedCount', 'printingHouse', 'typeSettingIn', 'printSigned', 'printOut', 'printerSheets', 'publisherSheets', 'provisionPublisherSheets', 'totalPrint', 'edition', 'publisher', 'publisherCity', 'publishingYear', 'publisherAddress', 'publisherCode', 'publisherOrder', 'publisherNumber', 'price', 'chiefEditor', 'managingEditor', 'editor', 'editorialStaff', 'publisherEditor', 'artistEditor', 'technicalEditor', 'consultant', 'scienceEditor', 'copyreader', 'reviewer', 'artist', 'illustrator', 'corrector', 'layout', 'coverLayout', 'libraryDesign', 'computerProcessing', 'prepress', 'title', 'altTitle', 'subtitle', 'subtitle2', 'volumeTitle', 'chitankaId', 'cobissId'])
 			->setDefaultSort(['id' => 'DESC']);
 	}
 
@@ -182,6 +182,7 @@ class BookCrudController extends CrudController {
 		$panelLinks = $this->panel('Links', 'fas fa-link');
 		$chitankaId = IntegerField::new('chitankaId');
 		$atelieId = IntegerField::new('atelieId');
+		$cobissId = IntegerField::new('cobissId');
 		$links = $this->collectionField('links', \App\Form\BookLinkType::class);
 		$panelCovers = $this->panel('Covers', 'far fa-images');
 		$coverFile = $this->uploadField('coverFile');
@@ -237,7 +238,7 @@ class BookCrudController extends CrudController {
 			$panelCategorization,
 			$category, $genre, $themes, $universalDecimalClassification,
 			$panelLinks,
-			$chitankaId, $atelieId,
+			$chitankaId, $atelieId, $cobissId,
 			$links,
 			$panelCovers,
 			$coverFile, $backCoverFile, $otherCovers,

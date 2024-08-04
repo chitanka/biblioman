@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BookLink extends Entity {
 
+	private const COBISS_URL = 'https://plus.cobiss.net/cobiss/bg/bg/bib/{ID}#full';
+
 	public static $categories = [
 		'library',
 		'publisher',
@@ -50,6 +52,14 @@ class BookLink extends Entity {
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	private $author;
+
+	public static function createFromCobissId(int $cobissId): self {
+		$self = new self;
+		$self->url = str_replace('{ID}', $cobissId, self::COBISS_URL);
+		$self->title = 'COBISS';
+		$self->category = 'bibliography';
+		return $self;
+	}
 
 	public function __toString() {
 		return $this->getUrl();

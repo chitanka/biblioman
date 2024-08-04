@@ -13,6 +13,9 @@ trait WithBookLinks {
 	/** @ORM\Column(type="integer", nullable=true) */
 	public ?int $atelieId;
 
+	/** @ORM\Column(type="integer", nullable=true) */
+	public ?int $cobissId;
+
 	/**
 	 * @var BookLink[]|ArrayCollection
 	 * @ORM\OneToMany(targetEntity="BookLink", mappedBy="book", cascade={"persist","remove"}, orphanRemoval=true)
@@ -40,6 +43,9 @@ trait WithBookLinks {
 
 	/** @return BookLink[][] */
 	public function getLinksByCategory() {
+		if ($this->cobissId) {
+			$this->links->add(BookLink::createFromCobissId($this->cobissId));
+		}
 		$linksByCategory = [];
 		foreach ($this->links as $link) {
 			$linksByCategory[$link->getCategory()][] = $link;
@@ -51,6 +57,7 @@ trait WithBookLinks {
 	protected function linksToArray() {
 		return [
 			'chitankaId' => $this->chitankaId,
+			'cobissId' => $this->cobissId,
 		];
 	}
 

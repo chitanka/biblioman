@@ -5,6 +5,7 @@ return [
 	'ID' => '№',
 	'Chitanka Id' => '№ в Моята библиотека',
 	'Atelie Id' => '№ в работното ателие',
+	'Cobiss Id' => '№ в COBISS.BG',
 	'Books' => 'Книги',
 	'Person' => 'Личност',
 	'Persons' => 'Личности',
