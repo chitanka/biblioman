@@ -13,6 +13,7 @@ use Pagerfanta\Doctrine\Collections\CollectionAdapter;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController {
 
@@ -22,6 +23,9 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 	const FORMAT_JSON = 'json';
 
 	protected $translator;
+	/** The max cache time of the response (in seconds) */
+	protected int $responseAge = 3600; // 1 hour
+
 
 	public function __construct(\Symfony\Contracts\Translation\TranslatorInterface $translator) {
 		$this->translator = $translator;
@@ -104,5 +108,13 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 		$pager->setMaxPerPage($maxPerPage ?: self::ITEMS_PER_PAGE);
 		$pager->setCurrentPage($request->getPagerPage());
 		return $pager;
+	}
+
+	protected function render(string $view, array $parameters = [], ?Response $response = null): Response {
+		if ($response === null) {
+			$response = new Response();
+		}
+		$response->setSharedMaxAge($this->responseAge);
+		return parent::render($view, $parameters, $response);
 	}
 }
