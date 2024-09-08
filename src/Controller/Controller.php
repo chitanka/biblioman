@@ -24,7 +24,7 @@ abstract class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Abs
 
 	protected $translator;
 	/** The max cache time of the response (in seconds) */
-	protected int $responseAge = 3600; // 1 hour
+	protected int $responseAge = 86400; // 1 day
 
 
 	public function __construct(\Symfony\Contracts\Translation\TranslatorInterface $translator) {

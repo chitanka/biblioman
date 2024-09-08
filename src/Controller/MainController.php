@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends Controller {
 
+	protected int $responseAge = 3600; // 1 hour
+
 	/**
 	 * @Route("/", name="homepage")
 	 */
