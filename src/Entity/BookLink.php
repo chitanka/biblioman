@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BookLink extends Entity {
 
-	private const COBISS_URL = 'https://plus.cobiss.net/cobiss/bg/bg/bib/{ID}#full';
+	private const COBISS_URL = 'https://plus.cobiss.net/cobiss/bg/bg/data/cobib/{ID}?format=detail';
 
 	public static $categories = [
 		'library',
