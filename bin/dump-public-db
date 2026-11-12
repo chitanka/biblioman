@@ -7,7 +7,7 @@ db_credentials=$(grep DATABASE_URL $env_file | php -r 'preg_match("#//(.+):(.+)@
 out_file=$1
 
 # Public tables
-tables="book book_category book_cover book_link book_revision book_scan"
+tables="book book_category book_cover book_link book_revision book_scan person"
 
 mysqldump $db_credentials -d > $out_file
 mysqldump $db_credentials $tables >> $out_file
